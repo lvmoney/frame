@@ -1,0 +1,1 @@
+1、需要安装openoffice,主要用来把word转html（效果不理想)，word转pdf（可以用其他非openoffice组件来做）

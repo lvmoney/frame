@@ -1,0 +1,14 @@
+com\lvmoney\k8s\seata\client\server\FeginSeataServer.class
+com\lvmoney\k8s\seata\client\vo\req\UpdateReqVo.class
+com\lvmoney\k8s\seata\client\vo\resp\CnodeTopicsResponse.class
+com\lvmoney\k8s\seata\client\vo\req\CnodeTopicsRequest.class
+com\lvmoney\k8s\seata\client\config\FeignConfig.class
+com\lvmoney\k8s\seata\client\vo\resp\CommonVo.class
+com\lvmoney\k8s\seata\client\vo\req\LoginVoReq.class
+com\lvmoney\k8s\seata\client\service\impl\TestServiceImpl.class
+com\lvmoney\k8s\seata\client\controller\NodeController.class
+com\lvmoney\k8s\seata\client\vo\resp\LoginVoResp.class
+com\lvmoney\k8s\seata\client\service\TestService.class
+com\lvmoney\k8s\seata\client\vo\req\UserReqVo.class
+com\lvmoney\k8s\seata\client\application\SeataClientApplication.class
+com\lvmoney\k8s\seata\client\server\FeginSeataUServer.class

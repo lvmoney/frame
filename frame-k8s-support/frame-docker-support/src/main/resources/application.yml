@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: docker
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
+server:
+  port: 8070
+  tomcat:
+    uri-encoding: UTF-8

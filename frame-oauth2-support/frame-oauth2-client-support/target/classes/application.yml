@@ -1,0 +1,14 @@
+#认证服务器
+auth-server: http://localhost:20000/auth
+server:
+  port: 8030
+security:
+  oauth2:
+    client:
+      client-id: client
+      client-secret: secret
+      scope: all
+      access-token-uri: ${auth-server}/oauth/token
+      user-authorization-uri: ${auth-server}/oauth/authorize
+    resource:
+      token-info-uri: ${auth-server}/oauth/check_token

@@ -1,0 +1,43 @@
+server:
+  port: 8400
+zuul:
+  routes:
+    sc-customer: /consumer/**
+    sc-provider: /provider/**
+  retryable: true #是否开启重试功能
+#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 80000
+ribbon:
+  eureka:
+    enabled: false
+  #对当前服务的重试次数
+  MaxAutoRetries: 2
+  #切换相同Server的次数
+  MaxAutoRetriesNextServer: 0
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 80000
+
+# keycloak:
+#   realm : springcloud-zuul
+#   auth-server-url : http://127.0.0.1:8080/auth
+#   ssl-required : external
+#   resource : springcloud-zuul
+#   credentials.secret : 11111111-1111-1111-1111-111111111111
+#   use-resource-role-mappings : true
+#   enable-basic-auth: true
+#   securityConstraints:
+#     - authRoles: user
+#       securityCollections:
+#          - patterns:  /provider/user/info
+#     - authRoles: users
+#       securityCollections:
+#          - patterns:  /consumer/user/list
+#     - authRoles: test
+#       securityCollections:
+#          - patterns:  /provider/user/list
+
+# hystrix.command.default.execution.timeout.enabled: false

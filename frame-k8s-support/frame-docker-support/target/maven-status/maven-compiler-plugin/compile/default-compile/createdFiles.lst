@@ -1,0 +1,2 @@
+com\lvmoney\k8s\docker\application\DockerApplication.class
+com\lvmoney\k8s\docker\controller\HelloController.class

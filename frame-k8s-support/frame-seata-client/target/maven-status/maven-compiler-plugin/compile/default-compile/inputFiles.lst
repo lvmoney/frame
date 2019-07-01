@@ -1,0 +1,14 @@
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\vo\req\LoginVoReq.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\application\SeataClientApplication.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\service\TestService.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\vo\req\UserReqVo.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\controller\NodeController.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\vo\resp\CnodeTopicsResponse.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\vo\resp\CommonVo.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\server\FeginSeataServer.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\vo\req\CnodeTopicsRequest.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\vo\resp\LoginVoResp.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\vo\req\UpdateReqVo.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\server\FeginSeataUServer.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\service\impl\TestServiceImpl.java
+E:\myself\workspace\frame\frame-k8s-support\frame-seata-client\src\main\java\com\lvmoney\k8s\seata\client\config\FeignConfig.java

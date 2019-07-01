@@ -1,0 +1,8 @@
+com\lvmoney\cloud\customer\feign\config\MFeignConfig.class
+com\lvmoney\cloud\customer\feign\MFeignClientFallback.class
+com\lvmoney\cloud\customer\controller\RibbonController.class
+com\lvmoney\cloud\customer\controller\ConsumerController.class
+com\lvmoney\cloud\customer\ConsulConsumerApplication.class
+com\lvmoney\cloud\customer\feign\MFeignClient.class
+com\lvmoney\cloud\customer\service\ConsumerService.class
+com\lvmoney\cloud\customer\controller\FeignController.class

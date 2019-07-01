@@ -1,0 +1,6 @@
+com\lvmoney\cloud\zuul\filter\FrameZuulFilter.class
+com\lvmoney\cloud\zuul\fallback\ProducerFallback.class
+com\lvmoney\cloud\zuul\config\Zuulconfig.class
+com\lvmoney\cloud\zuul\filter\ReqFilter.class
+com\lvmoney\cloud\zuul\application\Sb2scZuulApplication.class
+com\lvmoney\cloud\zuul\fallback\ProducerFallback$1.class

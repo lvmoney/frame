@@ -1,0 +1,22 @@
+#在这里我没有写driver-class-name: com.mysql.jdbc.Driver这个驱动被弃用了  使用新版com.mysql.cj.jdbc.Driver
+#控制台提示说自动帮我们找相应的驱动，一般无需手动加载，所以我注释掉了
+spring:
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
+  redis:
+    database: 0
+    port: 6379
+    host: localhost
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+shiro:
+  server:
+    expire: 180000
+frame:
+  jwt:
+    support: true

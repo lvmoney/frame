@@ -1,0 +1,44 @@
+#介绍
+1、引入该模块很简单作为系统的modules或者jar直接引入到项目即可
+2、注意！注意！注意！如果引入统一的网关路由那么官方提供的注解功能基本全部都不会起作用了
+1）官方的注解基本都是在controller上的；
+2）统一网关，注解是到到了对应的接口方法上
+3）所以需要自定义注解去做一些在过滤器或者拦截器中的功能
+3、目前基本完成的注解功能有：
+1)@RouterService(path = "aService")：对应调用的接口
+2)@RouterMethod(name = "test")：对应调用的接口方法
+3)@ParamValidated(isValidate=true)：方法入参是否需要校验，调用hibernate-validated完成。
+该注解用到接口方法中，入参实体内部参数注解配置参考hibernate-validated。
+这里的方法入参只能是一个实体
+4)@PermissionValidated(role="USER"):角色校验，通过shiro来完成，目前只支持了role角色，
+该注解标示拥有该角色的用户可以访问该接口方法
+5)@AuthenticationValidated(isValidate=true)：方法登录校验，通过token的方式，用jwt完成。
+4、引入该模块后不再需要写控制器，只需要在对应的接口上加入@RouterService(path = "aService")
+方法上加入@RouterMethod(name = "test")，系统会自动调用对应的方法并返回结果，其他如3中的注解均可以选择加到对应的方法上使用
+5、目前系统实现了post，get请求
+6、get请求的的url格式如下
+http://xxxx:port//xxx?uri=test.test//访问调用的接口通过uri=test.test去自动匹配
+		&data= {"data":{//data就是一个json实体和接口的reqVo对应
+	  	"name":"test",
+		"address":"teat"},
+ 		"globalParam":""//全局参数，这里主要用于移动设备
+	} 
+如果调用方法没有入参，只需要uri即可
+7、post请求的url格式如下
+http://xxxx:port//xxx
+
+body json如下
+{"data":{
+	"data":
+		{
+			"name":"test",
+			"address":"teat"
+		}, 
+	"globalParam":""
+		}, 
+	"uri":"testService.test" 
+}
+8、在开发过程中，前后端或者后台、手机接口开发中的接口文档定义十分重要。
+在开发的中需要梳理对应的接口文档，也就是后台接口的请求的reqVo实体类，和后台返回的respVo实体类。
+前后端都按照接口文档完成接口的开发和调用
+

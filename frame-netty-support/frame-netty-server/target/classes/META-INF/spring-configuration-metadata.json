@@ -1,0 +1,33 @@
+{
+  "groups": [
+    {
+      "name": "netty",
+      "type": "com.lvmoney.netty.server.config.NettyServerConfig",
+      "sourceType": "com.lvmoney.netty.server.config.NettyServerConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "netty.max-frame-length",
+      "type": "java.lang.Integer",
+      "description": "最大数据包长度",
+      "sourceType": "com.lvmoney.netty.server.config.NettyServerConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "netty.max-threads",
+      "type": "java.lang.Integer",
+      "description": "最大线程数",
+      "sourceType": "com.lvmoney.netty.server.config.NettyServerConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "netty.port",
+      "type": "java.lang.Integer",
+      "description": "端口",
+      "sourceType": "com.lvmoney.netty.server.config.NettyServerConfig",
+      "defaultValue": 0
+    }
+  ],
+  "hints": []
+}

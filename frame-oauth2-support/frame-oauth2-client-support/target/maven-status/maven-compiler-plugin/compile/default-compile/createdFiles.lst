@@ -1,0 +1,3 @@
+com\lvmoney\oauth2\client\application\Application.class
+com\lvmoney\oauth2\client\config\SecurityConfig.class
+com\lvmoney\oauth2\client\controller\ClientController.class

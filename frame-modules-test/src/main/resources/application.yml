@@ -1,0 +1,15 @@
+frame:
+  log:
+    support: true
+  shiro:
+    support: true
+spring:
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
+  redis:
+    database: 0
+    port: 6379
+    host: localhost

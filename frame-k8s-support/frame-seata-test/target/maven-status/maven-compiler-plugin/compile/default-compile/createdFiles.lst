@@ -1,0 +1,8 @@
+com\lvmoney\seata\test\dao\StageDao.class
+com\lvmoney\seata\test\controller\HelloController.class
+com\lvmoney\seata\test\service\UserService.class
+com\lvmoney\seata\test\po\User.class
+com\lvmoney\seata\test\service\impl\UserServiceImpl.class
+com\lvmoney\seata\test\application\SeataTestApplication.class
+com\lvmoney\seata\test\dao\UserDao.class
+com\lvmoney\seata\test\po\Stage.class

@@ -1,0 +1,8 @@
+E:\myself\workspace\frame\frame-cloud-support\frame-cloud-customer-support\src\main\java\com\lvmoney\cloud\customer\ConsulConsumerApplication.java
+E:\myself\workspace\frame\frame-cloud-support\frame-cloud-customer-support\src\main\java\com\lvmoney\cloud\customer\feign\MFeignClient.java
+E:\myself\workspace\frame\frame-cloud-support\frame-cloud-customer-support\src\main\java\com\lvmoney\cloud\customer\controller\RibbonController.java
+E:\myself\workspace\frame\frame-cloud-support\frame-cloud-customer-support\src\main\java\com\lvmoney\cloud\customer\feign\MFeignClientFallback.java
+E:\myself\workspace\frame\frame-cloud-support\frame-cloud-customer-support\src\main\java\com\lvmoney\cloud\customer\feign\config\MFeignConfig.java
+E:\myself\workspace\frame\frame-cloud-support\frame-cloud-customer-support\src\main\java\com\lvmoney\cloud\customer\controller\FeignController.java
+E:\myself\workspace\frame\frame-cloud-support\frame-cloud-customer-support\src\main\java\com\lvmoney\cloud\customer\controller\ConsumerController.java
+E:\myself\workspace\frame\frame-cloud-support\frame-cloud-customer-support\src\main\java\com\lvmoney\cloud\customer\service\ConsumerService.java

@@ -1,0 +1,17 @@
+server:
+  servlet:
+    context-path: /log
+  port: 8070
+  redis:
+      database: 0
+      port: 6379
+      pool:
+        max-idle: 100
+        min-idle: 20
+        max-active: 300
+        max-wait: -1
+      host: localhost
+      timeout: 60000
+log:
+  noToken:
+    username: username

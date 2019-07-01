@@ -1,0 +1,7 @@
+jodconverter:
+  enabled: true
+ # office-home: "//opt//openoffice4"
+  max-tasks-per-process: 10
+  port-numbers: 8100
+server:
+  port: 8095

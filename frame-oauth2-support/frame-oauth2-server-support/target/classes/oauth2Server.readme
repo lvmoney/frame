@@ -1,0 +1,5 @@
+#介绍
+1、引入该模块很简单作为系统的modules或者jar直接引入到项目即可
+2、需要安装redis，mysql。在mysql中执行clients.sql
+3、系统改进通过redis做权限控制。测试的时候可以打开ServerConfig.java里面的代码放开，把数据放到redis中测试使用
+4、正常情况3中放到redis的时间节点应该是第一次调用认证时。

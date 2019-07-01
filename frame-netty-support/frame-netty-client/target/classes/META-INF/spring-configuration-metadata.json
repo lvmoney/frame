@@ -1,0 +1,23 @@
+{
+  "groups": [
+    {
+      "name": "netty",
+      "type": "com.lvmoney.netty.client.config.NettyConfig",
+      "sourceType": "com.lvmoney.netty.client.config.NettyConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "netty.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.lvmoney.netty.client.config.NettyConfig",
+      "defaultValue": 0
+    },
+    {
+      "name": "netty.url",
+      "type": "java.lang.String",
+      "sourceType": "com.lvmoney.netty.client.config.NettyConfig"
+    }
+  ],
+  "hints": []
+}

@@ -1,0 +1,21 @@
+server:
+  port: 8900
+turbine:
+  app-config: sc-customer
+  combine-host-port: true
+  cluster-name-expression: new String("default")
+spring:
+  application:
+    name: sc-dashboard
+    cloud:
+      consul:
+        host: 127.0.0.1
+        port: 8500
+        discovery:
+          register: true
+          hostname: 127.0.0.1
+          serviceName: ${spring.application.name}
+          healthCheckPath: /actuator/health
+          healthCheckInterval: 15s
+          tags: urlprefix-/${spring.application.name}
+          instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}

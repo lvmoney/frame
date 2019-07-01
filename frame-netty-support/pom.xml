@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>frame</artifactId>
+        <groupId>com.lvmoney</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>frame-netty-support</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>frame-netty-common</module>
+        <module>frame-netty-server</module>
+        <module>frame-netty-client</module>
+    </modules>
+    <properties>
+        <frame.version>0.0.1-SNAPSHOT</frame.version>
+        <netty>5.0.0.Alpha2</netty>
+        <lombok>1.16.20</lombok>
+        <msgpack>0.6.12</msgpack>
+        <jboss.marshalling>2.0.5.Final</jboss.marshalling>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.lvmoney</groupId>
+                <artifactId>frame-common</artifactId>
+                <version>${frame.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.marshalling</groupId>
+                <artifactId>jboss-marshalling</artifactId>
+                <version>${jboss.marshalling}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.msgpack</groupId>
+                <artifactId>msgpack</artifactId>
+                <version>${msgpack}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
