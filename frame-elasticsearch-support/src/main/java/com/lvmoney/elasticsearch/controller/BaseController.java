@@ -51,10 +51,10 @@ public class BaseController {
         em.setAbout("this is love story");
         em.setAddress("things address is  chengdu");
         em.setAge(22);
-        String location4 = LocationUtil.amapLocationString("四川省成都市武侯区武青南路十号");
+        String location4 = LocationUtil.amapLocationString("四川省成都市武侯区天街");
         em.setCoordinate(location4);
         em.setFirst_name("test");
-        em.setLast_name("许莽林");
+        em.setLast_name("test");
         em.setId(1l);
 
         Employee em1 = new Employee();
@@ -62,7 +62,7 @@ public class BaseController {
         em1.setAddress("things address is  chengdu");
         em1.setAge(28);
         em1.setCoordinate(location4);
-        em1.setFirst_name("许莽林");
+        em1.setFirst_name("test");
         em1.setLast_name("test");
         em1.setId(2l);
         List<Employee> list = new ArrayList<Employee>();
@@ -80,7 +80,7 @@ public class BaseController {
     private Object singleTitle(@PageableDefault Pageable pageable) {
         ElasticsearchQueryVo queryVo = new ElasticsearchQueryVo();
         Employee em1 = new Employee();
-        queryVo.setContext("许莽林");
+        queryVo.setContext("test");
         queryVo.setPageable(pageable);
         queryVo.setData(em1);
         return searchService.queryStringQuery(queryVo);
@@ -97,7 +97,7 @@ public class BaseController {
     private Object multiMatchQuery() {
         ElasticsearchQueryVo queryVo = new ElasticsearchQueryVo();
         Employee em1 = new Employee();
-        queryVo.setContext("许莽林");
+        queryVo.setContext("test");
         queryVo.setData(em1);
         Map<String, Float> map = new HashMap<String, Float>();
         map.put("first_name", 0.5f);
