@@ -14,7 +14,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
  * @describe：redis配置
- * @author: lvmoney /四川旅投智慧游大数据科技有限公司
+ * @author: lvmoney /xxxx科技有限公司
  * @version:v1.0 2019年1月18日 上午11:22:38
  */
 @Configuration

@@ -29,7 +29,7 @@ public interface HttpApiService {
      * @return
      * @throws Exception 2018年10月30日下午3:32:43
      * @describe:不带参数的get请求，如果状态码为200，则返回body，如果不为200，则返回null
-     * @author: lvmoney /四川旅投智慧游大数据科技有限公司
+     * @author: lvmoney /xxxx科技有限公司
      */
     String doGet(String url) throws Exception;
 
@@ -39,7 +39,7 @@ public interface HttpApiService {
      * @return
      * @throws Exception 2018年10月30日下午3:32:51
      * @describe:带参数的get请求，如果状态码为200，则返回body，如果不为200，则返回null
-     * @author: lvmoney /四川旅投智慧游大数据科技有限公司
+     * @author: lvmoney /xxxx科技有限公司
      */
     String doGet(String url, Map<String, Object> map) throws Exception;
 
@@ -49,7 +49,7 @@ public interface HttpApiService {
      * @return
      * @throws Exception 2018年10月30日下午3:32:56
      * @describe:带参数的post请求
-     * @author: lvmoney /四川旅投智慧游大数据科技有限公司
+     * @author: lvmoney /xxxx科技有限公司
      */
     HttpResult doPost(String url, Map<String, Object> map) throws Exception;
 
@@ -58,7 +58,7 @@ public interface HttpApiService {
      * @return
      * @throws Exception 2018年10月30日下午3:33:01
      * @describe:不带参数post请求
-     * @author: lvmoney /四川旅投智慧游大数据科技有限公司
+     * @author: lvmoney /xxxx科技有限公司
      */
     HttpResult doPost(String url) throws Exception;
 
@@ -67,7 +67,7 @@ public interface HttpApiService {
      * @return
      * @throws Exception 2018年10月30日下午3:33:01
      * @describe:post json
-     * @author: lvmoney /四川旅投智慧游大数据科技有限公司
+     * @author: lvmoney /xxxx科技有限公司
      */
     HttpResult doJPost(String url, String json);
 
@@ -76,7 +76,7 @@ public interface HttpApiService {
      * @return
      * @throws Exception 2018年10月30日下午3:33:01
      * @describe:post file
-     * @author: lvmoney /四川旅投智慧游大数据科技有限公司
+     * @author: lvmoney /xxxx科技有限公司
      */
     HttpResult doFPost(String url, Map<String, File> fileParam, Map<String, Object> map);
 
@@ -86,7 +86,7 @@ public interface HttpApiService {
      * @return
      * @throws Exception 2018年10月30日下午3:33:01
      * @describe:post file
-     * @author: lvmoney /四川旅投智慧游大数据科技有限公司
+     * @author: lvmoney /xxxx科技有限公司
      */
     HttpFResult doJFPost(String url, String json);
 
@@ -95,7 +95,7 @@ public interface HttpApiService {
      * @return
      * @throws Exception 2018年10月30日下午3:33:01
      * @describe:get connection msg
-     * @author: lvmoney /四川旅投智慧游大数据科技有限公司
+     * @author: lvmoney /xxxx科技有限公司
      */
     URLConnection getGConnection(String url, String param);
 }
