@@ -20,10 +20,8 @@ import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.redis.service.BaseRedisService;
 import com.lvmoney.redis.vo.PageVo;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -144,6 +142,7 @@ public class BaseRedisServiceImpl implements BaseRedisService {
         }
     }
 
+
     @Override
     public Object getValueByMapKey(String key, String mapKey) {
         return redisTemplate.opsForHash().get(key, mapKey);
@@ -155,8 +154,14 @@ public class BaseRedisServiceImpl implements BaseRedisService {
     }
 
     @Override
+    public Long deleteValueByMapKey(String key, String... mapKey) {
+        return redisTemplate.opsForHash().delete(key, mapKey);
+    }
+
+    @Override
     public List getListAll(String key) {
         return redisTemplate.opsForList().range(key, 0, -1);
     }
+
 
 }

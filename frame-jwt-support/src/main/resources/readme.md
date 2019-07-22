@@ -23,7 +23,7 @@ spring.redis.pool.min-idle=20
 spring.redis.timeout=60000
 3、该模块采用token的方式进行身份验证，没有用session的方式。每个需要登录校验的访问都需要在head配置token值
 4、已做了拦截器，需要登录校验时，会自动对token进行登录校验，不需要在代码中显示的校验登录。
-5、系统自定义了注解，如果不需要登录校验需要使用@NotToken 注解
+5、系统自定义了注解，如果不需要登录校验需要使用@NotToken 注解，也可以新增jwtConfig.properties文件，加入jwt.filterChainDefinitionList[1]=/img/**=ign来配置不用校验token
 7、redis中shiro的数据结构如下：
 {
   "expire": 18000,//失效时间

@@ -56,7 +56,7 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
         }
         String servletPath = httpServletRequest.getServletPath();
         Map<String, String> filterChainDefinition = jwtConfigProp.getfilterChainDefinitionMap();
-        if (FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, servletPath, "ign")) {// 在这里做判断
+        if (filterChainDefinition != null && FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, servletPath, "ign")) {// 在这里做判断
             return super.preHandle(httpServletRequest, httpServletResponse, object);
         }
         String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出

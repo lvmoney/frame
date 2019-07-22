@@ -26,7 +26,7 @@ public class CountersignListener {
         //添加会签的人员，所有的都审批通过才可进入下一环节
         List<String> assigneeList = new ArrayList<String>();
         assigneeList.add("fgld");
-        assigneeList.add("fgld2");
+
         delegateTask.setVariable("assigneeList", assigneeList);
     }
 }

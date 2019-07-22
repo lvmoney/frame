@@ -22,6 +22,7 @@
         <module>frame-seata-server</module>
         <module>frame-seata-client</module>
         <module>frame-seata-test</module>
+        <module>frame-gateway-support</module>
     </modules>
 
     <dependencyManagement>

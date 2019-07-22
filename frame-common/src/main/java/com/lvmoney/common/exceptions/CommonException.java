@@ -82,7 +82,17 @@ public interface CommonException {
         HTTPCLIENT_FILE_ERROR(PROXYERR + 103, "httpclient file request error"),
         HTTPCLIENT_FILE2_ERROR(PROXYERR + 105, "httpclient file request error"),
         HTTPCLIENT_CONNECTION_ERROR(PROXYERR + 104, "httpclient request connection msg error"),
+        SERVER_IS_DOWNGRADE(PROXYERR + 105, "server is downgrade"),
+        CANAL_PROP_IS_NULL(PROXYERR + 106, "canal server properties not Required null"),
+        CANAL_ZK_ADDRESS_ERROR(PROXYERR + 107, "canal zk adress is error"),
 
+        CANAL_CONFIG_ANALYZE_ERROR(PROXYERR + 108, "canal config analyze error"),
+
+        CANAL_CONNECTOR_IS_NULL(PROXYERR + 109, "canal connector not Required null"),
+
+        CANAL_CONFIG_IS_NULL(PROXYERR + 110, "canal config not Required null"),
+
+        CANAL_LISTENER_METHOD_INVOKE_ERROR(PROXYERR + 111, "canal invoke listener method error"),
 
         OTHER(PROXYERR + 200, "unkonw exception");
 

@@ -82,6 +82,17 @@ public interface BaseRedisService<T> {
 
     boolean isExistMapKey(String key, String mapKey);
 
+    /**
+     * @describe:根据key和map的key值删除数据
+     * @param: [key, mapKey]
+     * @return: boolean
+     * @author： lvmoney /XXXXXX有限公司
+     * 2019/7/18 17:29
+     */
+    Long deleteValueByMapKey(String key, String... mapKey);
+
     List getListAll(String key);
+
+
 
 }

@@ -36,7 +36,7 @@ public class JwtUtil {
 
         String token = getToken(userVo);
         System.out.println(token);
-        String userId = JWT.decode("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMjM0NTY3MTU1NDU1NzYzMzExMSJ9.LIPN5Rnnrw1BXSYt8RywqKV7PBUdc-Dj5Dcx6H-CyP8").getAudience().get(0);
+        String userId = JWT.decode(token).getAudience().get(0);
         System.out.println(userId);
     }
 }

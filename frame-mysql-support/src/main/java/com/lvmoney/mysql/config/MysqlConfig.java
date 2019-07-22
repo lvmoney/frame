@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * @describe：
- * @author: xuqiuyu/xxxx科技有限公司
+ * @author: lvmoney/xxxx科技有限公司
  * @version:v1.0 2019/2/28 10:05
  */
 @Configuration
@@ -25,7 +25,7 @@ public class MysqlConfig {
      * @describe: 分页插件
      * @param: []
      * @return: com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor
-     * @author： xuqiuyu /xxxx科技有限公司
+     * @author： lvmoney /xxxx科技有限公司
      * 2019/2/20 9:29
      */
     @Bean

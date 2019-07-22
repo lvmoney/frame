@@ -20,6 +20,9 @@
         <module>frame-bigdata-alluxio-support</module>
         <module>frame-bigdata-kylin-support</module>
         <module>frame-bigdata-druid-support</module>
+        <module>frame-bigdata-flume-support</module>
+        <module>frame-bigdata-canal-support</module>
+        <module>frame-bigdata-debezium-support</module>
     </modules>
 
     <properties>

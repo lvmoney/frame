@@ -38,7 +38,7 @@ public class WTablesVo implements Serializable {
      */
     private String dataDesc;
 
-    public WTablesVo(String key, RowRenderData tableHeads, List<RowRenderData> tablebodys, String dataDesc, int width) {
+    public WTablesVo(String key, RowRenderData tableHeads, List<RowRenderData> tablebodys, String dataDesc, float width) {
         this.key = key;
         this.tableHeads = tableHeads;
         this.tablebodys = tablebodys;
@@ -50,5 +50,5 @@ public class WTablesVo implements Serializable {
      * table的宽度
      */
 
-    private int width;
+    private float width;
 }

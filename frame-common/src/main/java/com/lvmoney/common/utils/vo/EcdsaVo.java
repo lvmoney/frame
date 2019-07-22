@@ -8,6 +8,9 @@
 
 package com.lvmoney.common.utils.vo;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -15,7 +18,7 @@ import java.io.Serializable;
  * @author: lvmoney /xxxx科技有限公司
  * @version:v1.0 2018年10月9日 下午6:06:32
  */
-
+@Data
 public class EcdsaVo implements Serializable {
 
     /**
@@ -40,38 +43,9 @@ public class EcdsaVo implements Serializable {
      * 密文
      */
     private String ciphertext;
+    @JSONField(name = "test3")
+    private String test;
 
-    public String getPrivateKey() {
-        return privateKey;
-    }
-
-    public void setPrivateKey(String privateKey) {
-        this.privateKey = privateKey;
-    }
-
-    public String getPublicKey() {
-        return publicKey;
-    }
-
-    public void setPublicKey(String publicKey) {
-        this.publicKey = publicKey;
-    }
-
-    public String getPlaintext() {
-        return plaintext;
-    }
-
-    public void setPlaintext(String plaintext) {
-        this.plaintext = plaintext;
-    }
-
-    public String getCiphertext() {
-        return ciphertext;
-    }
-
-    public void setCiphertext(String ciphertext) {
-        this.ciphertext = ciphertext;
-    }
 
     @Override
     public String toString() {

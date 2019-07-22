@@ -8,7 +8,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 //用户信息表
 @TableName("user")
-public class User extends Model<User> {
+public class
+User extends Model<User> {
     @TableId(type = IdType.AUTO)
     private Long id;
 
