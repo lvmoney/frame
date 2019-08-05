@@ -16,14 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClientController {
 
     @GetMapping("/user")
-    @Secured("ROLE_USER")
-    public Authentication getUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication;
-    }
-
-    @GetMapping("/index")
-    public String index() {
-        return "index";
+    public String getUser() {
+        return "hello";
     }
 }

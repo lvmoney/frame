@@ -25,6 +25,8 @@ public class ValidateCodeRo implements Serializable {
     /**
      * 验证码的值
      */
+    private String value;
+
     private String code;
 
     private long expire;

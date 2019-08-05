@@ -1,5 +1,7 @@
 package com.lvmoney.oauth2.server.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.oauth2.server.constant.Oauth2ServerConstant;
@@ -46,7 +48,10 @@ public class Oauth2RedisServiceImpl implements Oauth2RedisService {
 
     @Override
     public ClientDetails getClientDetailsByClientId(String clientId) {
-        Oauth2ClientVo oauth2ClientVo = (Oauth2ClientVo) baseRedisService.getValueByMapKey(Oauth2ServerConstant.REDIS_FRAME_CLIENT_DETAILS_NAME, clientId);
+        Object obj = baseRedisService.getValueByMapKey(Oauth2ServerConstant.REDIS_FRAME_CLIENT_DETAILS_NAME, clientId);
+        Oauth2ClientVo oauth2ClientVo = JSON.parseObject(obj.toString(), new TypeReference<Oauth2ClientVo>() {
+        });
+        ;
         if (oauth2ClientVo == null) {
             throw new BusinessException(CommonException.Proxy.OAUTH2_CLIENT_DETAIL_NO_EXIST);
         }

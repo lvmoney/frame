@@ -8,10 +8,10 @@
 
 package com.lvmoney.redis.service;
 
+import com.lvmoney.common.vo.Page;
+
 import java.util.List;
 import java.util.Map;
-
-import com.lvmoney.redis.vo.PageVo;
 
 /**
  * @param <T>
@@ -28,9 +28,20 @@ public interface BaseRedisService<T> {
 
     void setSet(String key, Object object);
 
-    String getString(String key);
+    void setExpire(String key, Long time);
+
+    Object getString(String key);
 
     void deleteKey(String key);
+
+    /**
+     * @describe:通配符key方式删除
+     * @param: [key]
+     * @return: void
+     * @author： lvmoney /XXXXXX有限公司
+     * 2019/7/19 21:58
+     */
+    void deleteWildcardKey(String key);
 
     /**
      * 添加对象到redis 里面的list中
@@ -63,7 +74,7 @@ public interface BaseRedisService<T> {
      * @return 返回list给前端
      */
     @SuppressWarnings("rawtypes")
-    PageVo getListPage(PageVo pageVo);
+    Page getListPage(Page page, String key);
 
     /**
      * 删除Obj缓存
@@ -75,10 +86,31 @@ public interface BaseRedisService<T> {
 
     Long getListSize(String key);
 
+    /**
+     * @describe:从存储在键中的列表中删除等于值的元素的第一个计数事件。count> 0：删除等于从左到右移动的值的第一个元素；
+     * count< 0：删除等于从右到左移动的值的第一个元素；count = 0：删除等于value的所有元素。
+     * @param: [key, obj]
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/8/1 16:55
+     */
+    void rmValueByList(String key, Long count, Object obj);
+
+    Long getMapSize(String key);
+
 
     void addMap(String key, Map<String, T> obj, Long time);
 
     Object getValueByMapKey(String key, String mapKey);
+
+    /**
+     * @describe: 根据key值获得map的值
+     * @param: [key]
+     * @return: java.util.List<java.lang.Object>
+     * @author： lvmoney /XXXXXX有限公司
+     * 2019/7/21 21:24
+     */
+    Page getValueByKey(Page page, String key);
 
     boolean isExistMapKey(String key, String mapKey);
 
@@ -93,6 +125,16 @@ public interface BaseRedisService<T> {
 
     List getListAll(String key);
 
+    /**
+     * @describe:重命名key
+     * @param: [key, newKey]
+     * @return: boolean
+     * @author： lvmoney /XXXXXX有限公司
+     * 2019/7/19 17:19
+     */
+    void renameKey(String key, String newKey);
+
+    void flushdb();
 
 
 }

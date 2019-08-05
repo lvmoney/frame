@@ -1,10 +1,9 @@
 package com.lvmoney.redis.controller;
 
+import com.lvmoney.common.vo.Page;
 import com.lvmoney.redis.service.BaseRedisService;
-import com.lvmoney.redis.vo.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ public class TestContorller {
      * @return
      */
     @RequestMapping("/test")
-    public List<PageVo> selectAll() {
+    public List<Page> selectAll() {
         return null;
 
     }
@@ -34,23 +33,23 @@ public class TestContorller {
      */
     @RequestMapping("/add")
     public void addTest() {
-        List<PageVo> pList = new ArrayList<PageVo>();
+        List<Page> pList = new ArrayList<Page>();
         String key = "test";
-        PageVo pv = new PageVo();
+        Page pv = new Page();
         pv.setPageNo(1);
         pv.setPageSize(100);
         pList.add(pv);
 
-        PageVo pv1 = new PageVo();
+        Page pv1 = new Page();
         pv1.setPageNo(2);
         pv1.setPageSize(200);
 
         pList.add(pv1);
-        PageVo pv3 = new PageVo();
+        Page pv3 = new Page();
         pv3.setPageNo(3);
         pv3.setPageSize(300);
         pList.add(pv3);
-        PageVo pv4 = new PageVo();
+        Page pv4 = new Page();
         pv4.setPageNo(4);
         pv4.setPageSize(400);
         pList.add(pv4);
@@ -65,13 +64,12 @@ public class TestContorller {
      * @return
      */
     @RequestMapping("/list")
-    public PageVo aaa() {
+    public Page aaa() {
         System.out.println(redisService.getListSize("test"));
-        PageVo pv = new PageVo();
+        Page pv = new Page();
         pv.setPageNo(1);
         pv.setPageSize(2);
-        pv.setKey("test");
-        return redisService.getListPage(pv);
+        return redisService.getListPage(pv, "test");
     }
 
 

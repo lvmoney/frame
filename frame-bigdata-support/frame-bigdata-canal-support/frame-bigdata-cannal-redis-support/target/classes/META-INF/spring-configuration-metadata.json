@@ -1,0 +1,24 @@
+{
+  "groups": [
+    {
+      "name": "canal.server",
+      "type": "com.lvmoney.bigdata.canal.redis.properties.CanalProp",
+      "sourceType": "com.lvmoney.bigdata.canal.redis.properties.CanalProp"
+    }
+  ],
+  "properties": [
+    {
+      "name": "canal.server.instances",
+      "type": "java.util.Map<java.lang.String,com.lvmoney.bigdata.canal.redis.properties.CanalProp.Instance>",
+      "description": "配置信息",
+      "sourceType": "com.lvmoney.bigdata.canal.redis.properties.CanalProp"
+    },
+    {
+      "name": "canal.server.pool-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.lvmoney.bigdata.canal.redis.properties.CanalProp",
+      "defaultValue": 100
+    }
+  ],
+  "hints": []
+}

@@ -11,7 +11,7 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.lvmoney.bigdata.canal.redis.annotation.ddl.AlertTableListenPoint;
 import com.lvmoney.bigdata.canal.redis.annotation.ddl.CreateIndexListenPoint;
 import com.lvmoney.bigdata.canal.redis.annotation.ddl.CreateTableListenPoint;
-import com.lvmoney.bigdata.canal.redis.annotation.ddl.DeleteTableListenPoint;
+import com.lvmoney.bigdata.canal.redis.annotation.ddl.DropTableListenPoint;
 import com.lvmoney.bigdata.canal.redis.annotation.dml.DeleteRowListenPoint;
 import com.lvmoney.bigdata.canal.redis.annotation.dml.InsertListenPoint;
 import com.lvmoney.bigdata.canal.redis.annotation.dml.UpdateListenPoint;
@@ -108,7 +108,7 @@ public class DataHandEventListener2 {
         System.out.println("\n======================================================");
     }
 
-    @DeleteTableListenPoint
+    @DropTableListenPoint
     public void onEventDropTable(CanalEntry.RowChange rowChange) {
         System.out.println("======================注解方式（删除表操作）==========================");
         System.out.println("use " + rowChange.getDdlSchemaName() + ";\n" + rowChange.getSql());

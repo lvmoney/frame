@@ -127,7 +127,7 @@ public class DefaultMessageTransponder extends AbstractMessageTransponder {
     }
 
     /**
-     * 处理注解方式的 canal 监听器,ERASE删除数据库,QUERY创建数据库，清空表TRUNCATE
+     * 处理注解方式的 canal 监听器,ERASE删除表,QUERY创建表，清空表TRUNCATE
      *
      * @param destination canal 指令
      * @param schemaName  实例名称

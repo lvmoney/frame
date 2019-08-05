@@ -42,7 +42,7 @@ public class Test2Controller {
         //执行的业务代码
         for (int i = 0; i < 10; i++) {
             distributedLockerService.lock(LockConstant.SECTION_LOCK_KEY, TimeUnit.SECONDS, 60);
-            int stock = Integer.parseInt(baseRedisService.getString("aaa"));
+            int stock = Integer.parseInt(baseRedisService.getString("aaa").toString());
             if (stock > 0) {
                 //stringRedisTemplate.opsForValue().set("aaa",(stock-1)+"");
                 baseRedisService.set("aaa", (stock - 1) + "", 18000l);
@@ -58,7 +58,7 @@ public class Test2Controller {
     public List<String> testDistributed3(int size) {
         List<String> result = new ArrayList<>();
         distributedLockerService.lock(LockConstant.SECTION_LOCK_KEY, TimeUnit.SECONDS, 60);
-        Long stock = Long.parseLong(baseRedisService.getString("aaa"));
+        Long stock = Long.parseLong(baseRedisService.getString("aaa").toString());
         baseRedisService.set("aaa", (stock + size) + "", 18000l);
         distributedLockerService.unlock(LockConstant.SECTION_LOCK_KEY);
         return result;

@@ -13,12 +13,13 @@ spring:
     config:
       server:
         git:
-          uri: https://git.coding.net/yirenyishi/springcloud-config-profile
+          uri: https://gitee.com/lvmoney/config
           searchPaths: '{application}'
-eureka:
-  client:
-    service-url:
-      defaultZone: http://root:root@localhost:8761/eureka/
+          username: 365619103@qq.com  # 以及相应的账户名
+          password: paasssss  # 和密码
+  consul:
+    host: 127.0.0.1
+    port: 8500
   instance:
     prefer-ip-address: true
     instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}

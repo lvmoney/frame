@@ -8,12 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
  * @version:v1.0 2019年1月16日 下午1:30:27
  */
 public class FrameGrantedAuthority implements GrantedAuthority {
-    /**
-     *
-     */
-
-
-    private static final long serialVersionUID = 8737418056256554173L;
+    private static final long serialVersionUID = 9105035482444892738L;
     private String roleId;
     private String menuId;
 

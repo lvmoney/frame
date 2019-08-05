@@ -18,7 +18,16 @@ import java.io.Serializable;
  */
 @Data
 public class ValidateResultVo implements Serializable {
+    /**
+     * 验证码的值
+     */
     private String value;
+    /**
+     * 验证码的图片流
+     */
     private String code;
+    /**
+     * 全局唯一的验证码编号
+     */
     private String serialNumber;
 }

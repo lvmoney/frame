@@ -44,7 +44,7 @@ public class SequenceServiceImpl implements SequenceService {
         int seq = sectionVo.getSeqSize();
         List<String> seqList = new ArrayList<>();
         distributedLockerService.lock(LockConstant.SECTION_LOCK_KEY, TimeUnit.SECONDS, LockConstant.LOCK_TIME);
-        Long start = Long.parseLong(baseRedisService.getString(name));
+        Long start = Long.parseLong(baseRedisService.getString(name).toString());
         Long end = start + seq;
         SectionInitVo sectionInitVo = new SectionInitVo(name, end, sectionVo.getExpire());
         initSectionData(sectionInitVo);

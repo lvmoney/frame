@@ -55,7 +55,7 @@ public class ShiroRedisServiceImpl implements ShiroRedisService {
     @Override
     public UserVo getUser(String token) {
         UserVo result = new UserVo();
-        String shiroString = baseRedisService.getString(token);
+        String shiroString = baseRedisService.getString(token).toString();
         if (StringUtils.isBlank(shiroString)) {
             return null;
         }
@@ -124,7 +124,7 @@ public class ShiroRedisServiceImpl implements ShiroRedisService {
     @Override
     public ShiroDataVo getShiroData(String username) {
         ShiroDataVo result = new ShiroDataVo();
-        String shiroString = baseRedisService.getString(username);
+        String shiroString = baseRedisService.getString(username).toString();
         if (StringUtils.isBlank(shiroString)) {
             return null;
         }

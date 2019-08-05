@@ -28,7 +28,7 @@ public abstract class ParentLogService implements LogService {
     @Override
     public UserVo getUser(UserVo userVo) {
         String token = userVo.getToken();
-        String jwtString = baseRedisService.getString(token);
+        String jwtString = baseRedisService.getString(token).toString();
         if (jwtString != null) {
             UserRo userRo = JSON.parseObject(jwtString, new TypeReference<UserRo>() {
             });

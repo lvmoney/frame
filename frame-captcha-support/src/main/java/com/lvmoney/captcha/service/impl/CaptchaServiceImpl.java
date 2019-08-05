@@ -1,12 +1,14 @@
 package com.lvmoney.captcha.service.impl;/**
  * 描述:
- * 包名:com.lvmoney.jwt.annotation
+ * 包名:com.lvmoney.captcha.service.impl
  * 版本信息: 版本1.0
  * 日期:2019/2/17
  * Copyright xxxx科技有限公司
  */
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.TypeReference;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.lvmoney.captcha.ro.ValidateCodeRo;
 import com.lvmoney.captcha.service.CaptchaService;
@@ -18,8 +20,10 @@ import com.lvmoney.common.utils.FileUtil;
 import com.lvmoney.common.utils.JsonUtil;
 import com.lvmoney.common.utils.SnowflakeIdFactoryUtil;
 import com.lvmoney.redis.service.BaseRedisService;
+import com.revengemission.commons.captcha.core.VerificationCodeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -40,7 +44,7 @@ import java.util.Random;
 public class CaptchaServiceImpl implements CaptchaService {
     private final static Logger logger = LoggerFactory.getLogger(CaptchaServiceImpl.class);
 
-    @Value("${customer.valid.expire:180}")
+    @Value("${customer.valid.expire:18000}")
     String expire;
     @Autowired
     BaseRedisService baseRedisService;
@@ -126,7 +130,7 @@ public class CaptchaServiceImpl implements CaptchaService {
         // 图象生效
         g.dispose();
         validateCodeVo.setBufferedImage(image);
-        validateCodeVo.setCode(sRand);
+        validateCodeVo.setValue(sRand);
         return validateCodeVo;
     }
 
@@ -146,14 +150,14 @@ public class CaptchaServiceImpl implements CaptchaService {
             ValidateCodeRo validateCodeRo = new ValidateCodeRo();
             String serialNumber = String.valueOf(idWorker.nextId());
             validateResultVo.setSerialNumber(serialNumber);
-            validateCodeRo.setCode(validateCodeVo.getCode());
+            validateCodeRo.setValue(validateCodeVo.getValue());
             validateCodeRo.setSerialNumber(serialNumber);
             validateCodeRo.setExpire(Long.parseLong(expire));
             this.saveValidaCode2Redis(validateCodeRo);
         }
         byte[] b = out.toByteArray();
         validateResultVo.setCode(FileUtil.file2Base64(b));
-        validateResultVo.setValue(validateCodeVo.getCode());
+        validateResultVo.setValue(validateCodeVo.getValue());
         return validateResultVo;
     }
 
@@ -173,7 +177,7 @@ public class CaptchaServiceImpl implements CaptchaService {
             ValidateCodeRo validateCodeRo = new ValidateCodeRo();
             String serialNumber = String.valueOf(idWorker.nextId());
             validateResultVo.setSerialNumber(serialNumber);
-            validateCodeRo.setCode(createText);
+            validateCodeRo.setValue(createText);
             validateCodeRo.setSerialNumber(serialNumber);
             validateCodeRo.setExpire(Long.parseLong(expire));
             this.saveValidaCode2Redis(validateCodeRo);
@@ -185,7 +189,43 @@ public class CaptchaServiceImpl implements CaptchaService {
     }
 
     @Override
+    public ValidateResultVo getCaptcha(int width, int height, int length) {
+        ValidateResultVo validateResultVo = new ValidateResultVo();
+        String captcha = VerificationCodeUtil.generateVerificationCode(length, null);
+        validateResultVo.setValue(captcha);
+        try {
+            String base64EncodedGraph = VerificationCodeUtil.outputImage(width, height, captcha);
+            validateResultVo.setCode(base64EncodedGraph);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        SnowflakeIdFactoryUtil idWorker = new SnowflakeIdFactoryUtil(1, 2);
+        String serialNumber = String.valueOf(idWorker.nextId());
+        validateResultVo.setSerialNumber(serialNumber);
+        ValidateCodeRo validateCodeRo = new ValidateCodeRo();
+        BeanUtils.copyProperties(validateResultVo, validateCodeRo);
+        validateCodeRo.setExpire(Long.parseLong(expire));
+        saveValidaCode2Redis(validateCodeRo);
+        return validateResultVo;
+    }
+
+
+    @Override
+    public ValidateCodeRo getValidate(String serialNumber) {
+        Object obj = baseRedisService.getString(serialNumber);
+        ValidateCodeRo validateCodeRo = JSON.parseObject(obj.toString(), new TypeReference<ValidateCodeRo>() {
+        });
+        return validateCodeRo;
+    }
+
+    @Override
+    public void deleteValidate(String serialNumber) {
+        baseRedisService.deleteKey(serialNumber);
+    }
+
+    @Override
     public void saveValidaCode2Redis(ValidateCodeRo validateCodeRo) {
         baseRedisService.set(validateCodeRo.getSerialNumber(), JsonUtil.t2JsonString(validateCodeRo), validateCodeRo.getExpire());
     }
+
 }

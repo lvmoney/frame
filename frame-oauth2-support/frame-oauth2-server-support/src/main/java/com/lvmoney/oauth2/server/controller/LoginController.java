@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * @author: 594781919@qq.com
- * @date: 2018/4/9
+ * @describe：
+ * @author: lvmoney/xxxx科技有限公司
+ * @version:v1.0 2019/2/28 10:05
  */
 @Controller
 public class LoginController {

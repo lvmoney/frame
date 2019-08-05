@@ -42,7 +42,7 @@ public class JwtRedisServiceImpl implements JwtRedisService {
 
     @Override
     public UserVo getUserVo(String token) {
-        String jwtString = baseRedisService.getString(token);
+        String jwtString = baseRedisService.getString(token).toString();
         UserVo userVo = new UserVo();
         if (jwtString != null) {
             UserRo userRo = JSON.parseObject(jwtString, new TypeReference<UserRo>() {

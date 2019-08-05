@@ -38,6 +38,15 @@
             <groupId>com.github.penggle</groupId>
             <artifactId>kaptcha</artifactId>
         </dependency>
+
+
+        <dependency>
+            <groupId>com.revengemission.commons</groupId>
+            <artifactId>captcha</artifactId>
+            <version>0.7</version>
+        </dependency>
+
+
     </dependencies>
 
 </project>

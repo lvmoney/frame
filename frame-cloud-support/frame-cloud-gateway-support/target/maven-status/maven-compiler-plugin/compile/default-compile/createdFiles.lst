@@ -1,1 +1,4 @@
 com\lvmoney\cloud\gateway\application\Application.class
+com\lvmoney\cloud\gateway\config\RateLimiterConfig.class
+com\lvmoney\cloud\gateway\controller\BaseController.class
+com\lvmoney\cloud\gateway\controller\IndexController.class

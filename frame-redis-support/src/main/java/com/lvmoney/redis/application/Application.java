@@ -12,7 +12,7 @@ import org.springframework.web.filter.CorsFilter;
  * @author: lvmoney /xxxx科技有限公司
  * @version:v1.0 2019年1月16日 上午11:44:32
  */
-@SpringBootApplication(scanBasePackages = {"com.lvmoney.**"})
+//@SpringBootApplication(scanBasePackages = {"com.lvmoney.**"})
 public class Application {
 
     public static void main(String[] args) {

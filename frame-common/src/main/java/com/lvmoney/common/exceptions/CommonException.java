@@ -6,7 +6,7 @@ package com.lvmoney.common.exceptions;
  * @version:v1.0 2018年12月29日 上午11:34:43
  */
 public interface CommonException {
-    final int PROXYERR = 900;
+    int PROXYERR = 900;
 
     enum Proxy implements ExceptionType {
         METHOD_NOT_MAP(PROXYERR + 1, "uri not mapping"),
@@ -93,6 +93,9 @@ public interface CommonException {
         CANAL_CONFIG_IS_NULL(PROXYERR + 110, "canal config not Required null"),
 
         CANAL_LISTENER_METHOD_INVOKE_ERROR(PROXYERR + 111, "canal invoke listener method error"),
+        BEAN_MAP_2_BEAN_ERROR(PROXYERR + 112, "map transform to bean error"),
+        OAUTH2_AUTHENTICATION_NO_EXIST(PROXYERR + 113, "oauth2 server not find Authentication"),
+
 
         OTHER(PROXYERR + 200, "unkonw exception");
 

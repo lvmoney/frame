@@ -1,14 +1,14 @@
 #认证服务器
-auth-server: http://localhost:20000/auth
+auth-server-url: http://localhost:10380 # 授权服务地址
 server:
   port: 8030
 security:
   oauth2:
     client:
-      client-id: client
-      client-secret: secret
-      scope: all
-      access-token-uri: ${auth-server}/oauth/token
-      user-authorization-uri: ${auth-server}/oauth/authorize
+      client-id: SampleClientId
+      client-secret: tgb.258
+      scope: user_info
+      access-token-uri: ${auth-server-url}/oauth/token
+      user-authorization-uri: ${auth-server-url}/oauth/authorize
     resource:
-      token-info-uri: ${auth-server}/oauth/check_token
+      token-info-uri: ${auth-server-url}/oauth/check_token #检查令牌

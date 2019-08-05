@@ -29,4 +29,31 @@ public interface CaptchaService {
 
     ValidateResultVo encodeBase64ImgCode();
 
+    /**
+     * @describe: 验证码：com.revengemission.commons
+     * @param: []
+     * @return: com.lvmoney.captcha.vo.ValidateResultVo
+     * @author： lvmoney /XXXXXX有限公司
+     * 2019/7/28 16:55
+     */
+    ValidateResultVo getCaptcha(int width, int height, int length);
+
+    /**
+     * @describe: 通过编号获得验证码
+     * @param: [serialNumber]
+     * @return: com.lvmoney.captcha.ro.ValidateCodeRo
+     * @author： lvmoney /XXXXXX有限公司
+     * 2019/7/28 15:43
+     */
+    ValidateCodeRo getValidate(String serialNumber);
+
+    /**
+     * @describe: 删除验证码
+     * @param: [serialNumber]
+     * @return: void
+     * @author： lvmoney /XXXXXX有限公司
+     * 2019/7/28 15:48
+     */
+    void deleteValidate(String serialNumber);
+
 }

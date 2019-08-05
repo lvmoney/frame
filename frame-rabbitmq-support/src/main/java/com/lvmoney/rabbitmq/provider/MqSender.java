@@ -8,11 +8,10 @@
 
 package com.lvmoney.rabbitmq.provider;
 
+import com.lvmoney.common.utils.JsonUtil;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.lvmoney.common.utils.JsonUtil;
 
 /**
  * @describe：

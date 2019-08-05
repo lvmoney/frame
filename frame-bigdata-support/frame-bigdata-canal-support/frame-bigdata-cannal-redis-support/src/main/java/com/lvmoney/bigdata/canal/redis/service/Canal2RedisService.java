@@ -3,6 +3,7 @@ package com.lvmoney.bigdata.canal.redis.service;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.lvmoney.bigdata.canal.redis.vo.DbMsgVo;
+import com.lvmoney.common.vo.Page;
 
 import java.util.List;
 
@@ -21,14 +22,6 @@ public interface Canal2RedisService {
      */
     void canal2Redis(DbMsgVo dbMsgVo, CanalEntry.RowChange rowChange);
 
-    /**
-     * @describe:把获得的canal有变更的数据保存到redis中，list的形式.key:数据库名称_表名。list里面存的是obj对应的bean
-     * @param: [dbMsgVo, rowChange, obj],数据库基本信息，变更的数据，转换成的bean对象
-     * @return: void
-     * @author： lvmoney /XXXXXX有限公司
-     * 2019/7/18 15:58
-     */
-    void canal2Redis(DbMsgVo dbMsgVo, CanalEntry.RowChange rowChange, Object obj);
 
     /**
      * @describe:删除指定的数据
@@ -47,4 +40,33 @@ public interface Canal2RedisService {
      * 2019/7/19 15:33
      */
     void deleteTableForRedis(DbMsgVo dbMsgVo);
+
+    /**
+     * @describe: 重命名数据库表
+     * @param: [dbMsgVo, rowChange]
+     * @return: void
+     * @author： lvmoney /XXXXXX有限公司
+     * 2019/7/19 17:25
+     */
+    void renameTableForRedis(DbMsgVo dbMsgVo, CanalEntry.RowChange rowChange);
+
+    /**
+     * @describe: 删除数据库操作
+     * @param: [dbMsgVo, rowChange]
+     * @return: void
+     * @author： lvmoney /XXXXXX有限公司
+     * 2019/7/19 21:39
+     */
+    void deleteDbRorRedis(DbMsgVo dbMsgVo, CanalEntry.RowChange rowChange);
+
+    /**
+     * @describe: 分页获得数据
+     * @param: [page, key]
+     * @return: com.lvmoney.common.vo.Page
+     * @author： lvmoney /XXXXXX有限公司
+     * 2019/7/21 20:32
+     */
+    Page getData(Page page, String key);
+
+
 }

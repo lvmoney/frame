@@ -58,7 +58,7 @@
         <mybatisSpring.version>1.3.2</mybatisSpring.version>
         <ignite.version>2.6.0</ignite.version>
         <junit.version>4.12</junit.version>
-        <fastjson.version>1.2.46</fastjson.version>
+        <fastjson.version>1.2.56</fastjson.version>
         <jwt.version>0.9.0</jwt.version>
         <hibernateValidator.version>5.3.1.Final</hibernateValidator.version>
         <swagger2.version>2.7.0</swagger2.version>
@@ -105,7 +105,7 @@
         <jaxb.api.version>2.3.0</jaxb.api.version>
         <oauth2.autoconfigure.version>2.1.0.RELEASE</oauth2.autoconfigure.version>
         <boot.thymeleaf.version>2.1.0.RELEASE</boot.thymeleaf.version>
-        <boot.oauth2.verion>2.1.0.RELEASE</boot.oauth2.verion>
+        <boot.oauth2.verion>2.3.6.RELEASE</boot.oauth2.verion>
         <thymeleaf.extras.springsecurity4.version>3.0.0.RELEASE</thymeleaf.extras.springsecurity4.version>
         <boot.cache.verion>2.1.0.RELEASE</boot.cache.verion>
         <spring.kafka.version>2.2.0.RELEASE</spring.kafka.version>

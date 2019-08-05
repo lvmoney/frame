@@ -10,6 +10,7 @@ package com.lvmoney.router.controller;
 
 import java.util.List;
 
+import com.lvmoney.common.utils.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSON;
 import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.exceptions.CommonException;
-import com.lvmoney.common.utils.JsonUtil;
 import com.lvmoney.common.utils.vo.ResultData;
 import com.lvmoney.jwt.annotations.NotToken;
 import com.lvmoney.router.config.RouterMethodConfig;

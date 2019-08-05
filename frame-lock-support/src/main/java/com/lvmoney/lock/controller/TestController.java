@@ -41,7 +41,7 @@ public class TestController {
         for (int i = 0; i < 55; i++) {
             RLock lock = redisson.getLock(LockConstant.SECTION_LOCK_KEY);
             lock.lock(60, TimeUnit.SECONDS); //设置60秒自动释放锁  （默认是30秒自动过期）
-            int stock = Integer.parseInt(baseRedisService.getString("aaa"));
+            int stock = Integer.parseInt(baseRedisService.getString("aaa").toString());
             if (stock > 0) {
                 //stringRedisTemplate.opsForValue().set("aaa",(stock-1)+"");
                 baseRedisService.set("aaa", (stock - 1) + "", 18000l);

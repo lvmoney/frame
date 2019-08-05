@@ -19,6 +19,6 @@ import java.io.Serializable;
  */
 @Data
 public class ValidateCodeVo implements Serializable {
-    private String code;
+    private String value;
     private BufferedImage bufferedImage;
 }

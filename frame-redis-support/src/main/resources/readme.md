@@ -1,0 +1,6 @@
+1、为了更好的通过redis desktop查看redis数据，在RedisConfig配置了redis key和value的
+序列化方式
+2、经过测试发现，如果redis的value 实体嵌套了，那么反序列话要报错，所以如果有嵌套建议
+value 通过JsonUtil序列化（jsonString）后存到redis，取出值以后再转化成对应的实体对象
+3、不配置1desktop看着很乱，但是实体嵌套的问题没有，value存什么实体，取什么就行。
+4、着重注意一下redisConfig的说明

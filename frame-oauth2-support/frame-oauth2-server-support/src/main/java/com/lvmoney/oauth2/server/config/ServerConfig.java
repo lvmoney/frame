@@ -1,6 +1,9 @@
 package com.lvmoney.oauth2.server.config;
 
+import com.lvmoney.common.utils.JsonUtil;
+import com.lvmoney.oauth2.server.ro.Oauth2ClientRo;
 import com.lvmoney.oauth2.server.service.Oauth2RedisService;
+import com.lvmoney.oauth2.server.vo.Oauth2ClientVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +17,13 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.BaseClientDetails;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @describe：
@@ -26,14 +36,25 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter {
     @Autowired
     AuthenticationManager authenticationManager;
 
+    @Bean
+    public TokenStore tokenStore() {
+        return new FrameRedisTokenStore(redisConnectionFactory);
+    }
+
     @Autowired
     RedisConnectionFactory redisConnectionFactory;
 
     @Qualifier("frameUserDetailsService")
     @Autowired
     UserDetailsService userDetailsService;
+
     @Autowired
     Oauth2RedisService oauth2RedisService;
+
+    @Bean
+    public ClientDetailsService clientDetails() {
+        return new RedisClientDetailsService();
+    }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
@@ -61,7 +82,7 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter {
 //                .authorizedGrantTypes("authorization_code", "password", "refresh_token")
 //                .autoApprove(true);
 //测试用数据，把clientdetail数据存到redis
-      /*  Oauth2ClientRo oauth2ClientRo = new Oauth2ClientRo();
+        Oauth2ClientRo oauth2ClientRo = new Oauth2ClientRo();
         oauth2ClientRo.setExpire(180000l);
         Oauth2ClientVo oauth2ClientVo = new Oauth2ClientVo();
         oauth2ClientVo.setClient("client");
@@ -72,13 +93,14 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter {
         authorizedGrantTypes.add("password");
         authorizedGrantTypes.add("refresh_token");
         authorizedGrantTypes.add("authorization_code");
+        authorizedGrantTypes.add("client_credentials");
         baseClientDetails.setAuthorizedGrantTypes(authorizedGrantTypes);
         Set scope = new TreeSet();
         scope.add("all");
         baseClientDetails.setScope(scope);
         oauth2ClientVo.setClientDetails(baseClientDetails);
-        Map<String,Oauth2ClientVo> data= new HashMap<>();
-        data.put("client",oauth2ClientVo);
+        Map<String, Object> data = new HashMap<>();
+        data.put("client", JsonUtil.t2JsonString(oauth2ClientVo));
         Oauth2ClientVo oauth2ClientVo2 = new Oauth2ClientVo();
         oauth2ClientVo2.setClient("client1");
         BaseClientDetails baseClientDetails2 = new BaseClientDetails();
@@ -92,11 +114,11 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter {
         Set scope2 = new TreeSet();
         scope2.add("all");
         baseClientDetails2.setScope(scope);
-        Map<String,Oauth2ClientVo> data2= new HashMap<>();
+        Map<String, Object> data2 = new HashMap<>();
         oauth2ClientVo2.setClientDetails(baseClientDetails2);
-        data.put("client1",oauth2ClientVo2);
+        data.put("client1", JsonUtil.t2JsonString(oauth2ClientVo2));
         oauth2ClientRo.setData(data);
-        oauth2RedisService.FrameClientDetails2Redis(oauth2ClientRo);*/
+        oauth2RedisService.FrameClientDetails2Redis(oauth2ClientRo);
         clients.withClientDetails(clientDetails());
     }
 
@@ -104,13 +126,10 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // 配置tokenStore，保存到redis缓存中
         endpoints.authenticationManager(authenticationManager)
-                .tokenStore(new FrameRedisTokenStore(redisConnectionFactory))
+                .tokenStore(tokenStore())
                 // 不添加userDetailsService，刷新access_token时会报错
                 .userDetailsService(userDetailsService);
     }
 
-    @Bean
-    public ClientDetailsService clientDetails() {
-        return new RedisClientDetailsService();
-    }
+
 }

@@ -95,16 +95,22 @@ public class BeanUtil {
             }
         } catch (IllegalAccessException e) {
             logger.error("convertMapToBean 实例化JavaBean失败 Error{}", e);
+            throw new BusinessException(CommonException.Proxy.BEAN_MAP_2_BEAN_ERROR);
         } catch (IntrospectionException e) {
             logger.error("convertMapToBean 分析类属性失败 Error{}", e);
+            throw new BusinessException(CommonException.Proxy.BEAN_MAP_2_BEAN_ERROR);
         } catch (IllegalArgumentException e) {
             logger.error("convertMapToBean 映射错误 Error{}", e);
+            throw new BusinessException(CommonException.Proxy.BEAN_MAP_2_BEAN_ERROR);
         } catch (InstantiationException e) {
             logger.error("convertMapToBean 实例化 JavaBean 失败 Error{}", e);
+            throw new BusinessException(CommonException.Proxy.BEAN_MAP_2_BEAN_ERROR);
         } catch (InvocationTargetException e) {
             logger.error("convertMapToBean字段映射失败 Error{}", e);
+            throw new BusinessException(CommonException.Proxy.BEAN_MAP_2_BEAN_ERROR);
         } catch (Exception e) {
             logger.error("convertMapToBean Error{}", e);
+            throw new BusinessException(CommonException.Proxy.BEAN_MAP_2_BEAN_ERROR);
         }
         return (T) obj;
     }
