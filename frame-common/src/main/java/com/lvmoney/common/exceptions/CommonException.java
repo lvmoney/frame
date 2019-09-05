@@ -42,9 +42,6 @@ public interface CommonException {
         ES_QUERY_PERCENT_IS_ERROR(PROXYERR + 43, "elasticsearch query percent need Less Than One"),
         ES_DELETE_IS_ERROR(PROXYERR + 44, "elasticsearch delete error"),
         ES_DELETE_FIELDS_IS_REQUIRED(PROXYERR + 45, "elasticsearch FIELDS error is Required"),
-        OAUTH2_USER_DETAIL_NO_EXIST(PROXYERR + 60, "oauth2 server not find userdetail"),
-        OAUTH2_USER_DETAIL_ERROR(PROXYERR + 61, "oauth2 server  userdetail error"),
-        OAUTH2_CLIENT_DETAIL_NO_EXIST(PROXYERR + 62, "oauth2 server not find clientdetail"),
         RABBIT_MESSAGE_RECEIVER_SIMPLE_ERROR(PROXYERR + 63, "rabbitmq receiver simple message error"),
         RABBIT_MESSAGE_RECEIVER_TOPIC_ERROR(PROXYERR + 64, "rabbitmq receiver topic message error"),
         RABBIT_MESSAGE_RECEIVER_FANOUT_ERROR(PROXYERR + 66, "rabbitmq receiver fanout message error"),
@@ -94,9 +91,6 @@ public interface CommonException {
 
         CANAL_LISTENER_METHOD_INVOKE_ERROR(PROXYERR + 111, "canal invoke listener method error"),
         BEAN_MAP_2_BEAN_ERROR(PROXYERR + 112, "map transform to bean error"),
-        OAUTH2_AUTHENTICATION_NO_EXIST(PROXYERR + 113, "oauth2 server not find Authentication"),
-
-
         OTHER(PROXYERR + 200, "unkonw exception");
 
 

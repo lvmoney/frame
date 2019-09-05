@@ -2,8 +2,6 @@ package com.lvmoney.oauth2.center.server.service;
 
 import com.lvmoney.oauth2.center.server.ro.AuthorizationCodeRo;
 import com.lvmoney.oauth2.center.server.vo.AuthorizationVo;
-import com.lvmoney.oauth2.center.server.vo.OauthClient;
-import com.lvmoney.oauth2.center.server.ro.Oauth2ClientRo;
 import com.lvmoney.oauth2.center.server.vo.UserInfo;
 import com.lvmoney.oauth2.center.server.ro.Oauth2ClientDetailRo;
 import com.lvmoney.oauth2.center.server.ro.Oauth2UserRo;
@@ -46,16 +44,6 @@ public interface Oauth2RedisService {
      */
     void clientDetails2Redis(Oauth2ClientDetailRo oauth2ClientDetailRo);
 
-
-    void client2Redis(Oauth2ClientRo oauth2ClientRo);
-
-    /**
-     * @param clientId
-     * @return 2019年1月18日下午2:17:38
-     * @describe:oauth2获取特定用户的 user信息
-     * @author: lvmoney /xxxx科技有限公司
-     */
-    OauthClient getClientByClientId(String clientId);
 
     void authorizationCode2Redis(AuthorizationCodeRo authorizationCodeRo);
 

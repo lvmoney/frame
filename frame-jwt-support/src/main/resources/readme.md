@@ -35,3 +35,8 @@ spring.redis.timeout=60000
 
 key值为：token值
 8、为了方便开发和测试frame.jwt.support:false 默认是不支持的，需要改为true，系统就支持token了。
+
+9、为了区分token的类型，jwt或者oauth2，在jwt token前面加了前缀：JWT:，参考JwtUtil
+
+10、为了防止开发直接用明文密码作为userRo的值，修改了获得token的方法，将userRo 的password改为了一个雪花算法的随机值，
+详情查看JwtUtil -> getToken，注意这里的userRo在shiro过滤器里面也会用到

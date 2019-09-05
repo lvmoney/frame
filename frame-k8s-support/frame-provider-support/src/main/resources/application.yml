@@ -1,0 +1,51 @@
+server:
+  port: 9901
+spring:
+  application:
+    name: provider
+  redis:
+    database: 2
+    port: 6379
+    host: localhost
+istio:
+  namespace: lvmoney
+  docker:
+    image:
+      tag: @docker.image.tag@
+      name: @docker.image.name@
+      pull: Always
+    file:
+      name: @docker.file.name@
+      temp: /home
+  yaml:
+    cover: true
+    replicas: 1
+    version: v2
+    destination:
+      support: true
+      v1: 90
+      v2: 10
+    mirror:
+      support: true
+      version: v1
+    fault:
+      support: true
+      percent: 90
+      delay: 7
+    policy:
+      maxConnections: 2048
+      connectTimeout: 3s
+      http1MaxPendingRequests: 1024
+      maxRequestsPerConnection: 200
+      http2MaxRequests: 2048
+      consecutiveErrors: 3
+      maxRetries: 3
+      interval: 3s
+      baseEjectionTime: 3m
+      maxEjectionPercent: 100
+
+  master:
+    ip: 192.168.1.181
+
+operating:
+  environment: istio

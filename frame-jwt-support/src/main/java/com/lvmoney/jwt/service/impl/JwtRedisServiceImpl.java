@@ -10,6 +10,13 @@ package com.lvmoney.jwt.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.lvmoney.common.exceptions.BusinessException;
+import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.common.ro.UserRo;
 import com.lvmoney.common.utils.JsonUtil;
 import com.lvmoney.jwt.service.JwtRedisService;
@@ -55,6 +62,32 @@ public class JwtRedisServiceImpl implements JwtRedisService {
             }
         }
         return null;
+    }
+
+    @Override
+    public boolean checkToken(String token) {
+        String userId;
+        try {
+            userId = JWT.decode(token).getAudience().get(0);
+        } catch (JWTDecodeException j) {
+            throw new BusinessException(CommonException.Proxy.TOKEN_USER_ID_ERROR);
+        }
+        UserVo userVo = getUserVo(token);
+        if (userVo == null) {
+            throw new BusinessException(CommonException.Proxy.TOKEN_USER_NOT_EXSIT);
+        }
+        if (!userId.startsWith(userVo.getUserId())) {
+            throw new BusinessException(CommonException.Proxy.TOKEN_USER_NOT_EXSIT);
+        }
+        // 验证 token
+        JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userVo.getPassword())).build();
+        try {
+            jwtVerifier.verify(token);
+            return true;
+        } catch (JWTVerificationException e) {
+            return false;
+        }
+
     }
 
 }

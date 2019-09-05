@@ -48,9 +48,9 @@ public interface ShiroRedisService {
      */
     void saveShiroServerData(ShiroServerRo shiroServerRo);
 
-    void deleteShiroServerData();
+    void deleteShiroServerData(String serverName);
 
-    List<SysServiceDataVo> getShiroServerAll();
+    List<SysServiceDataVo> getShiroServerAll(String serverName);
 
     void saveShiroUriData(ShiroUriRo shiroUriRo);
 

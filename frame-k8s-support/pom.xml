@@ -23,6 +23,12 @@
         <module>frame-seata-client</module>
         <module>frame-seata-test</module>
         <module>frame-gateway-support</module>
+        <module>frame-customer-support</module>
+        <module>frame-authentication-support</module>
+        <module>frame-resource-support</module>
+        <module>frame-provider-support</module>
+        <module>frame-base-support</module>
+        <module>frame-logback-support</module>
     </modules>
 
     <dependencyManagement>

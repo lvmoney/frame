@@ -12,6 +12,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @describe：
@@ -20,6 +21,6 @@ import java.util.List;
  */
 @Data
 public class ShiroServerRo implements Serializable {
-    private List<SysServiceDataVo> sysServiceDataVoList;
     private long expire;
+    private Map<String, List<SysServiceDataVo>> data;
 }

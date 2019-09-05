@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: springcloudtest
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: springcloudtest
+    spec:
+      containers:
+        - name: springclouttest
+          image: 192.168.1.181:5000/frame/docker
+          ports:
+            - containerPort: 8070
+              protocol: TCP

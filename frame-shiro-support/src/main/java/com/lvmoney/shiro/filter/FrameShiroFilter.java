@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 public class FrameShiroFilter extends AccessControlFilter {
     @Autowired
     ShiroRedisService shiroRedisService;
@@ -29,6 +30,7 @@ public class FrameShiroFilter extends AccessControlFilter {
     ShiroConfigProp shiroConfigProp;
     @Value("${frame.shiro.support:false}")
     String frameSupport;
+
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
             throws Exception {
         return false;
@@ -44,7 +46,7 @@ public class FrameShiroFilter extends AccessControlFilter {
         String servletPath = httpServletRequest.getServletPath();
         // 先判断是否是系统配置的不需要校验的访问，例如登录请求，或者其他静态资源
         Map<String, String> filterChainDefinition = shiroConfigProp.getfilterChainDefinitionMap();
-        if (FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, servletPath, "anon")) {// 在这里做判断
+        if (FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, servletPath, ShiroConstant.SHIRO_REQUEST_IGNORE)) {// 在这里做判断
             return true;
         }
         String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出

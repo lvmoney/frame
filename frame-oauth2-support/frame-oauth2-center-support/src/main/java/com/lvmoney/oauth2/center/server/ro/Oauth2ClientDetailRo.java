@@ -2,7 +2,7 @@ package com.lvmoney.oauth2.center.server.ro;/**
  * 描述:
  * 包名:com.lvmoney.jwt.annotations
  * 版本信息: 版本1.0
- * 日期:${{
+ * 日期:2018年10月30日
  * Copyright xxxx科技有限公司
  */
 

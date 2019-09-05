@@ -1,7 +1,7 @@
 package com.lvmoney.oauth2.center.server.service;
 
-import com.lvmoney.oauth2.center.server.vo.ScopeDefinition;
+import com.lvmoney.oauth2.center.server.vo.ScopeDefinitionVo;
 
 public interface ScopeDefinitionService {
-    ScopeDefinition findByScope(String scope);
+    ScopeDefinitionVo findByScope(String scope);
 }

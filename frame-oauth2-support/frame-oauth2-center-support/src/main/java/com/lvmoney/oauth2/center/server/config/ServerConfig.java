@@ -29,6 +29,7 @@ import org.springframework.security.oauth2.provider.client.ClientCredentialsToke
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.code.AuthorizationCodeTokenGranter;
 import org.springframework.security.oauth2.provider.code.InMemoryAuthorizationCodeServices;
+import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.implicit.ImplicitTokenGranter;
 import org.springframework.security.oauth2.provider.password.ResourceOwnerPasswordTokenGranter;
 import org.springframework.security.oauth2.provider.refresh.RefreshTokenGranter;
@@ -74,6 +75,9 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter implement
 
     @Autowired
     FrameRedisTokenStoreImpl frameRedisTokenStore;
+
+    @Autowired
+    private WebResponseExceptionTranslator customWebResponseExceptionTranslator;
 
     @Bean
     public KeyPair keyPair() {
@@ -152,6 +156,7 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter implement
         return userApprovalHandler;
     }
 
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         // 注入authenticationManager来支持password模式
@@ -165,7 +170,7 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter implement
         endpoints.authorizationCodeServices(redisAuthorizationCodeServices);
 //      endpoints.tokenEnhancer(tokenEnhancerChain);  // 设了 tokenGranter 后该配制失效,需要在 tokenServices() 中设置
         endpoints.userApprovalHandler(userApprovalHandler());
-
+        endpoints.exceptionTranslator(customWebResponseExceptionTranslator);
     }
 
     @Override

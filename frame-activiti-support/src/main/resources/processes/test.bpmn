@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.processes.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1548297482250" name="" targetNamespace="http://www.processes.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+<definitions xmlns="http://www.omg.org/serviceSpec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/serviceSpec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/serviceSpec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/serviceSpec/DD/20100524/DI" xmlns:tns="http://www.processes.org/test"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             expressionLanguage="http://www.w3.org/1999/XPath" id="m1548297482250" name=""
+             targetNamespace="http://www.processes.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
   <process id="myProcess" isClosed="false" isExecutable="true" name="My process" processType="None">
     <startEvent id="start" name="Start"/>
     <userTask activiti:assignee="${employee}" activiti:exclusive="true" id="usertask1" name="提出请假申请"/>

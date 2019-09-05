@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: springcloudtest
+spec:
+  ports:
+    - name: springcloudtest-svr
+      port: 8070
+      nodePort: 30000
+      targetPort: 8070
+  selector:
+    app: springcloudtest
+  type: NodePort

@@ -9,6 +9,6 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class Role extends BaseDomain {
+public class Role extends CommonVo {
     private String roleName;
 }

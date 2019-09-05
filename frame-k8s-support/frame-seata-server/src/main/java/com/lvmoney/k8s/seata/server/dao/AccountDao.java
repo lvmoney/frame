@@ -1,6 +1,5 @@
 package com.lvmoney.k8s.seata.server.dao;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lvmoney.k8s.seata.server.po.Account;
 import org.apache.ibatis.annotations.Update;

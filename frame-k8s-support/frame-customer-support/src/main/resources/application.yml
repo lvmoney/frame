@@ -1,0 +1,29 @@
+server:
+  port: 9902
+spring:
+  application:
+    name: customer
+  redis:
+    database: 2
+    port: 6379
+    host: localhost
+istio:
+  namespace: lvmoney
+  docker:
+    image:
+      tag: @docker.image.tag@
+      name: @docker.image.name@
+    file:
+      name: @docker.file.name@
+      temp: /home
+  yaml:
+    cover: true
+    replicas: 1
+    version: v1
+  master:
+    ip: 192.168.1.181
+rpc:
+  server:
+    gateway: http://localhost:8888
+operating:
+  environment: local

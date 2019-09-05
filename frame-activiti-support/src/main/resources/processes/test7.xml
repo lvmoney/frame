@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn"
-             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-             xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI"
+<definitions xmlns="http://www.omg.org/serviceSpec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/serviceSpec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/serviceSpec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/serviceSpec/DD/20100524/DI"
              xmlns:tns="http://www.activiti.org/processdef" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath"
              id="m1548922556849" name="" targetNamespace="http://www.activiti.org/processdef"

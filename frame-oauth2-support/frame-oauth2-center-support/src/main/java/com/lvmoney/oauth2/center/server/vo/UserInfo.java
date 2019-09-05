@@ -10,6 +10,16 @@ public class UserInfo extends User {
     private long userId;
     private String nickname;
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    private String gender;
+
     public UserInfo(long userId, String username, String password, Collection<? extends GrantedAuthority> authorities) {
         this(userId, username, password, true, true, true, true, authorities);
     }

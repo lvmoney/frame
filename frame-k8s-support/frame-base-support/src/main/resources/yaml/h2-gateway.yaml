@@ -1,0 +1,33 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: wudebao-web-gateway
+spec:
+  selector:
+    istio: ingressgateway # use Istio default gateway implementation
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*.wudebao-web.com"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: wudebao-web
+spec:
+  hosts:
+    - "www.wudebao-web.com"
+  gateways:
+    - wudebao-web-gateway
+  http:
+    - match:
+        - uri:
+            exact: /
+      route:
+        - destination:
+            port:
+              number: 8071
+            host: wudebao-web

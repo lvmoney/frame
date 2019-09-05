@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1548913136018" name="" targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
+<definitions xmlns="http://www.omg.org/serviceSpec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/serviceSpec/BPMN/20100524/DI"
+             xmlns:omgdc="http://www.omg.org/serviceSpec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/serviceSpec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/test"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             expressionLanguage="http://www.w3.org/1999/XPath" id="m1548913136018" name=""
+             targetNamespace="http://www.activiti.org/test" typeLanguage="http://www.w3.org/2001/XMLSchema">
   <process id="test6" isClosed="false" isExecutable="true" processType="None">
     <startEvent id="_2" name="StartEvent"/>
     <endEvent id="_3" name="EndEvent"/>
     <userTask activiti:exclusive="true" id="_4" name="鏂囨。鎻愪氦"/>
-    <userTask activiti:exclusive="true" id="_5" name="鏂囨。�?�℃�?"/>
+    <userTask activiti:exclusive="true" id="_5" name="鏂囨。�?�℃�?"/>
     <sequenceFlow id="_6" sourceRef="_2" targetRef="_4"/>
     <sequenceFlow id="_7" sourceRef="_4" targetRef="_5"/>
     <sequenceFlow id="_8" sourceRef="_5" targetRef="_3"/>

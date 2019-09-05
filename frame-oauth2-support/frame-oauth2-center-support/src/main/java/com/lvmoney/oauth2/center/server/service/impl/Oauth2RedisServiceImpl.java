@@ -2,19 +2,20 @@ package com.lvmoney.oauth2.center.server.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.exceptions.CommonException;
+import com.lvmoney.oauth2.center.server.exception.CustomOauthException;
+import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.ro.AuthorizationCodeRo;
 import com.lvmoney.oauth2.center.server.vo.resp.AuthorizationRespVo;
 import com.lvmoney.oauth2.center.server.vo.AuthorizationVo;
 import com.lvmoney.redis.service.BaseRedisService;
 import com.lvmoney.oauth2.center.server.constant.Oauth2ServerConstant;
-import com.lvmoney.oauth2.center.server.ro.Oauth2ClientRo;
-import com.lvmoney.oauth2.center.server.vo.OauthClient;
 import com.lvmoney.oauth2.center.server.vo.UserInfo;
 import com.lvmoney.oauth2.center.server.ro.Oauth2ClientDetailRo;
 import com.lvmoney.oauth2.center.server.ro.Oauth2UserRo;
 import com.lvmoney.oauth2.center.server.service.Oauth2RedisService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -31,6 +32,7 @@ import java.util.Collection;
  */
 @Service
 public class Oauth2RedisServiceImpl implements Oauth2RedisService {
+    private final static Logger logger = LoggerFactory.getLogger(Oauth2RedisServiceImpl.class);
 
     @Autowired
     BaseRedisService baseRedisService;
@@ -47,10 +49,9 @@ public class Oauth2RedisServiceImpl implements Oauth2RedisService {
             });
             return userInfo;
         } catch (Exception e) {
-            throw new BusinessException(CommonException.Proxy.OAUTH2_USER_DETAIL_NO_EXIST);
-
+            logger.error("通过用户名获得oauth2用户信息报错:{}", e.getMessage());
+            return null;
         }
-
     }
 
     @Override
@@ -61,7 +62,8 @@ public class Oauth2RedisServiceImpl implements Oauth2RedisService {
             });
             return baseClientDetails;
         } catch (Exception e) {
-            throw new BusinessException(CommonException.Proxy.OAUTH2_CLIENT_DETAIL_NO_EXIST);
+            logger.error("通过clientId获得oauth2客户端详情信息报错:{}", e.getMessage());
+            return null;
         }
     }
 
@@ -70,22 +72,6 @@ public class Oauth2RedisServiceImpl implements Oauth2RedisService {
         baseRedisService.addMap(Oauth2ServerConstant.REDIS_FRAME_CLIENT_DETAILS_NAME, oauth2ClientDetailRo.getData(), oauth2ClientDetailRo.getExpire());
     }
 
-    @Override
-    public void client2Redis(Oauth2ClientRo oauth2ClientRo) {
-        baseRedisService.addMap(Oauth2ServerConstant.REDIS_FRAME_CLIENT_NAME, oauth2ClientRo.getData(), oauth2ClientRo.getExpire());
-    }
-
-    @Override
-    public OauthClient getClientByClientId(String clientId) {
-        Object obj = baseRedisService.getValueByMapKey(Oauth2ServerConstant.REDIS_FRAME_CLIENT_NAME, clientId);
-        try {
-            OauthClient oauthClient = JSON.parseObject(obj.toString(), new TypeReference<OauthClient>() {
-            });
-            return oauthClient;
-        } catch (Exception e) {
-            throw new BusinessException(CommonException.Proxy.OAUTH2_CLIENT_DETAIL_NO_EXIST);
-        }
-    }
 
     @Override
     public void authorizationCode2Redis(AuthorizationCodeRo authorizationCodeRo) {
@@ -106,7 +92,7 @@ public class Oauth2RedisServiceImpl implements Oauth2RedisService {
             AuthorizationVo authorizationVo = authorizationRespVo2AuthorizationVo(authorizationRespVo);
             return authorizationVo;
         } catch (Exception e) {
-            throw new BusinessException(CommonException.Proxy.OAUTH2_AUTHENTICATION_NO_EXIST);
+            throw new CustomOauthException(Oauth2Exception.Proxy.OAUTH2_CUSTOM_OAUTH_ERROR.getDescription());
         }
 
     }

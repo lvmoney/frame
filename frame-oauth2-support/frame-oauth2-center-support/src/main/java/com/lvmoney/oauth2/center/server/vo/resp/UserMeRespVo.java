@@ -18,12 +18,12 @@ import java.io.Serializable;
  */
 @Data
 public class UserMeRespVo implements Serializable {
-    private static final long serialVersionUID = -5280186002200313959L;
+    private static final long serialVersionUID = -3247925047012134706L;
     private String username;
     private String gender;
-    private String nickName;
+    private String nickname;
     private String grantType;
-    private String accountOpenCode;
-    private String authorities;
-    private int status;
+    // private String userId;
+// private String authorities;
+// private int status;
 }

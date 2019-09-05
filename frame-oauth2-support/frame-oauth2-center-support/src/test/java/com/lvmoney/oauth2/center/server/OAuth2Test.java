@@ -21,7 +21,7 @@ public class OAuth2Test {
     @Test
     @Ignore
     public void encodePassword() {
-        String test1 = new BCryptPasswordEncoder().encode("tgb.258");
+        String test1 = new BCryptPasswordEncoder().encode("ddddddddfadfa1121");
         System.out.println(test1);
         System.out.println(new BCryptPasswordEncoder().matches("tgb.258", test1));
         String test2 = new BCryptPasswordEncoder().encode("tgb.258");
@@ -29,8 +29,11 @@ public class OAuth2Test {
         System.out.println(new BCryptPasswordEncoder().matches("tgb.258", test2));
         String test3 = "$2a$10$gcrWom7ubcRaVD1.6ZIrIeJP0mtPLH5J9V/.8Qth59lZ4B/5HMq96";
         System.out.println(new BCryptPasswordEncoder().matches("tgb.258", test3));
+        String str = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJnZW5kZXIiOm51bGwsInVzZXJfbmFtZSI6InpoYW5nc2FuIiwic2NvcGUiOlsidXNlcl9pbmZvIl0sIm5pa2VuYW1lIjpudWxsLCJleHAiOjE1NjU2ODMzMzgsImdyYW50VHlwZSI6ImF1dGhvcml6YXRpb25fY29kZSIsImp0aSI6ImRjNjUxM2FhLWQ5MTUtNGQ2My1hOGVmLTk5NGZjM2Q1MTZlOCIsImNsaWVudF9pZCI6IlNhbXBsZUNsaWVudElkIiwidXNlcm5hbWUiOiJ6aGFuZ3NhbiJ9.HL-R4_L56nIai-eq6tPrTt-sKkbJB_c1Qc8g4WxabB2I3D0ktkQ4wq7B2PYZiOe4afKDb9uNVu0U81hZ67_ri2mAcKRErtp3T6qgo83eIztX1HPopRVituxlD95KJr6yioVZl9LcVD3hWjj_Qz_kkl2D3GJcewhQaKLyyAwoCJo";
+        System.out.println(str.length());
 
-
+        String str2 = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJnZW5kZXIiOm51bGwsInVzZXJfbmFtZSI6InpoYW5nc2FuIiwic2NvcGUiOlsidXNlcl9pbmZvIl0sImF0aSI6ImU3MWIyYTg2LThkZWItNDQwYi1iYjQ3LWU1ZjkxNWFhNmRlMSIsIm5pa2VuYW1lIjpudWxsLCJncmFudFR5cGUiOiJhdXRob3JpemF0aW9uX2NvZGUiLCJqdGkiOiIwOTI5ZTBiZS1lOWY0LTRiMmYtOTQzZS03MGQ3NzU0M2IxNzEiLCJjbGllbnRfaWQiOiJTYW1wbGVDbGllbnRJZCIsInVzZXJuYW1lIjoiemhhbmdzYW4ifQ.s6pzNIS9U8hQByZeX8fmIFYnoaQgcnksQTpz05ggwaGDqzKCG_t3ToHvFq4nZdTYceg8ZOC7KtsbRO1dQ7YlLjo9xAj1fxVH9fnU1PdM9p0Nl6bMwBUBMdGnEssNWIT4P6NbqRBOxYf4391Qmp191K3NhJyBNeWAhh6zxmES0vg";
+        System.out.println(str2.length());
     }
 
 

@@ -1,6 +1,5 @@
 package com.lvmoney.k8s.seata.server.controller;
 
-import com.lvmoney.k8s.seata.server.po.Account;
 import com.lvmoney.k8s.seata.server.po.User;
 import com.lvmoney.k8s.seata.server.service.AccountService;
 import com.lvmoney.k8s.seata.server.service.UserService;

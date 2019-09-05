@@ -1,27 +1,27 @@
 package com.lvmoney.oauth2.center.server.service;
 
 import com.lvmoney.oauth2.center.server.vo.JsonObjects;
-import com.lvmoney.oauth2.center.server.vo.UserAccount;
+import com.lvmoney.oauth2.center.server.vo.UserAccountVo;
 
 public interface UserAccountService {
-    JsonObjects<UserAccount> listByUsername(String username,
-                                            int pageNum,
-                                            int pageSize,
-                                            String sortField,
-                                            String sortOrder);
+    JsonObjects<UserAccountVo> listByUsername(String username,
+                                              int pageNum,
+                                              int pageSize,
+                                              String sortField,
+                                              String sortOrder);
 
-    UserAccount findByUsername(String username);
+    UserAccountVo findByUsername(String username);
 
     void loginSuccess(String username);
 
     void loginFailure(String username);
 
-    UserAccount create(UserAccount userAccount);
+    UserAccountVo create(UserAccountVo userAccountVo);
 
-    UserAccount retrieveById(long id);
+    UserAccountVo retrieveById(long id);
 
 
-    UserAccount updateById(UserAccount userAccount);
+    UserAccountVo updateById(UserAccountVo userAccountVo);
 
 
     void updateRecordStatus(long id, int recordStatus);

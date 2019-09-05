@@ -36,6 +36,8 @@ public class SnowflakeIdFactoryUtil {
     private long datacenterId;
     private long sequence = 0L;
     private long lastTimestamp = -1L;
+    private static final Long sWorkerId = 1l;
+    private static final Long sDatacenterId = 2l;
 
     public SnowflakeIdFactoryUtil(long workerId, long datacenterId) {
         if (workerId > maxWorkerId || workerId < 0) {

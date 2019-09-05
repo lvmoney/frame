@@ -34,9 +34,11 @@ public class CustomTokenEnhancer implements TokenEnhancer {
             String username = (String) authentication.getUserAuthentication().getName();// 与登录时候放进去的UserDetail实现类一致
             UserInfo user = oauth2RedisService.getOauth2UserVo(username);
             additionalInformation.put("grantType", authentication.getOAuth2Request().getGrantType());
-            additionalInformation.put("accountOpenCode", user.getUserId());
-            additionalInformation.put("sub", user.getUsername());
-            additionalInformation.put("status", 1);
+//            additionalInformation.put("userId", user.getUserId());
+            additionalInformation.put("username", user.getUsername());
+            additionalInformation.put("nikename", user.getNickname());
+            additionalInformation.put("gender", user.getGender());
+//            additionalInformation.put("status", 1);
         }
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInformation);
         return accessToken;

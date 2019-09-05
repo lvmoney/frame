@@ -1,6 +1,5 @@
 package com.lvmoney.k8s.seata.client.server;
 
-import com.lvmoney.k8s.seata.client.config.FeignConfig;
 import com.lvmoney.k8s.seata.client.vo.req.UserReqVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;

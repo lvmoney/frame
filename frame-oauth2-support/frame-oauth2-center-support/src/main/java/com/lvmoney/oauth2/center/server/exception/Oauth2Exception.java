@@ -31,21 +31,20 @@ public interface Oauth2Exception {
         OAUTH2_CLIENT_DENIED_EXCEPTION(PROXYERR + 8, "客户端没有权限"),
         OAUTH2_OAUTH_CLIENT_IS_NULL(PROXYERR + 9, "token 失效"),
         CLIENT_NOT_EXSIT(PROXYERR + 4, "没有找到对应的客户端信息"),
-
         OAUTH2_ACCESS_TOKEM_REQUIRED(PROXYERR + 10, "没有检测到access_token"),
-
         OAUTH2_TOKEM_EXPIRED(PROXYERR + 11, "token 失效"),
         OAUTH2_SCOPE_DEFINITION_ERROR(PROXYERR + 12, "通过scope获得数据报错"),
         OAUTH2_STORE_ACCESS_TOKEN_ERROR(PROXYERR + 12, "保存accessToken报错"),
         OAUTH2_TOKEN_AUTHENTICATION_ERROR(PROXYERR + 13, "通过token获得权限报错"),
-
         OAUTH2_RM_ACCESS_TOKEN_ERROR(PROXYERR + 14, "删除accessToken报错"),
-
         OAUTH2_SERVER_ERROR(PROXYERR + 15, "调用oauth2服务出错"),
         OAUTH2_ACEESS_TOKEM_ERROR(PROXYERR + 16, "access_token已失效"),
         OAUTH2_USER_NOT_EXSIT(PROXYERR + 17, "用户不存在"),
         OAUTH2_PASSWORD_ERROR(PROXYERR + 18, "密码不匹配"),
-
+        OAUTH2_CUSTOM_OAUTH_ERROR(PROXYERR + 19, "客户端权限校验失败"),
+        OAUTH2_ACCESS_DENIED_ERROR(PROXYERR + 20, "客户端授权失败报错"),
+        OAUTH2_CLIENT_DETAIL_NO_EXIST(PROXYERR + 22, "获取客户端详情失败"),
+        OAUTH2_LOGIN_SUCCESS(2000, "登录成功"),
         OTHER(PROXYERR + 99, "未知错误");
         private int code;
         private String description;

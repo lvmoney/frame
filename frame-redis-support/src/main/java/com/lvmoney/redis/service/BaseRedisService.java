@@ -103,6 +103,8 @@ public interface BaseRedisService<T> {
 
     Object getValueByMapKey(String key, String mapKey);
 
+    Object getMapByKey(String key);
+
     /**
      * @describe: 根据key值获得map的值
      * @param: [key]

@@ -180,6 +180,12 @@ public class BaseRedisServiceImpl implements BaseRedisService {
         return redisTemplate.opsForHash().get(key, mapKey);
     }
 
+
+    @Override
+    public Object getMapByKey(String key) {
+        return redisTemplate.opsForHash().values(key);
+    }
+
     @Override
     public Page getValueByKey(Page page, String key) {
         if (page.isAll()) {

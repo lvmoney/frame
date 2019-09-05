@@ -1,0 +1,7 @@
+spring:
+  redis:
+    database: 2
+    port: 6379
+    host: localhost
+logging:
+  config: classpath:logback-spring.xml

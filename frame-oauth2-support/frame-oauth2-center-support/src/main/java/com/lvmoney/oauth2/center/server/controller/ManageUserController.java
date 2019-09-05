@@ -35,23 +35,23 @@ public class ManageUserController {
 
     @GetMapping(value = "/list")
     @ResponseBody
-    public JsonObjects<UserAccount> listObjects(@RequestParam(value = "search[value]", required = false, defaultValue = "") String searchValue,
-                                                @RequestParam(value = "draw", defaultValue = "0") int draw,
-                                                @RequestParam(value = "length", defaultValue = "10") Integer pageSize,
-                                                @RequestParam(value = "start", defaultValue = "0") Integer start,
-                                                @RequestParam(value = "sidx", defaultValue = "id") String sortField,
-                                                @RequestParam(value = "sord", defaultValue = "desc") String sortOrder) {
+    public JsonObjects<UserAccountVo> listObjects(@RequestParam(value = "search[value]", required = false, defaultValue = "") String searchValue,
+                                                  @RequestParam(value = "draw", defaultValue = "0") int draw,
+                                                  @RequestParam(value = "length", defaultValue = "10") Integer pageSize,
+                                                  @RequestParam(value = "start", defaultValue = "0") Integer start,
+                                                  @RequestParam(value = "sidx", defaultValue = "id") String sortField,
+                                                  @RequestParam(value = "sord", defaultValue = "desc") String sortOrder) {
         int pageNum = start / 10 + 1;
-        JsonObjects<UserAccount> result = userAccountService.listByUsername(searchValue, pageNum, pageSize, sortField, sortOrder);
+        JsonObjects<UserAccountVo> result = userAccountService.listByUsername(searchValue, pageNum, pageSize, sortField, sortOrder);
         result.setDraw(draw + 1);
         return result;
     }
 
     @GetMapping(value = "/details")
     @ResponseBody
-    public UserAccount setupDetails(@RequestParam(value = "id") Long id,
-                                    @RequestParam(value = "additionalData", required = false) String additionalData) {
-        UserAccount object = userAccountService.retrieveById(id);
+    public UserAccountVo setupDetails(@RequestParam(value = "id") Long id,
+                                      @RequestParam(value = "additionalData", required = false) String additionalData) {
+        UserAccountVo object = userAccountService.retrieveById(id);
         object.setAdditionalData(additionalData);
         return object;
     }
@@ -76,7 +76,7 @@ public class ManageUserController {
                 userAccountService.updateRecordStatus(id, -2);
             }
         } else if (id > 0) {
-            UserAccount object = userAccountService.retrieveById(id);
+            UserAccountVo object = userAccountService.retrieveById(id);
             if (StringUtils.isNotEmpty(password)) {
                 object.setPassword(passwordEncoder.encode(StringUtils.trim(password)));
             }

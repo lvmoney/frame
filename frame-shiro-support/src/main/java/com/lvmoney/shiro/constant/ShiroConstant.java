@@ -30,4 +30,16 @@ public class ShiroConstant {
      * 是否引入shiro的配置文件值
      */
     public static final String FRAME_SHIRO_SUPPORT_TRUE = "true";
+
+    /**
+     * 配置文件中请求地址忽略标识
+     */
+    public static final String SHIRO_REQUEST_IGNORE = "anon";
+
+    /**
+     * 基于多服务考虑，功能地址需要做服务区分的前缀
+     */
+    public static final String SHIRO_URL_PREFIX = "SERVER:";
+
+
 }

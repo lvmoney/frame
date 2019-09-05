@@ -7,8 +7,10 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class JsonUtil {
     /**
@@ -93,6 +95,11 @@ public class JsonUtil {
             System.out.println("v=" + v);
         });
 
+        Set<String> test = new HashSet<String>() {{
+            add("a");
+            add("b");
+        }};
+        System.out.println(JsonUtil.t2JsonString(test));
     }
 }
 

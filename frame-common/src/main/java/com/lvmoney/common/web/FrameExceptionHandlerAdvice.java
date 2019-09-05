@@ -6,20 +6,23 @@ import com.lvmoney.common.utils.ResultUtil;
 import com.lvmoney.common.utils.vo.ResultData;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 框架异常统一处理类
- *
- * @author AXM
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年10月15日 上午9:58:40
  */
 @ControllerAdvice
 @RestControllerAdvice
@@ -59,4 +62,5 @@ public class FrameExceptionHandlerAdvice {
         }
         return ResultUtil.error(4041, "请求参数错误", excepitonVos);
     }
+
 }

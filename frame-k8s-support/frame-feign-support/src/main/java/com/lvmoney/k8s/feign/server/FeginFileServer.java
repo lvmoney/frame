@@ -1,11 +1,9 @@
 package com.lvmoney.k8s.feign.server;
 
 import com.lvmoney.k8s.feign.config.FeignConfig;
-import com.lvmoney.k8s.feign.vo.req.LoginVoReq;
 import com.lvmoney.k8s.feign.vo.resp.CommonVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;

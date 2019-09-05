@@ -1,11 +1,11 @@
 package com.lvmoney.oauth2.center.server.controller;
 
 import com.lvmoney.common.exceptions.BusinessException;
+import com.lvmoney.oauth2.center.server.db.dao.OauthClientDao;
+import com.lvmoney.oauth2.center.server.db.entity.OauthClient;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.service.ScopeDefinitionService;
-import com.lvmoney.oauth2.center.server.vo.OauthClient;
-import com.lvmoney.oauth2.center.server.vo.ScopeDefinition;
-import com.lvmoney.oauth2.center.server.service.OauthClientService;
+import com.lvmoney.oauth2.center.server.vo.ScopeDefinitionVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.util.OAuth2Utils;
@@ -28,27 +28,25 @@ import java.util.Map;
 public class AccessConfirmationController {
 
     @Autowired
-    OauthClientService oauthClientService;
-
-    @Autowired
     ScopeDefinitionService scopeDefinitionService;
-
+    @Autowired
+    OauthClientDao oauthClientDao;
 
     @RequestMapping("/confirm_access")
     public String getAccessConfirmation(@ModelAttribute AuthorizationRequest clientAuth,
                                         ModelMap model,
                                         @RequestParam(value = "redirect_uri", required = false) String redirectUri) {
-        OauthClient client = oauthClientService.findByClientId(clientAuth.getClientId());
+        OauthClient oauthClient = oauthClientDao.findByClientId(clientAuth.getClientId());
         model.put("auth_request", clientAuth);
-        model.put("applicationName", client.getApplicationName());
+        model.put("applicationName", oauthClient.getApplicationName());
         if (StringUtils.isNotEmpty(redirectUri)) {
             model.put("from", getHost(redirectUri));
         }
         Map<String, String> scopes = new LinkedHashMap<>();
         for (String scope : clientAuth.getScope()) {
-            ScopeDefinition scopeDefinition = scopeDefinitionService.findByScope(scope);
-            if (scopeDefinition != null) {
-                scopes.put(OAuth2Utils.SCOPE_PREFIX + scope, scopeDefinition.getDefinition());
+            ScopeDefinitionVo scopeDefinitionVo = scopeDefinitionService.findByScope(scope);
+            if (scopeDefinitionVo != null) {
+                scopes.put(OAuth2Utils.SCOPE_PREFIX + scope, scopeDefinitionVo.getDefinition());
             } else {
                 scopes.put(OAuth2Utils.SCOPE_PREFIX + scope, scope);
             }
@@ -57,15 +55,6 @@ public class AccessConfirmationController {
         return "accessConfirmation";
     }
 
-    /*@RequestMapping("/confirm_access")
-    public ModelAndView getAccessConfirmation(@ModelAttribute AuthorizationRequest clientAuth) throws Exception {
-        ClientDetails client = clientDetailsService.loadClientByClientId(clientAuth.getClientId());
-        TreeMap<String, Object> model = new TreeMap<>();
-        model.put("auth_request", clientAuth);
-        model.put("client", client);
-        ModelAndView a= new ModelAndView("accessConfirmation", model);
-        return a;
-    }*/
 
     @RequestMapping("/error")
     public void handleError(Map<String, Object> model, HttpServletRequest request) {

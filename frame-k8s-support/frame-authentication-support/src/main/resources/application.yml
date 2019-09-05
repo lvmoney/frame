@@ -1,0 +1,50 @@
+shiro:
+  server:
+    expire: 18000
+frame:
+  jwt:
+    support: false
+  shiro:
+    support: true
+#认证服务器
+auth-server: http://localhost:10380
+server:
+  port: 8030
+  tomcat:
+    uri-encoding: UTF-8
+security:
+  oauth2:
+    client:
+      client-id: SampleClientId
+      client-secret: tgb.258
+      scope: user_info
+      access-token-uri: ${auth-server}/oauth/token
+      user-authorization-uri: ${auth-server}/oauth/authorize
+    resource:
+      token-info-uri: ${auth-server}/oauth/check_token
+
+
+feign:
+  httpclient:
+    enabled: true
+  okhttp:
+    enabled: false
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: FULL
+
+rpc:
+  server:
+    user: http://localhost:8080
+    authentication: http://localhost:8030
+    oauth2: http://localhost:10380
+spring:
+  application:
+    name: feign
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: default

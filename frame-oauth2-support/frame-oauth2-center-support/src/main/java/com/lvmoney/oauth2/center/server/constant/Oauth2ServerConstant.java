@@ -37,4 +37,8 @@ public class Oauth2ServerConstant {
     public static final String VERIFICATION_CODE = "verificationCode";
 
     public static final String GRAPH_ID = "graphId";
+    /**
+     * 对应数据库里面的数据，-1标书用户锁住
+     */
+    public static final int OAUTH2_USER_LOCKED = -1;
 }

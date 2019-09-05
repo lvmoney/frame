@@ -21,4 +21,6 @@ public interface JwtRedisService {
     void saveToken2Redis(UserRo userRo);
 
     UserVo getUserVo(String token);
+
+    boolean checkToken(String token);
 }

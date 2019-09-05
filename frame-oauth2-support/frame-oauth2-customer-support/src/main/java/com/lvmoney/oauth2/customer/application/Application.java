@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @describe：
- * @author: lvmoney /xxxx科技有限公司
+ * @author: lvmoney /四川旅投智慧游大数据科技有限公司
  * @version:v1.0 2019年1月16日 下午1:33:39
  */
 @SpringBootApplication(scanBasePackages = {"com.lvmoney.**"})

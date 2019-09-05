@@ -1,7 +1,7 @@
 package com.lvmoney.oauth2.center.server.config;
 
 import com.lvmoney.captcha.service.CaptchaService;
-import com.lvmoney.common.exceptions.BusinessException;
+import com.lvmoney.oauth2.center.server.exception.CustomOauthException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
@@ -10,7 +10,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
@@ -47,16 +46,16 @@ public class FrameCodeTokenGranter extends AbstractTokenGranter {
         // 验证验证码
         String codeCached = captchaService.getValidate(captchaNum).getValue();
         if (!StringUtils.equalsIgnoreCase(codeCached, captcha)) {
-            throw new BusinessException(Oauth2Exception.Proxy.VERIFICATION_ERROR);
+            throw new CustomOauthException(Oauth2Exception.Proxy.VERIFICATION_ERROR.getDescription());
         }
         // 从库里查用户
         UserDetails user = userDetailsService.loadUserByUsername(username);
         if (user == null) {
-            throw new BusinessException(Oauth2Exception.Proxy.OAUTH2_USER_NOT_EXSIT);
+            throw new CustomOauthException(Oauth2Exception.Proxy.OAUTH2_USER_NOT_EXSIT.getDescription());
         }
         String rPass = user.getPassword();
         if (!new BCryptPasswordEncoder().matches(password, rPass)) {
-            throw new BusinessException(Oauth2Exception.Proxy.OAUTH2_PASSWORD_ERROR);
+            throw new CustomOauthException(Oauth2Exception.Proxy.OAUTH2_PASSWORD_ERROR.getDescription());
         }
 
         Authentication userAuth = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());

@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      database: logback
+      port: 27017
+      host: 10.20.128.234
+logging:
+  config: classpath:logback-spring.xml

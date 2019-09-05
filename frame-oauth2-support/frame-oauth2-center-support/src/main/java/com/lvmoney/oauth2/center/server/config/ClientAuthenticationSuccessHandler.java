@@ -3,14 +3,14 @@ package com.lvmoney.oauth2.center.server.config;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.utils.vo.ResultData;
+import com.lvmoney.oauth2.center.server.exception.CustomOauthException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.service.UserAccountService;
-import com.lvmoney.oauth2.center.server.vo.LoginHistory;
-import com.lvmoney.oauth2.center.server.vo.RoleEnum;
+import com.lvmoney.oauth2.center.server.vo.LoginHistoryVo;
 import com.lvmoney.oauth2.center.server.service.LoginHistoryService;
 import com.lvmoney.oauth2.center.server.utils.IPUtils;
+import com.lvmoney.oauth2.center.server.vo.RoleEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,15 +51,14 @@ public class ClientAuthenticationSuccessHandler extends SavedRequestAwareAuthent
             redirectUrl = savedRequest.getRedirectUrl();
         }
 
-        LoginHistory loginHistory = new LoginHistory();
-        loginHistory.setUsername(authentication.getName());
-        loginHistory.setIp(IPUtils.getIpAddress(request));
-        loginHistory.setDevice(request.getHeader("User-Agent"));
-        loginHistory.setRecordStatus(1);
-        loginHistoryService.asyncCreate(loginHistory);
-
+        LoginHistoryVo loginHistoryVo = new LoginHistoryVo();
+        loginHistoryVo.setUsername(authentication.getName());
+        loginHistoryVo.setIp(IPUtils.getIpAddress(request));
+        loginHistoryVo.setDevice(request.getHeader("User-Agent"));
+        loginHistoryVo.setRecordStatus(1);
+        loginHistoryVo.setRemarks(Oauth2Exception.Proxy.OAUTH2_LOGIN_SUCCESS.getDescription());
+        loginHistoryService.asyncCreate(loginHistoryVo);
         userAccountService.loginSuccess(authentication.getName());
-
         boolean isAjax = "XMLHttpRequest".equals(request
                 .getHeader("X-Requested-With")) || "apiLogin".equals(request
                 .getHeader("api-login"));
@@ -69,14 +68,16 @@ public class ClientAuthenticationSuccessHandler extends SavedRequestAwareAuthent
             try {
                 ResultData resultData = new ResultData();
                 resultData.setCode(Oauth2Exception.Proxy.SUCCESS.getCode());
-                resultData.setMsg(redirectUrl);
+                resultData.setMsg(Oauth2Exception.Proxy.SUCCESS.getDescription());
+                resultData.setDate(System.currentTimeMillis());
+                resultData.setSuccess(true);
                 ObjectMapper objectMapper = new ObjectMapper();
                 JsonGenerator jsonGenerator = objectMapper.getFactory().createGenerator(response.getOutputStream(),
                         JsonEncoding.UTF8);
                 objectMapper.writeValue(jsonGenerator, resultData);
             } catch (Exception ex) {
                 LOGGER.error("不能够写入json信息:{}", ex.getMessage());
-                throw new BusinessException(Oauth2Exception.Proxy.DENIED_JSON_NOT_WRITE);
+                throw new CustomOauthException(Oauth2Exception.Proxy.DENIED_JSON_NOT_WRITE.getDescription());
             }
         } else {
             //Call the parent method to manage the successful authentication

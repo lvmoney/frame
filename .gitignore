@@ -8,5 +8,5 @@
 *.log
 out
 gen
-*/target/
-*/test/
+**/target/
+**/data/

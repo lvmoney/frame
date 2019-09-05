@@ -11,8 +11,7 @@
     <artifactId>frame-oauth2-support</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>frame-oauth2-server-support</module>
-        <module>frame-oauth2-client-support</module>
+        <module>frame-oauth2-resource-support</module>
         <module>frame-oauth2-center-support</module>
         <module>frame-oauth2-customer-support</module>
     </modules>

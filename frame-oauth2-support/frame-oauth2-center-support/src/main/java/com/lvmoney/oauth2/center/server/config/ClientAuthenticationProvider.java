@@ -1,10 +1,9 @@
 package com.lvmoney.oauth2.center.server.config;
 
 import com.lvmoney.captcha.service.CaptchaService;
-import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.oauth2.center.server.constant.Oauth2ServerConstant;
+import com.lvmoney.oauth2.center.server.exception.CustomOauthException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
-import com.lvmoney.oauth2.center.server.exception.VerificationCodeException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -66,7 +65,7 @@ public class ClientAuthenticationProvider extends AbstractUserDetailsAuthenticat
             ClientWebAuthenticationDetails clientWebAuthenticationDetails = (ClientWebAuthenticationDetails) details;
             String captcha = captchaService.getValidate(clientWebAuthenticationDetails.getGraphId()).getValue();
             if (!StringUtils.equalsIgnoreCase(clientWebAuthenticationDetails.getInputVerificationCode(), captcha)) {
-                throw new VerificationCodeException("验证码错误！");
+                throw new CustomOauthException(Oauth2Exception.Proxy.VERIFICATION_ERROR.getDescription());
             }
             captchaService.deleteValidate(clientWebAuthenticationDetails.getGraphId());
         } else if (details instanceof LinkedHashMap<?, ?>) {
@@ -81,11 +80,11 @@ public class ClientAuthenticationProvider extends AbstractUserDetailsAuthenticat
                         String captcha = captchaService.getValidate(graphId).getValue();
 
                         if (!StringUtils.equalsIgnoreCase(map.get(Oauth2ServerConstant.VERIFICATION_CODE), captcha)) {
-                            throw new BusinessException(Oauth2Exception.Proxy.VERIFICATION_ERROR);
+                            throw new CustomOauthException(Oauth2Exception.Proxy.VERIFICATION_ERROR.getDescription());
                         }
                         captchaService.deleteValidate(graphId);
                     } else {
-                        throw new VerificationCodeException("验证码错误！");
+                        throw new CustomOauthException(Oauth2Exception.Proxy.VERIFICATION_ERROR.getDescription());
                     }
                 }
             }

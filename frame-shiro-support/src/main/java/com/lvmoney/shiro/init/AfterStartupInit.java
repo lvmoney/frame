@@ -13,6 +13,7 @@ import com.lvmoney.shiro.service.ShiroRedisService;
 import com.lvmoney.shiro.vo.SysServiceDataVo;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,11 +37,12 @@ public class AfterStartupInit implements InitializingBean {
     private RequestMappingHandlerMapping requestMappingHandlerMapping;
     @Autowired
     ShiroRedisService shiroRedisService;
+    @Value("${spring.application.name}")
+    private String serverName;
 
     @Override
     public void afterPropertiesSet() throws Exception {
         List<SysServiceDataVo> shiroServerData = new ArrayList<SysServiceDataVo>();
-        shiroRedisService.deleteShiroServerData();
         Map<RequestMappingInfo, HandlerMethod> map = requestMappingHandlerMapping.getHandlerMethods();
         for (Map.Entry<RequestMappingInfo, HandlerMethod> m : map.entrySet()) {
             SysServiceDataVo sysServiceDataVo = new SysServiceDataVo();
@@ -57,7 +60,11 @@ public class AfterStartupInit implements InitializingBean {
             shiroServerData.add(sysServiceDataVo);
         }
         ShiroServerRo shiroServerRo = new ShiroServerRo();
-        shiroServerRo.setSysServiceDataVoList(shiroServerData);
+        Map<String, List<SysServiceDataVo>> data = new HashMap() {{
+            put(serverName, shiroServerData);
+        }};
+        shiroServerRo.setData(data);
+        shiroRedisService.deleteShiroServerData(serverName);
         shiroRedisService.saveShiroServerData(shiroServerRo);
     }
 

@@ -84,22 +84,25 @@ public class ShiroRedisServiceImpl implements ShiroRedisService {
     public void saveShiroServerData(ShiroServerRo shiroServerRo) {
         long ex = shiroServerRo.getExpire();
         if (ex > 0) {
-            baseRedisService.addList(ShiroConstant.SYS_SHIRO_RES, shiroServerRo.getSysServiceDataVoList(), shiroServerRo.getExpire());
+            baseRedisService.addMap(ShiroConstant.SYS_SHIRO_RES, shiroServerRo.getData(), shiroServerRo.getExpire());
         } else if (Long.parseLong(expireUri) > 0) {
-            baseRedisService.addList(ShiroConstant.SYS_SHIRO_RES, shiroServerRo.getSysServiceDataVoList(), Long.parseLong(expireUri));
+            baseRedisService.addMap(ShiroConstant.SYS_SHIRO_RES, shiroServerRo.getData(), Long.parseLong(expireUri));
         } else {
-            baseRedisService.addList(ShiroConstant.SYS_SHIRO_RES, shiroServerRo.getSysServiceDataVoList());
+            baseRedisService.addMap(ShiroConstant.SYS_SHIRO_RES, shiroServerRo.getData(), null);
         }
     }
 
     @Override
-    public void deleteShiroServerData() {
-        baseRedisService.deleteKey(ShiroConstant.SYS_SHIRO_RES);
+    public void deleteShiroServerData(String serverName) {
+        baseRedisService.deleteValueByMapKey(ShiroConstant.SYS_SHIRO_RES, serverName);
     }
 
     @Override
-    public List<SysServiceDataVo> getShiroServerAll() {
-        return baseRedisService.getListAll(ShiroConstant.SYS_SHIRO_RES);
+    public List<SysServiceDataVo> getShiroServerAll(String serverName) {
+        Object obj = baseRedisService.getValueByMapKey(ShiroConstant.SYS_SHIRO_RES, serverName);
+        List<SysServiceDataVo> sysServiceDataVos = JSON.parseObject(obj.toString(), new TypeReference<List<SysServiceDataVo>>() {
+        });
+        return sysServiceDataVos;
     }
 
     @Override
@@ -133,6 +136,7 @@ public class ShiroRedisServiceImpl implements ShiroRedisService {
         if (shiroDataRo != null) {
             result.setPermissions(shiroDataRo.getPermissions());
             result.setRoles(shiroDataRo.getRoles());
+            result.setExpire(shiroDataRo.getExpire());
             return result;
         }
         return null;

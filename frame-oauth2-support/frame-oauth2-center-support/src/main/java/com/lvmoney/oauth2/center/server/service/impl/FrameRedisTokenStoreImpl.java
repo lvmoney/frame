@@ -7,8 +7,8 @@ package com.lvmoney.oauth2.center.server.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.utils.JsonUtil;
+import com.lvmoney.oauth2.center.server.exception.CustomOauthException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.vo.FrameOauth2AccessToken;
 import com.lvmoney.oauth2.center.server.vo.FrameOAuth2RefreshToken;
@@ -111,7 +111,7 @@ public class FrameRedisTokenStoreImpl implements TokenStore {
             OAuth2Authentication auth = authorizationRespVo2AuthorizationVo(authorizationRespVo);
             return auth;
         } catch (Exception e) {
-            throw new BusinessException(Oauth2Exception.Proxy.OAUTH2_TOKEN_AUTHENTICATION_ERROR);
+            throw new CustomOauthException(Oauth2Exception.Proxy.OAUTH2_TOKEN_AUTHENTICATION_ERROR.getDescription());
         }
     }
 
@@ -212,7 +212,7 @@ public class FrameRedisTokenStoreImpl implements TokenStore {
             }
         } catch (Exception e) {
 
-            throw new BusinessException(Oauth2Exception.Proxy.OAUTH2_STORE_ACCESS_TOKEN_ERROR);
+            throw new CustomOauthException(Oauth2Exception.Proxy.OAUTH2_STORE_ACCESS_TOKEN_ERROR.getDescription());
 
         }
     }
@@ -237,7 +237,7 @@ public class FrameRedisTokenStoreImpl implements TokenStore {
         String rKey = ACCESS + tokenValue;
         Object obj = baseRedisService.getString(rKey);
         if (obj == null) {
-            throw new BusinessException(Oauth2Exception.Proxy.OAUTH2_ACEESS_TOKEM_ERROR);
+            throw new CustomOauthException(Oauth2Exception.Proxy.OAUTH2_ACEESS_TOKEM_ERROR.getDescription());
         }
         FrameOauth2AccessToken frameOauth2AccessToken = JSON.parseObject(obj.toString(), new TypeReference<FrameOauth2AccessToken>() {
         });
@@ -270,7 +270,7 @@ public class FrameRedisTokenStoreImpl implements TokenStore {
                 baseRedisService.deleteKey(ACCESS + key);
             }
         } catch (Exception e) {
-            throw new BusinessException(Oauth2Exception.Proxy.OAUTH2_RM_ACCESS_TOKEN_ERROR);
+            throw new CustomOauthException(Oauth2Exception.Proxy.OAUTH2_RM_ACCESS_TOKEN_ERROR.getDescription());
         }
     }
 

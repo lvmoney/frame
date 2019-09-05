@@ -2,6 +2,7 @@ package com.lvmoney.common.utils.vo;
 
 import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.exceptions.ExceptionType;
+import com.lvmoney.common.utils.JsonUtil;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -102,4 +103,9 @@ public class ResultData<T> implements Serializable {
         this.date = date;
     }
 
+    public static void main(String[] args) {
+        ResultData resultData = new ResultData();
+        resultData.setSuccess(true);
+        System.out.println(JsonUtil.t2JsonString(resultData));
+    }
 }

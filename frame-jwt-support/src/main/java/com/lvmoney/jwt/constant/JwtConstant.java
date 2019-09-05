@@ -21,4 +21,11 @@ public class JwtConstant {
      * 是否引入shiro的配置文件值
      */
     public static final String FRAME_JWT_SUPPORT_TRUE = "true";
+
+
+    /**
+     * 配置文件中请求地址忽略标识
+     */
+    public static final String JWT_REQUEST_IGNORE = "ign";
+
 }

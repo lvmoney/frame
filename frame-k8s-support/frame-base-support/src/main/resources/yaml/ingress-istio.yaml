@@ -1,0 +1,68 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: prometheus
+  namespace: istio-system
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+    - host: prometheus.istio.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: prometheus
+              servicePort: 9090
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana
+  namespace: istio-system
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+    - host: grafana.istio.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: grafana
+              servicePort: 3000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: servicegraph
+  namespace: istio-system
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+    - host: servicegraph.istio.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: servicegraph
+              servicePort: 8088
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: tracing
+  namespace: istio-system
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+    - host: tracing.istio.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: tracing
+              servicePort: 80

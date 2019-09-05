@@ -1,6 +1,7 @@
 package com.lvmoney.shiro.realm;
 
 import com.lvmoney.shiro.ro.ShiroDataRo;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -58,9 +59,13 @@ public class FrameShiroRealm extends AuthorizingRealm {
                 throw new BusinessException(CommonException.Proxy.SHIRO_REDIS_NOT_EXSIT);
             }
             Set<String> roles = shiroDataVo.getRoles();
-            authorizationInfo.addRoles(roles);
+            if (ObjectUtils.allNotNull(roles)) {
+                authorizationInfo.addRoles(roles);
+            }
             Set<String> permissions = shiroDataVo.getPermissions();
-            authorizationInfo.addStringPermissions(permissions);
+            if (ObjectUtils.allNotNull(permissions)) {
+                authorizationInfo.addStringPermissions(permissions);
+            }
             ShiroDataRo shiroDataRo = new ShiroDataRo();
             shiroDataRo.setUsername(userId);
             shiroDataRo.setRoles(roles);

@@ -1,13 +1,12 @@
 package com.lvmoney.k8s.seata.client.controller;
 
-import com.lvmoney.k8s.seata.client.server.FeginSeataServer;
-import com.lvmoney.k8s.seata.client.server.FeginSeataUServer;
 import com.lvmoney.k8s.seata.client.service.TestService;
 import com.lvmoney.k8s.seata.client.vo.req.UpdateReqVo;
 import com.lvmoney.k8s.seata.client.vo.req.UserReqVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by Administrator on 2019/5/23.

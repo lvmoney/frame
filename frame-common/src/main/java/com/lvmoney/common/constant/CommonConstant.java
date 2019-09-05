@@ -8,6 +8,8 @@
 
 package com.lvmoney.common.constant;
 
+import java.io.File;
+
 /**
  * @describe：
  * @author: lvmoney /xxxx科技有限公司
@@ -42,4 +44,28 @@ public class CommonConstant {
      * 阿里地图地址
      */
     public final static String MAP_ALIBABA_URL = "http://gc.ditu.aliyun.com/geocoding?a=%s&type=%s";
+
+    /**
+     * 为了区分token类型加前缀 jwt
+     */
+    public static final String TOKEM_JWT_PREFIX = "JWT:";
+    /**
+     * 为了区分token类型加前缀 oauth2
+     */
+    public static final String TOKEM_OAUTH2_PREFIX = "OAUTH2:";
+
+    public static final String FILE_SEPARATOR = File.separator;
+
+
+    public static final String LOCALHOST_IP = "127.0.0.1";
+
+
+    public static final String HTTP_SCHEMA = "http";
+
+    public static final String HTTPS_SCHEMA = "https";
+
+
+    public static final String REDIS_SERVER_CROUP_KEY = "PAAS_SERVER";
+
+
 }

@@ -15,8 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
-import com.lvmoney.oauth2.center.server.vo.RoleEnum;
-
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -60,7 +58,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .mvcMatchers("/favicon.ico", "/signIn", "/signUp", "/security_check", "/404", "/captcha/**", "/user/me").permitAll()
                 .mvcMatchers("/oauth/signUp").permitAll()
-                .mvcMatchers("/management/**").hasAnyAuthority(RoleEnum.ROLE_SUPER.name())
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()

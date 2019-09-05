@@ -13,6 +13,7 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.jwt.annotations.NotToken;
@@ -56,10 +57,16 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
         }
         String servletPath = httpServletRequest.getServletPath();
         Map<String, String> filterChainDefinition = jwtConfigProp.getfilterChainDefinitionMap();
-        if (filterChainDefinition != null && FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, servletPath, "ign")) {// 在这里做判断
+        if (filterChainDefinition != null && FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, servletPath, JwtConstant.JWT_REQUEST_IGNORE)) {// 在这里做判断
             return super.preHandle(httpServletRequest, httpServletResponse, object);
         }
         String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出
+        if (token == null) {
+            throw new BusinessException(CommonException.Proxy.TOKEN_IS_REQUIRED);
+        }
+        if (token.startsWith(CommonConstant.TOKEM_OAUTH2_PREFIX)) {
+            return super.preHandle(httpServletRequest, httpServletResponse, object);
+        }
         // 如果不是映射到方法直接通过
         if (!(object instanceof HandlerMethod)) {
             return super.preHandle(httpServletRequest, httpServletResponse, object);
@@ -74,9 +81,7 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
             }
         } else {// 正常情况，不需要认证的少数，如果不配置不认证，那么默认需要认证
             // 执行认证
-            if (token == null) {
-                throw new BusinessException(CommonException.Proxy.TOKEN_IS_REQUIRED);
-            }
+
             // 获取 token 中的 user id
             String userId;
             try {
@@ -94,7 +99,8 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
             // 验证 token
             JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userVo.getPassword())).build();
             try {
-                jwtVerifier.verify(token);
+                String verifyToken = token.startsWith(CommonConstant.TOKEM_JWT_PREFIX) ? token.replaceFirst(CommonConstant.TOKEM_JWT_PREFIX, "") : token;
+                jwtVerifier.verify(verifyToken);
             } catch (JWTVerificationException e) {
                 throw new BusinessException(CommonException.Proxy.TOKEN_VERIFY_ERROR);
             }
