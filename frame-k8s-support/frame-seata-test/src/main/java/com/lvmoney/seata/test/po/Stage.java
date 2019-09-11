@@ -5,8 +5,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+
 /**
- * Created by Administrator on 2019/6/27.
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 @Data
 @TableName("stage")

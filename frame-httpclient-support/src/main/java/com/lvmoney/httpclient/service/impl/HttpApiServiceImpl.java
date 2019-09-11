@@ -11,7 +11,7 @@ package com.lvmoney.httpclient.service.impl;
 import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.httpclient.service.HttpApiService;
-import com.lvmoney.httpclient.vo.HttpFResult;
+import com.lvmoney.httpclient.vo.HttpFileResult;
 import com.lvmoney.httpclient.vo.HttpResult;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
@@ -34,7 +34,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -55,12 +54,14 @@ import java.util.Map;
 
 @Service("frameHttpAPIService")
 public class HttpApiServiceImpl implements HttpApiService {
-    private final static Logger logger = LoggerFactory.getLogger(HttpApiServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(HttpApiServiceImpl.class);
     @Autowired
     private CloseableHttpClient httpClient;
 
     @Autowired
     private RequestConfig config;
+
+    private static final int HTTP_SUCCESS_CODE = 200;
 
     /**
      * 不带参数的get请求，如果状态码为200，则返回body，如果不为200，则返回null
@@ -69,6 +70,7 @@ public class HttpApiServiceImpl implements HttpApiService {
      * @return
      * @throws Exception
      */
+    @Override
     public String doGet(String url) {
         // 声明 http get 请求
         HttpGet httpGet = new HttpGet(url);
@@ -80,7 +82,7 @@ public class HttpApiServiceImpl implements HttpApiService {
         try {
             response = this.httpClient.execute(httpGet);
             // 判断状态码是否为200
-            if (response.getStatusLine().getStatusCode() == 200) {
+            if (response.getStatusLine().getStatusCode() == HTTP_SUCCESS_CODE) {
                 // 返回响应体的内容
                 return EntityUtils.toString(response.getEntity(), "UTF-8");
             } else {
@@ -100,6 +102,7 @@ public class HttpApiServiceImpl implements HttpApiService {
      * @return
      * @throws Exception
      */
+    @Override
     public String doGet(String url, Map<String, Object> map) throws Exception {
         URIBuilder uriBuilder = new URIBuilder(url);
 
@@ -123,6 +126,7 @@ public class HttpApiServiceImpl implements HttpApiService {
      * @return
      * @throws Exception
      */
+    @Override
     public HttpResult doPost(String url, Map<String, Object> map) throws Exception {
         // 声明httpPost请求
         HttpPost httpPost = new HttpPost(url);
@@ -155,12 +159,13 @@ public class HttpApiServiceImpl implements HttpApiService {
      * @return
      * @throws Exception
      */
+    @Override
     public HttpResult doPost(String url) throws Exception {
         return this.doPost(url, null);
     }
 
     @Override
-    public HttpResult doJPost(String url, String json) {
+    public HttpResult doJsonPost(String url, String json) {
         try {
             //第二步：创建httpPost对象
             HttpPost httpPost = new HttpPost(url);
@@ -180,7 +185,7 @@ public class HttpApiServiceImpl implements HttpApiService {
     }
 
     @Override
-    public HttpResult doFPost(String url, Map<String, File> fileParam, Map<String, Object> map) {
+    public HttpResult doFilePost(String url, Map<String, File> fileParam, Map<String, Object> map) {
         try {
             HttpPost httpPost = new HttpPost(url);
             MultipartEntityBuilder builder = MultipartEntityBuilder.create().setMode(HttpMultipartMode.RFC6532);
@@ -196,8 +201,8 @@ public class HttpApiServiceImpl implements HttpApiService {
                     builder.addPart(entry.getKey(), new StringBody(entry.getValue().toString(), ContentType.create("text/plain", Consts.UTF_8)));
                 }
             }
-
-            HttpEntity entity = builder.build();// 生成 HTTP POST 实体
+            // 生成 HTTP POST 实体
+            HttpEntity entity = builder.build();
             httpPost.setEntity(entity);
             CloseableHttpResponse response = this.httpClient.execute(httpPost);
             return new HttpResult(response.getStatusLine().getStatusCode(),
@@ -209,7 +214,7 @@ public class HttpApiServiceImpl implements HttpApiService {
     }
 
     @Override
-    public HttpFResult doJFPost(String url, String json) {
+    public HttpFileResult doJsonFilePost(String url, String json) {
         try {
             //第二步：创建httpPost对象
             HttpPost httpPost = new HttpPost(url);
@@ -219,7 +224,7 @@ public class HttpApiServiceImpl implements HttpApiService {
             httpPost.setHeader("Content-type", "application/json");
             httpPost.setEntity(requestEntity);
             CloseableHttpResponse response = this.httpClient.execute(httpPost);
-            return new HttpFResult(response.getStatusLine().getStatusCode(),
+            return new HttpFileResult(response.getStatusLine().getStatusCode(),
                     response.getEntity().getContent());
 
         } catch (Exception e) {
@@ -228,7 +233,8 @@ public class HttpApiServiceImpl implements HttpApiService {
         }
     }
 
-    public URLConnection getGConnection(String url, String param) {
+    @Override
+    public URLConnection getConnectionMsg(String url, String param) {
         URLConnection connection = null;
         BufferedReader in = null;
         try {

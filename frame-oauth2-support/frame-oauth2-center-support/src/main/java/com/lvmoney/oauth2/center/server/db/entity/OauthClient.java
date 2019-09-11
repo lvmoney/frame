@@ -9,6 +9,11 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @TableName("oauth_client")
 @Data
 public class OauthClient extends Model<OauthClient> {
@@ -30,7 +35,10 @@ public class OauthClient extends Model<OauthClient> {
     private Integer refreshTokenValidity;
     private String additionalInformation;
     private String autoApprove;
-    private Date expirationDate;//客户端过期时间，比如应用于多店系统
+    /**
+     * 客户端过期时间，比如应用于多店系统
+     */
+    private Date expirationDate;
     /**
      * 创建时间
      */

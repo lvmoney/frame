@@ -15,17 +15,26 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Controller
 @RequestMapping(value = "/management/user")
 public class ManageUserController {
 
-    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(ManageUserController.class);
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @Autowired
     UserAccountService userAccountService;
+    /**
+     * 更新状态
+     */
+    private static final int DELETEOPERATION_IPDATE = -2;
 
     @GetMapping(value = {"/", "", "/master"})
     public String master(Principal principal) {
@@ -65,7 +74,7 @@ public class ManageUserController {
                            @RequestParam(value = "password", required = false) String password) {
 
 
-        if (deleteOperation == -2 && id > 0) {
+        if (deleteOperation == DELETEOPERATION_IPDATE && id > 0) {
             long userId = getUserIdBySpring();
             if (userId != id) {
                 userAccountService.updateRecordStatus(id, 0);

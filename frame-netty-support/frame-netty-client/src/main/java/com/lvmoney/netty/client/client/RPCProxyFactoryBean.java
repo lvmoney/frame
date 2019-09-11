@@ -20,11 +20,11 @@ import java.util.UUID;
  * @author lvmoney contact by
  * @date 2018/11/1 - 15:49
  */
-public class RPCProxyFactoryBean extends AbstractFactoryBean<Object> implements InvocationHandler {
+public class RpcProxyFactoryBean extends AbstractFactoryBean<Object> implements InvocationHandler {
     /**
-     * RPCProxyFactoryBean 日志输出
+     * RpcProxyFactoryBean 日志输出
      */
-    private static final Logger LOGGER = LoggerFactory.getLogger(RPCProxyFactoryBean.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RpcProxyFactoryBean.class);
     /**
      * 远程服务接口
      */

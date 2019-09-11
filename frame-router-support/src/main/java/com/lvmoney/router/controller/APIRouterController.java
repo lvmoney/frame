@@ -63,9 +63,9 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("route")
-public class APIRouterController {
-    private final static Logger logger = LoggerFactory.getLogger(APIRouterController.class);
-
+public class ApiRouterController {
+    private static final Logger logger = LoggerFactory.getLogger(ApiRouterController.class);
+    private static final int METHOD_RESULT_LENGTH_2 = 2;
     @Autowired
     JwtTokenHandler jwtTokenHandler;
     @Autowired
@@ -89,7 +89,6 @@ public class APIRouterController {
      * .data
      * @author: lvmoney /xxxx科技有限公司
      */
-    @SuppressWarnings("rawtypes")
     @NotToken
     @RequestMapping(value = "proxyGet", method = RequestMethod.GET)
     public ResultData getProxy(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -116,7 +115,6 @@ public class APIRouterController {
      * 如果调用方法没有入参，可以不写data参数或者不写data.data
      * @author: lvmoney /xxxx科技有限公司
      */
-    @SuppressWarnings("rawtypes")
     @NotToken
     @RequestMapping(value = "proxyPost", method = RequestMethod.POST)
     public ResultData postProxy(HttpServletRequest request, HttpServletResponse response,
@@ -127,6 +125,13 @@ public class APIRouterController {
         return execMethod(request, uri, data);
     }
 
+    /**
+     * @describe: 数据校验
+     * @param: [obj, groups]
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 14:10
+     */
     private void validate(Object obj, Class<?>... groups) throws ValidationException {
         Set<ConstraintViolation<Object>> constraintViolations = null;
         if (groups == null || groups.length == 0) {
@@ -145,7 +150,13 @@ public class APIRouterController {
         }
     }
 
-    @SuppressWarnings("rawtypes")
+    /**
+     * @describe: 数据校验
+     * @param: [vo]
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 14:10
+     */
     private void validataDataVo(DataVo vo) {
         try {
             validate(vo);
@@ -158,14 +169,26 @@ public class APIRouterController {
         }
     }
 
-    @SuppressWarnings("rawtypes")
+    /**
+     * @describe: 构造请求
+     * @param: [request, vo]
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 14:09
+     */
     private void buildRequestHandler(HttpServletRequest request, DataVo vo) {
         for (BuildRequestHandler handler : handlers) {
             handler.handle(request, vo.getData());
         }
     }
 
-    @SuppressWarnings("rawtypes")
+    /**
+     * @describe: 错误处理
+     * @param: [ex, request]
+     * @return: com.lvmoney.common.utils.vo.ResultData
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 14:09
+     */
     @ExceptionHandler(Throwable.class)
     protected ResultData exceptionHandler(Exception ex, HttpServletRequest request) {
         logger.error("", ex);
@@ -177,21 +200,19 @@ public class APIRouterController {
         }
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    /**
+     * @describe: 执行方法获得返回数据
+     * @param: [request, uri, data]
+     * @return: com.lvmoney.common.utils.vo.ResultData
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 14:08
+     */
     private ResultData execMethod(HttpServletRequest request, String uri, String data) throws Exception {
-        logger.debug("uri:{},data:{}", uri, data);
         // 获取 映射的service方法
         RouterMethodConfig routerMethodConfig = RouterServiceHolder.getInstance().findMethodByUri(uri);
         if (routerMethodConfig == null) {
             throw new BusinessException(CommonException.Proxy.METHOD_NOT_MAP, String.format("%s is not mapping", uri));
         }
-        if (logger.isDebugEnabled()) {
-            logger.debug("find mapping uri:{},service:{},method:{},parameterType:{}", uri,
-                    routerMethodConfig.getRouterServiceConfig().getClazz().getName(),
-                    routerMethodConfig.getMethod().getName(),
-                    routerMethodConfig.hasParameter() ? routerMethodConfig.getParameterType().getName() : "none");
-        }
-
         //jwt token认证校验
         AuthenticationValidatedConfig authConfig = RouterServiceHolder.getInstance().findAuthenticationByUri(uri);
         if (authConfig.isValidate()) {
@@ -200,32 +221,27 @@ public class APIRouterController {
                 throw new BusinessException(CommonException.Proxy.TOKEN_VERIFY_ERROR);
             }
         }
-
         //shiro 权限认证校验
-
         PermissionValidatedConfig permissionConfig = RouterServiceHolder.getInstance().findPermissionByUri(uri);
         String role = permissionConfig.getRole();
-        boolean authState = shiroAuthHandler.AuthenticationValidated(request, role);
+        boolean authState = shiroAuthHandler.authenticationValidated(request, role);
         if (!authState) {
             throw new BusinessException(CommonException.Proxy.TOKEN_VERIFY_ERROR);
         }
-
         // 根据方法参数类型 构建VO
         DataVo dataVo = null;
         try {
             if (routerMethodConfig.hasParameter()) {
                 dataVo = JsonUtil.json2Obj(data, DataVo.class, routerMethodConfig.getParameterType());
             } else {
-                // dataVo = JsonUtil.json2Obj(data, DataVo.class);
                 dataVo = JSON.parseObject(data, DataVo.class);
             }
         } catch (Exception e) {
             logger.error("解析接口业务参数出错{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.JSON_ERROR, e.getCause().getMessage());
         }
-
-
-        if (dataVo != null) {//如果入参不为空，对入参进行参数校验
+        if (dataVo != null) {
+            //如果入参不为空，对入参进行参数校验
             this.validataDataVo(dataVo);
             ParamValidatedConfig paramValidatedConfig = RouterServiceHolder.getInstance().findValidateByUri(uri);
             if (paramValidatedConfig.isValidate()) {
@@ -254,14 +270,12 @@ public class APIRouterController {
             logger.error("动态调用方法报错:{}", t.getMessage());
             throw new BusinessException(CommonException.Proxy.METHOD_INVOKE_ERROR);
         }
-
         // 判断返回值
-        if (methodResult != null && methodResult.toString().length() > 2) {
+        if (methodResult != null && methodResult.toString().length() > METHOD_RESULT_LENGTH_2) {
             return new ResultData(ResultCodeEnum.SUCESS.getCode(), ResultCodeEnum.SUCESS.getDescription(),
                     methodResult);
         } else {
             return new ResultData(ResultCodeEnum.SUCESS.getCode(), ResultCodeEnum.SUCESS.getDescription());
         }
-
     }
 }

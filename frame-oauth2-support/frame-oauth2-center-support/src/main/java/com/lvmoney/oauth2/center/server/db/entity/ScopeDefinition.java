@@ -8,6 +8,11 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 
 @TableName("scope_definition")
 @Data
@@ -18,7 +23,9 @@ public class ScopeDefinition extends Model<ScopeDefinition> {
     @TableId(value = "definition_id", type = IdType.ID_WORKER_STR)
     private String definitionId;
     private String scope;
-    /*定义 解释*/
+    /**
+     * 定义 解释
+     */
     private String definition;
     /**
      * 创建时间

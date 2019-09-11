@@ -22,7 +22,9 @@ import javax.tools.ToolProvider;
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class DynamicEngine {
-    //单例
+    /**
+     * 单例
+     */
     private static DynamicEngine ourInstance = new DynamicEngine();
 
     public static DynamicEngine getInstance() {
@@ -65,7 +67,8 @@ public class DynamicEngine {
      * @Description    : TODO
      */
     public Object javaCodeToObject(String fullClassName, String javaCode) throws IllegalAccessException, InstantiationException {
-        long start = System.currentTimeMillis(); //记录开始编译时间
+        //记录开始编译时间
+        long start = System.currentTimeMillis();
         Object instance = null;
         //获取系统编译器
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();

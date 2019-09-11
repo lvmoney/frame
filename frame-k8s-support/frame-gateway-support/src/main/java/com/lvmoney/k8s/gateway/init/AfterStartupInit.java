@@ -7,6 +7,7 @@ package com.lvmoney.k8s.gateway.init;/**
  */
 
 
+import com.lvmoney.common.utils.MapUtil;
 import com.lvmoney.k8s.gateway.ro.RouteDefinitionRo;
 import com.lvmoney.k8s.gateway.service.Gateway2DbService;
 import com.lvmoney.k8s.gateway.service.Gateway2RedisService;
@@ -46,7 +47,7 @@ public class AfterStartupInit implements InitializingBean {
         List<RouteDefinition> routeDefinitions = gateway2DbService.initRouteDefinition();
         routeDefinitions = routeDefinitions != null ? routeDefinitions : gatewayProperties.getRoutes();
         RouteDefinitionRo routeDefinitionRo = new RouteDefinitionRo();
-        Map<String, RouteDefinition> routeDefinitionMap = new HashMap<>();
+        Map<String, RouteDefinition> routeDefinitionMap = new HashMap<>(MapUtil.initMapSize(routeDefinitions.size()));
         routeDefinitions.stream().forEach(e -> {
             try {
                 URI realUri = new URI(serverService.getRealRequstUri(e.getUri()));

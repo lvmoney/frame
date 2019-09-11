@@ -16,20 +16,20 @@ import org.activiti.engine.impl.persistence.entity.ExecutionEntity;
 import java.util.List;
 
 /**
- * @describe：
+ * @describe：根据提供节点和执行对象id，进行跳转命令
  * @author: lvmoney /xxxx科技有限公司
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
-//根据提供节点和执行对象id，进行跳转命令
-public class SetFLowNodeAndGoCmd implements Command<Void> {
+public class SetFlowNodeAndGoCmd implements Command<Void> {
     private FlowNode flowElement;
     private String executionId;
 
-    public SetFLowNodeAndGoCmd(FlowNode flowElement, String executionId) {
+    public SetFlowNodeAndGoCmd(FlowNode flowElement, String executionId) {
         this.flowElement = flowElement;
         this.executionId = executionId;
     }
 
+    @Override
     public Void execute(CommandContext commandContext) {
         //获取目标节点的来源连线
         List<SequenceFlow> flows = flowElement.getIncomingFlows();

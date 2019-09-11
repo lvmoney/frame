@@ -19,17 +19,39 @@ import com.lvmoney.router.vo.resp.TestRespVo;
  */
 
 public interface AService {
+    /**
+     * @describe: 测试
+     * @param: [testReqVo]
+     * @return: com.lvmoney.router.vo.resp.TestRespVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 9:50
+     */
     TestRespVo test(TestReqVo testReqVo);
 
+    /**
+     * @describe: 错误测试
+     * @param: []
+     * @return: com.lvmoney.router.vo.resp.TestRespVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 9:51
+     */
     TestRespVo errorTest();
 
+    /**
+     * @describe: 正常测试
+     * @param: [testReqVo]
+     * @return: com.lvmoney.router.vo.resp.TestRespVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 9:51
+     */
     TestRespVo normalTest(NormalReqVo testReqVo);
 
     /**
-     * @return 2019年1月2日上午11:24:19
-     * @describe:
-     * @author: lvmoney /xxxx科技有限公司
+     * @describe: 空值测试
+     * @param: []
+     * @return: com.lvmoney.router.vo.resp.TestRespVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 9:51
      */
-
     TestRespVo voidTest();
 }

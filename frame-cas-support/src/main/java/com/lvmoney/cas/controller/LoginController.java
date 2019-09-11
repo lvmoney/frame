@@ -24,7 +24,8 @@ import com.lvmoney.cas.vo.UserVo;
 public class LoginController {
     @RequestMapping(value = "login", method = RequestMethod.GET)
     private boolean login(UserVo userVo) {
-        if (userVo.getUername().equals("123")) {
+        String test = "123";
+        if (test.equals(userVo.getUername())) {
             return true;
         } else {
             return false;

@@ -16,6 +16,13 @@ package com.lvmoney.rabbitmq.service;
  */
 
 public interface HandMqDataService {
-    @SuppressWarnings("rawtypes")
+    /**
+     * 消息处理
+     *
+     * @throws
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:41
+     */
     void handData();
 }

@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Component
 public class JwtTokenHandler {
-    private final static Logger logger = LoggerFactory.getLogger(JwtTokenHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtTokenHandler.class);
     @Autowired
     JwtRedisService jwtRedisService;
     @Value("${frame.jwt.support:false}")
@@ -45,7 +45,8 @@ public class JwtTokenHandler {
         } else if (!JwtConstant.FRAME_JWT_SUPPORT_FALSE.equals(frameSupport) && !JwtConstant.FRAME_JWT_SUPPORT_TRUE.equals(frameSupport)) {
             throw new BusinessException(CommonException.Proxy.SHIRO_SUPPORT_ERROR);
         }
-        String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出
+        // 从 http 请求头中取出
+        String token = httpServletRequest.getHeader("token");
         if (token == null) {
             throw new BusinessException(CommonException.Proxy.TOKEN_IS_REQUIRED);
         }

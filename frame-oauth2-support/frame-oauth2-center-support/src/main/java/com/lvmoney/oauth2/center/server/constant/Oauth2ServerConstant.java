@@ -36,7 +36,11 @@ public class Oauth2ServerConstant {
 
     public static final String VERIFICATION_CODE = "verificationCode";
 
+    public static final String GRANT_TYPE = "grant_type";
+
     public static final String GRAPH_ID = "graphId";
+
+    public static final String PASSWORD = "password";
     /**
      * 对应数据库里面的数据，-1标书用户锁住
      */

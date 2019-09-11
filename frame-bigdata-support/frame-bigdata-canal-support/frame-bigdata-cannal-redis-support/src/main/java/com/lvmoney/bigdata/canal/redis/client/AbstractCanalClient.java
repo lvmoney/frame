@@ -18,10 +18,12 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * Canal 客户端抽象类
+ * @describe：Canal 客户端抽象类
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public abstract class AbstractCanalClient {
-    private final static Logger logger = LoggerFactory.getLogger(AbstractCanalClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(AbstractCanalClient.class);
     /**
      * 运行状态,可见
      */
@@ -70,7 +72,13 @@ public abstract class AbstractCanalClient {
     }
 
     /**
-     * 初始化 canal 连接
+     * 提交线程池
+     *
+     * @param connector 连接体
+     * @param config    配置
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @data: 2019/9/9 18:59
      */
     protected abstract void process(CanalConnector connector, Map.Entry<String, CanalProp.Instance> config);
 

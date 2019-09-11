@@ -7,6 +7,7 @@ package com.lvmoney.lock.service.impl;/**
  */
 
 
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.lock.constant.LockConstant;
@@ -54,7 +55,7 @@ public class ProdLockServiceImpl implements ProdLockService {
             prodLockStockRespVo.setStock(stock);
         } else {
             stock = stock - num;
-            Map<String, Integer> prod = new HashMap<>();
+            Map<String, Integer> prod = new HashMap<>(CommonConstant.MAP_DEFAULT_SIZE);
             prod.put(prodId, stock);
             baseRedisService.addMap(LockConstant.PROD_LOCK_KEY, prod, prodLockStockReqVo.getExpire());
             prodLockStockRespVo.setResult(true);
@@ -83,7 +84,7 @@ public class ProdLockServiceImpl implements ProdLockService {
             throw new BusinessException(CommonException.Proxy.LOCK_SOURCE_NOT_EXIST);
         }
         distributedLockerService.lock(LockConstant.PROD_SECTION_UPDATE_LOCK_KEY, TimeUnit.SECONDS, LockConstant.LOCK_TIME);
-        Map<String, Integer> prod = new HashMap<>();
+        Map<String, Integer> prod = new HashMap<>(2);
         Integer stock = prodLockUpdateReqVo.getStock();
         prod.put(prodId, stock);
         baseRedisService.addMap(LockConstant.PROD_LOCK_KEY, prod, prodLockUpdateReqVo.getExpire());

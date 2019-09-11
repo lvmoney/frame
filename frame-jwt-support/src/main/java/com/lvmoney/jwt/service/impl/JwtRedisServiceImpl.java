@@ -40,7 +40,7 @@ public class JwtRedisServiceImpl implements JwtRedisService {
 
     @Override
     public void saveToken2Redis(UserRo userRo) {
-        if (userRo.getExpire() > 0l) {
+        if (userRo.getExpire() > 0L) {
             baseRedisService.set(userRo.getToken(), JsonUtil.t2JsonString(userRo), userRo.getExpire());
         } else {
             baseRedisService.set(userRo.getToken(), JsonUtil.t2JsonString(userRo), Long.parseLong(expire));

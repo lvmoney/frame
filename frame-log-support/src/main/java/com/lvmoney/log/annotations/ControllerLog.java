@@ -7,7 +7,10 @@ package com.lvmoney.log.annotations;/**
  */
 
 
+import com.lvmoney.log.constant.LogType;
+
 import java.lang.annotation.*;
+
 
 /**
  * @describe：定义注解，拦截controller
@@ -24,5 +27,5 @@ public @interface ControllerLog {
     //定义成员
     String descrption() default "";//描述
 
-    String actionType() default "";//操作的类型，1、添加 2、修改 3、删除 4、查询
+    String actionType() default LogType.LOG_OTHER;//操作的类型查看常量
 }

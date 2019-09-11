@@ -4,6 +4,11 @@ import com.lvmoney.shiro.vo.UserVo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 public class RequestUtils {
     /**
      * 获取当前登录的用户，若用户未登录，则返回未登录 json

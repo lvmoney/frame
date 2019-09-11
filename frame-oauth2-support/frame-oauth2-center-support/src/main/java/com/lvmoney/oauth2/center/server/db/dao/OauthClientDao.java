@@ -17,6 +17,15 @@ import org.apache.ibatis.annotations.Select;
  * @version:v1.0 2019/8/5 17:45
  */
 public interface OauthClientDao extends BaseMapper<OauthClient> {
+    /**
+     * 通过客户端id获得客户端数据
+     *
+     * @param clientId:
+     * @throws
+     * @return: com.lvmoney.oauth2.center.server.db.entity.OauthClient
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:58
+     */
     @Select("select * from oauth_client u where u.client_id=#{clientId}")
     OauthClient findByClientId(String clientId);
 }

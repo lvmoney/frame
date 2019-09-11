@@ -23,7 +23,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @FeignClient(name = "testServer", url = "${rpc.server.oauth2}", configuration = FeignConfig.class)
 public interface Oauth2Server {
-
+    /**
+     * 获得token数据
+     *
+     * @param clientId:     客户端id
+     * @param clientSecret: 客户端密钥
+     * @param grantType:    grantType
+     * @param redirectUri:  重定向url
+     * @param code:         code
+     * @throws
+     * @return: com.lvmoney.k8s.authentication.vo.Oauth2Token
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:57
+     */
     @PostMapping(value = "/oauth/token", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseBody
     Oauth2Token oauth2TokenAuthoriztionCode(@RequestParam(value = "client_id") String clientId,
@@ -32,6 +44,15 @@ public interface Oauth2Server {
                                             @RequestParam(value = "redirect_uri") String redirectUri,
                                             @RequestParam(value = "code") String code);
 
+    /**
+     * oauth2token校验
+     *
+     * @param token: token
+     * @throws
+     * @return: com.lvmoney.k8s.authentication.vo.Oauth2TokenCheck
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:58
+     */
 
     @PostMapping(value = "/oauth/check_token", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseBody

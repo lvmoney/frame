@@ -46,6 +46,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Import(AuthorizationServerEndpointsConfiguration.class)
 @Configuration
 public class ServerConfig extends AuthorizationServerConfigurerAdapter implements InitializingBean {
@@ -99,7 +104,8 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter implement
     @Bean
     public TokenEnhancer tokenEnhancer() {
         TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(customTokenEnhancer, accessTokenConverter())); // CustomTokenEnhancer
+        // CustomTokenEnhancer
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(customTokenEnhancer, accessTokenConverter()));
         // 是我自定义一些数据放到token里用的
         return tokenEnhancerChain;
     }
@@ -134,7 +140,13 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter implement
         clients.withClientDetails(clientDetailsService);
     }
 
-    //可以用redis等存储
+    /**
+     * @describe: 可以用redis等存储
+     * @param: []
+     * @return: org.springframework.security.oauth2.provider.approval.ApprovalStore
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:50
+     */
     @Bean
     public ApprovalStore approvalStore() {
         TokenApprovalStore approvalStore = new TokenApprovalStore();
@@ -180,7 +192,8 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter implement
 //                .allowFormAuthenticationForClients();
         oauthServer
                 .tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()") //allow check token
+                //allow check token
+                .checkTokenAccess("isAuthenticated()")
                 .allowFormAuthenticationForClients();
     }
 
@@ -194,8 +207,10 @@ public class ServerConfig extends AuthorizationServerConfigurerAdapter implement
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore());
         defaultTokenServices.setSupportRefreshToken(true);
-        defaultTokenServices.setClientDetailsService(clientDetailsService);//token 有效时间,默认12h
-        defaultTokenServices.setTokenEnhancer(tokenEnhancer());// 如果没有设置它,JWT就失效了.
+        //token 有效时间,默认12h
+        defaultTokenServices.setClientDetailsService(clientDetailsService);
+        // 如果没有设置它,JWT就失效了.
+        defaultTokenServices.setTokenEnhancer(tokenEnhancer());
         return defaultTokenServices;
     }
 

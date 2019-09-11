@@ -10,7 +10,7 @@ package com.lvmoney.signature.application;/**
 import com.lvmoney.signature.config.SignCircle;
 import com.lvmoney.signature.config.SignConfiguration;
 import com.lvmoney.signature.config.SignFont;
-import com.lvmoney.signature.utils.SignUtil;
+import com.lvmoney.signature.utils.AbstractSignUtil;
 
 import java.awt.*;
 import java.io.IOException;
@@ -141,7 +141,7 @@ public class Test1 {
 
         //1.生成公章
         try {
-            SignUtil.buildAndStoreSeal(configuration, "F:\\sclt\\file\\公章2.png");
+            AbstractSignUtil.buildAndStoreSeal(configuration, "F:\\sclt\\file\\公章2.png");
         } catch (IOException e) {
             e.printStackTrace();
         }

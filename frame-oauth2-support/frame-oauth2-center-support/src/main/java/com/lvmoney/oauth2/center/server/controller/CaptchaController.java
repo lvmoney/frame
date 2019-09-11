@@ -20,6 +20,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Controller
 public class CaptchaController {
 
@@ -36,7 +41,7 @@ public class CaptchaController {
         CaptchaGraphRespVo captchaGraphRespVo = new CaptchaGraphRespVo();
         ValidateResultVo validateResultVo = captchaService.getCaptcha(150, 38, 4);
         captchaGraphRespVo.setStatus(1);
-        captchaGraphRespVo.setExpire(18000l);
+        captchaGraphRespVo.setExpire(18000L);
         captchaGraphRespVo.setGraphId(validateResultVo.getSerialNumber());
         captchaGraphRespVo.setGraphUrl("/captcha/graph/print?graphId=" + validateResultVo.getSerialNumber());
         return captchaGraphRespVo;

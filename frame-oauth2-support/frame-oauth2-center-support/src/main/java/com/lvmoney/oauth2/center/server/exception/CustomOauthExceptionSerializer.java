@@ -25,6 +25,10 @@ import java.util.Map;
  * @version:v1.0 2019/8/8 9:36
  */
 public class CustomOauthExceptionSerializer extends StdSerializer<OAuth2Exception> {
+    private static final String ERR_TOKEN = "Invalid refresh token";
+    private static final String ERR_SCOPE = "Invalid scope";
+    private static final String ERR_GRANT_TYPE = "Unauthorized grant type";
+
     public CustomOauthExceptionSerializer() {
         super(OAuth2Exception.class);
     }
@@ -47,11 +51,11 @@ public class CustomOauthExceptionSerializer extends StdSerializer<OAuth2Exceptio
      * 2019/8/8 10:20
      */
     private String buildErrorMsg(String msg) {
-        if (msg.startsWith("Invalid refresh token")) {
+        if (msg.startsWith(ERR_TOKEN)) {
             return "refresh_token 校验没通过";
-        } else if (msg.startsWith("Invalid scope")) {
+        } else if (msg.startsWith(ERR_SCOPE)) {
             return "不支持的scope";
-        } else if (msg.startsWith("Unauthorized grant type")) {
+        } else if (msg.startsWith(ERR_GRANT_TYPE)) {
             return "不支持的grant_type";
         } else {
             return msg;

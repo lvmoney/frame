@@ -9,7 +9,7 @@ import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.service.LoginHistoryService;
 import com.lvmoney.oauth2.center.server.service.UserAccountService;
 import com.lvmoney.oauth2.center.server.vo.LoginHistoryVo;
-import com.lvmoney.oauth2.center.server.utils.IPUtils;
+import com.lvmoney.oauth2.center.server.utils.IpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,14 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Component
 public class ClientAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
-    private Logger LOGGER = LoggerFactory.getLogger(ClientAuthenticationFailureHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClientAuthenticationFailureHandler.class);
     private String failureUrl = "/signIn";
 
     @Autowired
@@ -41,7 +46,7 @@ public class ClientAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         String username = request.getParameter("username");
         LoginHistoryVo loginHistoryVo = new LoginHistoryVo();
         loginHistoryVo.setUsername(username);
-        loginHistoryVo.setIp(IPUtils.getIpAddress(request));
+        loginHistoryVo.setIp(IpUtils.getIpAddress(request));
         loginHistoryVo.setDevice(request.getHeader("User-Agent"));
         loginHistoryVo.setRecordStatus(0);
         loginHistoryVo.setRemarks(exception.getMessage());

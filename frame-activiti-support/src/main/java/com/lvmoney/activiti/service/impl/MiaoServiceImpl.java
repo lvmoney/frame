@@ -13,6 +13,7 @@ import com.lvmoney.activiti.dao.VacationFormMapper;
 import com.lvmoney.activiti.po.User;
 import com.lvmoney.activiti.po.VacationForm;
 import com.lvmoney.activiti.service.MiaoService;
+import com.lvmoney.common.constant.CommonConstant;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -21,6 +22,11 @@ import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 
 @Service("miaoService")
 public class MiaoServiceImpl implements MiaoService {
@@ -39,7 +45,7 @@ public class MiaoServiceImpl implements MiaoService {
     @Autowired
     private VacationFormMapper vacationFormMapper;
 
-    //填写请假信息
+
     @Override
     public VacationForm writeForm(String title, String content, String applicant) {
         VacationForm form = new VacationForm();
@@ -50,14 +56,14 @@ public class MiaoServiceImpl implements MiaoService {
         form.setApprover(approver);
         vacationFormMapper.insert(form);
 
-        Map<String, Object> variables = new HashMap<String, Object>();
+        Map<String, Object> variables = new HashMap<String, Object>(CommonConstant.MAP_DEFAULT_SIZE);
         variables.put("employee", form.getApplicant());
         //开始请假流程，使用formId作为流程的businessKey
         runtimeService.startProcessInstanceByKey("myProcess", form.getId().toString(), variables);
         return form;
     }
 
-    //根据选择，申请或放弃请假
+
     @Override
     public void completeProcess(String formId, String operator, String input) {
         //根据businessKey找到当前任务节点
@@ -65,18 +71,19 @@ public class MiaoServiceImpl implements MiaoService {
         //设置输入参数，使流程自动流转到对应节点
         taskService.setVariable(task.getId(), "input", input);
         taskService.complete(task.getId());
-        if ("apply".equals(input)) {
+        String apply = "apply";
+        if (apply.equals(input)) {
             applyVacation(formId, operator);
         } else {
             giveupVacation(formId, operator);
         }
     }
 
-    //放弃请假
+
     @Override
     public boolean giveupVacation(String formId, String operator) {
         Task task = taskService.createTaskQuery().processInstanceBusinessKey(formId).singleResult();
-        Map<String, Object> variables = new HashMap<String, Object>();
+        Map<String, Object> variables = new HashMap<String, Object>(CommonConstant.MAP_DEFAULT_SIZE);
         variables.put("employee", operator);
         //认领任务
         taskService.claim(task.getId(), operator);
@@ -85,10 +92,11 @@ public class MiaoServiceImpl implements MiaoService {
         return true;
     }
 
+
     @Override
     public boolean applyVacation(String formId, String operator) {
         Task task = taskService.createTaskQuery().processInstanceBusinessKey(formId).singleResult();
-        Map<String, Object> variables = new HashMap<String, Object>();
+        Map<String, Object> variables = new HashMap<String, Object>(CommonConstant.MAP_DEFAULT_SIZE);
         List<User> users = userMapper.selectAll();
         String managers = "";
         //获取所有具有审核权限的用户
@@ -105,6 +113,7 @@ public class MiaoServiceImpl implements MiaoService {
         return true;
     }
 
+
     @Override
     public boolean approverVacation(String formId, String operator) {
         Task task = taskService.createTaskQuery().processInstanceBusinessKey(formId).singleResult();
@@ -120,10 +129,10 @@ public class MiaoServiceImpl implements MiaoService {
         return true;
     }
 
-    //获取请假信息的当前流程状态
+
     @Override
     public HashMap<String, String> getCurrentState(String formId) {
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
         Task task = taskService.createTaskQuery().processInstanceBusinessKey(formId).singleResult();
         if (task != null) {
             map.put("status", "processing");
@@ -136,7 +145,7 @@ public class MiaoServiceImpl implements MiaoService {
         return map;
     }
 
-    //请假列表
+
     @Override
     public List<VacationForm> formList() {
         List<VacationForm> formList = vacationFormMapper.selectAll();
@@ -153,7 +162,7 @@ public class MiaoServiceImpl implements MiaoService {
         return formList;
     }
 
-    //登录验证用户名是否存在
+
     @Override
     public User loginSuccess(String username) {
         List<User> users = userMapper.selectByName(username);
@@ -164,13 +173,19 @@ public class MiaoServiceImpl implements MiaoService {
         return null;
     }
 
-    //获取当前登录用户
+    /**
+     * @describe: 获取当前登录用户
+     * @param: [request]
+     * @return: java.lang.String
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:50
+     */
     public String getCurrentUser(HttpServletRequest request) {
         String user = "";
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("userInfo")) {
+                if ("userInfo".equals(cookie.getName())) {
                     user = cookie.getValue();
                 }
             }
@@ -178,7 +193,7 @@ public class MiaoServiceImpl implements MiaoService {
         return user;
     }
 
-    //获取已执行的流程信息
+
     @Override
     public List historyState(String formId) {
         List<HashMap<String, String>> processList = new ArrayList<HashMap<String, String>>();
@@ -186,7 +201,7 @@ public class MiaoServiceImpl implements MiaoService {
                 .processInstanceBusinessKey(formId).list();
         if (list != null && list.size() > 0) {
             for (HistoricTaskInstance hti : list) {
-                HashMap<String, String> map = new HashMap<String, String>();
+                HashMap<String, String> map = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
                 map.put("name", hti.getName());
                 map.put("operator", hti.getAssignee());
                 processList.add(map);

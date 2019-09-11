@@ -13,9 +13,17 @@ package com.lvmoney.k8s.base.enums;/**
  * @version:v1.0 2019/8/19 14:36
  */
 public enum YamlType {
+    /**
+     * Yaml 类型 发布服务
+     */
     IDeploy("IDeploy"),
-
+    /**
+     * Yaml 类型 路由
+     */
     IGateway("IGateway"),
+    /**
+     * Yaml 类型 路由规则
+     */
     IDestinationRule("IDestinationRule");
     private String value;
 

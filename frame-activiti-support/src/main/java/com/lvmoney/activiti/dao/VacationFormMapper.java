@@ -19,6 +19,14 @@ import java.util.List;
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public interface VacationFormMapper extends BaseMapper<VacationForm> {
+    /**
+     * 查询所有
+     *
+     * @throws
+     * @return: java.util.List<com.lvmoney.activiti.po.VacationForm>
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/10 8:59
+     */
     @Select("select * from vacation_form")
     List<VacationForm> selectAll();
 }

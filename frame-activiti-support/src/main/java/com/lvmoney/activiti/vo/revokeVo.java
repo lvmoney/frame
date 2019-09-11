@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 @Data
-public class revokeVo implements Serializable {
+public class RevokeVo implements Serializable {
     private String formId;
     private String bpmnId;
     private String userId;

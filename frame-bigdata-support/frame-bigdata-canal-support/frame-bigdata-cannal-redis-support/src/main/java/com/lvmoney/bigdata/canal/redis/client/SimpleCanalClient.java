@@ -16,15 +16,20 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 /**
- * 通过线程池处理
+ * @describe：通过线程池处理
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class SimpleCanalClient extends AbstractCanalClient {
-    private final static Logger logger = LoggerFactory.getLogger(SimpleCanalClient.class);
+    private static final Logger logger = LoggerFactory.getLogger(SimpleCanalClient.class);
     /**
      * 声明一个线程池
      */
-//	private ThreadPoolExecutor executor;
     private ExecutorService executorService;
+    /**
+     * 失效时间
+     */
+    private static final Long TIMEOUT = 30L;
     /**
      * 通过实现接口的监听器
      */
@@ -38,10 +43,11 @@ public class SimpleCanalClient extends AbstractCanalClient {
     HandListenerContext handListenerContext;
 
     /**
-     * 构造方法，进行一些基本信息初始化
-     *
-     * @param canalProp
-     * @return
+     * @describe: 构造方法，进行一些基本信息初始化
+     * @param: [canalProp, handListenerContext]
+     * @return:
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 14:14
      */
     public SimpleCanalClient(CanalProp canalProp, HandListenerContext handListenerContext) {
         super(canalProp);
@@ -55,11 +61,6 @@ public class SimpleCanalClient extends AbstractCanalClient {
         initListeners();
     }
 
-    /**
-     * @param connector
-     * @param config
-     * @return
-     */
     @Override
     protected void process(CanalConnector connector, Map.Entry<String, CanalProp.Instance> config) {
 //		executor.submit(factory.newTransponder(connector, config, listeners, annoListeners));
@@ -67,24 +68,27 @@ public class SimpleCanalClient extends AbstractCanalClient {
     }
 
     /**
-     * 关闭 canal 客户端
-     *
-     * @param
-     * @return
+     * @describe: 关闭 canal 客户端
+     * @param: []
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 14:15
      */
     @Override
     public void stop() {
         //停止 canal 客户端
         super.stop();
         //优雅的线程池关闭
-        executorService.shutdown(); // Disable new tasks from being submitted
+        executorService.shutdown();
         try {
             // Wait a while for existing tasks to terminate
-            if (!executorService.awaitTermination(30, TimeUnit.SECONDS)) {
-                executorService.shutdownNow(); // Cancel currently executing tasks
+            if (!executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                // Cancel currently executing tasks
+                executorService.shutdownNow();
                 // Wait a while for tasks to respond to being cancelled
-                if (!executorService.awaitTermination(30, TimeUnit.SECONDS))
+                if (!executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
                     logger.warn("{Pool did not terminate ");
+                }
 
             }
         } catch (InterruptedException ie) {
@@ -96,10 +100,11 @@ public class SimpleCanalClient extends AbstractCanalClient {
     }
 
     /**
-     * 初始化监听器
-     *
-     * @param
-     * @return
+     * @describe: 初始化监听器
+     * @param: []
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 14:15
      */
     private void initListeners() {
         logger.info("{}: 监听器正在初始化....", Thread.currentThread().getName());

@@ -25,12 +25,17 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Controller
 public class ProfileController {
 
-    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
 
-    private static final Pattern authorizationPattern = Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-._~+/]+)=*$");
+    private static final Pattern AUTHORIZATION_PATTER = Pattern.compile("^Bearer (?<token>[a-zA-Z0-9-._~+/]+)=*$");
 
     @Autowired
     Oauth2RedisService oauth2RedisService;
@@ -47,7 +52,7 @@ public class ProfileController {
         try {
             String token = null;
             if (StringUtils.isNoneBlank(headerToken)) {
-                Matcher matcher = authorizationPattern.matcher(headerToken);
+                Matcher matcher = AUTHORIZATION_PATTER.matcher(headerToken);
                 if (matcher.matches()) {
                     token = matcher.group("token");
                 }

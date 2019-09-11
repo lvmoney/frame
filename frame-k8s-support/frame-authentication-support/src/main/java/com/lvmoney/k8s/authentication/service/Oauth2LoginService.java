@@ -17,29 +17,35 @@ import com.lvmoney.shiro.ro.ShiroUriRo;
  */
 public interface Oauth2LoginService {
     /**
-     * @describe: 通过oauth2方式登录，加载用户权限（shiro）到redis
-     * @param: [oauth2Token]
+     * 通过oauth2方式登录，加载用户权限（shiro）到redis
+     *
+     * @param oauth2Token: 用户token数据
+     * @throws
      * @return: void
      * @author: lvmoney /XXXXXX科技有限公司
-     * 2019/8/13 11:55
+     * @date: 2019/9/9 20:53
      */
     void initAuthority(Oauth2Token oauth2Token);
 
     /**
-     * @describe: 通过oauth2方式登录，加载用户信息（userRo）到redis
-     * @param: [oauth2Token]
+     * 通过oauth2方式登录，加载用户信息（userRo）到redis
+     *
+     * @param oauth2Token: 用户token数据
+     * @throws
      * @return: void
      * @author: lvmoney /XXXXXX科技有限公司
-     * 2019/8/13 11:58
+     * @date: 2019/9/9 20:54
      */
     void initUser(Oauth2Token oauth2Token);
 
     /**
-     * @describe: 获得当前用户的权限，资源，角色对应数据
-     * @param: [oauth2Token]
+     * 获得当前用户的权限，资源，角色对应数据
+     *
+     * @param oauth2Token: 用户token数据
+     * @throws
      * @return: com.lvmoney.shiro.ro.ShiroUriRo
      * @author: lvmoney /XXXXXX科技有限公司
-     * 2019/8/16 10:28
+     * @date: 2019/9/9 20:54
      */
     ShiroUriRo getShiroUri(Oauth2Token oauth2Token);
 

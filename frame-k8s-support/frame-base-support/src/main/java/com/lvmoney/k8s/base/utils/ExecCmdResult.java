@@ -19,9 +19,12 @@ import java.io.Serializable;
 @Data
 public class ExecCmdResult implements Serializable {
 
-    // 命令执行是否成功
+    /**
+     * 命令执行是否成功
+     */
     private boolean success;
-
-    // 输出结果
+    /**
+     * 输出结果
+     */
     private String result;
 }

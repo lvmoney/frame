@@ -11,6 +11,7 @@ package com.lvmoney.shiro.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.common.ro.UserRo;
 import com.lvmoney.common.utils.JsonUtil;
 import com.lvmoney.redis.service.BaseRedisService;
@@ -107,7 +108,7 @@ public class ShiroRedisServiceImpl implements ShiroRedisService {
 
     @Override
     public void saveShiroUriData(ShiroUriRo shiroUriRo) {
-        Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>(CommonConstant.MAP_DEFAULT_SIZE);
         map.put(shiroUriRo.getUri(), JsonUtil.t2JsonString(shiroUriRo.getShiroUriVo()));
         baseRedisService.addMap(ShiroConstant.SYS_SHIRO_URI, map, shiroUriRo.getExpire());
     }

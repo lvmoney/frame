@@ -13,6 +13,11 @@ import org.springframework.stereotype.Component;
 import com.lvmoney.rabbitmq.annotation.DynamicService;
 import com.lvmoney.rabbitmq.config.DynamicServiceConfig;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Component
 public class DynamicServiceRegistryProcessor implements BeanPostProcessor, ApplicationContextAware {
 

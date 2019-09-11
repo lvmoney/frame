@@ -6,6 +6,7 @@ package com.lvmoney.k8s.base.listener;/**
  * Copyright XXXXXX科技有限公司
  */
 
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.common.ro.ServerBaseInfoRo;
 import com.lvmoney.common.vo.ServerInfo;
 import com.lvmoney.k8s.base.constant.BaseConstant;
@@ -59,7 +60,7 @@ public class ServerInfoListener implements ApplicationListener<WebServerInitiali
         serverInfo.setServerName(BaseConstant.WEBSITE_PREFIX + this.serverName + BaseConstant.WEBSITE_SUFFIX);
         serverInfo.setHttpScheme(this.schema);
         ServerBaseInfoRo serverBaseInfoRo = new ServerBaseInfoRo();
-        Map<String, ServerInfo> stringServerInfoMap = new HashMap() {{
+        Map<String, ServerInfo> stringServerInfoMap = new HashMap(CommonConstant.MAP_DEFAULT_SIZE) {{
             put(serverInfo.getServerName(), serverInfo);
         }};
         serverBaseInfoRo.setData(stringServerInfoMap);

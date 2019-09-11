@@ -10,11 +10,12 @@ package com.lvmoney.office.service.impl;/**
 import com.deepoove.poi.XWPFTemplate;
 import com.deepoove.poi.data.MiniTableRenderData;
 import com.deepoove.poi.data.NumbericRenderData;
-import com.deepoove.poi.data.TableRenderData;
 import com.deepoove.poi.template.ElementTemplate;
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.common.utils.FileUtil;
+import com.lvmoney.common.utils.MapUtil;
 import com.lvmoney.common.utils.SnowflakeIdFactoryUtil;
 import com.lvmoney.office.constant.OfficeConstant;
 import com.lvmoney.office.enums.WTemplateEnum;
@@ -41,13 +42,13 @@ import java.util.Map;
  */
 @Service
 public class WordServiceImpl implements WordService {
-    private final static Logger logger = LoggerFactory.getLogger(WordServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(WordServiceImpl.class);
 
     @Autowired
     private DocumentConverter documentConverter;
 
     @Override
-    public boolean officeChange(WSourceVo wSourceVo) {
+    public boolean officeChange(WordSourceVo wSourceVo) {
         File sourceFile = new File(wSourceVo.getSource());
         File targetFile = new File(wSourceVo.getTarget());
         if (!targetFile.exists()) {
@@ -72,7 +73,7 @@ public class WordServiceImpl implements WordService {
         String fileName = baseChangeFileVo.getFileName();
         String targetFile = OfficeConstant.TEMP_FILE_PATH + OfficeConstant.FILE_SEPARATOR + targetName + baseChangeFileVo.getFileName();
         FileUtil.byte2File(source, sourceFile);
-        WSourceVo wSourceVo = new WSourceVo(sourceFile, targetFile);
+        WordSourceVo wSourceVo = new WordSourceVo(sourceFile, targetFile);
         officeChange(wSourceVo);
         InputStream input = null;
         BaseChangeByteOutVo result = new BaseChangeByteOutVo();
@@ -100,14 +101,14 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
-    public boolean template2Word(WTemplateVo templateVo) {
+    public boolean template2Word(WordTemplateVo templateVo) {
         String source = templateVo.getSource();
         String target = templateVo.getTarget();
-        List<WStringVo> str = templateVo.getStr();
-        List<WNumbericVo> numberic = templateVo.getNumberic();
-        List<WPictureVo> picture = templateVo.getPicture();
-        List<WTableVo> table = templateVo.getTable();
-        Map<String, Object> datas = new HashMap<String, Object>() {
+        List<WordStringVo> str = templateVo.getStr();
+        List<WordNumbericVo> numberic = templateVo.getNumberic();
+        List<WordPictureVo> picture = templateVo.getPicture();
+        List<WordTablesVo> table = templateVo.getTable();
+        Map<String, Object> datas = new HashMap<String, Object>(CommonConstant.MAP_DEFAULT_SIZE) {
             {
                 if (str != null) {
                     str.forEach(v -> {
@@ -121,7 +122,7 @@ public class WordServiceImpl implements WordService {
                 }
                 if (table != null) {
                     table.forEach(v -> {
-                        put(v.getKey(), new TableRenderData(v.getTableHeads(), v.getTablebodys(), v.getDataDesc(), v.getWidth()));
+                        put(v.getKey(), new MiniTableRenderData(v.getTableHeads(), v.getTablebodys(), v.getDataDesc(), v.getWidth()));
                     });
                 }
                 if (picture != null) {
@@ -152,13 +153,13 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
-    public BaseWordByteVo template2Word(WTemplateByteVo templateVo) {
+    public BaseWordByteVo template2Word(WordTemplateByteVo templateVo) {
         byte[] source = templateVo.getSource();
-        List<WStringVo> str = templateVo.getStr();
-        List<WNumbericVo> numberic = templateVo.getNumberic();
-        List<WPictureVo> picture = templateVo.getPicture();
-        List<WTablesVo> table = templateVo.getTable();
-        Map<String, Object> datas = new HashMap<String, Object>() {
+        List<WordStringVo> str = templateVo.getStr();
+        List<WordNumbericVo> numberic = templateVo.getNumberic();
+        List<WordPictureVo> picture = templateVo.getPicture();
+        List<WordTablesVo> table = templateVo.getTable();
+        Map<String, Object> datas = new HashMap<String, Object>(MapUtil.initMapSize(16)) {
             {
                 if (str != null) {
                     str.forEach(v -> {
@@ -226,8 +227,8 @@ public class WordServiceImpl implements WordService {
     }
 
     @Override
-    public List<WTemplateParams> getTemplateParams(WSourceVo wSourceVo) {
-        List<WTemplateParams> result = new ArrayList<>();
+    public List<WordTemplateParams> getTemplateParams(WordSourceVo wSourceVo) {
+        List<WordTemplateParams> result = new ArrayList<>();
         XWPFTemplate template = XWPFTemplate.compile(wSourceVo.getSource());
         List<ElementTemplate> elementTemplates = template.getElementTemplates();
         elementTemplates.forEach(v -> {
@@ -235,11 +236,11 @@ public class WordServiceImpl implements WordService {
             if (wTemplateEnum == null) {
                 throw new BusinessException(CommonException.Proxy.TEMPLATE_ELEMENT_NOT_SUPPORT);
             }
-            WTemplateParams wTemplateParams = new WTemplateParams();
-            wTemplateParams.setParamName(v.getTagName());
-            wTemplateParams.setTemplateParam(v.getSource());
-            wTemplateParams.setWTemplateEnum(wTemplateEnum);
-            result.add(wTemplateParams);
+            WordTemplateParams wordTemplateParams = new WordTemplateParams();
+            wordTemplateParams.setParamName(v.getTagName());
+            wordTemplateParams.setTemplateParam(v.getSource());
+            wordTemplateParams.setWTemplateEnum(wTemplateEnum);
+            result.add(wordTemplateParams);
         });
         return result;
     }

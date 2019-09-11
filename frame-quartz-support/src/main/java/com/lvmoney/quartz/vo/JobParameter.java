@@ -10,7 +10,7 @@ package com.lvmoney.quartz.vo;
 
 import java.io.Serializable;
 
-import com.lvmoney.quartz.job.ParentJob;
+import com.lvmoney.quartz.job.AbstractJob;
 
 /**
  * @describe：
@@ -31,7 +31,7 @@ public class JobParameter implements Serializable {
     /**
      * 具体执行的任务
      */
-    private ParentJob clazz;
+    private AbstractJob clazz;
 
     public String getJobName() {
         return jobName;
@@ -49,11 +49,11 @@ public class JobParameter implements Serializable {
         this.cron = cron;
     }
 
-    public ParentJob getClazz() {
+    public AbstractJob getClazz() {
         return clazz;
     }
 
-    public void setClazz(ParentJob clazz) {
+    public void setClazz(AbstractJob clazz) {
         this.clazz = clazz;
     }
 }

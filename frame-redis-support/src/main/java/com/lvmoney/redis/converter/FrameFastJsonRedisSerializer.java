@@ -30,6 +30,7 @@ import java.nio.charset.Charset;
  */
 @NoArgsConstructor
 public class FrameFastJsonRedisSerializer<T> implements RedisSerializer<T> {
+    private static final String IGNORE_CHAR = "type";
 
     private ObjectMapper objectMapper = new ObjectMapper();
     public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
@@ -45,6 +46,7 @@ public class FrameFastJsonRedisSerializer<T> implements RedisSerializer<T> {
         this.clazz = clazz;
     }
 
+    @Override
     public byte[] serialize(T t) throws SerializationException {
         if (t == null) {
             return new byte[0];
@@ -53,7 +55,7 @@ public class FrameFastJsonRedisSerializer<T> implements RedisSerializer<T> {
 
             @Override
             public boolean apply(Object object, String name, Object value) {
-                if (name.equalsIgnoreCase("@type")) {
+                if (IGNORE_CHAR.equalsIgnoreCase(name)) {
                     //false表示last字段将被排除在外
                     return false;
                 }
@@ -64,6 +66,7 @@ public class FrameFastJsonRedisSerializer<T> implements RedisSerializer<T> {
         return JSON.toJSONString(t, profilter, SerializerFeature.DisableCircularReferenceDetect).getBytes(DEFAULT_CHARSET);
     }
 
+    @Override
     public T deserialize(byte[] bytes) throws SerializationException {
         if (bytes == null || bytes.length <= 0) {
             return null;

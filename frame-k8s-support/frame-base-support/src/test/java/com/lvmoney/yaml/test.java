@@ -1,6 +1,6 @@
 package com.lvmoney.yaml;/**
  * 描述:
- * 包名:com.lvmoney.yaml
+ * 包名:com.lvmoney.Yaml
  * 版本信息: 版本1.0
  * 日期:2019/8/18
  * Copyright XXXXXX科技有限公司

@@ -13,17 +13,17 @@ package com.lvmoney.rabbitmq.ack.constant;/**
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class RabbitmqConstant {
-    public final static String SIMPLE_QUEUE_NAME = "simple";
-    public final static String MESSAGE_TOPIC = "topic.message";
+    public static final String SIMPLE_QUEUE_NAME = "simple";
+    public static final String MESSAGE_TOPIC = "topic.message";
 
-    public final static String MESSAGE_TOPICS = "topic.messages";
+    public static final String MESSAGE_TOPICS = "topic.messages";
 
-    public final static String MESSAGE_FANOUT = "fanout.message";
+    public static final String MESSAGE_FANOUT = "fanout.message";
 
-    public final static String EXCHANGE_FANOUT = "fanout.exchange";
+    public static final String EXCHANGE_FANOUT = "fanout.exchange";
 
-    public final static String EXCHANGE_TOPIC = "topic.exchange";
-    public final static String ROUTING_KEY_TOPIC = "topic.#";
+    public static final String EXCHANGE_TOPIC = "topic.exchange";
+    public static final String ROUTING_KEY_TOPIC = "topic.#";
 
-    public final static String REDIS_ACK_RECORD_NAME = "kafka_error_record";
+    public static final String REDIS_ACK_RECORD_NAME = "rabbitmq_error_record";
 }

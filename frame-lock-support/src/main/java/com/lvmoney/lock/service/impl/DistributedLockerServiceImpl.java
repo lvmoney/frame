@@ -64,6 +64,7 @@ public class DistributedLockerServiceImpl implements DistributedLockerService {
         lock.unlock();
     }
 
+    @Override
     public void setRedissonClient(RedissonClient redissonClient) {
         this.redissonClient = redissonClient;
     }

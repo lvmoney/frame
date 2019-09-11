@@ -9,8 +9,9 @@ import io.netty.handler.codec.MessageToMessageCodec;
 import java.util.List;
 
 /**
- * <p>
- * create by lvmoney at 2018/3/3-下午1:42
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class ObjectCodec extends MessageToMessageCodec<ByteBuf, Object> {
 

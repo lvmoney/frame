@@ -24,6 +24,11 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Component
 public class ClientAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 
@@ -73,10 +78,10 @@ public class ClientAuthenticationProvider extends AbstractUserDetailsAuthenticat
             if (passwordCaptcha) {
                 @SuppressWarnings("unchecked")
                 Map<String, String> map = (Map<String, String>) details;
-                if (map.containsKey("grant_type") && StringUtils.equals("password", map.get("grant_type"))) {
+                if (map.containsKey(Oauth2ServerConstant.GRANT_TYPE) && StringUtils.equals(Oauth2ServerConstant.PASSWORD, map.get(Oauth2ServerConstant.GRANT_TYPE))) {
 
-                    if (map.containsKey("graphId") && map.containsKey(Oauth2ServerConstant.VERIFICATION_CODE)) {
-                        String graphId = map.get("graphId");
+                    if (map.containsKey(Oauth2ServerConstant.GRAPH_ID) && map.containsKey(Oauth2ServerConstant.VERIFICATION_CODE)) {
+                        String graphId = map.get(Oauth2ServerConstant.GRAPH_ID);
                         String captcha = captchaService.getValidate(graphId).getValue();
 
                         if (!StringUtils.equalsIgnoreCase(map.get(Oauth2ServerConstant.VERIFICATION_CODE), captcha)) {

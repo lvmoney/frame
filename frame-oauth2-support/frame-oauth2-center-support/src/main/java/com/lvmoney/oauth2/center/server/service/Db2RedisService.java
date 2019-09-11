@@ -15,20 +15,24 @@ package com.lvmoney.oauth2.center.server.service;/**
 public interface Db2RedisService {
 
     /**
-     * @describe: 从数据库获得用户的userdetails信息并加载到redis
-     * @param: [username]
+     * 从数据库获得用户的userdetails信息并加载到redis
+     *
+     * @param username: 用户名
+     * @throws
      * @return: void
      * @author: lvmoney /XXXXXX科技有限公司
-     * 2019/8/6 14:20
+     * @date: 2019/9/9 20:18
      */
     void loadUserByUsername(String username);
 
     /**
-     * @describe: 从数据库中获得clientdetails信息并加载到redis
-     * @param: [clientId]
+     * 从数据库中获得clientdetails信息并加载到redis
+     *
+     * @param clientId: 客户端id
+     * @throws
      * @return: void
      * @author: lvmoney /XXXXXX科技有限公司
-     * 2019/8/6 17:33
+     * @date: 2019/9/9 20:18
      */
     void loadClientDetailsByClientId(String clientId);
 }

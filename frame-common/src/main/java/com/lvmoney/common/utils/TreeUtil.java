@@ -1,16 +1,24 @@
 package com.lvmoney.common.utils;
 
 
+import com.lvmoney.common.exceptions.BusinessException;
+import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.common.service.ITree;
 import com.lvmoney.common.utils.vo.Menu;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.util.*;
 
 /**
- * Created by Administrator on 2019/5/31.
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class TreeUtil {
+    private static final Logger logger = LoggerFactory.getLogger(TreeUtil.class);
+
     /**
      * 集合转树结构
      *
@@ -32,11 +40,17 @@ public class TreeUtil {
      */
     public static <T extends ITree> Collection<T> toTree(Collection<T> collection) {
         try {
-            if (collection == null || collection.isEmpty()) return null;// 如果目标集合为空,直接返回一个空树
+            if (collection == null || collection.isEmpty()) {
+                // 如果目标集合为空,直接返回一个空树
+                return null;
+            }
             // 找出所有的根节点
             Collection<T> roots = null;
-            if (collection.getClass().isAssignableFrom(Set.class)) roots = new HashSet<>();
-            else roots = new ArrayList<>();
+            if (collection.getClass().isAssignableFrom(Set.class)) {
+                roots = new HashSet<>();
+            } else {
+                roots = new ArrayList<>();
+            }
             for (T tree : collection) {
                 Object o = ITree.class.getMethod("getParent").invoke(tree);
                 if (o instanceof String) {
@@ -73,33 +87,38 @@ public class TreeUtil {
      */
     public static <T> Collection<T> toTree(Collection<T> collection, String id, String parent, String children, Class<T> clazz) {
         try {
-            if (collection == null || collection.isEmpty()) return null;// 如果目标集合为空,直接返回一个空树
-            if (StringUtil.isEmpty(id)) id = "id";// 如果被依赖字段名称为空则默认为id
-            if (StringUtil.isEmpty(parent)) parent = "parent";// 如果依赖字段为空则默认为parent
-            if (StringUtil.isEmpty(children)) children = "children";// 如果子节点集合属性名称为空则默认为children
-            Collection<T> roots = null;// 初始化根节点集合
-            if (collection.getClass().isAssignableFrom(Set.class))
-                roots = new HashSet<>();// 如果目标节点是一个set集合,则初始化根节点集合为hashset
-            else roots = new ArrayList<>();// 否则初始化为Arraylist,
+            if (collection == null || collection.isEmpty()) {
+                // 如果目标集合为空,直接返回一个空树
+                return null;
+            }
+            if (StringUtil.isEmpty(id)) {
+                // 如果被依赖字段名称为空则默认为id
+                id = "id";
+            }
+            if (StringUtil.isEmpty(parent)) {
+                // 如果依赖字段为空则默认为parent
+                parent = "parent";
+            }
+            if (StringUtil.isEmpty(children)) {
+                // 如果子节点集合属性名称为空则默认为children
+                children = "children";
+            }
+            // 初始化根节点集合
+            Collection<T> roots = null;
+            if (collection.getClass().isAssignableFrom(Set.class)) {
+                // 如果目标节点是一个set集合,则初始化根节点集合为hashset
+                roots = new HashSet<>();
+            } else {
+                // 否则初始化为Arraylist,
+                roots = new ArrayList<>();
+            }
             // 这里集合初始化只分2中,要么是hashset,要么ArrayList,因为这两种最常用,其他不常用的摒弃
-            Field idField = null;
-            try {
-                idField = clazz.getDeclaredField(id);// 获取依赖字段
-            } catch (NoSuchFieldException e1) {
-                idField = clazz.getSuperclass().getDeclaredField(id);
-            }
-            Field parentField = null;
-            try {
-                parentField = clazz.getDeclaredField(parent);// 获取被依赖字段
-            } catch (NoSuchFieldException e1) {
-                parentField = clazz.getSuperclass().getDeclaredField(parent);
-            }
-            Field childrenField = null;// 获取孩子字段
-            try {
-                childrenField = clazz.getDeclaredField(children);
-            } catch (NoSuchFieldException e1) {
-                childrenField = clazz.getSuperclass().getDeclaredField(children);
-            }
+            //获取id字段
+            Field idField = getIdField(parent, clazz);
+            //获取父字段
+            Field parentField = getParentField(parent, clazz);
+            // 获取孩子字段
+            Field childrenField = getChildrenField(children, clazz);
             // 设置为可访问
             idField.setAccessible(true);
             parentField.setAccessible(true);
@@ -108,7 +127,8 @@ public class TreeUtil {
             for (T c : collection) {
                 Object o = parentField.get(c);
                 if (o instanceof String) {
-                    if (StringUtil.isEmpty((String) o)) {// 如果父节点为空则说明是根节点,添加到根节点集合
+                    if (StringUtil.isEmpty((String) o)) {
+                        // 如果父节点为空则说明是根节点,添加到根节点集合
                         roots.add(c);
                     }
                 } else {
@@ -119,7 +139,8 @@ public class TreeUtil {
             }
             // 从目标集合移除所有根节点
             collection.removeAll(roots);
-            for (T c : roots) {// 遍历根节点,依次添加子节点
+            for (T c : roots) {
+                // 遍历根节点,依次添加子节点
                 addChild(c, collection, idField, parentField, childrenField);
             }
             // 关闭可访问
@@ -128,9 +149,56 @@ public class TreeUtil {
             childrenField.setAccessible(false);
             return roots;
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            logger.error("集合转树结构报错:{}", e.getMessage());
+            throw new BusinessException(CommonException.Proxy.TREE_CONVERSION_ERROR);
         }
+    }
+
+    private static Field getIdField(String parent, Class clazz) {
+        Field parentField = null;
+        try {
+            // 获取被依赖字段
+            parentField = clazz.getDeclaredField(parent);
+        } catch (NoSuchFieldException e1) {
+            try {
+                parentField = clazz.getSuperclass().getDeclaredField(parent);
+            } catch (NoSuchFieldException e) {
+                logger.error("获取idField字段报错:{}", e.getMessage());
+                throw new BusinessException(CommonException.Proxy.TREE_CONVERSION_ERROR);
+            }
+        }
+        return parentField;
+    }
+
+    private static Field getParentField(String parent, Class clazz) {
+        Field parentField = null;
+        try {
+            // 获取被依赖字段
+            parentField = clazz.getDeclaredField(parent);
+        } catch (NoSuchFieldException e1) {
+            try {
+                parentField = clazz.getSuperclass().getDeclaredField(parent);
+            } catch (NoSuchFieldException e) {
+                logger.error("获取parentField字段报错:{}", e.getMessage());
+                throw new BusinessException(CommonException.Proxy.TREE_CONVERSION_ERROR);
+            }
+        }
+        return parentField;
+    }
+
+    private static Field getChildrenField(String children, Class clazz) {
+        Field childrenField = null;
+        try {
+            childrenField = clazz.getDeclaredField(children);
+        } catch (NoSuchFieldException e1) {
+            try {
+                childrenField = clazz.getSuperclass().getDeclaredField(children);
+            } catch (NoSuchFieldException e) {
+                logger.error("获取childrenField字段报错:{}", e.getMessage());
+                throw new BusinessException(CommonException.Proxy.TREE_CONVERSION_ERROR);
+            }
+        }
+        return childrenField;
     }
 
     public static <T extends ITree> void addChild(T tree, Collection<T> collection) {
@@ -139,11 +207,17 @@ public class TreeUtil {
             Collection<T> children = (Collection<T>) ITree.class.getMethod("getChildren").invoke(tree);
             for (T cc : collection) {
                 Object o = ITree.class.getMethod("getParent").invoke(cc);
-                if (id.equals(o)) {// 如果当前节点的被依赖值和目标节点的被依赖值相等,则说明,当前节点是目标节点的子节点
-                    if (children == null) {// 如果目标节点的孩子集合为null,初始化目标节点的孩子集合
-                        if (collection.getClass().isAssignableFrom(Set.class)) {// 如果目标集合是一个set集合,则初始化目标节点的孩子节点集合为set
+                if (id.equals(o)) {
+                    // 如果当前节点的被依赖值和目标节点的被依赖值相等,则说明,当前节点是目标节点的子节点
+                    if (children == null) {
+                        // 如果目标节点的孩子集合为null,初始化目标节点的孩子集合
+                        if (collection.getClass().isAssignableFrom(Set.class)) {
+                            // 如果目标集合是一个set集合,则初始化目标节点的孩子节点集合为set
                             children = new HashSet<>();
-                        } else children = new ArrayList<>();// 否则初始化为list
+                        } else {
+                            // 否则初始化为list
+                            children = new ArrayList<>();
+                        }
                     }
                     // 将当前节点添加到目标节点的孩子节点
                     children.add(cc);
@@ -171,15 +245,25 @@ public class TreeUtil {
      * @throws IllegalAccessException
      */
     private static <T> void addChild(T c, Collection<T> collection, Field idField, Field parentField, Field childrenField) throws IllegalAccessException {
-        Object id = idField.get(c);// 获取目标节点的被依赖值
-        Collection<T> children = (Collection<T>) childrenField.get(c);// 获取目标节点的孩子列表
-        for (T cc : collection) {// 遍历目标集合
-            Object o = parentField.get(cc);// 获取当前节点的依赖值
-            if (id.equals(o)) {// 如果当前节点的被依赖值和目标节点的被依赖值相等,则说明,当前节点是目标节点的子节点
-                if (children == null) {// 如果目标节点的孩子集合为null,初始化目标节点的孩子集合
-                    if (collection.getClass().isAssignableFrom(Set.class)) {// 如果目标集合是一个set集合,则初始化目标节点的孩子节点集合为set
+        // 获取目标节点的被依赖值
+        Object id = idField.get(c);
+        // 获取目标节点的孩子列表
+        Collection<T> children = (Collection<T>) childrenField.get(c);
+        // 遍历目标集合
+        for (T cc : collection) {
+            // 获取当前节点的依赖值
+            Object o = parentField.get(cc);
+            if (id.equals(o)) {
+                // 如果当前节点的被依赖值和目标节点的被依赖值相等,则说明,当前节点是目标节点的子节点
+                if (children == null) {
+                    // 如果目标节点的孩子集合为null,初始化目标节点的孩子集合
+                    if (collection.getClass().isAssignableFrom(Set.class)) {
+                        // 如果目标集合是一个set集合,则初始化目标节点的孩子节点集合为set
                         children = new HashSet<>();
-                    } else children = new ArrayList<>();// 否则初始化为list
+                    } else {
+                        // 否则初始化为list
+                        children = new ArrayList<>();
+                    }
                 }
                 // 将当前节点添加到目标节点的孩子节点
                 children.add(cc);
@@ -206,23 +290,38 @@ public class TreeUtil {
      */
     public static <T> void addChild(T c, Collection<T> collection, String id, String parent, String children, Class<T> clazz) {
         try {
-            if (collection == null || collection.isEmpty()) return;// 如果目标集合为空,直接返回一个空树
-            if (StringUtil.isEmpty(id)) id = "id";// 如果被依赖字段名称为空则默认为id
-            if (StringUtil.isEmpty(parent)) parent = "parent";// 如果依赖字段为空则默认为parent
-            if (StringUtil.isEmpty(children)) children = "children";// 如果子节点集合属性名称为空则默认为children
+            if (collection == null || collection.isEmpty()) {
+                // 如果目标集合为空,直接返回一个空树
+                return;
+            }
+            if (StringUtil.isEmpty(id)) {
+                // 如果被依赖字段名称为空则默认为id
+                id = "id";
+            }
+            if (StringUtil.isEmpty(parent)) {
+                // 如果依赖字段为空则默认为parent
+                parent = "parent";
+            }
+            if (StringUtil.isEmpty(children)) {
+                // 如果子节点集合属性名称为空则默认为children
+                children = "children";
+            }
             Field idField = null;
             try {
-                idField = clazz.getDeclaredField(id);// 获取依赖字段
+                // 获取依赖字段
+                idField = clazz.getDeclaredField(id);
             } catch (NoSuchFieldException e1) {
                 idField = clazz.getSuperclass().getDeclaredField(id);
             }
             Field parentField = null;
             try {
-                parentField = clazz.getDeclaredField(parent);// 获取被依赖字段
+                // 获取被依赖字段
+                parentField = clazz.getDeclaredField(parent);
             } catch (NoSuchFieldException e1) {
                 parentField = clazz.getSuperclass().getDeclaredField(parent);
             }
-            Field childrenField = null;// 获取孩子字段
+            // 获取孩子字段
+            Field childrenField = null;
             try {
                 childrenField = clazz.getDeclaredField(children);
             } catch (NoSuchFieldException e1) {

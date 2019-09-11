@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Service
 public class Gateway2RedisServiceImpl implements Gateway2RedisService {
-    private final static Logger logger = LoggerFactory.getLogger(Gateway2RedisServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(Gateway2RedisServiceImpl.class);
 
     @Autowired
     BaseRedisService baseRedisService;

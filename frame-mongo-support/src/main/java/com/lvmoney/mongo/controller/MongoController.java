@@ -8,6 +8,7 @@
 
 package com.lvmoney.mongo.controller;
 
+import com.lvmoney.common.constant.CommonConstant;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.lvmoney.mongo.mo.MongodbTestMo;
@@ -30,9 +31,9 @@ import java.util.Date;
  * @describe：
  * @author: lvmoney /xxxx科技有限公司
  * @version:v1.0 2018年12月29日 下午5:02:46
+ * @RestController
+ * @RequestMapping("mongo")
  */
-//@RestController
-//@RequestMapping("mongo")
 public class MongoController {
     @Autowired
     BaseMongoService baseMongoService;
@@ -41,6 +42,22 @@ public class MongoController {
     BaseGridFsService baseGridFsService;
     @Value("${file.size.max:1000000}")
     String fileMaxSize;
+    /**
+     * 请求头User-Agent
+     */
+    private static final String USER_AGENT = "User-Agent";
+    /**
+     * MSIE
+     */
+    private static final String MSIE = "MSIE";
+    /**
+     * TRIDENT
+     */
+    private static final String TRIDENT = "TRIDENT";
+    /**
+     * EDGE
+     */
+    private static final String EDGE = "EDGE";
 
     @RequestMapping(value = "save")
     public void save() {
@@ -72,13 +89,13 @@ public class MongoController {
         baseGridFsQueryVo.setMongoFileId(fileId);
         BaseGridFsByteOutVo baseGridFsByteOutVo = baseGridFsService.getByMongoId(baseGridFsQueryVo);
         String fileName = baseGridFsByteOutVo.getFileName();
-        if (request.getHeader("User-Agent").toUpperCase().contains("MSIE") ||
-                request.getHeader("User-Agent").toUpperCase().contains("TRIDENT")
-                || request.getHeader("User-Agent").toUpperCase().contains("EDGE")) {
-            fileName = java.net.URLEncoder.encode(fileName, "UTF-8");
+        if (request.getHeader(USER_AGENT).toUpperCase().contains(MSIE) ||
+                request.getHeader(USER_AGENT).toUpperCase().contains(TRIDENT)
+                || request.getHeader(USER_AGENT).toUpperCase().contains(EDGE)) {
+            fileName = java.net.URLEncoder.encode(fileName, CommonConstant.CHAR_ENCODEING_DEFAULT);
         } else {
             //非IE浏览器的处理：
-            fileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1");
+            fileName = new String(fileName.getBytes(CommonConstant.CHAR_ENCODEING_DEFAULT), CommonConstant.CHAR_ENCODEING_ISO88591);
         }
         // 通知浏览器进行文件下载
 

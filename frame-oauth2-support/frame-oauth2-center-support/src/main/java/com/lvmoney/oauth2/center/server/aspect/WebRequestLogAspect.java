@@ -20,8 +20,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.lvmoney.oauth2.center.server.utils.IPUtils;
+import com.lvmoney.oauth2.center.server.utils.IpUtils;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Aspect
 @Component
 public class WebRequestLogAspect {
@@ -46,17 +51,18 @@ public class WebRequestLogAspect {
                     String parametersString = null;
                     String requestBody = null;
                     if (parameters != null) {
-                        parametersString = JacksonUtil.multiValueMapToJSONString(parameters);
+                        parametersString = JacksonUtil.multiValueMap2JsonString(parameters);
                     }
                     MethodSignature signature = (MethodSignature) joinPoint.getSignature();
-                    Method method = signature.getMethod(); //获取被拦截的方法
+                    //获取被拦截的方法
+                    Method method = signature.getMethod();
                     Object object = getAnnotatedParameterValueRequestBody(method, joinPoint.getArgs());
                     if (object != null) {
-                        requestBody = JacksonUtil.objectToJSONString(object);
+                        requestBody = JacksonUtil.object2JsonString(object);
                     }
                     StringBuffer stringBuffer = new StringBuffer();
                     stringBuffer.append("\nRequest from = ");
-                    stringBuffer.append(IPUtils.getIpAddress(request));
+                    stringBuffer.append(IpUtils.getIpAddress(request));
                     stringBuffer.append(";\n");
                     stringBuffer.append("uri = ");
                     stringBuffer.append(request.getRequestURL().toString());
@@ -88,7 +94,7 @@ public class WebRequestLogAspect {
         // 处理完请求，返回内容
         if (log.isInfoEnabled()) {
             try {
-                log.info("Response from server : \n" + JacksonUtil.objectToJSONString(ret));
+                log.info("Response from server : \n" + JacksonUtil.object2JsonString(ret));
             } catch (Exception e) {
                 log.info("log http response Exception:\n ", e);
             }

@@ -13,9 +13,9 @@ package com.lvmoney.activiti.constant;/**
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class ActivitiConstant {
-    public final static String ACTIVITI_APPLIER_KEY = "applier";
+    public static final String ACTIVITI_APPLIER_KEY = "applier";
 
-    public final static String DELETE_TYPE_REJECT = "reject";
+    public static final String DELETE_TYPE_REJECT = "reject";
 
-    public final static String DELETE_TYPE_REVOKE = "revoke";
+    public static final String DELETE_TYPE_REVOKE = "revoke";
 }

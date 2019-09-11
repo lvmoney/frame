@@ -8,7 +8,7 @@ package com.lvmoney.signature.application;/**
 
 
 import com.lvmoney.signature.config.SignFont;
-import com.lvmoney.signature.utils.SignUtil;
+import com.lvmoney.signature.utils.AbstractSignUtil;
 
 /**
  * @describe：
@@ -19,6 +19,6 @@ public class Test2 {
     public static void main(String[] args) throws Exception {
         SignFont font = new SignFont();
         font.setFontSize(120).setBold(true).setFontText("诸葛孔明");
-        SignUtil.buildAndStorePersonSeal(300, 16, font, "印", "F:\\sclt\\file\\私章.png");
+        AbstractSignUtil.buildAndStorePersonSeal(300, 16, font, "印", "F:\\sclt\\file\\私章.png");
     }
 }

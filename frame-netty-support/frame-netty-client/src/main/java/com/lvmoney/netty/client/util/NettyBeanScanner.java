@@ -1,6 +1,6 @@
 package com.lvmoney.netty.client.util;
 
-import com.lvmoney.netty.client.client.RPCProxyFactoryBean;
+import com.lvmoney.netty.client.client.RpcProxyFactoryBean;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -65,10 +65,10 @@ public class NettyBeanScanner implements BeanFactoryPostProcessor {
                 simpleName = clazz;
             }
             // 使用建造者模式创建一个Bean定义
-            BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(RPCProxyFactoryBean.class);
-            // 对应 RPCProxyFactoryBean 类的 interfaceClass 属性
+            BeanDefinitionBuilder beanDefinitionBuilder = BeanDefinitionBuilder.genericBeanDefinition(RpcProxyFactoryBean.class);
+            // 对应 RpcProxyFactoryBean 类的 interfaceClass 属性
             beanDefinitionBuilder.addPropertyValue("interfaceClass", clazz);
-            // 对应 RPCProxyFactoryBean 的nettyClient 属性  --  已删
+            // 对应 RpcProxyFactoryBean 的nettyClient 属性  --  已删
 //            beanDefinitionBuilder.addPropertyReference("nettyClient", clientName);
             // 注册对bean的定义
             this.beanFactory.registerBeanDefinition(simpleName, beanDefinitionBuilder.getRawBeanDefinition());

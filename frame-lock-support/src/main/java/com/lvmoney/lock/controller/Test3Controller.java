@@ -7,6 +7,7 @@ package com.lvmoney.lock.controller;/**
  */
 
 
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.lock.service.ProdLockService;
 import com.lvmoney.lock.service.SequenceService;
 import com.lvmoney.lock.vo.req.ProdLockInitReqVo;
@@ -25,9 +26,9 @@ import java.util.HashMap;
  * @describe：
  * @author: lvmoney /xxxx科技有限公司
  * @version:v1.0 2018年10月30日 下午3:29:38
+ * RestController
+ * @RequestMapping(value = "/test3")
  */
-//@RestController
-//@RequestMapping(value = "/test3")
 public class Test3Controller {
     @Autowired
     SequenceService sequenceService;
@@ -48,7 +49,7 @@ public class Test3Controller {
     @RequestMapping(value = "/test3", method = RequestMethod.GET)
     public boolean testDistributed3() {
         ProdLockInitReqVo sectionReqVo = new ProdLockInitReqVo();
-        sectionReqVo.setStock(new HashMap<String, Integer>() {
+        sectionReqVo.setStock(new HashMap<String, Integer>(CommonConstant.MAP_DEFAULT_SIZE) {
             {
                 put("name", 100);
                 put("name2", 100);

@@ -32,7 +32,6 @@ import org.springframework.util.Assert;
  * 提供一些可能会用到的反射方法供业务系统使用
  *
  * @author lvmoney
- *
  */
 public class ReflectionUtil {
 
@@ -46,18 +45,16 @@ public class ReflectionUtil {
      * 设置日期本地化转换器
      */
     static {
-        DateLocaleConverter _dc = new DateLocaleConverter();
+        DateLocaleConverter dc = new DateLocaleConverter();
         // dc.setPatterns(new String[] { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss" });
-        ConvertUtils.register(_dc, Date.class);
+        ConvertUtils.register(dc, Date.class);
     }
 
     /**
      * 反射调用Get方法获取值 TODO 暂时未对boolean的is开始的获取方法进行处理，直接根据属性名获取值
      *
-     * @param target
-     *            反射对象
-     * @param propertyName
-     *            方法参数
+     * @param target       反射对象
+     * @param propertyName 方法参数
      * @return 字段值
      */
     public static Object invokeGetterMethod(Object target, String propertyName) {
@@ -71,12 +68,9 @@ public class ReflectionUtil {
     /**
      * 调用Setter方法.使用value的Class来查找Setter方法.
      *
-     * @param target
-     *            反射对象
-     * @param propertyName
-     *            属性名
-     * @param value
-     *            待设置的值
+     * @param target       反射对象
+     * @param propertyName 属性名
+     * @param value        待设置的值
      */
     public static void invokeSetterMethod(Object target, String propertyName,
                                           Object value) {
@@ -86,76 +80,67 @@ public class ReflectionUtil {
     /**
      * 用于查找Setter方法,为空时使用value的Class替代.
      *
-     * @param target
-     *            反射对象
-     * @param propertyName
-     *            属性名
-     * @param value
-     *            设置的值
-     * @param propertyType
-     *            属性类型
+     * @param target       反射对象
+     * @param propertyName 属性名
+     * @param value        设置的值
+     * @param propertyType 属性类型
      */
     public static void invokeSetterMethod(Object target, String propertyName,
                                           Object value, Class<?> propertyType) {
-        Class<?> _type = propertyType != null ? propertyType : value.getClass();
-        String _setterMethodName = (propertyName.startsWith("set") ? "" : "set")
-                + StringUtil.Capitalize(propertyName);
-        invokeMethod(target, _setterMethodName, new Class[]{_type},
+        Class<?> type = propertyType != null ? propertyType : value.getClass();
+        String setterMethodName = (propertyName.startsWith("set") ? "" : "set")
+                + StringUtil.capitalize(propertyName);
+        invokeMethod(target, setterMethodName, new Class[]{type},
                 new Object[]{value});
     }
 
     /**
      * 不管属性的访问限定符(private/protected)直接读取对象属性值（不通过get方法获取值）
      *
-     * @param object
-     *            反射对象
-     * @param fieldName
-     *            属性名
+     * @param object    反射对象
+     * @param fieldName 属性名
      * @return 属性值
      */
     public static Object getFieldValue(final Object object,
                                        final String fieldName) {
-        Field _field = getDeclaredField(object, fieldName);
+        Field field = getDeclaredField(object, fieldName);
 
-        if (_field == null) {
+        if (field == null) {
             throw new IllegalArgumentException("对象[" + object + "]中未找到属性["
                     + fieldName + "]");
         }
 
-        makeAccessible(_field);
+        makeAccessible(field);
 
-        Object _result = null;
+        Object result = null;
         try {
-            _result = _field.get(object);
+            result = field.get(object);
         } catch (IllegalAccessException e) {
             logger.error("不可能抛出的异常{}" + e.getMessage());
         }
-        return _result;
+        return result;
     }
 
     /**
      * 不管属性的访问限定符(private/protected)直接设置对象属性值（不通过set方法设置值）
      *
-     * @param object
-     *            反射对象
-     * @param fieldName
-     *            属性名
-     * @param value
-     *            属性值
+     * @param object    反射对象
+     * @param fieldName 属性名
+     * @param value     属性值
      */
     public static void setFieldValue(final Object object,
                                      final String fieldName, final Object value) {
-        Field _field = getDeclaredField(object, fieldName);
+        Field field = getDeclaredField(object, fieldName);
 
-        if (_field == null) {
+        if (field == null) {
             throw new IllegalArgumentException("对象[" + object + "]中未找到属性["
                     + fieldName + "]");
         }
 
-        makeAccessible(_field);
+        makeAccessible(field);
 
         try {
-            _field.set(object, value);
+            field.set(object, value);
         } catch (IllegalAccessException e) {
             logger.error("不可能抛出的异常:{}" + e.getMessage());
         }
@@ -164,29 +149,25 @@ public class ReflectionUtil {
     /**
      * 直接调用对象的方法，不理会访问限定符(private/protected)
      *
-     * @param object
-     *            反射对象
-     * @param methodName
-     *            方法名
-     * @param parameterTypes
-     *            参数列表
-     * @param parameters
-     *            参数值
+     * @param object         反射对象
+     * @param methodName     方法名
+     * @param parameterTypes 参数列表
+     * @param parameters     参数值
      * @return 返回结果
      */
     public static Object invokeMethod(final Object object,
                                       final String methodName, final Class<?>[] parameterTypes,
                                       final Object[] parameters) {
-        Method _method = getDeclaredMethod(object, methodName, parameterTypes);
-        if (_method == null) {
+        Method method = getDeclaredMethod(object, methodName, parameterTypes);
+        if (method == null) {
             throw new IllegalArgumentException("对象[" + object + "]中未找到方法["
                     + methodName + "(" + parameterTypes + ")");
         }
 
-        _method.setAccessible(true);
+        method.setAccessible(true);
 
         try {
-            return _method.invoke(object, parameters);
+            return method.invoke(object, parameters);
         } catch (Exception e) {
             throw convertReflectionExceptionToUnchecked(e);
         }
@@ -195,20 +176,18 @@ public class ReflectionUtil {
     /**
      * 递归获取对象的Declared<code>Field</code> 如向上转型到Object仍无法找到, 返回null.
      *
-     * @param object
-     *            反射对象
-     * @param fieldName
-     *            属性名
+     * @param object    反射对象
+     * @param fieldName 属性名
      * @return 字段
      */
     protected static Field getDeclaredField(final Object object,
                                             final String fieldName) {
         Assert.notNull(object, "object不能为空");
         Assert.hasText(fieldName, "fieldName");
-        for (Class<?> _superClass = object.getClass(); _superClass != Object.class; _superClass = _superClass
+        for (Class<?> superClass = object.getClass(); superClass != Object.class; superClass = superClass
                 .getSuperclass()) {
             try {
-                return _superClass.getDeclaredField(fieldName);
+                return superClass.getDeclaredField(fieldName);
             } catch (NoSuchFieldException e) {// NOSONAR
                 logger.error("找不到对应的属性[" + fieldName + "]", e);
                 // Field不在当前类定义,继续向上转型
@@ -220,8 +199,7 @@ public class ReflectionUtil {
     /**
      * 强行设置字段可以访问（去除private、protected访问限定符）
      *
-     * @param field
-     *            字段
+     * @param field 字段
      */
     protected static void makeAccessible(final Field field) {
         if (!Modifier.isPublic(field.getModifiers())
@@ -233,20 +211,18 @@ public class ReflectionUtil {
     /**
      * 递归获取对象的Declared<code>Method</code>. 如向上转型到Object仍无法找到, 返回null.
      *
-     * @param object
-     *            反射对象
-     * @param methodName
-     *            方法名
+     * @param object     反射对象
+     * @param methodName 方法名
      * @return 方法对象
      */
     protected static Method getDeclaredMethod(Object object, String methodName,
                                               Class<?>[] parameterTypes) {
         Assert.notNull(object, "object不能为空");
 
-        for (Class<?> _superClass = object.getClass(); _superClass != Object.class; _superClass = _superClass
+        for (Class<?> superClass = object.getClass(); superClass != Object.class; superClass = superClass
                 .getSuperclass()) {
             try {
-                return _superClass
+                return superClass
                         .getDeclaredMethod(methodName, parameterTypes);
             } catch (NoSuchMethodException e) {// NOSONAR
                 logger.error("找不到对应的方法[" + methodName + "]", e);
@@ -260,10 +236,9 @@ public class ReflectionUtil {
      * 通过反射, 获得Class定义中声明的父类的泛型参数的类型. 如无法找到, 返回Object.class. eg. public UserDao
      * extends HibernateDao<User>
      *
-     * @param clazz
-     *            The class to introspect
+     * @param clazz The class to introspect
      * @return the first generic declaration, or Object.class if cannot be
-     *         determined
+     * determined
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static <T> Class<T> getSuperClassGenricType(final Class clazz) {
@@ -272,94 +247,85 @@ public class ReflectionUtil {
 
     /**
      * 通过反射, 获得定义Class时声明的父类的泛型参数的类型. 如无法找到, 返回Object.class.
-     *
+     * <p>
      * 如public UserDao extends HibernateDao<User,Long>
      *
-     * @param clazz
-     *            clazz The class to introspect
-     * @param index
-     *            the Index of the generic ddeclaration,start from 0.
+     * @param clazz clazz The class to introspect
+     * @param index the Index of the generic ddeclaration,start from 0.
      * @return the index generic declaration, or Object.class if cannot be
-     *         determined
+     * determined
      */
     @SuppressWarnings({"rawtypes"})
     public static Class getSuperClassGenricType(final Class clazz,
                                                 final int index) {
-        Type _genType = clazz.getGenericSuperclass();
+        Type genType = clazz.getGenericSuperclass();
 
-        if (!(_genType instanceof ParameterizedType)) {
+        if (!(genType instanceof ParameterizedType)) {
             logger.warn(clazz.getSimpleName()
                     + "'s superclass not ParameterizedType");
             return Object.class;
         }
 
-        Type[] _params = ((ParameterizedType) _genType)
+        Type[] params = ((ParameterizedType) genType)
                 .getActualTypeArguments();
 
-        if (index >= _params.length || index < 0) {
+        if (index >= params.length || index < 0) {
             logger.warn("Index: " + index + ", Size of "
                     + clazz.getSimpleName() + "'s Parameterized Type: "
-                    + _params.length);
+                    + params.length);
             return Object.class;
         }
-        if (!(_params[index] instanceof Class)) {
+        if (!(params[index] instanceof Class)) {
             logger.warn(clazz.getSimpleName()
                     + " not set the actual class on superclass generic parameter");
             return Object.class;
         }
 
-        return (Class) _params[index];
+        return (Class) params[index];
     }
 
     /**
      * 提取集合中的对象的属性(通过getter函数), 组合成List.
      *
-     * @param collection
-     *            来源集合.
-     * @param propertyName
-     *            要提取的属性名.
+     * @param collection   来源集合.
+     * @param propertyName 要提取的属性名.
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static List convertElementPropertyToList(
             final Collection collection, final String propertyName) {
-        List _list = new ArrayList();
+        List list = new ArrayList();
 
         try {
-            for (Object _obj : collection) {
-                _list.add(PropertyUtils.getProperty(_obj, propertyName));
+            for (Object obj : collection) {
+                list.add(PropertyUtils.getProperty(obj, propertyName));
             }
         } catch (Exception e) {
             throw convertReflectionExceptionToUnchecked(e);
         }
 
-        return _list;
+        return list;
     }
 
     /**
      * 提取集合中的对象的属性(通过getter函数), 组合成由分割符分隔的字符串.
      *
-     * @param collection
-     *            来源集合.
-     * @param propertyName
-     *            要提取的属性名.
-     * @param separator
-     *            分隔符.
+     * @param collection   来源集合.
+     * @param propertyName 要提取的属性名.
+     * @param separator    分隔符.
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     public static String convertElementPropertyToString(
             final Collection collection, final String propertyName,
             final String separator) {
-        List _list = convertElementPropertyToList(collection, propertyName);
-        return StringUtil.Join(_list, separator);
+        List list = convertElementPropertyToList(collection, propertyName);
+        return StringUtil.join(list, separator);
     }
 
     /**
      * 转换字符串到相应类型.
      *
-     * @param value
-     *            待转换的字符串
-     * @param toType
-     *            转换目标类型
+     * @param value  待转换的字符串
+     * @param toType 转换目标类型
      */
     @SuppressWarnings("unchecked")
     public static <T> T convertStringToObject(String value, Class<T> toType) {
@@ -373,8 +339,7 @@ public class ReflectionUtil {
     /**
      * 将反射时的checked exception转换为unchecked exception.
      *
-     * @param e
-     *            异常对象
+     * @param e 异常对象
      * @return uncheched exception
      */
     public static RuntimeException convertReflectionExceptionToUnchecked(
@@ -385,10 +350,8 @@ public class ReflectionUtil {
     /**
      * 将反射时的checked exception转换为unchecked exception.
      *
-     * @param desc
-     *            exception message
-     * @param e
-     *            Exception
+     * @param desc exception message
+     * @param e    Exception
      * @return <code>RuntimeException</code>
      */
     public static RuntimeException convertReflectionExceptionToUnchecked(
@@ -410,8 +373,7 @@ public class ReflectionUtil {
     /**
      * 获取一个实例化
      *
-     * @param cls
-     *            反射实例化对象
+     * @param cls 反射实例化对象
      * @return 实例化对象
      */
     public static final <T> T getNewInstance(Class<T> cls) {
@@ -436,11 +398,11 @@ public class ReflectionUtil {
                                       String[] porperties) throws InvocationTargetException,
             IllegalAccessException {
         for (String por : porperties) {
-            Object _srcObj = invokeGetterMethod(source, por);
-            logger.debug("属性名[" + por + "]属性值[" + _srcObj + "]");
-            if (_srcObj != null) {
+            Object srcObj = invokeGetterMethod(source, por);
+            logger.debug("属性名[" + por + "]属性值[" + srcObj + "]");
+            if (srcObj != null) {
                 try {
-                    BeanUtils.setProperty(dest, por, _srcObj);
+                    BeanUtils.setProperty(dest, por, srcObj);
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {
@@ -462,11 +424,11 @@ public class ReflectionUtil {
     @SuppressWarnings({"rawtypes"})
     public static void copyPorperties(Object dest, Object source)
             throws IllegalAccessException, InvocationTargetException {
-        Class _srcCla = source.getClass();
-        Field[] _fsF = _srcCla.getDeclaredFields();
+        Class srcCla = source.getClass();
+        Field[] fsField = srcCla.getDeclaredFields();
 
-        for (Field _s : _fsF) {
-            String name = _s.getName();
+        for (Field s : fsField) {
+            String name = s.getName();
             Object srcObj = invokeGetterMethod(source, name);
             try {
                 BeanUtils.setProperty(dest, name, srcObj);
@@ -484,9 +446,9 @@ public class ReflectionUtil {
     /**
      * 两个对象比较是否相等
      *
-     * @return Boolean
      * @param obj1
      * @param obj2
+     * @return Boolean
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
@@ -512,10 +474,11 @@ public class ReflectionUtil {
 
     /**
      * 比较两个对象是否一致
-     * @author LeeBing
+     *
      * @param obj1
      * @param obj2
      * @return
+     * @author LeeBing
      */
     public static boolean equals(Object obj1, Object obj2) {
 

@@ -18,6 +18,14 @@ import com.lvmoney.kafka.vo.MessageVo;
  */
 
 public interface HandMqDataService {
-    @SuppressWarnings("rawtypes")
+    /**
+     * 消息处理
+     *
+     * @param messageVo:
+     * @throws
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:41
+     */
     void handData(MessageVo messageVo);
 }

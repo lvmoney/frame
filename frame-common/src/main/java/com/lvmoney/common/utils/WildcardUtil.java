@@ -11,6 +11,7 @@ package com.lvmoney.common.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.lvmoney.common.constant.CommonConstant;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -62,7 +63,7 @@ public class WildcardUtil {
     }
 
     public static void main(String[] args) {
-        Map<String, String> testMap = new HashMap<String, String>();
+        Map<String, String> testMap = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
         testMap.put("/css/*", "test");
         System.out.println(testMap.containsKey("/css/test.css"));
         System.out.println(WildcardUtil.simpleWildcardMatch("test.*", "test.test"));

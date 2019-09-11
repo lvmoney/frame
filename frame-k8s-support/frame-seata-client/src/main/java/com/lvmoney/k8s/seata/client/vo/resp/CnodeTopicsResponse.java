@@ -3,7 +3,9 @@ package com.lvmoney.k8s.seata.client.vo.resp;
 import java.util.List;
 
 /**
- * Created by Administrator on 2019/5/23.
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class CnodeTopicsResponse {
     private boolean success;

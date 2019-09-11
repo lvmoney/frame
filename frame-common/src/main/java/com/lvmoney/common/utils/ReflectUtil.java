@@ -8,6 +8,7 @@
 
 package com.lvmoney.common.utils;
 
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.common.utils.vo.ReflectVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ import java.util.*;
 
 public class ReflectUtil {
 
-    private final static Logger logger = LoggerFactory.getLogger(ReflectUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(ReflectUtil.class);
 
     /**
      * @param reflectVo
@@ -33,7 +34,7 @@ public class ReflectUtil {
      * @author: lvmoney /xxxx科技有限公司
      */
     public static <T> ReflectVo<T> getContent(ReflectVo<T> reflectVo) {
-        Map<String, String> paraMap = getKeyValueFormVo(reflectVo.getT());
+        Map<String, String> paraMap = getKeyValueFormVo(reflectVo.getData());
         String content = formatUrlMap(paraMap, reflectVo.isUrlEncode(), reflectVo.isKeyToUpper());
         reflectVo.setContent(content);
         return reflectVo;
@@ -46,19 +47,24 @@ public class ReflectUtil {
      * @author: lvmoney /xxxx科技有限公司
      */
     public static <T> Map<String, String> getKeyValueFormVo(T t) {
-        Map<String, String> result = new HashMap<String, String>();
+        Map<String, String> result = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
         Object clazz;
         Object pClazz;
         try {
             clazz = t.getClass().newInstance();
             pClazz = t.getClass().getSuperclass().newInstance();
-            Field[] pFields = pClazz.getClass().getDeclaredFields();// 父实体属性
+            // 父实体属性
+            Field[] pFields = pClazz.getClass().getDeclaredFields();
             for (int i = 0; i < pFields.length; i++) {
                 Field f = pFields[i];
-                String key = f.getName();// 属性名
-                String value = null;// 属性值
-                if (!"serialVersionUID".equals(key) && !"sign".equals(key)) {// 忽略序列化版本ID号
-                    f.setAccessible(true);// 取消Java语言访问检查
+                // 属性名
+                String key = f.getName();
+                // 属性值
+                String value = null;
+                // 忽略序列化版本ID号
+                if (!"serialVersionUID".equals(key) && !"sign".equals(key)) {
+                    // 取消Java语言访问检查
+                    f.setAccessible(true);
                     try {
                         Object obj = f.get(t);
                         value = obj != null ? obj.toString() : "";
@@ -70,13 +76,18 @@ public class ReflectUtil {
                     result.put(key, value);
                 }
             }
-            Field[] fields = clazz.getClass().getDeclaredFields();// 实体属性
+            // 实体属性
+            Field[] fields = clazz.getClass().getDeclaredFields();
             for (int i = 0; i < fields.length; i++) {
                 Field f = fields[i];
-                String key = f.getName();// 属性名
-                String value = null;// 属性值
-                if (!"serialVersionUID".equals(key) && !"sign".equals(key)) {// 忽略序列化版本ID号
-                    f.setAccessible(true);// 取消Java语言访问检查
+                // 属性名
+                String key = f.getName();
+                // 属性值
+                String value = null;
+                // 忽略序列化版本ID号
+                if (!"serialVersionUID".equals(key) && !"sign".equals(key)) {
+                    // 取消Java语言访问检查
+                    f.setAccessible(true);
                     try {
                         Object obj = f.get(t);
                         value = obj != null ? obj.toString() : "";
@@ -98,7 +109,7 @@ public class ReflectUtil {
     /**
      * @param paraMap    要排序的Map对象 *
      * @param urlEncode  是否需要URLENCODE
-     * @param keyToLower 是否需要将Key转换为全大写 * true:key转化成大写，false:不转化
+     * @param keyToUpper 是否需要将Key转换为全大写 * true:key转化成大写，false:不转化
      * @return
      * @describe:对所有传入参数按照字段名的Unicode码从小到大排序（字典序），并且生成url参数串
      * @author: lvmoney /xxxx科技有限公司
@@ -147,20 +158,25 @@ public class ReflectUtil {
      * @describe:反射遍历获得泛型实体的key和value值。根据业务需要排除serialVersionUID字段
      * @author: lvmoney /xxxx科技有限公司
      */
-    public static <T> Map<String, Object> getKeyValueFormT(T t) {
-        Map<String, Object> result = new HashMap<String, Object>();
+    public static <T> Map<String, Object> getKeyValueFormBean(T t) {
+        Map<String, Object> result = new HashMap<String, Object>(CommonConstant.MAP_DEFAULT_SIZE);
         Object clazz;
         Object pClazz;
         try {
             clazz = t.getClass().newInstance();
             pClazz = t.getClass().getSuperclass().newInstance();
-            Field[] pFields = pClazz.getClass().getDeclaredFields();// 父实体属性
+            // 父实体属性
+            Field[] pFields = pClazz.getClass().getDeclaredFields();
             for (int i = 0; i < pFields.length; i++) {
                 Field f = pFields[i];
-                String key = f.getName();// 属性名
-                String value = null;// 属性值
-                if (!"serialVersionUID".equals(key)) {// 忽略序列化版本ID号
-                    f.setAccessible(true);// 取消Java语言访问检查
+                // 属性名
+                String key = f.getName();
+                // 属性值
+                String value = null;
+                // 忽略序列化版本ID号
+                if (!"serialVersionUID".equals(key)) {
+                    // 取消Java语言访问检查
+                    f.setAccessible(true);
                     try {
                         Object obj = f.get(t);
                         value = obj != null ? obj.toString() : "";
@@ -172,13 +188,18 @@ public class ReflectUtil {
                     result.put(key, value);
                 }
             }
-            Field[] fields = clazz.getClass().getDeclaredFields();// 实体属性
+            // 实体属性
+            Field[] fields = clazz.getClass().getDeclaredFields();
             for (int i = 0; i < fields.length; i++) {
                 Field f = fields[i];
-                String key = f.getName();// 属性名
-                String value = null;// 属性值
-                if (!"serialVersionUID".equals(key)) {// 忽略序列化版本ID号
-                    f.setAccessible(true);// 取消Java语言访问检查
+                // 属性名
+                String key = f.getName();
+                // 属性值
+                String value = null;
+                // 忽略序列化版本ID号
+                if (!"serialVersionUID".equals(key)) {
+                    // 取消Java语言访问检查
+                    f.setAccessible(true);
                     try {
                         Object obj = f.get(t);
                         value = obj != null ? obj.toString() : "";

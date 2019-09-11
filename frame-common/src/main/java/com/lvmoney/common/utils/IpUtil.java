@@ -21,7 +21,9 @@ import java.util.regex.Pattern;
  * @version:v1.0 2019/8/20 9:01
  */
 public class IpUtil {
-    private final static Logger logger = LoggerFactory.getLogger(IpUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(IpUtil.class);
+
+    private static final int IP_LENGTH_MAX = 15;
 
     /**
      * @describe:判断ip是否属于某个网段
@@ -56,7 +58,8 @@ public class IpUtil {
      * 2019/8/20 9:06
      */
     public static boolean isIp(String ip) {
-        String ipReg = "^(([1-9]|([1-9]\\d)|(1\\d\\d)|(2([0-4]\\d|5[0-5])))\\.)(([1-9]|([1-9]\\d)|(1\\d\\d)|(2([0-4]\\d|5[0-5])))\\.){2}([1-9]|([1-9]\\d)|(1\\d\\d)|(2([0-4]\\d|5[0-5])))$";// ip的正则表达式
+        // ip的正则表达式
+        String ipReg = "^(([1-9]|([1-9]\\d)|(1\\d\\d)|(2([0-4]\\d|5[0-5])))\\.)(([1-9]|([1-9]\\d)|(1\\d\\d)|(2([0-4]\\d|5[0-5])))\\.){2}([1-9]|([1-9]\\d)|(1\\d\\d)|(2([0-4]\\d|5[0-5])))$";
         Pattern ipPattern = Pattern.compile(ipReg);
         boolean flag = ipPattern.matcher(ip).matches();
         return flag;
@@ -66,7 +69,7 @@ public class IpUtil {
     public static String getLocalhostIp() {
         InetAddress ia = null;
         try {
-            ia = ia.getLocalHost();
+            ia = InetAddress.getLocalHost();
             String localip = ia.getHostAddress();
             return localip;
         } catch (Exception e) {
@@ -93,23 +96,23 @@ public class IpUtil {
      */
     public static String getRequestIp(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.length() == 0 || CommonConstant.IP_UNKNOWN.equalsIgnoreCase(ip)) {
+            if (ip == null || ip.length() == 0 || CommonConstant.IP_UNKNOWN.equalsIgnoreCase(ip)) {
                 ip = request.getHeader("Proxy-Client-IP");
             }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            if (ip == null || ip.length() == 0 || CommonConstant.IP_UNKNOWN.equalsIgnoreCase(ip)) {
                 ip = request.getHeader("WL-Proxy-Client-IP");
             }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            if (ip == null || ip.length() == 0 || CommonConstant.IP_UNKNOWN.equalsIgnoreCase(ip)) {
                 ip = request.getHeader("HTTP_CLIENT_IP");
             }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            if (ip == null || ip.length() == 0 || CommonConstant.IP_UNKNOWN.equalsIgnoreCase(ip)) {
                 ip = request.getHeader("HTTP_X_FORWARDED_FOR");
             }
-            if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            if (ip == null || ip.length() == 0 || CommonConstant.IP_UNKNOWN.equalsIgnoreCase(ip)) {
                 ip = request.getRemoteAddr();
             }
-        } else if (ip.length() > 15) {
+        } else if (ip.length() > IP_LENGTH_MAX) {
             String[] ips = ip.split(",");
             for (int index = 0; index < ips.length; index++) {
                 String strIp = (String) ips[index];

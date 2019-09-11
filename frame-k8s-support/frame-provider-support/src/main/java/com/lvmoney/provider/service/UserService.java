@@ -16,5 +16,14 @@ import com.lvmoney.provider.vo.resp.UserRespVo;
  * @version:v1.0 2019/8/16 11:36
  */
 public interface UserService {
+    /**
+     * 获得用户
+     *
+     * @param userReqVo: 用户请求实体
+     * @throws
+     * @return: com.lvmoney.provider.vo.resp.UserRespVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/10 8:57
+     */
     UserRespVo getUser(UserReqVo userReqVo);
 }

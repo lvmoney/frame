@@ -20,11 +20,13 @@ import java.util.List;
  */
 public interface UserRoleDao extends BaseMapper<UserRole> {
     /**
-     * @describe: 通过用户id获得用户的权限
-     * @param: [userId]
+     * 通过用户id获得用户的权限
+     *
+     * @param userId: 用户id
+     * @throws
      * @return: java.util.List<com.lvmoney.oauth2.center.server.db.entity.UserRole>
      * @author: lvmoney /XXXXXX科技有限公司
-     * 2019/8/7 10:15
+     * @date: 2019/9/10 8:56
      */
     @Select("select a.code,c.username from role as a inner join user_role as b on a.role_id=b.role_id and a.valid=1 and b.valid=1  inner join user_account as c on b.user_id=c.user_accid and c.valid=1 where c.user_accid=#{userId}")
     List<UserRole> findRoleByUserId(String userId);

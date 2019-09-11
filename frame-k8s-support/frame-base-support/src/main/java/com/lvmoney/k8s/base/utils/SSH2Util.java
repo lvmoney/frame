@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
  * @author: lvmoney/XXXXXX科技有限公司
  * @version:v1.0 2019/8/18 22:23
  */
-public class SSH2Util {
+public class Ssh2Util {
 
     private static String DEFAULT_CHARSET = "UTF-8";
 
@@ -114,7 +114,9 @@ public class SSH2Util {
     public static void download(Connection connection, String localDir, String... remoteFilePathAbs) {
 
         // 如果传参为空, 则返回
-        if (remoteFilePathAbs == null) return;
+        if (remoteFilePathAbs == null) {
+            return;
+        }
 
         SCPClient scpClient = new SCPClient(connection);
 
@@ -164,7 +166,9 @@ public class SSH2Util {
     public static void upload(Connection connection, String remoteDirAbsPath, String... localFile) {
 
         // 如果传参为空, 则返回
-        if (localFile == null) return;
+        if (localFile == null) {
+            return;
+        }
 
         SCPClient scpClient = new SCPClient(connection);
 

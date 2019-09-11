@@ -32,8 +32,6 @@ public class SimpleCustomer {
 
     @KafkaListener(topics = {KafkaConstant.SIMPLE_QUEUE_NAME}, groupId = KafkaConstant.SIMPLE_QUEUE_GROUP_ID)
     public void receive(ConsumerRecord consumerRecord) throws InterruptedException {
-        System.out.println(consumerRecord.offset());
-        System.out.println(consumerRecord.value().toString());
         MessageVo mqDataVo = JSONObject.parseObject(consumerRecord.value().toString(), MessageVo.class);
         String mqType = mqDataVo.getMsgType();
         String beanName = ContextBeanUtil.getBeanName(handMqServiceContext, mqType);

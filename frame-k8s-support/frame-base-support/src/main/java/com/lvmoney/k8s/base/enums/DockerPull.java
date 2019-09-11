@@ -13,8 +13,17 @@ package com.lvmoney.k8s.base.enums;/**
  * @version:v1.0 2019/8/19 11:13
  */
 public enum DockerPull {
+    /**
+     * docker镜像有就不拉
+     */
     IfNotPresent("IfNotPresent"),
+    /**
+     * docker镜像总是拉
+     */
     Always("Always"),
+    /**
+     * docker镜像总是不拉
+     */
     Never("Never");
 
     private String value;

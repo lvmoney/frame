@@ -7,6 +7,7 @@ package com.lvmoney.k8s.gateway.service.impl;/**
  */
 
 
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.k8s.gateway.ro.RouteDefinitionRo;
 import com.lvmoney.k8s.gateway.service.Gateway2RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class RedisRouteDefinitionRepository implements RouteDefinitionRepository
         return route
                 .flatMap(routeDefinition -> {
                     RouteDefinitionRo routeDefinitionRo = new RouteDefinitionRo();
-                    routeDefinitionRo.setRouteDefinitions(new HashMap() {{
+                    routeDefinitionRo.setRouteDefinitions(new HashMap(CommonConstant.MAP_DEFAULT_SIZE) {{
                         put(routeDefinition.getId(), routeDefinition);
                     }});
                     gateway2RedisService.saveRouteDefinitions(routeDefinitionRo);

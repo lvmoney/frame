@@ -32,7 +32,7 @@ import java.util.Collection;
  */
 @Service
 public class Oauth2RedisServiceImpl implements Oauth2RedisService {
-    private final static Logger logger = LoggerFactory.getLogger(Oauth2RedisServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(Oauth2RedisServiceImpl.class);
 
     @Autowired
     BaseRedisService baseRedisService;
@@ -42,6 +42,7 @@ public class Oauth2RedisServiceImpl implements Oauth2RedisService {
         baseRedisService.addMap(Oauth2ServerConstant.REDIS_FRAME_USER_DETAILS_NAME, oauth2UserRo.getData(), oauth2UserRo.getExpire());
     }
 
+    @Override
     public UserInfo getOauth2UserVo(String username) {
         Object obj = baseRedisService.getValueByMapKey(Oauth2ServerConstant.REDIS_FRAME_USER_DETAILS_NAME, username);
         try {

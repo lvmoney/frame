@@ -7,12 +7,15 @@
  */
 package com.lvmoney.common.utils.dynamic;
 
+import com.lvmoney.common.utils.MapUtil;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * 定义基本的动态bean处理工具类
+ *
  * @author LeeBing
  */
 public class DynamicBeanUtil<T> {
@@ -20,14 +23,16 @@ public class DynamicBeanUtil<T> {
 
     /**
      * 根据传入的属性名称列表，返回一个按照默认类型设置的属性列表
+     *
      * @param properties
      * @return
      */
     public static Map<String, Class<?>> getDefaultPropertyMap(Collection<String> properties, Class<?> defaultClazz) {
 
-        Map<String, Class<?>> _proMap = new HashMap<String, Class<?>>();
-        for (String _key : properties) {
-            _proMap.put(_key, defaultClazz);//默认都按照String类型处理
+        Map<String, Class<?>> proMap = new HashMap<String, Class<?>>(MapUtil.initMapSize(properties.size()));
+        for (String key : properties) {
+            //默认都按照String类型处理
+            proMap.put(key, defaultClazz);
         }
 
         return null;
@@ -37,6 +42,7 @@ public class DynamicBeanUtil<T> {
      * 根据传入的属性名称列表，返回一个按照默认类型设置的属性列表
      * 属性都默认设置为String类型
      * {@link #getDefaultPropertyMap(Collection, Class)}
+     *
      * @param properties
      * @return
      */
@@ -48,12 +54,13 @@ public class DynamicBeanUtil<T> {
     /**
      * 根据传入的字段映射列表(一个字段转换为新java类型的字段名(keyField)，一个作为值(valueField))
      * 返回一个生成好的pojo对象
-     * @param _proMap 字段映射列表<code>Map<String,Class<?>> _proMap</code>
+     *
+     * @param proMap 字段映射列表<code>Map<String,Class<?>> _proMap</code>
      * @return
      */
-    public static DynamicBean getDynamicBean(Map<String, Class<?>> _proMap) {
+    public static DynamicBean getDynamicBean(Map<String, Class<?>> proMap) {
         //生成对象
-        DynamicBean _dynBean = new DynamicBean(_proMap);
-        return _dynBean;
+        DynamicBean dynBean = new DynamicBean(proMap);
+        return dynBean;
     }
 }

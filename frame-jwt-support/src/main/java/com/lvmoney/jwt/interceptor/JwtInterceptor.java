@@ -57,10 +57,12 @@ public class JwtInterceptor extends HandlerInterceptorAdapter {
         }
         String servletPath = httpServletRequest.getServletPath();
         Map<String, String> filterChainDefinition = jwtConfigProp.getfilterChainDefinitionMap();
-        if (filterChainDefinition != null && FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, servletPath, JwtConstant.JWT_REQUEST_IGNORE)) {// 在这里做判断
+        if (filterChainDefinition != null && FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, servletPath, JwtConstant.JWT_REQUEST_IGNORE)) {
+            // 在这里做判断
             return super.preHandle(httpServletRequest, httpServletResponse, object);
         }
-        String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出
+        // 从 http 请求头中取出
+        String token = httpServletRequest.getHeader("token");
         if (token == null) {
             throw new BusinessException(CommonException.Proxy.TOKEN_IS_REQUIRED);
         }

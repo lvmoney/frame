@@ -1,8 +1,10 @@
+com\lvmoney\netty\client\client\RpcProxyFactoryBean.class
 com\lvmoney\netty\client\util\PackageClassUtils.class
 com\lvmoney\netty\client\action\MainAction.class
 com\lvmoney\netty\client\client\NettyClientHandlerAdapter.class
 com\lvmoney\netty\client\client\NettyClient.class
 com\lvmoney\netty\client\util\RemoteMethodInvokeUtil.class
+com\lvmoney\netty\client\client\NettyClientListener$1.class
 META-INF\spring-configuration-metadata.json
 com\lvmoney\netty\client\service\DemoService.class
 com\lvmoney\netty\client\client\NettyClientHandler.class
@@ -13,5 +15,4 @@ com\lvmoney\netty\client\client\NettyClientListener.class
 com\lvmoney\netty\client\config\NettyConfig.class
 com\lvmoney\netty\client\config\NettyConfiguration.class
 com\lvmoney\netty\client\util\NettyBeanScanner.class
-com\lvmoney\netty\client\client\RPCProxyFactoryBean.class
 com\lvmoney\netty\client\service\impl\DemoServiceImpl.class

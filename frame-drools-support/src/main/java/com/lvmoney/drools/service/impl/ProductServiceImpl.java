@@ -23,14 +23,17 @@ import com.lvmoney.drools.vo.ResMessage;
  */
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
+    @Override
     public double getProductPrice(double originalPrice) {
         KieServices ks = KieServices.Factory.get();
         KieContainer kContainer = ks.getKieClasspathContainer();
         KieSession kSession = kContainer.newKieSession("ksession-rules");
         ResMessage resMessage = new ResMessage();
         resMessage.setOriginalPrice(originalPrice);
-        kSession.insert(resMessage);//插入
-        kSession.fireAllRules();//执行规则
+        //插入
+        kSession.insert(resMessage);
+        //执行规则
+        kSession.fireAllRules();
         kSession.dispose();
         return originalPrice - resMessage.getCost();
     }

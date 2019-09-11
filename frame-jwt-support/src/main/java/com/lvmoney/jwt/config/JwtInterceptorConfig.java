@@ -63,9 +63,12 @@ public class JwtInterceptorConfig extends WebMvcConfigurationSupport {
         //2、添加fastjson的配置信息
         FastJsonConfig fastJsonConfig = new FastJsonConfig();
         fastJsonConfig.setSerializerFeatures(SerializerFeature.PrettyFormat,
-                SerializerFeature.WriteNullStringAsEmpty,   //字符串null返回空字符串
-                SerializerFeature.WriteNullNumberAsZero,    //数值类型为0
-                SerializerFeature.WriteNullListAsEmpty,     //空字段保留
+                //字符串null返回空字符串
+                SerializerFeature.WriteNullStringAsEmpty,
+                //数值类型为0
+                SerializerFeature.WriteNullNumberAsZero,
+                //空字段保留
+                SerializerFeature.WriteNullListAsEmpty,
                 SerializerFeature.WriteMapNullValue);
         fastJsonConfig.setCharset(Charset.forName("UTF-8"));
         //2-1 处理中文乱码问题

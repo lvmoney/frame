@@ -13,6 +13,9 @@ package com.lvmoney.k8s.base.enums;/**
  * @version:v1.0 2019/8/19 15:33
  */
 public enum Istio {
+    /**
+     * ingress istio名称，用于共享
+     */
     ingressgateway("ingressgateway");
 
     private String value;

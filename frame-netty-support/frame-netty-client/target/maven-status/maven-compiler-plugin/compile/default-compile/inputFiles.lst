@@ -11,6 +11,6 @@ E:\myself\workspace\frame\frame-netty-support\frame-netty-client\src\main\java\c
 E:\myself\workspace\frame\frame-netty-support\frame-netty-client\src\main\java\com\lvmoney\netty\client\util\PackageClassUtils.java
 E:\myself\workspace\frame\frame-netty-support\frame-netty-client\src\main\java\com\lvmoney\netty\client\service\DemoService.java
 E:\myself\workspace\frame\frame-netty-support\frame-netty-client\src\main\java\com\lvmoney\netty\client\client\NettyClientHandler.java
-E:\myself\workspace\frame\frame-netty-support\frame-netty-client\src\main\java\com\lvmoney\netty\client\client\RPCProxyFactoryBean.java
+E:\myself\workspace\frame\frame-netty-support\frame-netty-client\src\main\java\com\lvmoney\netty\client\client\RpcProxyFactoryBean.java
 E:\myself\workspace\frame\frame-netty-support\frame-netty-client\src\main\java\com\lvmoney\netty\client\config\NettyConfig.java
 E:\myself\workspace\frame\frame-netty-support\frame-netty-client\src\main\java\com\lvmoney\netty\client\config\NettyConfiguration.java

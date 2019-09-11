@@ -31,19 +31,29 @@ import java.util.List;
  */
 @Service
 public class K8sServiceImpl implements K8sService {
-    //k8s api封装库调用
+    /**
+     * k8s api封装库调用
+     */
+
     private static KubernetesClient kubernetesClient;
     private static Config config;
 
     @PostConstruct
-    public void K8sServiceImpl() {
+    public void k8sServiceImpl() {
         config = new ConfigBuilder().withMasterUrl("http://192.168.1.181:8001").build();
 //            config.setOauthToken("eyJhbGciOiJSUzI1NiIsImtpZCI6IiJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6ImRlZmF1bHQtdG9rZW4tZDZkYzIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoiZGVmYXVsdCIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6Ijg0MTdmMjMxLThiNjUtMTFlOS04ZGE1LTAwMGMyOTNlMzBkYSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpkZWZhdWx0OmRlZmF1bHQifQ.zVh906RSgMJH7kGo8AhmDKg8hEGSlLfzdlZEap7wOWurBUMct35vMvnDhXLG2P_s7_1qGx0NCAgxigGe3EnydEfFBdo2c_4BYmEOvaD3oe2qSVS9rIwfujqvXNGQKOMYiVnD42bK7l7LVixSIj4TkZ88WD23uVw5pxAA1j2pmDriVjXOySmVPer0aWWPS20A1oYfiO2a8mV-z_v3wzhXCvG36eerWvCd5zxbrUKFYaFbYe4pHtW-zWB2yIHYpVDEgJOaECMvEmB7aNdkN0IAB9N-f3GnEOvgzw5aRmd-_8T7caCA7SV6hQ6M0YCRG1JYs9kx30v9Xi9cUu1DQv3CbA");
 
         kubernetesClient = new DefaultKubernetesClient(config);
     }
 
-    //列出当前命名空间
+    /**
+     * @describe: 列出当前命名空间
+     * @param: []
+     * @return: io.fabric8.kubernetes.api.model.NamespaceList
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:19
+     */
+    @Override
     public NamespaceList listNamespace() {
         NamespaceList namespaceList = new NamespaceList();
         try {
@@ -56,14 +66,21 @@ public class K8sServiceImpl implements K8sService {
         return namespaceList;
     }
 
-    //列出当前可用节点
+    /**
+     *@describe: 列出当前可用节点
+     *@param: []
+     *@return: io.fabric8.kubernetes.api.model.NodeList
+     *@author: lvmoney /XXXXXX科技有限公司
+     *2019/9/9 10:19
+     */
+    @Override
     public NodeList listNode() {
         NodeList nodeList = new NodeList();
         try {
             nodeList = kubernetesClient.nodes().list();
 
             System.out.println(JsonUtil.t2JsonString(kubernetesClient.services().inNamespace("default").withLabelIn("app", "wudebao-web").list()));
-            String sfile = "D:\\file\\test\\data.yaml";
+            String sfile = "D:\\file\\test\\data.Yaml";
             File file = new File(sfile);
 
             FileInputStream fis = null;

@@ -19,10 +19,10 @@ import net.unicon.cas.client.configuration.EnableCasClient;
  * @version:v1.0 2018年9月30日 上午8:51:33
  */
 @SpringBootApplication(scanBasePackages = {"com.lvmoney"})
-@EnableCasClient//开启cas
+@EnableCasClient
 public class Application {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 }

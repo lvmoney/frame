@@ -3,13 +3,14 @@ package com.lvmoney.oauth2.center.server.config;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.common.utils.vo.ResultData;
 import com.lvmoney.oauth2.center.server.exception.CustomOauthException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.service.UserAccountService;
 import com.lvmoney.oauth2.center.server.vo.LoginHistoryVo;
 import com.lvmoney.oauth2.center.server.service.LoginHistoryService;
-import com.lvmoney.oauth2.center.server.utils.IPUtils;
+import com.lvmoney.oauth2.center.server.utils.IpUtils;
 import com.lvmoney.oauth2.center.server.vo.RoleEnum;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -28,9 +29,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Component
 public class ClientAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
-    private Logger LOGGER = LoggerFactory.getLogger(ClientAuthenticationSuccessHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClientAuthenticationSuccessHandler.class);
 
     @Autowired
     UserAccountService userAccountService;
@@ -53,7 +59,7 @@ public class ClientAuthenticationSuccessHandler extends SavedRequestAwareAuthent
 
         LoginHistoryVo loginHistoryVo = new LoginHistoryVo();
         loginHistoryVo.setUsername(authentication.getName());
-        loginHistoryVo.setIp(IPUtils.getIpAddress(request));
+        loginHistoryVo.setIp(IpUtils.getIpAddress(request));
         loginHistoryVo.setDevice(request.getHeader("User-Agent"));
         loginHistoryVo.setRecordStatus(1);
         loginHistoryVo.setRemarks(Oauth2Exception.Proxy.OAUTH2_LOGIN_SUCCESS.getDescription());
@@ -67,8 +73,8 @@ public class ClientAuthenticationSuccessHandler extends SavedRequestAwareAuthent
             response.setHeader("Content-Type", "application/json;charset=UTF-8");
             try {
                 ResultData resultData = new ResultData();
-                resultData.setCode(Oauth2Exception.Proxy.SUCCESS.getCode());
-                resultData.setMsg(Oauth2Exception.Proxy.SUCCESS.getDescription());
+                resultData.setCode(CommonException.Proxy.SUCCESS.getCode());
+                resultData.setMsg(CommonException.Proxy.SUCCESS.getDescription());
                 resultData.setDate(System.currentTimeMillis());
                 resultData.setSuccess(true);
                 ObjectMapper objectMapper = new ObjectMapper();

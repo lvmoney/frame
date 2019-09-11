@@ -14,12 +14,13 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 
 /**
- * NettyServer通道适配器
- * <p>
- *
- * @author lvmoney
- * @date 2018/7/9 - 上午9:39
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年12月29日 下午5:02:46
+ * @RestController
+ * @RequestMapping("mongo")
  */
+
 @Component
 @Sharable
 public class ServerChannelHandlerAdapter extends ChannelHandlerAdapter {
@@ -35,6 +36,14 @@ public class ServerChannelHandlerAdapter extends ChannelHandlerAdapter {
     @Resource
     private RequestDispatcher dispatcher;
     private int lossConnectCount = 0;
+    /**
+     * mongo心跳检测协议
+     */
+    private final static String HEART_RATE = "ping-pong-ping-pong";
+    /**
+     * 检查次数
+     */
+    private final static int HEART_RATE_MAX = 2;
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -52,7 +61,7 @@ public class ServerChannelHandlerAdapter extends ChannelHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext channelHandlerContext, Object msg) {
         if (msg instanceof String) {
-            if ("ping-pong-ping-pong".equals(msg)) {
+            if (HEART_RATE.equals(msg)) {
                 LOGGER.info("{} -> [心跳监测] {}：通道活跃", this.getClass().getName(), channelHandlerContext.channel().id());
                 // 心跳消息
                 lossConnectCount = 0;
@@ -82,7 +91,7 @@ public class ServerChannelHandlerAdapter extends ChannelHandlerAdapter {
             IdleStateEvent idleStateEvent = (IdleStateEvent) evt;
             if (idleStateEvent.state() == IdleState.READER_IDLE) {
                 lossConnectCount++;
-                if (lossConnectCount > 2) {
+                if (lossConnectCount > HEART_RATE_MAX) {
                     LOGGER.info("{} -> [释放不活跃通道] {}", this.getClass().getName(), channelHandlerContext.channel().id());
                     channelHandlerContext.channel().close();
                 }

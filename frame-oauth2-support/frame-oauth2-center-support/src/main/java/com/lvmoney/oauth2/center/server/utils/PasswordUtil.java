@@ -2,8 +2,9 @@ package com.lvmoney.oauth2.center.server.utils;
 
 import org.apache.commons.lang3.StringUtils;
 
+
 /**
- * 检测密码强度
+ * @describe： 检测密码强度
  * <p>
  * refer
  * https://github.com/venshine/PasswordUtil
@@ -15,11 +16,54 @@ import org.apache.commons.lang3.StringUtils;
  * 7-9 : [strong]
  * 10-12 : [very strong]
  * >12 : [extremely strong]
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class PasswordUtil {
+    private static final int PASSWROD_LENGTH_1 = 1;
+    private static final int PASSWROD_LENGTH_2 = 2;
+    private static final int PASSWROD_LENGTH_3 = 3;
+    private static final int PASSWROD_LENGTH_4 = 4;
+    private static final int PASSWROD_LENGTH_5 = 5;
+    private static final int PASSWROD_LENGTH_6 = 6;
+    private static final int PASSWROD_LENGTH_7 = 7;
+    private static final int PASSWROD_LENGTH_8 = 8;
+    private static final int PASSWROD_LENGTH_9 = 9;
+    private static final int PASSWROD_LENGTH_10 = 10;
+    private static final int PASSWROD_LENGTH_12 = 12;
+    private static final int PASSWROD_LENGTH_16 = 16;
+
+    private static final int ASCII_NUM_MIN = 48;
+    private static final int ASCII_NUM_MAX = 57;
+    private static final int CAPITAL_LETTER_MAX = 90;
+    private static final int CAPITAL_LETTER_MIN = 65;
+
+    private static final int SMALL_LETTER_MIN = 97;
+    private static final int SMALL_LETTER_MAX = 122;
+
+    private static final char EMPTY_CHAR = ' ';
 
     public enum LEVEL {
-        EASY, MEDIUM, STRONG, VERY_STRONG, EXTREMELY_STRONG
+        /**
+         * 简单
+         */
+        EASY,
+        /**
+         * 中
+         */
+        MEDIUM,
+        /**
+         * 强
+         */
+        STRONG,
+        /**
+         * 很强
+         */
+        VERY_STRONG,
+        /**
+         * 超强
+         */
+        EXTREMELY_STRONG
     }
 
     private static final int NUM = 1;
@@ -30,34 +74,35 @@ public class PasswordUtil {
     /**
      * Simple password dictionary
      */
-    private final static String[] DICTIONARY = {"password", "123456", "abc123", "iloveyou", "adobe123", "123123", "sunshine",
+    private static final String[] DICTIONARY = {"password", "123456", "abc123", "iloveyou", "adobe123", "123123", "sunshine",
             "1314520", "a1b2c3", "123qwe", "aaa111", "qweasd", "admin", "passwd", "abcdefghijklmnopqrstuvwxyz"};
 
     /**
-     * Check character's type, includes num, capital letter, small letter and other character.
-     *
-     * @param c
-     * @return
+     *@describe: Check character's type, includes num, capital letter, small letter and other character.
+     *@param: [c]
+     *@return: int
+     *@author: lvmoney /XXXXXX科技有限公司
+     *2019/9/9 18:18
      */
     private static int checkCharacterType(char c) {
-        if (c >= 48 && c <= 57) {
+        if (c >= ASCII_NUM_MIN && c <= ASCII_NUM_MAX) {
             return NUM;
         }
-        if (c >= 65 && c <= 90) {
+        if (c >= CAPITAL_LETTER_MIN && c <= CAPITAL_LETTER_MAX) {
             return CAPITAL_LETTER;
         }
-        if (c >= 97 && c <= 122) {
+        if (c >= SMALL_LETTER_MIN && c <= SMALL_LETTER_MAX) {
             return SMALL_LETTER;
         }
         return OTHER_CHAR;
     }
 
     /**
-     * Count password's number by different type
-     *
-     * @param passwd
-     * @param type
-     * @return
+     *@describe: Count password's number by different type
+     *@param: [passwd, type]
+     *@return: int
+     *@author: lvmoney /XXXXXX科技有限公司
+     *2019/9/9 18:15
      */
     private static int countLetter(String passwd, int type) {
         int count = 0;
@@ -72,10 +117,11 @@ public class PasswordUtil {
     }
 
     /**
-     * Check password's strength
-     *
-     * @param passwd
-     * @return strength level
+     * @describe: Check password's strength
+     * @param: [passwd]
+     * @return: int
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 16:18
      */
     public static int check(String passwd) {
         if (StringUtils.isBlank(passwd)) {
@@ -84,26 +130,17 @@ public class PasswordUtil {
         passwd = StringUtils.trimToEmpty(passwd);
         int len = passwd.length();
         int level = 0;
-
-        // increase points
-        if (len >= 6) {
+        if (len >= PASSWROD_LENGTH_6 || countLetter(passwd, NUM) > 0 || countLetter(passwd, SMALL_LETTER) > 0) {
             level++;
         }
-        if (countLetter(passwd, NUM) > 0) {
+        if (len > PASSWROD_LENGTH_4 && countLetter(passwd, CAPITAL_LETTER) > 0) {
             level++;
         }
-        if (countLetter(passwd, SMALL_LETTER) > 0) {
-            level++;
-        }
-        if (len > 4 && countLetter(passwd, CAPITAL_LETTER) > 0) {
-            level++;
-        }
-        if (len > 6 && countLetter(passwd, OTHER_CHAR) > 0) {
+        if (len > PASSWROD_LENGTH_6 && countLetter(passwd, OTHER_CHAR) > 0) {
             level++;
         }
 
-        if (len > 4 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
-                || countLetter(passwd, NUM) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
+        if (len > PASSWROD_LENGTH_4 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0 || countLetter(passwd, NUM) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
                 || countLetter(passwd, NUM) > 0 && countLetter(passwd, OTHER_CHAR) > 0
                 || countLetter(passwd, SMALL_LETTER) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
                 || countLetter(passwd, SMALL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0
@@ -111,7 +148,7 @@ public class PasswordUtil {
             level++;
         }
 
-        if (len > 6 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
+        if (len > PASSWROD_LENGTH_6 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
                 && countLetter(passwd, CAPITAL_LETTER) > 0 || countLetter(passwd, NUM) > 0
                 && countLetter(passwd, SMALL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0
                 || countLetter(passwd, NUM) > 0 && countLetter(passwd, CAPITAL_LETTER) > 0
@@ -120,55 +157,68 @@ public class PasswordUtil {
             level++;
         }
 
-        if (len > 8 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
+        if (len > PASSWROD_LENGTH_8 && countLetter(passwd, NUM) > 0 && countLetter(passwd, SMALL_LETTER) > 0
                 && countLetter(passwd, CAPITAL_LETTER) > 0 && countLetter(passwd, OTHER_CHAR) > 0) {
             level++;
         }
 
-        if (len > 6 && countLetter(passwd, NUM) >= 3 && countLetter(passwd, SMALL_LETTER) >= 3
-                || countLetter(passwd, NUM) >= 3 && countLetter(passwd, CAPITAL_LETTER) >= 3
-                || countLetter(passwd, NUM) >= 3 && countLetter(passwd, OTHER_CHAR) >= 2
-                || countLetter(passwd, SMALL_LETTER) >= 3 && countLetter(passwd, CAPITAL_LETTER) >= 3
-                || countLetter(passwd, SMALL_LETTER) >= 3 && countLetter(passwd, OTHER_CHAR) >= 2
-                || countLetter(passwd, CAPITAL_LETTER) >= 3 && countLetter(passwd, OTHER_CHAR) >= 2) {
+        if (len > PASSWROD_LENGTH_6 && countLetter(passwd, NUM) >= PASSWROD_LENGTH_3 && countLetter(passwd, SMALL_LETTER) >= PASSWROD_LENGTH_3
+                || countLetter(passwd, NUM) >= PASSWROD_LENGTH_3 && countLetter(passwd, CAPITAL_LETTER) >= PASSWROD_LENGTH_3
+                || countLetter(passwd, NUM) >= PASSWROD_LENGTH_3 && countLetter(passwd, OTHER_CHAR) >= PASSWROD_LENGTH_2
+                || countLetter(passwd, SMALL_LETTER) >= PASSWROD_LENGTH_3 && countLetter(passwd, CAPITAL_LETTER) >= PASSWROD_LENGTH_3
+                || countLetter(passwd, SMALL_LETTER) >= PASSWROD_LENGTH_3 && countLetter(passwd, OTHER_CHAR) >= PASSWROD_LENGTH_2
+                || countLetter(passwd, CAPITAL_LETTER) >= PASSWROD_LENGTH_3 && countLetter(passwd, OTHER_CHAR) >= PASSWROD_LENGTH_2) {
             level++;
         }
 
-        if (len > 8 && countLetter(passwd, NUM) >= 2 && countLetter(passwd, SMALL_LETTER) >= 2
-                && countLetter(passwd, CAPITAL_LETTER) >= 2 || countLetter(passwd, NUM) >= 2
-                && countLetter(passwd, SMALL_LETTER) >= 2 && countLetter(passwd, OTHER_CHAR) >= 2
-                || countLetter(passwd, NUM) >= 2 && countLetter(passwd, CAPITAL_LETTER) >= 2
-                && countLetter(passwd, OTHER_CHAR) >= 2 || countLetter(passwd, SMALL_LETTER) >= 2
-                && countLetter(passwd, CAPITAL_LETTER) >= 2 && countLetter(passwd, OTHER_CHAR) >= 2) {
+        if (len > PASSWROD_LENGTH_8 && countLetter(passwd, NUM) >= PASSWROD_LENGTH_2 && countLetter(passwd, SMALL_LETTER) >= PASSWROD_LENGTH_2
+                && countLetter(passwd, CAPITAL_LETTER) >= PASSWROD_LENGTH_2 || countLetter(passwd, NUM) >= PASSWROD_LENGTH_2
+                && countLetter(passwd, SMALL_LETTER) >= PASSWROD_LENGTH_2 && countLetter(passwd, OTHER_CHAR) >= PASSWROD_LENGTH_2
+                || countLetter(passwd, NUM) >= PASSWROD_LENGTH_2 && countLetter(passwd, CAPITAL_LETTER) >= PASSWROD_LENGTH_2
+                && countLetter(passwd, OTHER_CHAR) >= PASSWROD_LENGTH_2 || countLetter(passwd, SMALL_LETTER) >= PASSWROD_LENGTH_2
+                && countLetter(passwd, CAPITAL_LETTER) >= PASSWROD_LENGTH_2 && countLetter(passwd, OTHER_CHAR) >= PASSWROD_LENGTH_2) {
             level++;
         }
 
-        if (len > 10 && countLetter(passwd, NUM) >= 2 && countLetter(passwd, SMALL_LETTER) >= 2
-                && countLetter(passwd, CAPITAL_LETTER) >= 2 && countLetter(passwd, OTHER_CHAR) >= 2) {
+        if (len > PASSWROD_LENGTH_10 && countLetter(passwd, NUM) >= PASSWROD_LENGTH_2 && countLetter(passwd, SMALL_LETTER) >= PASSWROD_LENGTH_2
+                && countLetter(passwd, CAPITAL_LETTER) >= PASSWROD_LENGTH_2 && countLetter(passwd, OTHER_CHAR) >= PASSWROD_LENGTH_2) {
             level++;
         }
 
-        if (countLetter(passwd, OTHER_CHAR) >= 3) {
+        if (countLetter(passwd, OTHER_CHAR) >= PASSWROD_LENGTH_3) {
             level++;
         }
-        if (countLetter(passwd, OTHER_CHAR) >= 6) {
+        if (countLetter(passwd, OTHER_CHAR) >= PASSWROD_LENGTH_6) {
             level++;
         }
 
-        if (len > 12) {
+        if (len > PASSWROD_LENGTH_12) {
             level++;
-            if (len >= 16) {
+            if (len >= PASSWROD_LENGTH_16) {
                 level++;
             }
         }
+        level = getNotPlusLevel(passwd, level);
+        return level;
+    }
 
+    /**
+     * @describe:获得非加level
+     * @param: [passwd, level]
+     * @return: int
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 18:14
+     */
+    private static int getNotPlusLevel(String passwd, int level) {
+        int len = passwd.length();
         // decrease points
         if (countLetter(passwd, NUM) == len || countLetter(passwd, SMALL_LETTER) == len
                 || countLetter(passwd, CAPITAL_LETTER) == len) {
             level--;
         }
 
-        if (len % 3 == 0) { // ababab
+        if (len % PASSWROD_LENGTH_3 == 0) {
+            // ababab
             String part1 = passwd.substring(0, len / 3);
             String part2 = passwd.substring(len / 3, len / 3 * 2);
             String part3 = passwd.substring(len / 3 * 2);
@@ -178,7 +228,8 @@ public class PasswordUtil {
         }
 
 
-        if (null != DICTIONARY && DICTIONARY.length > 0) {// dictionary
+        if (null != DICTIONARY && DICTIONARY.length > 0) {
+            // dictionary
             for (int i = 0; i < DICTIONARY.length; i++) {
                 if (DICTIONARY[i].indexOf(passwd.toLowerCase()) >= 0) {
                     level--;
@@ -187,32 +238,29 @@ public class PasswordUtil {
             }
         }
 
-        if (len < 6) {
+        if (len < PASSWROD_LENGTH_6) {
             level--;
-            if (len <= 4) {
+            if (len <= PASSWROD_LENGTH_4) {
                 level--;
-                if (len <= 3) {
+                if (len <= PASSWROD_LENGTH_3) {
                     level = 0;
                 }
             }
         }
 
-        if (passwd.replace(passwd.charAt(0), ' ').trim().length() == 0) {
+        if (passwd.replace(passwd.charAt(0), EMPTY_CHAR).trim().length() == 0 || level < 0) {
             level = 0;
         }
-
-        if (level < 0) {
-            level = 0;
-        }
-
         return level;
     }
 
+
     /**
-     * Get password strength level, includes easy, midium, strong, very strong, extremely strong
-     *
-     * @param passwd
-     * @return
+     *@describe: Get password strength level, includes easy, midium, strong, very strong, extremely strong
+     *@param: [passwd]
+     *@return: com.lvmoney.oauth2.center.server.utils.PasswordUtil.LEVEL
+     *@author: lvmoney /XXXXXX科技有限公司
+     *2019/9/9 18:18
      */
     public static LEVEL getPasswordLevel(String passwd) {
         int level = check(passwd);

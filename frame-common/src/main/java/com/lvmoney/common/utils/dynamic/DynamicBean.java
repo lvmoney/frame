@@ -17,6 +17,7 @@ import java.util.Set;
 
 /**
  * 动态生成Bean 如根据不同的属性动态的生成Java类型
+ *
  * @author lvmoney
  */
 public class DynamicBean {
@@ -45,9 +46,10 @@ public class DynamicBean {
      * Class<? extends Object> _clazz = object.getClass();
      * Method[] _methods = _clazz.getDeclaredMethods();
      * for (int i = 0; i < _methods.length; i++) {
-     *      System.out.println(_methods[i].getName());  //这里可以输出方法名，通过反射器反射调用即可 
-     *  }
+     * System.out.println(_methods[i].getName());  //这里可以输出方法名，通过反射器反射调用即可
+     * }
      * </code>
+     *
      * @param propertyMap 属性列表
      */
     protected DynamicBean(Map<String, Class<?>> propertyMap) {
@@ -58,33 +60,34 @@ public class DynamicBean {
     /**
      * 根据传入的属性map构造一个对象
      *
-     * @param propertyMap
-     *            对象属性map
+     * @param propertyMap 对象属性map
      * @return 动态创建的java对象
      */
     private Object generateBean(Map<String, Class<?>> propertyMap) {
         BeanGenerator generator = new BeanGenerator();
-        Set<String> _keySet = propertyMap.keySet();
+        Set<String> keySet = propertyMap.keySet();
         //给需要生成的java对象动态添加属性
-        for (Iterator<String> i = _keySet.iterator(); i.hasNext(); ) {
-            String _key = (String) i.next();
-            generator.addProperty(_key, (Class<?>) propertyMap.get(_key));
+        for (Iterator<String> i = keySet.iterator(); i.hasNext(); ) {
+            String key = (String) i.next();
+            generator.addProperty(key, (Class<?>) propertyMap.get(key));
         }
         return generator.create();
     }
 
     /**
-     * 给bean属性赋值 
-     * @param property 属性名 
-     * @param value 值 
+     * 给bean属性赋值
+     *
+     * @param property 属性名
+     * @param value    值
      */
     public void setValue(String property, Object value) {
         bean.put(property, value);
     }
 
     /**
-     * 通过属性名得到属性值 
-     * @param property 属性名 
+     * 通过属性名得到属性值
+     *
+     * @param property 属性名
      * @return 值
      */
     public Object getValue(String property) {
@@ -113,7 +116,8 @@ public class DynamicBean {
      */
     public void setObject(Object object) {
         this.object = object;
-        this.bean = BeanMap.create(this.object);//重新創建bean對象
+        //重新創建bean對象
+        this.bean = BeanMap.create(this.object);
     }
 
     /**
@@ -124,7 +128,7 @@ public class DynamicBean {
     }
 
     /**
-     * @param  bean 将参数的值赋给属性 bean
+     * @param bean 将参数的值赋给属性 bean
      */
     public void setBean(BeanMap bean) {
         this.bean = bean;

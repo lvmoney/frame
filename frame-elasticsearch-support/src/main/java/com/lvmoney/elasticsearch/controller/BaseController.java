@@ -55,7 +55,7 @@ public class BaseController {
         em.setCoordinate(location4);
         em.setFirst_name("test");
         em.setLast_name("test");
-        em.setId(1l);
+        em.setId(1L);
 
         Employee em1 = new Employee();
         em1.setAbout("this is love story");
@@ -64,7 +64,7 @@ public class BaseController {
         em1.setCoordinate(location4);
         em1.setFirst_name("test");
         em1.setLast_name("test");
-        em1.setId(2l);
+        em1.setId(2L);
         List<Employee> list = new ArrayList<Employee>();
         elasticsearchSaveVo.setData(em1);
         ;
@@ -99,7 +99,7 @@ public class BaseController {
         Employee em1 = new Employee();
         queryVo.setContext("test");
         queryVo.setData(em1);
-        Map<String, Float> map = new HashMap<String, Float>();
+        Map<String, Float> map = new HashMap<String, Float>(4);
         map.put("first_name", 0.5f);
         map.put("last_name", 0.5f);
         queryVo.setFields(map);

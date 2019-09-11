@@ -13,7 +13,14 @@ package com.lvmoney.k8s.base.enums;/**
  * @version:v1.0 2019/8/19 15:43
  */
 public enum HttpProtocol {
-    HTTP("HTTP");
+    /**
+     * http请求协议
+     */
+    HTTP("HTTP"),
+    /**
+     * https请求协议
+     */
+    HTTPS("HTTPS");
     private String value;
 
     HttpProtocol(String value) {

@@ -26,13 +26,16 @@ import java.util.Map;
 public interface TransponderFactory {
 
     /**
-     * @param connector     canal 连接工具
-     * @param config        canal 链接信息
-     * @param listeners     实现接口的监听器
-     * @param annoListeners 注解监听拦截
-     * @return
-     * @author lvmoney
-     * @time 2018/5/28 14:43
+     * canal 连接工具
+     *
+     * @param connector:     连接对象
+     * @param config:        配置信息
+     * @param listeners:     实现接口的监听器
+     * @param annoListeners: 注解监听拦截
+     * @throws
+     * @return: com.lvmoney.bigdata.canal.redis.transfer.MessageTransponder
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/10 8:51
      */
     MessageTransponder newTransponder(CanalConnector connector, Map.Entry<String, CanalProp.Instance> config, List<CanalEventListener> listeners, List<ListenerPointVo> annoListeners);
 }

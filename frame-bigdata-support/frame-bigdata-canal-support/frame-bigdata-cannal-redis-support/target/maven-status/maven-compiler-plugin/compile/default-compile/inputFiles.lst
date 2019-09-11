@@ -7,7 +7,6 @@ E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\fram
 E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\frame-bigdata-cannal-redis-support\src\main\java\com\lvmoney\bigdata\canal\redis\annotation\ddl\AlertTableListenPoint.java
 E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\frame-bigdata-cannal-redis-support\src\main\java\com\lvmoney\bigdata\canal\redis\annotation\dml\DeleteRowListenPoint.java
 E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\frame-bigdata-cannal-redis-support\src\main\java\com\lvmoney\bigdata\canal\redis\transfer\MessageTransponder.java
-E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\frame-bigdata-cannal-redis-support\src\main\java\com\lvmoney\bigdata\canal\redis\service\impl\ParentCanal2RedisServiceImpl.java
 E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\frame-bigdata-cannal-redis-support\src\main\java\com\lvmoney\bigdata\canal\redis\transfer\AbstractMessageTransponder.java
 E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\frame-bigdata-cannal-redis-support\src\main\java\com\lvmoney\bigdata\canal\redis\vo\ListenerPointVo.java
 E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\frame-bigdata-cannal-redis-support\src\main\java\com\lvmoney\bigdata\canal\redis\annotation\EnableCanalClient.java
@@ -32,4 +31,5 @@ E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\fram
 E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\frame-bigdata-cannal-redis-support\src\main\java\com\lvmoney\bigdata\canal\redis\annotation\ddl\CreateTableListenPoint.java
 E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\frame-bigdata-cannal-redis-support\src\main\java\com\lvmoney\bigdata\canal\redis\annotation\dml\InsertListenPoint.java
 E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\frame-bigdata-cannal-redis-support\src\main\java\com\lvmoney\bigdata\canal\redis\annotation\ddl\DropIndexListenPoint.java
+E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\frame-bigdata-cannal-redis-support\src\main\java\com\lvmoney\bigdata\canal\redis\service\impl\AbstractCanal2RedisServiceImpl.java
 E:\myself\workspace\frame\frame-bigdata-support\frame-bigdata-canal-support\frame-bigdata-cannal-redis-support\src\main\java\com\lvmoney\bigdata\canal\redis\annotation\ListenPoint.java

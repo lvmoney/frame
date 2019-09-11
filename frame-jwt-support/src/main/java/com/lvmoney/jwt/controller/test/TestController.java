@@ -38,12 +38,13 @@ public class TestController {
         userRo.setUserId(userVo.getUserId());
         String token = JwtUtil.getToken(userVo);
         userRo.setToken(token);
-        baseRedisService.set(token, JsonUtil.t2JsonString(userRo),1800l);
+        baseRedisService.set(token, JsonUtil.t2JsonString(userRo), 1800L);
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     public void get(HttpServletRequest request, UserVo userVo) {
-        String token = request.getHeader("token");// 从 http 请求头中取出
+        // 从 http 请求头中取出
+        String token = request.getHeader("token");
         baseRedisService.getString(token);
     }
 

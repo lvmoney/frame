@@ -41,6 +41,6 @@ public class PersonExportVo implements Serializable {
     /**
      * 人脸图片
      */
-    @Excel(name = "人脸图片", orderNum = "3", width = 15, height = 30, type = 2)
+    @Excel(name = "人脸图片", orderNum = "3", width = 15, type = 2)
     private String imageUrl;
 }

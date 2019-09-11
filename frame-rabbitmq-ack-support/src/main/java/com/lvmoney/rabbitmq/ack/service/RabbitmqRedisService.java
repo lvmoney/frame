@@ -19,20 +19,23 @@ import java.util.List;
  */
 public interface RabbitmqRedisService {
     /**
-     * @describe: 往redis中写入ackrecord的数据
-     * @param: [ackErrorRecordRo]
+     * 往redis中写入ackrecord的数据
+     *
+     * @param ackErrorRecordRo: ack实体
+     * @throws
      * @return: void
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/1/21
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 21:01
      */
     void ackRecord2Redis(AckErrorRecordRo ackErrorRecordRo);
 
     /**
-     * @describe: 获得所有的的ack记录
-     * @param: [key]
-     * @return: java.util.List<com.lvmoney.rabbitmq.ack.ro.MsgErrorVo>
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/1/21
+     * 获得所有的的ack记录
+     *
+     * @throws
+     * @return: java.util.List<com.lvmoney.rabbitmq.ack.vo.MsgErrorVo>
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 21:01
      */
     List<MsgErrorVo> getAllAckRecord();
 }

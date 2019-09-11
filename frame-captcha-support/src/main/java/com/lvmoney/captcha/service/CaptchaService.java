@@ -17,42 +17,75 @@ import com.lvmoney.captcha.vo.ValidateResultVo;
  */
 public interface CaptchaService {
     /**
-     * @describe: 保存验证码数据到redis中
-     * @param: [validateCodeRo]
+     * 保存验证码数据到redis中
+     *
+     * @param validateCodeRo: redis 实体
      * @return: void
-     * @author： lvmoney /XXXXXX有限公司
-     * 2019/2/15 22:22
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:54
      */
     void saveValidaCode2Redis(ValidateCodeRo validateCodeRo);
 
+    /**
+     * @describe: 获得base64后的验证码，可配置验证码的大小等
+     * @param: [is2Redis, isDrawLine, validCodeSize, fc, bc, fontType]
+     * @return: com.lvmoney.captcha.vo.ValidateResultVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:03
+     */
+    /**
+     * 获得base64后的验证码，可配置验证码的大小等
+     *
+     * @param is2Redis:      是否存入redis
+     * @param isDrawLine:    是否画线
+     * @param validCodeSize: 验证码size
+     * @param fc:            字体颜色
+     * @param bc:            背景颜色
+     * @param fontType:      字体类型
+     * @return: com.lvmoney.captcha.vo.ValidateResultVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:55
+     */
     ValidateResultVo encodeBase64ImgCode(boolean is2Redis, boolean isDrawLine, int validCodeSize, int fc, int bc, String fontType);
 
+    /**
+     * 获得默认base64后的验证码
+     *
+     * @return: com.lvmoney.captcha.vo.ValidateResultVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:56
+     */
     ValidateResultVo encodeBase64ImgCode();
 
     /**
-     * @describe: 验证码：com.revengemission.commons
-     * @param: []
+     * 获得验证码
+     *
+     * @param width:  宽
+     * @param height: 高
+     * @param length: 长度
      * @return: com.lvmoney.captcha.vo.ValidateResultVo
-     * @author： lvmoney /XXXXXX有限公司
-     * 2019/7/28 16:55
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:57
      */
     ValidateResultVo getCaptcha(int width, int height, int length);
 
     /**
-     * @describe: 通过编号获得验证码
-     * @param: [serialNumber]
+     * 通过编号获得验证码
+     *
+     * @param serialNumber: redis中编号
      * @return: com.lvmoney.captcha.ro.ValidateCodeRo
-     * @author： lvmoney /XXXXXX有限公司
-     * 2019/7/28 15:43
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:57
      */
     ValidateCodeRo getValidate(String serialNumber);
 
     /**
-     * @describe: 删除验证码
-     * @param: [serialNumber]
+     * 删除验证码
+     *
+     * @param serialNumber: 验证码编号
      * @return: void
-     * @author： lvmoney /XXXXXX有限公司
-     * 2019/7/28 15:48
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:57
      */
     void deleteValidate(String serialNumber);
 

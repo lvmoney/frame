@@ -9,6 +9,11 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 
 @TableName("user_account")
 @Data
@@ -16,9 +21,8 @@ public class UserAccount extends Model<UserAccount> {
 
     private static final long serialVersionUID = -941643106520924961L;
     /**
-     *
+     *用于记录用户在哪个子系统进行的注册
      */
-    //用于记录用户在哪个子系统进行的注册
     @TableId(value = "user_accid", type = IdType.ID_WORKER)
     private String userAccid;
     private String clientId;

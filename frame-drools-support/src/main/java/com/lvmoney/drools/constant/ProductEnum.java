@@ -17,7 +17,18 @@ import com.lvmoney.common.utils.IntervalUtil;
  */
 
 public enum ProductEnum {
-    LEVEL_1("(0,200]", 5), LEVEL_2("[201,300]", 10), LEVEL_3("[301,+∞)", 20);
+    /**
+     * 规则区间
+     */
+    LEVEL_1("(0,200]", 5),
+    /**
+     * 规则区间
+     */
+    LEVEL_2("[201,300]", 10),
+    /**
+     * 规则区间
+     */
+    LEVEL_3("[301,+∞)", 20);
     private final String key;
     private final double value;
 

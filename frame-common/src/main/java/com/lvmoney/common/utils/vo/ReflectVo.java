@@ -27,7 +27,7 @@ public class ReflectVo<T> implements Serializable {
     /**
      * 实体
      */
-    private T t;
+    private T data;
     /**
      * 拼接字段
      */
@@ -58,12 +58,12 @@ public class ReflectVo<T> implements Serializable {
      */
     private boolean keyToUpper;
 
-    public T getT() {
-        return t;
+    public T getData() {
+        return data;
     }
 
-    public void setT(T t) {
-        this.t = t;
+    public void setData(T data) {
+        this.data = data;
     }
 
     public String getContent() {

@@ -38,7 +38,7 @@ public class HttpResult implements Serializable {
      * 编号
      */
     private int code;
-    /*
+    /**
      * 消息体
      */
     private String body;

@@ -7,12 +7,18 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.lvmoney.common.constant.CommonConstant;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 public class JacksonUtil {
 
     private static ObjectMapper mapper = new ObjectMapper();
@@ -32,12 +38,12 @@ public class JacksonUtil {
      * @author： lvmoney /XXXXXX有限公司
      * 2019/8/4 21:36
      */
-    public static String objectToJSONString(Object object) throws JsonProcessingException {
+    public static String object2JsonString(Object object) throws JsonProcessingException {
         return mapper.writeValueAsString(object);
     }
 
-    public static String multiValueMapToJSONString(Map<String, String[]> object) throws JsonProcessingException {
-        Map<String, String> newMap = new HashMap<>();
+    public static String multiValueMap2JsonString(Map<String, String[]> object) throws JsonProcessingException {
+        Map<String, String> newMap = new HashMap<>(CommonConstant.MAP_DEFAULT_SIZE);
         if (object != null && object.size() > 0) {
             object.forEach((k, v) -> {
                 if (v != null && v.length > 0) {
@@ -58,7 +64,7 @@ public class JacksonUtil {
      * @author： lvmoney /XXXXXX有限公司
      * 2019/8/4 21:37
      */
-    public static <T> T JSONStringToObject(String jsonString, Class<T> t) throws IOException {
+    public static <T> T jsonString2Object(String jsonString, Class<T> t) throws IOException {
         mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 //JSON from String to Object
         return mapper.readValue(jsonString, t);
@@ -72,7 +78,7 @@ public class JacksonUtil {
      * @param <T>
      * @return
      */
-    public static <T> T JSONStringToObject(String str, TypeReference<T> typeReference) throws IOException {
+    public static <T> T jsonString2Object(String str, TypeReference<T> typeReference) throws IOException {
         return mapper.readValue(str, typeReference);
     }
 
@@ -85,7 +91,7 @@ public class JacksonUtil {
      * @param <T>
      * @return
      */
-    public static <T> T JSONStringToObject(String str, Class<?> collectionClass, Class<?>... elementClasses) throws IOException {
+    public static <T> T jsonString2Object(String str, Class<?> collectionClass, Class<?>... elementClasses) throws IOException {
         JavaType javaType = mapper.getTypeFactory().constructParametricType(collectionClass, elementClasses);
         return mapper.readValue(str, javaType);
     }

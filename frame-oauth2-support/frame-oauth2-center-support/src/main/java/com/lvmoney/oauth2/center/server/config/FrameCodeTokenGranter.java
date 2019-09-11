@@ -17,6 +17,11 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 public class FrameCodeTokenGranter extends AbstractTokenGranter {
 
     private static final String GRANT_TYPE = "frame_code";
@@ -38,9 +43,12 @@ public class FrameCodeTokenGranter extends AbstractTokenGranter {
     protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
 
         Map<String, String> parameters = new LinkedHashMap<String, String>(tokenRequest.getRequestParameters());
-        String username = parameters.get("username"); // 客户端提交的用户名
-        String captcha = parameters.get("captcha"); // 客户端提交的验证码
-        String captchaNum = parameters.get("captcha_num"); // 客户端提交的验证码编号
+        // 客户端提交的用户名
+        String username = parameters.get("username");
+        // 客户端提交的验证码
+        String captcha = parameters.get("captcha");
+        // 客户端提交的验证码编号
+        String captchaNum = parameters.get("captcha_num");
         String password = parameters.get("password");
         // 验证用户状态(是否禁用等),代码略
         // 验证验证码
@@ -65,8 +73,8 @@ public class FrameCodeTokenGranter extends AbstractTokenGranter {
         // 当然该参数传null也行
         ((AbstractAuthenticationToken) userAuth).setDetails(parameters);
 
-        OAuth2Request storedOAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);
-        return new OAuth2Authentication(storedOAuth2Request, userAuth);
+        OAuth2Request result = getRequestFactory().createOAuth2Request(client, tokenRequest);
+        return new OAuth2Authentication(result, userAuth);
     }
 
 }

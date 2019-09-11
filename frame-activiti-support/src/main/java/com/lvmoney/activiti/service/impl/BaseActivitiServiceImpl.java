@@ -73,8 +73,10 @@ public class BaseActivitiServiceImpl implements BaseActivitiService {
 
     @Override
     public Task findTaskByTaskId(QueryTaskVo queryTaskVo) {
-        return taskService.createTaskQuery() // 创建任务查询
-                .taskId(queryTaskVo.getTaskId()) // 根据任务id查询
+        return taskService.createTaskQuery()
+                // 创建任务查询
+                .taskId(queryTaskVo.getTaskId())
+                // 根据任务id查询
                 .singleResult();
     }
 
@@ -197,6 +199,6 @@ public class BaseActivitiServiceImpl implements BaseActivitiService {
         //删除当前运行任务
         String executionEntityId = managementService.executeCommand(new DeleteTaskCmd(currentTask.getId(), JsonUtil.t2JsonString(jumpVo.getReason())));
         //流程执行到来源节点
-        managementService.executeCommand(new SetFLowNodeAndGoCmd(targetNode, executionEntityId));
+        managementService.executeCommand(new SetFlowNodeAndGoCmd(targetNode, executionEntityId));
     }
 }

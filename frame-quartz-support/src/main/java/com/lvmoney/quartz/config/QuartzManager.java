@@ -11,7 +11,7 @@ package com.lvmoney.quartz.config;
 import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.quartz.constant.QuartzConstant;
-import com.lvmoney.quartz.job.ParentJob;
+import com.lvmoney.quartz.job.AbstractJob;
 import com.lvmoney.quartz.vo.JobParameter;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
@@ -42,7 +42,7 @@ public class QuartzManager implements ApplicationContextAware {
 
     private static final String TRIGGER_DEFAULT_GROUP_NAME = "TRIGGER_DEFAULT_GROUP_NAME";
 
-    private final static Logger logger = LoggerFactory.getLogger(QuartzManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(QuartzManager.class);
 
     private ApplicationContext applicationContext;
 
@@ -59,7 +59,7 @@ public class QuartzManager implements ApplicationContextAware {
                 this.scheduler = schedulerFactory.getScheduler();
                 scheduler.setJobFactory(autowiredSpringBeanJobFactory);
                 // 启动所有任务,这里获取AbstractTask的所有子类
-                Map<String, ParentJob> tasks = applicationContext.getBeansOfType(ParentJob.class);
+                Map<String, AbstractJob> tasks = applicationContext.getBeansOfType(AbstractJob.class);
                 tasks.forEach((k, v) -> {
                     String cronExpression = v.getCronExpression();
                     if (cronExpression != null) {

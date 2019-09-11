@@ -16,11 +16,12 @@ import com.lvmoney.common.ro.ServerBaseInfoRo;
  */
 public interface BaseService {
     /**
-     * @describe: 存储服务基本信息到redis中
-     * @param: [serverInfo]
+     * 存储服务基本信息到redis中
+     *
+     * @param serverBaseInfoRo: 服务基础信息实体
      * @return: void
      * @author: lvmoney /XXXXXX科技有限公司
-     * 2019/8/16 15:54
+     * @date: 2019/9/9 19:49
      */
     void saveServerInfo(ServerBaseInfoRo serverBaseInfoRo);
 }

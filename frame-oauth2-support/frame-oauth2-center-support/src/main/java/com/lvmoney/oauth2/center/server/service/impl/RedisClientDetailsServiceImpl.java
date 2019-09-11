@@ -21,18 +21,22 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+
 /**
- * Created by lvmoney on 2019/1/17.
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 @Service
 public class RedisClientDetailsServiceImpl implements ClientDetailsService {
-    private final static Logger logger = LoggerFactory.getLogger(RedisClientDetailsServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(RedisClientDetailsServiceImpl.class);
 
     @Autowired
     Oauth2RedisService oauth2RedisService;
     @Autowired
     Db2RedisService db2RedisService;
 
+    @Override
     public ClientDetails loadClientByClientId(String clientId) throws ClientRegistrationException {
         BaseClientDetails baseClientDetails = oauth2RedisService.getClientDetailsByClientId(clientId);
         if (ObjectUtils.anyNotNull(baseClientDetails)) {
@@ -62,7 +66,7 @@ public class RedisClientDetailsServiceImpl implements ClientDetailsService {
 ////            Map<String, BaseClientDetails> data = new HashMap<>();
 ////            data.put("SampleClientId", baseClientDetails);
 ////            oauth2ClientDetailRo.setData(data);
-////            oauth2ClientDetailRo.setExpire(18000l);
+////            oauth2ClientDetailRo.setExpire(18000L);
 ////            oauth2RedisService.clientDetails2Redis(oauth2ClientDetailRo);
             db2RedisService.loadClientDetailsByClientId(clientId);
             baseClientDetails = oauth2RedisService.getClientDetailsByClientId(clientId);

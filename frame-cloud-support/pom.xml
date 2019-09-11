@@ -20,5 +20,6 @@
         <module>frame-cloud-zipkin-support</module>
         <module>frame-cloud-customer-support</module>
         <module>frame-cloud-gateway-support</module>
+        <module>frame-cloud-bus-support</module>
     </modules>
 </project>

@@ -24,9 +24,9 @@ import org.springframework.stereotype.Component;
  */
 
 @Component("aJob")
-public class AJob extends ParentJob {
+public class AJob extends AbstractJob {
 
-    private final static Logger logger = LoggerFactory.getLogger(AJob.class);
+    private static final Logger logger = LoggerFactory.getLogger(AJob.class);
 
     @PostConstruct
     public void init() {

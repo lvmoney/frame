@@ -13,9 +13,21 @@ package com.lvmoney.office.enums;/**
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public enum WTemplateEnum {
+    /**
+     * 表格
+     */
     TABLE("#"),
+    /**
+     * string
+     */
     STRING("\u0000"),
+    /**
+     * 图片
+     */
     PICTURE("@"),
+    /**
+     * 数字列
+     */
     NUMBERIC("*");
 
     private String value;

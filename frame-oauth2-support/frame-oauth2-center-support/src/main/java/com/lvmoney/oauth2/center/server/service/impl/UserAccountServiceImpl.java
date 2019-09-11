@@ -17,6 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Service
 public class UserAccountServiceImpl implements UserAccountService {
 
@@ -47,7 +52,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Async
     public void loginSuccess(String username) {
         UserAccount userAccountEntity = userAccountDao.findByUsername(username);
@@ -60,7 +65,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void loginFailure(String username) {
         UserAccount userAccountEntity = userAccountDao.findByUsername(username);
         if (userAccountEntity != null) {
@@ -82,7 +87,7 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public UserAccountVo create(UserAccountVo userAccountVo) {
         return userAccountVo;
     }
@@ -94,14 +99,14 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public UserAccountVo updateById(UserAccountVo userAccountVo) {
         return null;
     }
 
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateRecordStatus(long id, int recordStatus) {
     }
 

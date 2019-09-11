@@ -17,5 +17,5 @@ import java.io.Serializable;
  * @version:v1.0 2019/8/8 17:38
  */
 @Data
-public class OAuth2FilterRo implements Serializable {
+public class Oauth2FilterRo implements Serializable {
 }

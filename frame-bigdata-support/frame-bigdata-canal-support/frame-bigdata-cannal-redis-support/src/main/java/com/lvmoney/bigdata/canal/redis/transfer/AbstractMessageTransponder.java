@@ -16,7 +16,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 public abstract class AbstractMessageTransponder implements MessageTransponder {
 
     /**
@@ -159,11 +163,20 @@ public abstract class AbstractMessageTransponder implements MessageTransponder {
 
     /**
      * 处理监听的事件
+     *
+     * @param message: 信息体
+     * @return void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @data: 2019/9/9 19:05
      */
     protected abstract void distributeEvent(Message message);
 
     /**
-     * 停止 canal 客户端
+     * @describe: 停止 canal 客户端
+     * @param: []
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 9:49
      */
     void stop() {
         running = false;

@@ -22,7 +22,13 @@ import org.springframework.context.annotation.Configuration;
 @SpringBootApplication(scanBasePackages = {"com.lvmoney.**"}, exclude = DataSourceAutoConfiguration.class)
 @Configuration
 public class Application {
-    //shiro,jwt,redis整合成功。1、事务注解是否生效校验。2、自定义shiro标签中的url的过滤
+    /**
+     * @describe: shiro, jwt, redis整合成功。1、事务注解是否生效校验。2、自定义shiro标签中的url的过滤
+     * @param: [args]
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 9:58
+     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

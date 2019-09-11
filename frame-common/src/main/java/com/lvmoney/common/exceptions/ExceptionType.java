@@ -7,16 +7,22 @@ package com.lvmoney.common.exceptions;
  */
 public interface ExceptionType {
     /**
-     * @return 2018年12月29日上午11:19:26
-     * @describe:异常代码,为方便前端捕捉,推荐分段处理
-     * @author: lvmoney /xxxx科技有限公司
+     * 异常代码,为方便前端捕捉,推荐分段处理
+     *
+     * @throws
+     * @return: int
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:31
      */
     int getCode();
 
     /**
-     * @return 2018年12月29日上午11:19:37
-     * @describe:异常描述信息
-     * @author: lvmoney /xxxx科技有限公司
+     * 异常描述信息
+     *
+     * @throws
+     * @return: java.lang.String
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:32
      */
     String getDescription();
 

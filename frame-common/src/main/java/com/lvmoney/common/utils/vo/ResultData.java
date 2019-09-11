@@ -8,6 +8,11 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 public class ResultData<T> implements Serializable {
     private static final int CODE_SUCCESS = 2000;
     private static final long serialVersionUID = 1L;
@@ -88,7 +93,7 @@ public class ResultData<T> implements Serializable {
         String exmsg = ex.getDescription();
         String typeExmsg = type.getDescription();
         this.code = type.getCode();
-        if (exmsg == null || exmsg.equals("")) {
+        if (exmsg == null || "".equals(exmsg)) {
             this.msg = typeExmsg;
         } else {
             this.msg = exmsg;

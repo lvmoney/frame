@@ -32,6 +32,7 @@ import java.net.URLConnection;
  * @date 2018/12/18
  */
 public class FileLoaderImpl implements IFileLoader {
+    private static final String HTTP_START = "http";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(cn.afterturn.easypoi.cache.manager.FileLoaderImpl.class);
 
@@ -42,7 +43,7 @@ public class FileLoaderImpl implements IFileLoader {
         try {
 
             //判断是否是网络地址
-            if (url.startsWith("http")) {
+            if (url.startsWith(HTTP_START)) {
                 URL urlObj = new URL(url);
                 URLConnection urlConnection = urlObj.openConnection();
                 urlConnection.setConnectTimeout(30);

@@ -6,8 +6,11 @@ import com.lvmoney.k8s.seata.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 /**
- * Created by Administrator on 2019/6/26.
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 @Service
 public class UserServiceImpl implements UserService {

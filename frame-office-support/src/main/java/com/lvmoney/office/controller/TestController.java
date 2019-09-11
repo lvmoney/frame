@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletRequest;
  * @describe：
  * @author: lvmoney /xxxx科技有限公司
  * @version:v1.0 2018年10月30日 下午3:29:38
+ * @RestController
  */
-//@RestController
 public class TestController {
     @RequestMapping(value = "/test7", method = RequestMethod.POST)
     public ResultData exportExcel(TestVo testVo, HttpServletRequest request) {

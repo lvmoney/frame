@@ -15,11 +15,19 @@ import org.springframework.boot.SpringApplication;
  * @describe：统一网关，springboot主方法
  * @author: lvmoney /xxxx科技有限公司
  * @version:v1.0 2018年9月30日 上午8:51:33
+ * @SpringBootApplication(scanBasePackages = {"com.lvmoney.**"})
+ * @Configuration
  */
-//@SpringBootApplication(scanBasePackages = {"com.lvmoney.**"})
-//@Configuration
+
+
 public class Application {
-    //TODO1、断点续传还没有做，2、检索的封装还比较粗陋，增删改已经完成
+    /**
+     * @describe: TODO1、断点续传还没有做，2、检索的封装还比较粗陋，增删改已经完成
+     * @param: [args]
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 9:58
+     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

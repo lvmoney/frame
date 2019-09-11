@@ -17,6 +17,14 @@ import com.lvmoney.rabbitmq.vo.MqDataVo;
  */
 
 public interface HandMqDataService {
-    @SuppressWarnings("rawtypes")
+    /**
+     * 消息处理
+     *
+     * @param mqDataVo:
+     * @throws
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:41
+     */
     void handData(MqDataVo mqDataVo);
 }

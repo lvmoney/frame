@@ -5,6 +5,11 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 public class UserInfo extends User {
     private static final long serialVersionUID = -1682227070901462452L;
     private long userId;

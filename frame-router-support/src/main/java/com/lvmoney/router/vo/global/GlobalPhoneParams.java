@@ -17,20 +17,22 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 全局参数
+ * @describe：全局参数
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class GlobalPhoneParams implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(GlobalPhoneParams.class);
 
-    private static final Map<String, Field> globalFields = new HashMap<>();
+    private static final Map<String, Field> GLOBAL_FIELDS = new HashMap<>();
 
     static {
         Field[] declaredFields = GlobalPhoneParams.class.getDeclaredFields();
         for (Field declaredField : declaredFields) {
             if (!Modifier.isFinal(declaredField.getModifiers())) {
                 declaredField.setAccessible(true);
-                globalFields.put(declaredField.getName(), declaredField);
+                GLOBAL_FIELDS.put(declaredField.getName(), declaredField);
             }
         }
     }
@@ -319,7 +321,7 @@ public class GlobalPhoneParams implements Serializable {
                 for (String param : params) {
                     String[] paramKeyAndValue = param.split("=");
                     if (paramKeyAndValue.length == 2) {
-                        Field declaredField = globalFields.get(paramKeyAndValue[0]);
+                        Field declaredField = GLOBAL_FIELDS.get(paramKeyAndValue[0]);
                         if (declaredField != null) {
                             Type genericType = declaredField.getGenericType();
                             Object value = null;

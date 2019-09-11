@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class IndexController {
-    private final static Logger logger = LoggerFactory.getLogger(IndexController.class);
+    private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
 
     @RequestMapping("/")
     public String hello() {

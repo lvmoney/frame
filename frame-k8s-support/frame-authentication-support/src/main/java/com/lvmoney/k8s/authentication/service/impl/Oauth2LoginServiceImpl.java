@@ -7,7 +7,7 @@ package com.lvmoney.k8s.authentication.service.impl;/**
  */
 
 
-import com.lvmoney.k8s.authentication.service.ParentOauth2LoginService;
+import com.lvmoney.k8s.authentication.service.AbstractOauth2LoginService;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,5 +16,5 @@ import org.springframework.stereotype.Service;
  * @version:v1.0 2019/8/16 10:48
  */
 @Service
-public class Oauth2LoginServiceImpl extends ParentOauth2LoginService {
+public class Oauth2LoginServiceImpl extends AbstractOauth2LoginService {
 }

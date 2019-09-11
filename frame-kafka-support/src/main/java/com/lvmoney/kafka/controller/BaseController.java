@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 
-
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @RestController
 @RequestMapping("/send")
 public class BaseController {
@@ -21,7 +25,7 @@ public class BaseController {
     SynchronousSender synchronousSender;
 
     @RequestMapping(value = "/simple", method = RequestMethod.GET)
-    public void WarnInfo() throws Exception {
+    public void warnInfo() throws Exception {
         int count = 10;
         for (int i = 0; i < count; i++) {
             MessageVo messageVo = new MessageVo();

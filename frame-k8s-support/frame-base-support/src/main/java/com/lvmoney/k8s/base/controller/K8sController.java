@@ -31,13 +31,25 @@ public class K8sController {
 //        return devK8sApiService.init();
 //    }
 
-    //k8s namespace list
+    /**
+     * @describe: k8s namespace list
+     * @param: []
+     * @return: io.fabric8.kubernetes.api.model.NamespaceList
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:15
+     */
     @RequestMapping(value = "/listnamespace", method = RequestMethod.GET)
     public NamespaceList listk8snamespace() {
         return devK8sApiService.listNamespace();
     }
 
-    //k8s node list
+    /**
+     *@describe: k8s node list
+     *@param: []
+     *@return: io.fabric8.kubernetes.api.model.NodeList
+     *@author: lvmoney /XXXXXX科技有限公司
+     *2019/9/9 10:19
+     */
     @RequestMapping(value = "/listnode", method = RequestMethod.GET)
     public NodeList listk8snode() {
         return devK8sApiService.listNode();

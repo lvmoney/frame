@@ -46,7 +46,13 @@ public class IdleConnectionEvictor extends Thread {
         }
     }
 
-    // 关闭清理无效连接的线程
+    /**
+     * @describe: 关闭清理无效连接的线程
+     * @param: []
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:13
+     */
     public void shutdown() {
         shutdown = true;
         synchronized (this) {

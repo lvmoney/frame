@@ -12,6 +12,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 public class JsonUtil {
     /**
      * 把java对象转化成json string
@@ -46,37 +51,35 @@ public class JsonUtil {
         }
     }
 
-    /*
-  复杂json转换实体demo 泛型
- public <T> ResponseEntity<List<OrderDetail>> parseMoreGenericParams() {
-     ResponseEntity responseEntity = new ResponseEntity();
-     responseEntity.setCode("121212");
-     responseEntity.setMsg("abc");
-     List<OrderDetail> orderDetails = new ArrayList<>();
-     OrderDetail orderDetail0 = new OrderDetail();
-     orderDetail0.setAddress("1");
-     orderDetail0.setOrderId("1");
-     orderDetail0.setProductId("1");
-
-     OrderDetail orderDetail1 = new OrderDetail();
-     orderDetail1.setAddress("2");
-     orderDetail1.setOrderId("2");
-     orderDetail1.setProductId("2");
-
-     orderDetails.add(orderDetail0);
-     orderDetails.add(orderDetail1);
-     responseEntity.setData(orderDetails);
-     String tt = JsonUtil.t2JsonString(responseEntity);
-     String json = "{\"code\":\"1\",\"msg\":\"Success\",\"data\":{\"orderid1\":{\"address\":\"street 1\",\"pay\":\"111.0\",\"productId\":\"1342546\"}}}";
-     return JSONObject.parseObject(tt, new TypeReference<ResponseEntity<List<OrderDetail>>>() {
-     });
- }
- //普通的直接转换即可
- ResponseEntity list2 = JSON.parseObject(tt, new TypeReference<ResponseEntity>() {
-     });
-
-
- */
+    /**
+     * 复杂json转换实体demo 泛型
+     * public <T> ResponseEntity<List<OrderDetail>> parseMoreGenericParams() {
+     * ResponseEntity responseEntity = new ResponseEntity();
+     * responseEntity.setCode("121212");
+     * responseEntity.setMsg("abc");
+     * List<OrderDetail> orderDetails = new ArrayList<>();
+     * OrderDetail orderDetail0 = new OrderDetail();
+     * orderDetail0.setAddress("1");
+     * orderDetail0.setOrderId("1");
+     * orderDetail0.setProductId("1");
+     * <p>
+     * OrderDetail orderDetail1 = new OrderDetail();
+     * orderDetail1.setAddress("2");
+     * orderDetail1.setOrderId("2");
+     * orderDetail1.setProductId("2");
+     * <p>
+     * orderDetails.add(orderDetail0);
+     * orderDetails.add(orderDetail1);
+     * responseEntity.setData(orderDetails);
+     * String tt = JsonUtil.t2JsonString(responseEntity);
+     * String json = "{\"code\":\"1\",\"msg\":\"Success\",\"data\":{\"orderid1\":{\"address\":\"street 1\",\"pay\":\"111.0\",\"productId\":\"1342546\"}}}";
+     * return JSONObject.parseObject(tt, new TypeReference<ResponseEntity<List<OrderDetail>>>() {
+     * });
+     * }
+     * //普通的直接转换即可
+     * ResponseEntity list2 = JSON.parseObject(tt, new TypeReference<ResponseEntity>() {
+     * });
+     */
     public static void main(String[] args) {
         Map map = new LinkedHashMap();
         map.put("a", "test");

@@ -4,7 +4,21 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lvmoney.oauth2.center.server.db.entity.ScopeDefinition;
 import org.apache.ibatis.annotations.Select;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 public interface ScopeDefinitionDao extends BaseMapper<ScopeDefinition> {
+    /**
+     * 获得路由规则
+     *
+     * @param scope: 路由范围
+     * @throws
+     * @return: com.lvmoney.oauth2.center.server.db.entity.ScopeDefinition
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 21:01
+     */
     @Select("select * from scope_definition u where u.scope=#{scope}")
     ScopeDefinition findByScope(String scope);
 }

@@ -12,7 +12,7 @@ spring:
         tx-service-group: default
   datasource:
     url: jdbc:mysql://10.20.128.234:3306/fescar?useSSL=false&serverTimezone=UTC
-    username: scltzhy
+    username: lvmoney
     password: scltzhy2019888
 server:
   port: 8072

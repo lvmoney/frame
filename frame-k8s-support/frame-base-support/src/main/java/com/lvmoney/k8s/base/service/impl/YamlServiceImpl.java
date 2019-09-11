@@ -31,15 +31,15 @@ import java.util.List;
  */
 @org.springframework.stereotype.Service
 public class YamlServiceImpl implements YamlService {
-    @Value("${istio.yaml.cover:false}")
+    @Value("${istio.Yaml.cover:false}")
     boolean yamlCover;
     @Value("${spring.application.name:lvmoney}")
     String applicationName;
     @Value("${server.port:8080}")
     int serverPort;
-    @Value("${istio.yaml.replicas:1}")
+    @Value("${istio.Yaml.replicas:1}")
     int replicas;
-    @Value("${istio.yaml.version:v1}")
+    @Value("${istio.Yaml.version:v1}")
     String version;
     @Value("${istio.docker.image.tag}")
     String dockerImage;
@@ -47,13 +47,13 @@ public class YamlServiceImpl implements YamlService {
     @Value("${istio.docker.image.pull:IfNotPresent}")
     String pullPolicy;
 
-    @Value("${istio.yaml.destination.support:false}")
+    @Value("${istio.Yaml.destination.support:false}")
     boolean destinationSupport;
 
-    @Value("${istio.yaml.destination.v1:50}")
+    @Value("${istio.Yaml.destination.v1:50}")
     Integer ratioV1;
 
-    @Value("${istio.yaml.destination.v2:50}")
+    @Value("${istio.Yaml.destination.v2:50}")
     Integer ratioV2;
 
     private String allPrefix = "all";
@@ -64,25 +64,25 @@ public class YamlServiceImpl implements YamlService {
     private String masterIp;
 
 
-    @Value("${istio.yaml.policy.maxConnections:2048}")
+    @Value("${istio.Yaml.policy.maxConnections:2048}")
     private Integer maxConnections;
-    @Value("${istio.yaml.policy.connectTimeout:3s}")
+    @Value("${istio.Yaml.policy.connectTimeout:3s}")
     private String connectTimeout;
-    @Value("${istio.yaml.policy.http1MaxPendingRequests:1024}")
+    @Value("${istio.Yaml.policy.http1MaxPendingRequests:1024}")
     private Integer http1MaxPendingRequests;
-    @Value("${istio.yaml.policy.maxRequestsPerConnection:200}")
+    @Value("${istio.Yaml.policy.maxRequestsPerConnection:200}")
     private Integer maxRequestsPerConnection;
-    @Value("${istio.yaml.policy.consecutiveErrors:3}")
+    @Value("${istio.Yaml.policy.consecutiveErrors:3}")
     private Integer consecutiveErrors;
-    @Value("${istio.yaml.policy.interval:3s}")
+    @Value("${istio.Yaml.policy.interval:3s}")
     private String interval;
-    @Value("${istio.yaml.policy.baseEjectionTime:3m}")
+    @Value("${istio.Yaml.policy.baseEjectionTime:3m}")
     private String baseEjectionTime;
-    @Value("${istio.yaml.policy.maxEjectionPercent:100}")
+    @Value("${istio.Yaml.policy.maxEjectionPercent:100}")
     private Integer maxEjectionPercent;
-    @Value("${istio.yaml.policy.maxRetries:3}")
+    @Value("${istio.Yaml.policy.maxRetries:3}")
     private Integer maxRetries;
-    @Value("${istio.yaml.policy.http2MaxRequests:2048}")
+    @Value("${istio.Yaml.policy.http2MaxRequests:2048}")
     private Integer http2MaxRequests;
 
 
@@ -128,18 +128,14 @@ public class YamlServiceImpl implements YamlService {
         dMetadata.setLabels(meLabels);
         DeploymentSpec deploymentSpec = new DeploymentSpec();
         deploymentSpec.setReplicas(replicas);
-
         Template template = new Template();
         Metadata tMetadata = new Metadata();
         TemplateSpec templateSpec = new TemplateSpec();
         Labels tLabels = new Labels();
         tLabels.setApp(applicationName);
-
         tLabels.setVersion(version);
         tMetadata.setLabels(tLabels);
-
         Containers containers = new Containers();
-
         containers.setName(applicationName);
         containers.setImage(dockerImage);
         if (pullPolicy.equals(DockerPull.IfNotPresent.getValue())) {
@@ -151,14 +147,11 @@ public class YamlServiceImpl implements YamlService {
         } else {
             containers.setImagePullPolicy(DockerPull.IfNotPresent.getValue());
         }
-
         Ports tsPorts = new Ports();
         tsPorts.setContainerPort(serverPort);
         containers.setPorts(new ArrayList() {{
             add(tsPorts);
         }});
-
-
         List<HostAliases> hostAliasesList = new ArrayList();
         if (rpcServerConfigProp != null && rpcServerConfigProp.getServer() != null) {
             rpcServerConfigProp.getServer().forEach((k, v) -> {
@@ -169,32 +162,25 @@ public class YamlServiceImpl implements YamlService {
                         {
                             add(uri.getHost());
                         }
-
                     });
                 } catch (URISyntaxException e) {
                     hostAliases.setHostnames(new ArrayList() {
                         {
                             add(v);
                         }
-
                     });
                 }
-
                 hostAliases.setIp(masterIp);
                 hostAliasesList.add(hostAliases);
             });
-
         }
-
         templateSpec.setHostAliases(hostAliasesList);
-
         templateSpec.setContainers(new ArrayList() {{
             add(containers);
         }});
         template.setMetadata(tMetadata);
         template.setSpec(templateSpec);
         deploymentSpec.setTemplate(template);
-
         deployment.setSpec(deploymentSpec);
         deployment.setMetadata(dMetadata);
         return deployment;
@@ -260,7 +246,8 @@ public class YamlServiceImpl implements YamlService {
         retries.setAttempts(maxRetries);
         retries.setPerTryTimeout(BaseConstant.ISTIO_SERVICE_PERTRYTIMEOUT);
         http.setRetries(retries);
-        if (destinationSupport) {//金丝雀测试，灰度发布
+        if (destinationSupport) {
+            //金丝雀测试，灰度发布
             Route routeV1 = new Route();
             Destination destinationV1 = new Destination();
             destinationV1.setHost(applicationName);
@@ -336,7 +323,8 @@ public class YamlServiceImpl implements YamlService {
         trafficPolicy.setConnectionPool(connectionPool);
         trafficPolicy.setOutlierDetection(outlierDetection);
         destinationRuleSpec.setTrafficPolicy(trafficPolicy);
-        if (destinationSupport) {//生成两个版本的subset，目前只需要支持两种就行
+        if (destinationSupport) {
+            //生成两个版本的subset，目前只需要支持两种就行
             List subsetslist = new ArrayList();
             Subsets subsetsV1 = new Subsets();
             subsetsV1.setName(BaseConstant.VERSION_V1);
@@ -366,7 +354,7 @@ public class YamlServiceImpl implements YamlService {
     }
 
     @Override
-    public void createIDeploy() {
+    public void createDeploy() {
         if (!version.equals(BaseConstant.VERSION_V1) && !version.equals(BaseConstant.VERSION_V2)) {
             version = BaseConstant.VERSION_V1;
         }
@@ -386,7 +374,7 @@ public class YamlServiceImpl implements YamlService {
     }
 
     @Override
-    public void createIGateway() {
+    public void createGateway() {
         if (!version.equals(BaseConstant.VERSION_V1) && !version.equals(BaseConstant.VERSION_V2)) {
             version = BaseConstant.VERSION_V1;
         }
@@ -410,8 +398,10 @@ public class YamlServiceImpl implements YamlService {
      * @author: lvmoney /XXXXXX科技有限公司
      * 2019/8/29 11:34
      */
-    private void destinationRule(Http http) {//灰度发布
-        if (destinationSupport) {//金丝雀测试，灰度发布
+    private void destinationRule(Http http) {
+        //灰度发布
+        if (destinationSupport) {
+            //金丝雀测试，灰度发布
             Route routeV1 = new Route();
             Destination destinationV1 = new Destination();
             destinationV1.setHost(applicationName);

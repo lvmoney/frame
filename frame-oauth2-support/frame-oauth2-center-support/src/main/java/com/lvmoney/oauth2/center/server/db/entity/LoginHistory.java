@@ -8,7 +8,11 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @TableName("login_history")
 @Data
 public class LoginHistory extends Model<LoginHistory> {
@@ -19,7 +23,9 @@ public class LoginHistory extends Model<LoginHistory> {
      */
     @TableId(value = "history_id", type = IdType.ID_WORKER_STR)
     private String historyId;
-    //用于记录用户在哪个子系统进行的登陆
+    /**
+     * 用于记录用户在哪个子系统进行的登陆
+     */
     private String clientId;
     private String username;
     private String ip;

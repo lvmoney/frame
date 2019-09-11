@@ -19,14 +19,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl implements UserService {
+    @Override
     public UserRespVo getUser(UserReqVo userReqVo) {
-        if (userReqVo.getUsername().equals("lvmoney")) {
+        String lvmoney = "lvmoney";
+        String cx = "cx";
+        if (lvmoney.equals(userReqVo.getUsername())) {
             UserRespVo userRespVo = new UserRespVo();
             userRespVo.setAddress("成都武侯");
             userRespVo.setAge(29);
             userRespVo.setSex("男");
             return userRespVo;
-        } else if (userReqVo.getUsername().equals("cx")) {
+        } else if (cx.equals(userReqVo.getUsername())) {
             UserRespVo userRespVo = new UserRespVo();
             userRespVo.setAddress("成都龙泉");
             userRespVo.setAge(23);

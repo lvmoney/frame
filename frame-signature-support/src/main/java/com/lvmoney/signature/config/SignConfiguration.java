@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * @Description: 印章配置类
  * @Author Ran.chunlin
- * @Date: Created in 12:17 2018-10-04
+ * @data: Created in 12:17 2018-10-04
  */
 public class SignConfiguration {
     /**

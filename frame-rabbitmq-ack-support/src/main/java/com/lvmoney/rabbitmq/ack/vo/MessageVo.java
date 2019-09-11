@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 public class MessageVo<T> implements Serializable {
     private String msgType;
-    private T t;
+    private T data;
 
     public long getDate() {
         return date;
@@ -40,12 +40,12 @@ public class MessageVo<T> implements Serializable {
         this.msgType = msgType;
     }
 
-    public T getT() {
-        return t;
+    public T getData() {
+        return data;
     }
 
-    public void setT(T t) {
-        this.t = t;
+    public void setData(T data) {
+        this.data = data;
     }
 
 }

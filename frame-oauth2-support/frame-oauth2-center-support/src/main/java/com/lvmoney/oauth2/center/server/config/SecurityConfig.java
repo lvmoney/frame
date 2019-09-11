@@ -15,6 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -66,7 +71,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/signIn?out")
                 .and()
                 .formLogin()
-                .authenticationDetailsSource(authenticationDetailsSource) //重点
+                //重点
+                .authenticationDetailsSource(authenticationDetailsSource)
                 .failureHandler(clientAuthenticationFailureHandler)
                 .successHandler(clientAuthenticationSuccessHandler)
                 .loginPage("/signIn").loginProcessingUrl("/security_check").permitAll();

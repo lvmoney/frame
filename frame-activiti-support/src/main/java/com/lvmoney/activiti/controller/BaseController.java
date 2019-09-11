@@ -11,6 +11,7 @@ import com.lvmoney.activiti.po.User;
 import com.lvmoney.activiti.po.VacationForm;
 import com.lvmoney.activiti.service.MiaoService;
 import com.lvmoney.activiti.utils.ResultInfo;
+import com.lvmoney.common.constant.CommonConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -58,7 +59,7 @@ public class BaseController {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("userInfo")) {
+                if ("userInfo".equals(cookie.getName())) {
                     cookie.setValue(null);
                     // 立即销毁cookie
                     cookie.setMaxAge(0);
@@ -72,7 +73,13 @@ public class BaseController {
         return result;
     }
 
-    //添加请假单
+    /**
+     * @describe: 添加请假单
+     * @param: [request]
+     * @return: com.lvmoney.activiti.utils.ResultInfo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 9:59
+     */
     @GetMapping("/writeForm")
     public ResultInfo writeForm(HttpServletRequest request) {
         ResultInfo result = new ResultInfo();
@@ -86,7 +93,13 @@ public class BaseController {
         return result;
     }
 
-    //申请者放弃请假
+    /**
+     * @describe: 申请者放弃请假
+     * @param: [request]
+     * @return: com.lvmoney.activiti.utils.ResultInfo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 9:59
+     */
     @GetMapping("/giveup")
     public ResultInfo giveup(HttpServletRequest request) {
         ResultInfo result = new ResultInfo();
@@ -98,7 +111,13 @@ public class BaseController {
         return result;
     }
 
-    //申请者申请请假
+    /**
+     * @describe: 申请者申请请假
+     * @param: [request]
+     * @return: com.lvmoney.activiti.utils.ResultInfo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 9:59
+     */
     @GetMapping("/apply")
     public ResultInfo apply(HttpServletRequest request) {
         ResultInfo result = new ResultInfo();
@@ -110,7 +129,13 @@ public class BaseController {
         return result;
     }
 
-    //审批者审核请假信息
+    /**
+     * @describe: 审批者审核请假信息
+     * @param: [request]
+     * @return: com.lvmoney.activiti.utils.ResultInfo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:00
+     */
     @GetMapping("/approve")
     public ResultInfo approve(HttpServletRequest request) {
         ResultInfo result = new ResultInfo();
@@ -122,15 +147,28 @@ public class BaseController {
         return result;
     }
 
-    //获取某条请假信息当前状态
+    /**
+     * @describe: 获取某条请假信息当前状态
+     * @param: [request]
+     * @return: java.util.HashMap<java.lang.String, java.lang.String>
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:00
+     */
     @GetMapping("/currentState")
     public HashMap<String, String> currentState(HttpServletRequest request) {
         String formId = request.getParameter("formId");
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap(CommonConstant.MAP_DEFAULT_SIZE);
         map = miaoService.getCurrentState(formId);
         return map;
     }
 
+    /**
+     * @describe: 历史状态查询
+     * @param: [request]
+     * @return: com.lvmoney.activiti.utils.ResultInfo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:00
+     */
     @GetMapping("/historyState")
     public ResultInfo queryHistoricTask(HttpServletRequest request) {
         ResultInfo result = new ResultInfo();

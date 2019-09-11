@@ -7,7 +7,7 @@ package com.lvmoney.office.controller;/**
  */
 
 
-import com.lvmoney.office.vo.WTemplateVo;
+import com.lvmoney.office.vo.WordTemplateVo;
 import org.jodconverter.DocumentConverter;
 import org.jodconverter.office.OfficeException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ import java.io.File;
  * @describe：
  * @author: lvmoney /xxxx科技有限公司
  * @version:v1.0 2018年10月30日 下午3:29:38
+ * @RestController
+ * @RequestMapping(value = "/login")
  */
-//@RestController
-//@RequestMapping(value = "/login")
 public class LoginController {
     @Autowired
     private DocumentConverter documentConverter;
@@ -45,8 +45,15 @@ public class LoginController {
 
     }
 
+    /**
+     * @describe: 测试
+     * @param: [wordTemplateVo]
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:20
+     */
     @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public void test(@RequestBody WTemplateVo wTemplateVo) {
+    public void test(@RequestBody WordTemplateVo wordTemplateVo) {
         System.out.println("test");
     }
 

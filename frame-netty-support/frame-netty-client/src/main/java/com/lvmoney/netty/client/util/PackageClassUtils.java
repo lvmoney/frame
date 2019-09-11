@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2018/8/15 - 12:28
  */
 public class PackageClassUtils {
-    private final static Logger LOGGER = LoggerFactory.getLogger(PackageClassUtils.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PackageClassUtils.class);
 
     /**
      * 获取一个目录下的所有文件
@@ -26,10 +26,11 @@ public class PackageClassUtils {
     private static void getAllFile(String s, File file, List<String> classStrs) {
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            if (files != null)
+            if (files != null) {
                 for (File file1 : files) {
                     getAllFile(s, file1, classStrs);
                 }
+            }
         } else {
             String path = file.getPath();
             String cleanPath = path.replaceAll("/", ".");
@@ -68,10 +69,10 @@ public class PackageClassUtils {
      */
     public static List<String> resolver(String basePackage) {
         // 以";"分割开多个包名
-        String[] splitFHs = basePackage.split(";");
+        String[] splitFhs = basePackage.split(";");
         List<String> classStrs = new ArrayList<>();
         // s: com.yyx.util.*
-        for (String s : splitFHs) {
+        for (String s : splitFhs) {
             LOGGER.info("[加载类目录] {}", s);
             // 路径中是否存在".*" com.yyx.util.*
             boolean contains = s.contains(".*");

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Created by Administrator on 2019/6/27.
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -15,7 +17,7 @@ public class AccountServiceImpl implements AccountService {
     AccountDao accountDao;
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public int updateAccount(String userid) {
         return accountDao.updateAccount(userid);
     }

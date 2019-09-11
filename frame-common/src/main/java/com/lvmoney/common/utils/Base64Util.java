@@ -21,7 +21,7 @@ import java.util.Base64;
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class Base64Util {
-    private final static Logger logger = LoggerFactory.getLogger(Base64Util.class);
+    private static final Logger logger = LoggerFactory.getLogger(Base64Util.class);
 
     /**
      * @describe: 加密

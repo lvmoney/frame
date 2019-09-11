@@ -13,12 +13,20 @@ package com.lvmoney.lock.constant;/**
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class LockConstant {
-    public final static String SECTION_LOCK_KEY = "sectionLock";//分布式锁的key
-    public final static String PROD_SECTION_LOCK_KEY = "prodSectionLock";//分布式锁的key
+    /**
+     * 分布式锁的key
+     */
+    public static final String SECTION_LOCK_KEY = "sectionLock";
+    /**
+     * 分布式锁的key
+     */
+    public static final String PROD_SECTION_LOCK_KEY = "prodSectionLock";
+    /**
+     * 分布式锁的key
+     */
+    public static final String PROD_SECTION_UPDATE_LOCK_KEY = "prodSectionUpdateLock";
 
-    public final static String PROD_SECTION_UPDATE_LOCK_KEY = "prodSectionUpdateLock";//分布式锁的key
+    public static final String PROD_LOCK_KEY = "prodLock";
 
-    public final static String PROD_LOCK_KEY = "prodLock";
-
-    public final static int LOCK_TIME = 60;
+    public static final int LOCK_TIME = 60;
 }

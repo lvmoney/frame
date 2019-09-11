@@ -7,6 +7,8 @@ package com.lvmoney.k8s.authentication.constant;/**
  */
 
 
+import java.io.File;
+
 /**
  * @describe：
  * @author: lvmoney/XXXXXX科技有限公司
@@ -25,4 +27,6 @@ public class AuthenticationConstant {
      * oauth2 默认的角色
      */
     public static final String DEFAULT_ROLE = "OAUTH2";
+
+    public static final String PATH_START = "/";
 }

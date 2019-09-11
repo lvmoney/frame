@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 public class ListUtil {
-    private final static Logger logger = LoggerFactory.getLogger(ListUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(ListUtil.class);
 
     /**
      * @param res

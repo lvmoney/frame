@@ -13,7 +13,13 @@ package com.lvmoney.k8s.base.enums;/**
  * @version:v1.0 2019/8/20 11:58
  */
 public enum OperatingEnvironmentType {
+    /**
+     * istio运行环境 本地开发
+     */
     local("local"),
+    /**
+     * istio运行环境 k8s istio环境
+     */
     istio("istio");
     private String value;
 

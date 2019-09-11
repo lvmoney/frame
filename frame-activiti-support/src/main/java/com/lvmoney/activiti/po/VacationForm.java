@@ -5,7 +5,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-//请假单信息表
+
+/**
+ * @describe：请假单信息表
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @TableName("vacation_form")
 public class VacationForm {
     @TableId(type = IdType.AUTO)
@@ -15,13 +20,19 @@ public class VacationForm {
 
     private String content;
 
-    //申请者
+    /**
+     * 申请者
+     */
     private String applicant;
 
-    //审批者
+    /**
+     * 审批者
+     */
     private String approver;
 
-    //申请所处状态
+    /**
+     * 申请所处状态
+     */
     private String state;
 
     public VacationForm() {

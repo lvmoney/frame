@@ -16,21 +16,24 @@ package com.lvmoney.drools.service;
 
 public interface ProductService {
     /**
+     * 判断产品是否能够投放
+     *
      * @param price  价格
      * @param cost   成本
      * @param charge 手续费比例
      * @param profit 利润点
-     * @return 2018年11月23日上午10:08:09
-     * @describe:判断产品是否能够投放
+     * @return boolean
+     * @data 2018年11月23日上午10:08:09
      * @author: lvmoney /xxxx科技有限公司
      */
     boolean isPassProduct(double price, double cost, double charge, double profit);
 
     /**
+     * 通过高价获得最高投放价 计算公式：最高价-区间折扣。
+     *
      * @param originalPrice 原始高价
-     * @return 2018年11月23日上午10:12:39
-     * @describe:通过高价获得最高投放价 计算公式：最高价-区间折扣。
-     * 区间折扣：(0,200]->5,[201,300]->10,[301,+∞)->20
+     * @return double
+     * @data 2018年11月23日上午10:12:39
      * @author: lvmoney /xxxx科技有限公司
      */
     double getProductPrice(double originalPrice);

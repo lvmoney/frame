@@ -20,11 +20,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @version:v1.0 2019/8/14 8:41
  */
 public interface AuthenticationServer {
+    /**
+     * 用户token校验
+     *
+     * @return: com.lvmoney.common.utils.vo.ResultData<com.lvmoney.k8s.gateway.vo.resp.Oauth2TokenCheck>
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:21
+     */
     @GetMapping("/user/token/check")
     @ResponseBody
     ResultData<Oauth2TokenCheck> oauth2CheckToken();
 
-
+    /**
+     * 用户权限校验
+     *
+     * @param servletPath:servlet地址
+     * @return: com.lvmoney.common.utils.vo.ResultData<com.lvmoney.k8s.gateway.vo.resp.ShiroAuthorityCheck>
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:22
+     */
     @GetMapping("/user/authority/check")
     @ResponseBody
     ResultData<ShiroAuthorityCheck> shiroCheckAuthority(@RequestParam(value = "servletPath") String servletPath);

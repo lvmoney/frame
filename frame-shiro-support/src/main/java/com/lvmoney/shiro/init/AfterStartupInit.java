@@ -7,6 +7,7 @@ package com.lvmoney.shiro.init;/**
  */
 
 
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.shiro.annotations.ShiroResouce;
 import com.lvmoney.shiro.ro.ShiroServerRo;
 import com.lvmoney.shiro.service.ShiroRedisService;
@@ -60,7 +61,7 @@ public class AfterStartupInit implements InitializingBean {
             shiroServerData.add(sysServiceDataVo);
         }
         ShiroServerRo shiroServerRo = new ShiroServerRo();
-        Map<String, List<SysServiceDataVo>> data = new HashMap() {{
+        Map<String, List<SysServiceDataVo>> data = new HashMap(CommonConstant.MAP_DEFAULT_SIZE) {{
             put(serverName, shiroServerData);
         }};
         shiroServerRo.setData(data);

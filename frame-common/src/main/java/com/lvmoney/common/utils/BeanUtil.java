@@ -8,6 +8,7 @@ package com.lvmoney.common.utils;/**
 
 
 import com.alibaba.fastjson.JSON;
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.common.utils.vo.EcdsaVo;
@@ -31,7 +32,7 @@ import java.util.Map;
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class BeanUtil {
-    private final static Logger logger = LoggerFactory.getLogger(BeanUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(BeanUtil.class);
 
     public static <T> List<T> deepCopy(List<T> src) {
         try {
@@ -76,7 +77,8 @@ public class BeanUtil {
         T obj = null;
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
-            obj = clazz.newInstance(); // 创建 JavaBean 对象
+            // 创建 JavaBean 对象
+            obj = clazz.newInstance();
             // 给 JavaBean 对象的属性赋值
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
             for (int i = 0; i < propertyDescriptors.length; i++) {
@@ -125,7 +127,7 @@ public class BeanUtil {
      * JsonUtil.t2JsonString(map)，key值是@JSONField(name = "test3")里面的值
      * @author: lvmoney /xxxx科技有限公司
      */
-    public static <T> T map2BeanJ(Class<T> clazz, Map<String, Object> map) {
+    public static <T> T map2Json2Bean(Class<T> clazz, Map<String, Object> map) {
         T t = JSON.parseObject(JsonUtil.t2JsonString(map), clazz);
         return t;
     }
@@ -146,7 +148,7 @@ public class BeanUtil {
 
 //        EcdsaVo ecdsaVo3 = JSON.parseObject(JsonUtil.t2JsonString(ecdsaVo2), EcdsaVo.class);
 //        System.out.println("bean:" + JsonUtil.t2JsonString(ecdsaVo3));
-        Map map1 = new HashMap();
+        Map map1 = new HashMap(CommonConstant.MAP_DEFAULT_SIZE);
         map1.put("test3", "3333");
         map1.put("privateKey", "3333");
         map1.put("publicKey", "3333");
@@ -166,7 +168,7 @@ public class BeanUtil {
         EcdsaVo ecdsaVo4 = JSON.parseObject(JsonUtil.t2JsonString(map1), EcdsaVo.class);
         System.out.println("bean:" + JsonUtil.t2JsonString(ecdsaVo4));
         System.out.println(ecdsaVo4.getTest());
-        EcdsaVo ecdsaVo91 = map2BeanJ(EcdsaVo.class, map1);
+        EcdsaVo ecdsaVo91 = map2Json2Bean(EcdsaVo.class, map1);
         System.out.println(JsonUtil.t2JsonString(ecdsaVo91));
         System.out.println(ecdsaVo91.getTest());
     }

@@ -42,7 +42,7 @@ public class NettyClient {
     /**
      * 默认重连机制为10次
      */
-    private int MAX_RETRY_TIMES = 10;
+    private static final int MAX_RETRY_TIMES = 10;
 
     public NettyClient(int port, String url) {
         this.port = port;

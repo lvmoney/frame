@@ -39,7 +39,7 @@ public class SimpleSender {
 
     @Autowired
     RabbitmqRedisService rabbitmqRedisService;
-    @Value("${rabbitmq.error.record.expire}")
+    @Value("${rabbitmq.error.record.expire:18000}")
     String expire;
     @Autowired
     ConnectionFactory connectionFactory;
@@ -55,12 +55,10 @@ public class SimpleSender {
 
     public void send(MessageVo msg) {
         RabbitTemplate rabbitTemplate = rabbitTemplate(connectionFactory);
-        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {//exchange 错误被调用ack=false
+        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
+            //exchange 错误被调用ack=false
             if (!ack) {
                 AckErrorRecordRo ackErrorRecordRo = new AckErrorRecordRo();
-                if (StringUtils.isBlank(expire)) {
-                    expire = "1800";
-                }
                 ackErrorRecordRo.setExpire(Long.valueOf(expire));
                 MsgErrorVo msgErrorVo = new MsgErrorVo();
                 msgErrorVo.setMessageVo(msg);
@@ -74,9 +72,6 @@ public class SimpleSender {
         rabbitTemplate.setReturnCallback((Message message, int replyCode, String replyText,
                                           String exchange, String routingKey) -> { //exchange 正确,queue 错误 ,confirm被回调, ack=true; return被回调 replyText:NO_ROUTE
             AckErrorRecordRo ackErrorRecordRo = new AckErrorRecordRo();
-            if (StringUtils.isBlank(expire)) {
-                expire = "1800";
-            }
             ackErrorRecordRo.setExpire(Long.valueOf(expire));
             MsgErrorVo msgErrorVo = new MsgErrorVo();
             msgErrorVo.setMessageVo(msg);

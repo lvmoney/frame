@@ -11,12 +11,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
-
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 public class CanalClientConfig {
     /**
      * 记录日志
      */
-    private final static Logger logger = LoggerFactory.getLogger(CanalClientConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(CanalClientConfig.class);
 
     /**
      * canal 配置

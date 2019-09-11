@@ -24,7 +24,8 @@ import java.io.*;
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class FileUtil {
-    private final static Logger logger = LoggerFactory.getLogger(FileUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
+    private static final int FILE_BYRE_LENGTH = 8 * 1024;
 
     /**
      * @describe: multipart 转flle ,待验证
@@ -36,7 +37,7 @@ public class FileUtil {
     public static void multipartFileToFile(MultipartFile file) throws Exception {
 
         File toFile = null;
-        if (file.equals("") || file.getSize() <= 0) {
+        if ("".equals(file) || file.getSize() <= 0) {
             file = null;
         } else {
             InputStream ins = null;
@@ -75,7 +76,7 @@ public class FileUtil {
             OutputStream os = new FileOutputStream(file);
             int bytesRead = 0;
             byte[] buffer = new byte[8192];
-            while ((bytesRead = ins.read(buffer, 0, 8192)) != -1) {
+            while ((bytesRead = ins.read(buffer, 0, FILE_BYRE_LENGTH)) != -1) {
                 os.write(buffer, 0, bytesRead);
             }
             os.close();
@@ -153,7 +154,7 @@ public class FileUtil {
     }
 
 
-    public static byte[] File2byte(String filePath) {
+    public static byte[] file2byte(String filePath) {
         byte[] buffer = null;
         try {
             File file = new File(filePath);

@@ -42,4 +42,7 @@ public class ShiroConstant {
     public static final String SHIRO_URL_PREFIX = "SERVER:";
 
 
+    public static final String SERVLET_END_WITH = "/";
+
+
 }

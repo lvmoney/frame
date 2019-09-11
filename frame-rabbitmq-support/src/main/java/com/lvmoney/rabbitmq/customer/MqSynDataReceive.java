@@ -36,13 +36,14 @@ public class MqSynDataReceive {
 
     /**
      * @param str 2018年10月12日上午10:35:00
-     * @describe:处理订单支付结果消息 1、注意这里需要通过mqType 找到 HandMqDataService 实现接口对应的beanname，通过策略模式调用不同的接口处理消息
+     * @describe:监听器监听指定的Queue
+     * 处理订单支付结果消息
+     * 1、注意这里需要通过mqType 找到 HandMqDataService 实现接口对应的beanname，通过策略模式调用不同的接口处理消息
      * 2、通过@DynamicService 注解能够找到对于的beanname
      * 3、使用@DynamicService(name="SYN_DATA")注解name的值应该和mqType一样
      * @author: lvmoney /xxxx科技有限公司
      */
-    @SuppressWarnings("rawtypes")
-    @RabbitListener(queues = RabbitmqConstant.MQ_DATA_SYN_NAME) // 监听器监听指定的Queue
+    @RabbitListener(queues = RabbitmqConstant.MQ_DATA_SYN_NAME)
     public void processOrder(String str) {
         MqDataVo mqDataVo = JSONObject.parseObject(str, MqDataVo.class);
         String mqType = mqDataVo.getMqType();

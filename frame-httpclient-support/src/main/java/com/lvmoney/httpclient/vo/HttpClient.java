@@ -100,7 +100,7 @@ public class HttpClient {
     public RequestConfig.Builder getBuilder() {
         RequestConfig.Builder builder = RequestConfig.custom();
         return builder.setConnectTimeout(connectTimeout).setConnectionRequestTimeout(connectionRequestTimeout)
-                .setSocketTimeout(socketTimeout).setStaleConnectionCheckEnabled(staleConnectionCheckEnabled);
+                .setSocketTimeout(socketTimeout);
     }
 
     /**

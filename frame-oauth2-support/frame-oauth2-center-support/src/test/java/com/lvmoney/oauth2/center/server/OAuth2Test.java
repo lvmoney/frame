@@ -71,7 +71,7 @@ public class OAuth2Test {
         ResponseEntity<String> response = client.exchange(url, HttpMethod.POST, requestEntity, String.class);
 
         String jsonString = response.getBody();
-        Map<String, String> result = JacksonUtil.JSONStringToObject(jsonString, new TypeReference<Map<String, String>>() {
+        Map<String, String> result = JacksonUtil.jsonString2Object(jsonString, new TypeReference<Map<String, String>>() {
         });
 //  输出结果
         System.out.println(result);
@@ -93,7 +93,7 @@ public class OAuth2Test {
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
 //  执行HTTP请求
         ResponseEntity<String> response = client.exchange(url, HttpMethod.POST, requestEntity, String.class);
-        Map<String, Object> result = JacksonUtil.JSONStringToObject(response.getBody(), new TypeReference<Map<String, Object>>() {
+        Map<String, Object> result = JacksonUtil.jsonString2Object(response.getBody(), new TypeReference<Map<String, Object>>() {
         });
 //  输出结果
         System.out.println(result);
@@ -118,7 +118,7 @@ public class OAuth2Test {
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
 //  执行HTTP请求
         ResponseEntity<String> response = client.exchange(url, HttpMethod.POST, requestEntity, String.class);
-        Map<String, String> result = JacksonUtil.JSONStringToObject(response.getBody(), new TypeReference<Map<String, String>>() {
+        Map<String, String> result = JacksonUtil.jsonString2Object(response.getBody(), new TypeReference<Map<String, String>>() {
         });
 //  输出结果
         System.out.println(result);

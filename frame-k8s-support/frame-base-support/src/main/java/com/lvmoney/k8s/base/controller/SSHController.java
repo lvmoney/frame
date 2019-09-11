@@ -11,7 +11,7 @@ import ch.ethz.ssh2.Connection;
 import com.lvmoney.common.utils.ResultUtil;
 import com.lvmoney.common.utils.vo.ResultData;
 import com.lvmoney.k8s.base.utils.ExecCmdResult;
-import com.lvmoney.k8s.base.utils.SSH2Util;
+import com.lvmoney.k8s.base.utils.Ssh2Util;
 import com.lvmoney.k8s.base.vo.req.SshExecReqVo;
 import com.lvmoney.k8s.base.vo.req.SshUploadFileReqVo;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +27,7 @@ import static com.lvmoney.common.constant.CommonConstant.FILE_SEPARATOR;
  */
 @RestController
 @RequestMapping(value = "/ssh")
-public class SSHController {
+public class SshController {
     /**
      * @describe:文件上传到linux指定目录
      * @param: [sshUploadFileReqVo]
@@ -37,7 +37,7 @@ public class SSHController {
      */
     @GetMapping(value = "/upload")
     public ResultData<Boolean> upload(SshUploadFileReqVo sshUploadFileReqVo) {
-        SSH2Util.upload(this.getConnection(sshUploadFileReqVo.getHost(),
+        Ssh2Util.upload(this.getConnection(sshUploadFileReqVo.getHost(),
                 sshUploadFileReqVo.getPort(),
                 sshUploadFileReqVo.getUsername(),
                 sshUploadFileReqVo.getPassword()),
@@ -54,7 +54,7 @@ public class SSHController {
      */
     @GetMapping(value = "/exec")
     public ResultData<Boolean> exec(SshExecReqVo sshExecReqVo) {
-        ExecCmdResult execCmdResult = SSH2Util.execCommand(this.getConnection(sshExecReqVo.getHost(),
+        ExecCmdResult execCmdResult = Ssh2Util.execCommand(this.getConnection(sshExecReqVo.getHost(),
                 sshExecReqVo.getPort(),
                 sshExecReqVo.getUsername(),
                 sshExecReqVo.getPassword()),
@@ -63,7 +63,7 @@ public class SSHController {
     }
 
     private Connection getConnection(String host, int port, String username, String password) {
-        return SSH2Util.openConnection(host, port, username, password);
+        return Ssh2Util.openConnection(host, port, username, password);
     }
 
 }

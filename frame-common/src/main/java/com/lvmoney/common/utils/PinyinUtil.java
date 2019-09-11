@@ -1,5 +1,6 @@
 package com.lvmoney.common.utils;
 
+import com.lvmoney.common.constant.CommonConstant;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
@@ -13,18 +14,24 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 
 /**
- * Created by Administrator on 2019/7/4.
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class PinyinUtil {
 
-    private static Logger logger = LoggerFactory.getLogger(PinyinUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(PinyinUtil.class);
 
     public static HanyuPinyinOutputFormat pinyinOutputFormat;
 
+    public static final String SINOGRAM_MATCHE = "[\\u4E00-\\u9FA5]+";
+
     static {
         pinyinOutputFormat = new HanyuPinyinOutputFormat();
-        pinyinOutputFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE); // 小写
-        pinyinOutputFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE); // WITH_TONE_NUMBER//第几声
+        // 小写
+        pinyinOutputFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
+        // WITH_TONE_NUMBER//第几声
+        pinyinOutputFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
         pinyinOutputFormat.setVCharType(HanyuPinyinVCharType.WITH_V);
     }
 
@@ -41,18 +48,18 @@ public class PinyinUtil {
             String keyword = prepareKeyword(src);
             char[] charArray = keyword.toCharArray();
             String[] pinyinArray = null;
-            Map<String, String> tempCharMap = new HashMap<String, String>();
-            Map<String, String> tempStrPinyinMap = new HashMap<String, String>();
+            Map<String, String> tempCharMap = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
+            Map<String, String> tempStrPinyinMap = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
 
-            Map<String, String> resultPinyinMap = new HashMap<String, String>();
-            String key_char = null;
-            String key_str = null;
+            Map<String, String> resultPinyinMap = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
+            String keyChar = null;
+            String keyStr = null;
 
             try {
                 for (int i = 0; i < charArray.length; i++) {
-                    tempCharMap = new HashMap<String, String>();
+                    tempCharMap = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
                     // 判断是否为汉字字符函数
-                    if (Character.toString(charArray[i]).matches("[\\u4E00-\\u9FA5]+")) {
+                    if (Character.toString(charArray[i]).matches(SINOGRAM_MATCHE)) {
                         pinyinArray =
                                 PinyinHelper.toHanyuPinyinStringArray(charArray[i], pinyinOutputFormat);
                         if (pinyinArray != null) {
@@ -65,21 +72,21 @@ public class PinyinUtil {
                                 Character.toString(charArray[i]));
                     }
 
-                    Iterator<String> it_str = null;
-                    Iterator<String> it_char = tempCharMap.keySet().iterator();
-                    while (it_char.hasNext()) {
-                        key_char = it_char.next();
+                    Iterator<String> itStr = null;
+                    Iterator<String> itChar = tempCharMap.keySet().iterator();
+                    while (itChar.hasNext()) {
+                        keyChar = itChar.next();
 
                         if (i == 0) {
-                            resultPinyinMap.put(key_char, "");
+                            resultPinyinMap.put(keyChar, "");
                         } else {
-                            it_str = tempStrPinyinMap.keySet().iterator();
-                            while (it_str.hasNext()) {
-                                key_str = it_str.next();
-                                resultPinyinMap.remove(key_str);
+                            itStr = tempStrPinyinMap.keySet().iterator();
+                            while (itStr.hasNext()) {
+                                keyStr = itStr.next();
+                                resultPinyinMap.remove(keyStr);
 
-                                key_str += key_char;
-                                resultPinyinMap.put(key_str, "");
+                                keyStr += keyChar;
+                                resultPinyinMap.put(keyStr, "");
                             }
                         }
                     }
@@ -110,8 +117,9 @@ public class PinyinUtil {
      * @date 下午2:17:06  2014年12月23日
      */
     public static String getFullSpell(String chinese) {
-        if (StringUtils.isBlank(chinese))
+        if (StringUtils.isBlank(chinese)) {
             return null;
+        }
         StringBuffer pybf = new StringBuffer();
         char[] arr = chinese.toCharArray();
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
@@ -139,8 +147,9 @@ public class PinyinUtil {
      * @return
      */
     public static String getFirstSpell(String chinese) {
-        if (StringUtils.isBlank(chinese))
+        if (StringUtils.isBlank(chinese)) {
             return null;
+        }
         StringBuffer pybf = new StringBuffer();
         char[] arr = chinese.toCharArray();
         HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
@@ -168,18 +177,18 @@ public class PinyinUtil {
             String keyword = prepareKeyword(src);
             char[] charArray = keyword.toCharArray();
             String[] pinyinArray = null;
-            Map<Character, String> tempCharMap = new HashMap<Character, String>();
-            Map<String, String> tempStrPinyinMap = new HashMap<String, String>();
+            Map<Character, String> tempCharMap = new HashMap<Character, String>(CommonConstant.MAP_DEFAULT_SIZE);
+            Map<String, String> tempStrPinyinMap = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
 
-            Map<String, String> resultPinyinMap = new HashMap<String, String>();
-            Character key_char = null;
-            String key_str = null;
+            Map<String, String> resultPinyinMap = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
+            Character keyChar = null;
+            String keyStr = null;
 
             try {
                 for (int i = 0; i < charArray.length; i++) {
-                    tempCharMap = new HashMap<Character, String>();
+                    tempCharMap = new HashMap<Character, String>(CommonConstant.MAP_DEFAULT_SIZE);
                     // 判断是否为汉字字符函数
-                    if (Character.toString(charArray[i]).matches("[\\u4E00-\\u9FA5]+")) {
+                    if (Character.toString(charArray[i]).matches(SINOGRAM_MATCHE)) {
                         pinyinArray =
                                 PinyinHelper.toHanyuPinyinStringArray(charArray[i], pinyinOutputFormat);
                         if (pinyinArray != null) {
@@ -192,21 +201,21 @@ public class PinyinUtil {
                         tempCharMap.put(charArray[i], Character.toString(charArray[i]));
                     }
 
-                    Iterator<String> it_str = null;
-                    Iterator<Character> it_char = tempCharMap.keySet().iterator();
-                    while (it_char.hasNext()) {
-                        key_char = it_char.next();
+                    Iterator<String> itStr = null;
+                    Iterator<Character> itChar = tempCharMap.keySet().iterator();
+                    while (itChar.hasNext()) {
+                        keyChar = itChar.next();
 
                         if (i == 0) {
-                            resultPinyinMap.put(Character.toString(key_char), "");
+                            resultPinyinMap.put(Character.toString(keyChar), "");
                         } else {
-                            it_str = tempStrPinyinMap.keySet().iterator();
-                            while (it_str.hasNext()) {
-                                key_str = it_str.next();
-                                resultPinyinMap.remove(key_str);
+                            itStr = tempStrPinyinMap.keySet().iterator();
+                            while (itStr.hasNext()) {
+                                keyStr = itStr.next();
+                                resultPinyinMap.remove(keyStr);
 
-                                key_str += key_char;
-                                resultPinyinMap.put(key_str, "");
+                                keyStr += keyChar;
+                                resultPinyinMap.put(keyStr, "");
                             }
                         }
                     }
@@ -233,18 +242,18 @@ public class PinyinUtil {
             String keyword = prepareKeyword(src);
             char[] charArray = keyword.toCharArray();
             String[] pinyinArray = null;
-            Map<String, String> tempCharMap = new HashMap<String, String>();
-            Map<String, String> tempStrPinyinMap = new HashMap<String, String>();
+            Map<String, String> tempCharMap = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
+            Map<String, String> tempStrPinyinMap = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
 
-            Map<String, String> resultPinyinMap = new HashMap<String, String>();
-            String key_char = null;
-            String key_str = null;
+            Map<String, String> resultPinyinMap = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
+            String keyChar = null;
+            String keyStr = null;
 
             try {
                 for (int i = 0; i < charArray.length; i++) {
-                    tempCharMap = new HashMap<String, String>();
+                    tempCharMap = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
                     // 判断是否为汉字字符函数
-                    if (Character.toString(charArray[i]).matches("[\\u4E00-\\u9FA5]+")) {
+                    if (Character.toString(charArray[i]).matches(SINOGRAM_MATCHE)) {
                         pinyinArray =
                                 PinyinHelper.toHanyuPinyinStringArray(charArray[i], pinyinOutputFormat);
                         if (pinyinArray != null) {
@@ -257,21 +266,21 @@ public class PinyinUtil {
                             .put(Character.toString(charArray[i]), Character.toString(charArray[i]));
 
 
-                    Iterator<String> it_str = null;
-                    Iterator<String> it_char = tempCharMap.keySet().iterator();
-                    while (it_char.hasNext()) {
-                        key_char = it_char.next();
+                    Iterator<String> itStr = null;
+                    Iterator<String> itChar = tempCharMap.keySet().iterator();
+                    while (itChar.hasNext()) {
+                        keyChar = itChar.next();
 
                         if (i == 0) {
-                            resultPinyinMap.put(key_char, "");
+                            resultPinyinMap.put(keyChar, "");
                         } else {
-                            it_str = tempStrPinyinMap.keySet().iterator();
-                            while (it_str.hasNext()) {
-                                key_str = it_str.next();
-                                resultPinyinMap.remove(key_str);
+                            itStr = tempStrPinyinMap.keySet().iterator();
+                            while (itStr.hasNext()) {
+                                keyStr = itStr.next();
+                                resultPinyinMap.remove(keyStr);
 
-                                key_str += key_char;
-                                resultPinyinMap.put(key_str, "");
+                                keyStr += keyChar;
+                                resultPinyinMap.put(keyStr, "");
                             }
                         }
                     }
@@ -302,7 +311,7 @@ public class PinyinUtil {
             System.out.println(v);
 
         });
-        Iterator<String> it = (new PinyinUtil()).getFirstLetter("长安").keySet().iterator();
+        Iterator<String> it = PinyinUtil.getFirstLetter("长安").keySet().iterator();
         while (it.hasNext()) {
             System.out.println("" + it.next());
         }
@@ -324,9 +333,9 @@ public class PinyinUtil {
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] > 128) {
                 try {
-                    String[] _t = PinyinHelper.toHanyuPinyinStringArray(arr[i], defaultFormat);
-                    if (_t != null) {
-                        pybf.append(_t[0].charAt(0));
+                    String[] t = PinyinHelper.toHanyuPinyinStringArray(arr[i], defaultFormat);
+                    if (t != null) {
+                        pybf.append(t[0].charAt(0));
                     }
                 } catch (BadHanyuPinyinOutputFormatCombination e) {
                     e.printStackTrace();
@@ -481,7 +490,8 @@ public class PinyinUtil {
      * @return
      */
     private static String parseTheChineseByObject(List<Map<String, Integer>> list) {
-        Map<String, Integer> first = null; // 用于统计每一次,集合组合数据
+        // 用于统计每一次,集合组合数据
+        Map<String, Integer> first = null;
         // 遍历每一组集合
         for (int i = 0; i < list.size(); i++) {
             // 每一组集合与上一次组合的Map

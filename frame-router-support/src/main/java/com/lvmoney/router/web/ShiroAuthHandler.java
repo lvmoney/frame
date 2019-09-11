@@ -34,27 +34,33 @@ import java.util.Map;
  */
 @Component
 public class ShiroAuthHandler {
-    private final static Logger logger = LoggerFactory.getLogger(ShiroAuthHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShiroAuthHandler.class);
     @Autowired
     ShiroRedisService shiroRedisService;
     @Autowired
     ShiroConfigProp shiroConfigProp;
     @Value("${frame.shiro.support:false}")
     String frameSupport;
+    /**
+     * 忽略标识
+     */
+    private static final String IGNORE_IDENTIFICATION = "anon";
 
-    public boolean AuthenticationValidated(HttpServletRequest httpServletRequest, String role) {
+    public boolean authenticationValidated(HttpServletRequest httpServletRequest, String role) {
         if (ShiroConstant.FRAME_SHIRO_SUPPORT_FALSE.equals(frameSupport)) {
             return true;
         } else if (!ShiroConstant.FRAME_SHIRO_SUPPORT_FALSE.equals(frameSupport) && !ShiroConstant.FRAME_SHIRO_SUPPORT_TRUE.equals(frameSupport)) {
             throw new BusinessException(CommonException.Proxy.SHIRO_SUPPORT_ERROR);
         }
         String servletPath = httpServletRequest.getServletPath();
-        // TODO先判断是否是系统配置的不需要校验的访问，例如登录请求，或者其他静态资源,这里要对请求参数中的url来做过滤处理
+        // 先判断是否是系统配置的不需要校验的访问，例如登录请求，或者其他静态资源,这里要对请求参数中的url来做过滤处理
         Map<String, String> filterChainDefinition = shiroConfigProp.getfilterChainDefinitionMap();
-        if (FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, servletPath, "anon")) {// 在这里做判断
+        if (FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, servletPath, IGNORE_IDENTIFICATION)) {
+            // 在这里做判断
             return true;
         }
-        String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出
+        // 从 http 请求头中取出
+        String token = httpServletRequest.getHeader("token");
         if (token == null) {
             throw new BusinessException(CommonException.Proxy.TOKEN_IS_REQUIRED);
         }

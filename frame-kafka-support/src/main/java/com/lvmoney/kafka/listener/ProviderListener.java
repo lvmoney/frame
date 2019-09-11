@@ -30,10 +30,10 @@ import java.util.List;
  */
 @Component
 public class ProviderListener implements ProducerListener {
-    @Value("${kafka.error.record.expire}")
+    @Value("${kafka.error.record.expire:18000}")
     String expire;
     @Autowired
-    KafkaRedisService KafkaRedisService;
+    KafkaRedisService kafkaRedisService;
     private static final Logger logger = LoggerFactory.getLogger(ProviderListener.class);
 
     @Override
@@ -43,14 +43,11 @@ public class ProviderListener implements ProducerListener {
 
     @Override
     public void onError(ProducerRecord producerRecord, Exception exception) {
-        ErrorRecordRo ackErrorRecordRo = new ErrorRecordRo();
-        if (StringUtils.isBlank(expire)) {
-            expire = "1800";
-        }
-        ackErrorRecordRo.setExpire(Long.valueOf(expire));
+        ErrorRecordRo errorRecordRo = new ErrorRecordRo();
+        errorRecordRo.setExpire(Long.valueOf(expire));
         List<ProducerRecord> data = new ArrayList<>();
         data.add(producerRecord);
-        ackErrorRecordRo.setProducerRecordList(data);
-        KafkaRedisService.errorRecord2Redis(ackErrorRecordRo);
+        errorRecordRo.setProducerRecordList(data);
+        kafkaRedisService.errorRecord2Redis(errorRecordRo);
     }
 }

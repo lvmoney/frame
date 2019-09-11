@@ -8,6 +8,7 @@
 
 package com.lvmoney.common.utils;
 
+import com.lvmoney.common.constant.CommonConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,10 +43,10 @@ import javax.servlet.http.HttpServletResponse;
  * @version:v1.0 2018年12月29日 下午5:32:07
  */
 
-public final class QRCodeUtil extends LuminanceSource {
+public final class QrCodeUtil extends LuminanceSource {
     /**
      * <p>
-     * Title:QRCodeUtil
+     * Title:QrCodeUtil
      * </p>
      * <p>
      * Description: 二维码生成工具类
@@ -55,22 +56,26 @@ public final class QRCodeUtil extends LuminanceSource {
      * @version
      */
 
-    private final static Logger logger = LoggerFactory.getLogger(QRCodeUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(QrCodeUtil.class);
 
-    // 二维码颜色
+    /**
+     * 二维码颜色
+     */
     private static final int BLACK = 0xFF000000;
-    // 二维码颜色
+    /**
+     * 二维码颜色
+     */
     private static final int WHITE = 0xFFFFFFFF;
 
     private final BufferedImage image;
     private final int left;
     private final int top;
 
-    public QRCodeUtil(BufferedImage image) {
+    public QrCodeUtil(BufferedImage image) {
         this(image, 0, 0, image.getWidth(), image.getHeight());
     }
 
-    public QRCodeUtil(BufferedImage image, int left, int top, int width, int height) {
+    public QrCodeUtil(BufferedImage image, int left, int top, int width, int height) {
         super(width, height);
         int sourceWidth = image.getWidth();
         int sourceHeight = image.getHeight();
@@ -80,7 +85,8 @@ public final class QRCodeUtil extends LuminanceSource {
         for (int y = top; y < top + height; y++) {
             for (int x = left; x < left + width; x++) {
                 if ((image.getRGB(x, y) & 0xFF000000) == 0) {
-                    image.setRGB(x, y, 0xFFFFFFFF); // = white
+                    // = white
+                    image.setRGB(x, y, 0xFFFFFFFF);
                 }
             }
         }
@@ -120,7 +126,7 @@ public final class QRCodeUtil extends LuminanceSource {
 
     @Override
     public LuminanceSource crop(int left, int top, int width, int height) {
-        return new QRCodeUtil(image, this.left + left, this.top + top, width, height);
+        return new QrCodeUtil(image, this.left + left, this.top + top, width, height);
     }
 
     @Override
@@ -138,7 +144,7 @@ public final class QRCodeUtil extends LuminanceSource {
         g.drawImage(image, transform, null);
         g.dispose();
         int width = getWidth();
-        return new QRCodeUtil(rotatedImage, top, sourceWidth - (left + width), getHeight(), width);
+        return new QrCodeUtil(rotatedImage, top, sourceWidth - (left + width), getHeight(), width);
     }
 
     /**
@@ -197,12 +203,15 @@ public final class QRCodeUtil extends LuminanceSource {
      * @return 生成的二维码图片路径
      * @throws Exception
      */
-    private static String generateQRCode(String text, int width, int height, String format, String pathName)
+    private static String generateQrCode(String text, int width, int height, String format, String pathName)
             throws Exception {
         Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
-        hints.put(EncodeHintType.CHARACTER_SET, "utf-8");// 指定编码格式
-        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);// 指定纠错等级
-        hints.put(EncodeHintType.MARGIN, 1); // 白边大小，取值范围0~4
+        // 指定编码格式
+        hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+        // 指定纠错等级
+        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+        // 白边大小，取值范围0~4
+        hints.put(EncodeHintType.MARGIN, 1);
         BitMatrix bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, width, height, hints);
         File outputFile = new File(pathName);
         writeToFile(bitMatrix, format, outputFile);
@@ -219,12 +228,15 @@ public final class QRCodeUtil extends LuminanceSource {
      * @param response HttpServletResponse
      * @throws Exception
      */
-    public static void generateQRCode(String text, int width, int height, String format, HttpServletResponse response)
+    public static void generateQrCode(String text, int width, int height, String format, HttpServletResponse response)
             throws Exception {
         Hashtable<EncodeHintType, Object> hints = new Hashtable<EncodeHintType, Object>();
-        hints.put(EncodeHintType.CHARACTER_SET, "utf-8");// 指定编码格式
-        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);// 指定纠错等级
-        hints.put(EncodeHintType.MARGIN, 1); // 白边大小，取值范围0~4
+        // 指定编码格式
+        hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
+        // 指定纠错等级
+        hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
+        // 白边大小，取值范围0~4
+        hints.put(EncodeHintType.MARGIN, 1);
         BitMatrix bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.QR_CODE, width, height, hints);
         writeToStream(bitMatrix, format, response.getOutputStream());
     }
@@ -235,15 +247,15 @@ public final class QRCodeUtil extends LuminanceSource {
      * @param filePath 二维码图片路径
      * @return
      */
-    public static String parseQRCode(String filePath) {
+    public static String parseQrCode(String filePath) {
         String content = "";
         try {
             File file = new File(filePath);
             BufferedImage image = ImageIO.read(file);
-            LuminanceSource source = new QRCodeUtil(image);
+            LuminanceSource source = new QrCodeUtil(image);
             Binarizer binarizer = new HybridBinarizer(source);
             BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);
-            Map<DecodeHintType, Object> hints = new HashMap<DecodeHintType, Object>();
+            Map<DecodeHintType, Object> hints = new HashMap<DecodeHintType, Object>(CommonConstant.MAP_DEFAULT_SIZE);
             hints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
             MultiFormatReader formatReader = new MultiFormatReader();
             Result result = formatReader.decode(binaryBitmap, hints);
@@ -260,21 +272,25 @@ public final class QRCodeUtil extends LuminanceSource {
     }
 
     public static void main(String[] args) {
+        // 随机生成验证码
         String text = "回顾2018年，你最大的收获是什么呢？"
                 + "\n\r是收获爱情？是喜得贵子？是家人和自己身体健康？还是工作赚了大钱？"
                 + "\n\r珍惜和爱惜已经拥有的，努力去争取能够拥有的。"
-                + "\n\r2019我的朋友，2019我们一起加油。2019健康喜乐。"; // 随机生成验证码
+                + "\n\r2019我的朋友，2019我们一起加油。2019健康喜乐。";
         System.out.println("随机码： " + text);
-        int width = 400; // 二维码图片的宽
-        int height = 400; // 二维码图片的高
-        String format = "png"; // 二维码图片的格式
+        // 二维码图片的宽
+        int width = 400;
+        // 二维码图片的高
+        int height = 400;
+        // 二维码图片的格式
+        String format = "png";
 
         try {
             // 生成二维码图片，并返回图片路径
-            String pathName = generateQRCode(text, width, height, format, "F:/bigData/test/new1.png");
+            String pathName = generateQrCode(text, width, height, format, "F:/bigData/test/new1.png");
             System.out.println("生成二维码的图片路径： " + pathName);
 
-            String content = parseQRCode(pathName);
+            String content = parseQrCode(pathName);
             System.out.println("解析出二维码的图片的内容为： " + content);
         } catch (Exception e) {
             e.printStackTrace();

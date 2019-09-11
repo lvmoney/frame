@@ -18,5 +18,5 @@ public class RabbitmqConstant {
     /**
      * 数据同步队列名称
      */
-    public final static String MQ_DATA_SYN_NAME = "syn_data";
+    public static final String MQ_DATA_SYN_NAME = "syn_data";
 }

@@ -10,7 +10,7 @@ package com.lvmoney.signature.application;/**
 import com.lvmoney.signature.config.SignCircle;
 import com.lvmoney.signature.config.SignConfiguration;
 import com.lvmoney.signature.config.SignFont;
-import com.lvmoney.signature.utils.SignUtil;
+import com.lvmoney.signature.utils.AbstractSignUtil;
 
 import java.awt.*;
 import java.io.IOException;
@@ -141,7 +141,7 @@ public class Application {
 
         //1.生成公章
         try {
-            SignUtil.buildAndStoreSeal(configuration, "F:\\sclt\\file\\公章.png");
+            AbstractSignUtil.buildAndStoreSeal(configuration, "F:\\sclt\\file\\公章.png");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -149,7 +149,7 @@ public class Application {
         //2.生成私章
         SignFont font = new SignFont();
         font.setFontSize(120).setBold(true).setFontText("诸葛孔明");
-        SignUtil.buildAndStorePersonSeal(300, 16, font, "印", "F:\\sclt\\file\\私章.png");
+        AbstractSignUtil.buildAndStorePersonSeal(300, 16, font, "印", "F:\\sclt\\file\\私章.png");
     }
 
 }

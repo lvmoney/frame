@@ -20,6 +20,7 @@ com\lvmoney\bigdata\canal\redis\util\ApplicationBeanUtil.class
 com\lvmoney\bigdata\canal\redis\annotation\ddl\CreateIndexListenPoint.class
 com\lvmoney\bigdata\canal\redis\annotation\ddl\AlertTableListenPoint.class
 com\lvmoney\bigdata\canal\redis\util\ContextBeanUtil.class
+com\lvmoney\bigdata\canal\redis\service\impl\AbstractCanal2RedisServiceImpl.class
 com\lvmoney\bigdata\canal\redis\transfer\DefaultMessageTransponder.class
 com\lvmoney\bigdata\canal\redis\service\impl\Canal2RedisServiceImpl.class
 com\lvmoney\bigdata\canal\redis\properties\CanalProp$Instance.class
@@ -28,7 +29,6 @@ com\lvmoney\bigdata\canal\redis\annotation\EnableCanalClient.class
 com\lvmoney\bigdata\canal\redis\client\AbstractCanalClient.class
 com\lvmoney\bigdata\canal\redis\service\Canal2RedisService.class
 com\lvmoney\bigdata\canal\redis\vo\DbMsgVo.class
-com\lvmoney\bigdata\canal\redis\service\impl\ParentCanal2RedisServiceImpl.class
 com\lvmoney\bigdata\canal\redis\transfer\AbstractMessageTransponder.class
 com\lvmoney\bigdata\canal\redis\annotation\ddl\RenameTableListenPoint.class
 com\lvmoney\bigdata\canal\redis\annotation\ddl\DeleteDbListenPoint.class

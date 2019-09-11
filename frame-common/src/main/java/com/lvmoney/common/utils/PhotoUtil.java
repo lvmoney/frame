@@ -28,8 +28,8 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class PhotoUtil {
-    public final static int COLOR_WHITE = 0;
-    public final static int COLOR_BLACK = 1;
+    public static final int COLOR_WHITE = 0;
+    public static final int COLOR_BLACK = 1;
 
     /**
      * 对图片中的 黑色或白色进行透明化处理
@@ -43,14 +43,16 @@ public class PhotoUtil {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         try {
             File iFile = new File(sourcePath);
-            if (!iFile.exists()) return byteArrayOutputStream.toByteArray();
+            if (!iFile.exists()) {
+                return byteArrayOutputStream.toByteArray();
+            }
 
             ImageIcon imageIcon = new ImageIcon(ImageIO.read(iFile));
             BufferedImage bufferedImage = new BufferedImage(
                     imageIcon.getIconWidth(), imageIcon.getIconHeight(),
                     BufferedImage.TYPE_4BYTE_ABGR);
-            Graphics2D g2D = (Graphics2D) bufferedImage.getGraphics();
-            g2D.drawImage(imageIcon.getImage(), 0, 0, imageIcon.getImageObserver());
+            Graphics2D graphics = (Graphics2D) bufferedImage.getGraphics();
+            graphics.drawImage(imageIcon.getImage(), 0, 0, imageIcon.getImageObserver());
             int alpha = 0;
             for (int j1 = bufferedImage.getMinY(); j1 < bufferedImage.getHeight(); j1++) {
                 for (int j2 = bufferedImage.getMinX(); j2 < bufferedImage.getWidth(); j2++) {
@@ -63,7 +65,7 @@ public class PhotoUtil {
                 }
             }
 
-            g2D.drawImage(bufferedImage, 0, 0, imageIcon.getImageObserver());
+            graphics.drawImage(bufferedImage, 0, 0, imageIcon.getImageObserver());
 
             File targetFile = null;
             if (targetPath == null) {
@@ -72,7 +74,9 @@ public class PhotoUtil {
                 targetFile = new File(targetPath);
                 if (!targetFile.exists()) {
                     File dir = new File(targetFile.getParent());
-                    if (!dir.exists()) dir.mkdirs();
+                    if (!dir.exists()) {
+                        dir.mkdirs();
+                    }
                 }
             }
             ImageIO.write(bufferedImage, "png", targetFile);
@@ -95,14 +99,14 @@ public class PhotoUtil {
      * @return 检查结果
      */
     private static boolean checkColor(int rgb, int offset, int color) {
-        int R = (rgb & 0xff0000) >> 16;
-        int G = (rgb & 0xff00) >> 8;
-        int B = (rgb & 0xff);
+        int red = (rgb & 0xff0000) >> 16;
+        int green = (rgb & 0xff00) >> 8;
+        int block = (rgb & 0xff);
 
         if (color == 0) {
-            return ((255 - R) <= offset) && ((255 - G) <= offset) && ((255 - B) <= offset);
+            return ((255 - red) <= offset) && ((255 - green) <= offset) && ((255 - block) <= offset);
         } else {
-            return ((R <= offset) && (G <= offset) && (B <= offset));
+            return ((red <= offset) && (green <= offset) && (block <= offset));
         }
     }
 
@@ -113,7 +117,7 @@ public class PhotoUtil {
      * @param src1i 输入图像1
      * @param out   输出图像
      */
-    public final static void mergeImage(String src0i, String src1i, String out) {
+    public static final void mergeImage(String src0i, String src1i, String out) {
 
         try {
             File f0 = new File(src0i);

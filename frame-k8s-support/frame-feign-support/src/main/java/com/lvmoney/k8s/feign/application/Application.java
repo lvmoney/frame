@@ -4,11 +4,23 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-//
-//@SpringBootApplication(scanBasePackages = {"com.lvmoney.**"})
-//@EnableFeignClients(basePackages = {"com.lvmoney.**"})
+
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ * 测试用
+ * @SpringBootApplication(scanBasePackages = {"com.lvmoney.**"})
+ * @EnableFeignClients(basePackages = {"com.lvmoney.**"})
+ */
 public class Application {
-    //shiro,jwt,redis整合成功。1、事务注解是否生效校验。2、自定义shiro标签中的url的过滤
+    /**
+     * @describe: shiro, jwt, redis整合成功。1、事务注解是否生效校验。2、自定义shiro标签中的url的过滤
+     * @param: [args]
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 9:54
+     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }

@@ -35,7 +35,7 @@ public class MqDataVo<T> implements Serializable {
     /**
      * 数据
      */
-    private T t;
+    private T data;
 
     public String getMqType() {
         return mqType;
@@ -53,11 +53,11 @@ public class MqDataVo<T> implements Serializable {
         this.mqName = mqName;
     }
 
-    public T getT() {
-        return t;
+    public T getData() {
+        return data;
     }
 
-    public void setT(T t) {
-        this.t = t;
+    public void setData(T data) {
+        this.data = data;
     }
 }

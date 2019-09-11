@@ -17,20 +17,24 @@ import com.lvmoney.log.vo.UserVo;
  */
 public interface LogService {
     /**
-     * @describe: 通过token从redis中获得用户信息
-     * @param: [userVo]
-     * @return: UserVo
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/2/1
+     * 通过token从redis中获得用户信息
+     *
+     * @param userVo: 用户实体
+     * @throws
+     * @return: com.lvmoney.log.vo.UserVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:53
      */
     UserVo getUser(UserVo userVo);
 
     /**
-     * @describe: 记录操作日志
-     * @param: [logVo]
+     * 记录操作日志
+     *
+     * @param logVo: 日志数据实体
+     * @throws
      * @return: void
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/2/1
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:53
      */
     void saveLog(LogVo logVo);
 }

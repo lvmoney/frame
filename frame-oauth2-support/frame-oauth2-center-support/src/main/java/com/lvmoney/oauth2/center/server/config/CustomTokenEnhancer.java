@@ -14,6 +14,11 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Service
 public class CustomTokenEnhancer implements TokenEnhancer {
     @Autowired
@@ -28,10 +33,11 @@ public class CustomTokenEnhancer implements TokenEnhancer {
      */
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-        final Map<String, Object> additionalInformation = new HashMap<>();
+        final Map<String, Object> additionalInformation = new HashMap<>(6);
         // Important !,client_credentials mode ,no user!
         if (authentication.getUserAuthentication() != null) {
-            String username = (String) authentication.getUserAuthentication().getName();// 与登录时候放进去的UserDetail实现类一致
+            // 与登录时候放进去的UserDetail实现类一致
+            String username = (String) authentication.getUserAuthentication().getName();
             UserInfo user = oauth2RedisService.getOauth2UserVo(username);
             additionalInformation.put("grantType", authentication.getOAuth2Request().getGrantType());
 //            additionalInformation.put("userId", user.getUserId());

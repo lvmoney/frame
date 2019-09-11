@@ -30,7 +30,7 @@ import java.util.Map;
  */
 @Service
 public class RedisUserDetailsServiceImpl implements UserDetailsService {
-    private final static Logger logger = LoggerFactory.getLogger(RedisUserDetailsServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(RedisUserDetailsServiceImpl.class);
 
     @Autowired
     Oauth2RedisService oauth2RedisService;
@@ -47,7 +47,7 @@ public class RedisUserDetailsServiceImpl implements UserDetailsService {
 //            grantedAuthorityList.add(new SimpleGrantedAuthority("ROLE_SUPER"));
 //
 //            Map<String, UserInfo> data = new HashMap<String, UserInfo>();
-//            Long userid = 1l;
+//            Long userid = 1L;
 //            String userName = "zhangsan";
 //            String password = "$2a$10$gcrWom7ubcRaVD1.6ZIrIeJP0mtPLH5J9V/.8Qth59lZ4B/5HMq96";
 //            boolean enabled = true;
@@ -56,7 +56,7 @@ public class RedisUserDetailsServiceImpl implements UserDetailsService {
 //                    enabled, true, true, enabled, grantedAuthorityList);
 //            data.put(username, oauth2UserVo);
 //            Oauth2UserRo oauth2UserRo = new Oauth2UserRo();
-//            oauth2UserRo.setExpire(18000l);
+//            oauth2UserRo.setExpire(18000L);
 //            oauth2UserRo.setData(data);
 //            oauth2RedisService.userDetails2Redis(oauth2UserRo);
             db2RedisService.loadUserByUsername(username);

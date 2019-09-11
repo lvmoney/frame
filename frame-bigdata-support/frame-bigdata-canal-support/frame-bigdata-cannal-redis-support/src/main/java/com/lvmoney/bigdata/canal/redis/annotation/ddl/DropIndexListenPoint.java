@@ -7,7 +7,9 @@ import org.springframework.core.annotation.AliasFor;
 import java.lang.annotation.*;
 
 /**
- * 刪除索引操作
+ * @describe：刪除索引操作
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

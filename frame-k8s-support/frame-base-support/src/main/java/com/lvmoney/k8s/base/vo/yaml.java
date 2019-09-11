@@ -12,5 +12,5 @@ package com.lvmoney.k8s.base.vo;/**
  * @author: lvmoney/XXXXXX科技有限公司
  * @version:v1.0 2019/8/18 20:11
  */
-public class yaml {
+public class Yaml {
 }

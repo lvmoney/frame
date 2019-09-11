@@ -16,7 +16,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Created by Administrator on 2019/5/23.
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 @Configuration
 @ConditionalOnClass(Feign.class)
@@ -27,13 +29,25 @@ public class FeignConfig {
     @Autowired
     private ObjectFactory<HttpMessageConverters> messageConverters;
 
-    // new一个form编码器，实现支持form表单提交
+    /**
+     * @describe: new一个form编码器，实现支持form表单提交
+     * @param: []
+     * @return: feign.codec.Encoder
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:10
+     */
     @Bean
     public Encoder feignFormEncoder() {
         return new SpringFormEncoder(new SpringEncoder(messageConverters));
     }
 
-    // 开启Feign的日志
+    /**
+     * @describe: 开启Feign的日志
+     * @param: []
+     * @return: feign.Logger.Level
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:10
+     */
     @Bean
     public Logger.Level logger() {
         return Logger.Level.FULL;

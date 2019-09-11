@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.lvmoney.common.constant.CommonConstant;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Range;
@@ -24,17 +25,36 @@ import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 /**
- * 未测试
- * Created by Administrator on 2019/5/20.
+ * @describe：未测试
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class DocxUtil {
     //word模板的标签为【string】
-    private static final String FLAG_L = "【";//标签左侧
-    private static final String FLAG_R = "】";//标签右侧
+    /**
+     * 标签左侧
+     */
+    private static final String FLAG_L = "【";
+    /**
+     * 标签右侧
+     */
+    private static final String FLAG_R = "】";
+    /**
+     *
+     */
     //private static final String REGEX = "(\\w|\\W)*\\【\\w+\\】(\\w|\\W)*";//正则匹配*【*】*类型字符串
-    public static final String NULL_REPLACE = "   /   ";//如果没有替换的将显示"  "
-    public static final String DOWNLOAD_REPLACE = "      ";//下载替换word模板标签
-    public static final String PREVIEW_REPLACE = "   /   ";//预览替换word模板标签
+    /**
+     * 如果没有替换的将显示"  "
+     */
+    public static final String NULL_REPLACE = "   /   ";
+    /**
+     * 下载替换word模板标签
+     */
+    public static final String DOWNLOAD_REPLACE = "      ";
+    /**
+     * 预览替换word模板标签
+     */
+    public static final String PREVIEW_REPLACE = "   /   ";
 
     /**
      * <br>
@@ -49,7 +69,7 @@ public class DocxUtil {
      */
     public static byte[] docContentChange(InputStream is, Map<String, String> params) throws IOException {
         if (null == params) {
-            params = new HashMap<String, String>();
+            params = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
         }
         HWPFDocument document = new HWPFDocument(is);
         Range range = document.getRange();
@@ -94,7 +114,7 @@ public class DocxUtil {
      */
     public static byte[] docxContentChange(InputStream is, Map<String, String> params, String replace) throws XWPFConverterException, IOException {
         if (null == params) {
-            params = new HashMap<String, String>();
+            params = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
         }
         XWPFDocument document = new XWPFDocument(is);
         //替换段落内容
@@ -157,7 +177,7 @@ public class DocxUtil {
      */
     public static byte[] docx2pdf(InputStream is, Map<String, String> params, String replace) throws XWPFConverterException, IOException {
         if (null == params) {
-            params = new HashMap<String, String>();
+            params = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
         }
         XWPFDocument document = new XWPFDocument(is);
         //替换段落内容
@@ -189,7 +209,13 @@ public class DocxUtil {
         return bytes;
     }
 
-    //在替换的值左右延长两个空格长度
+    /**
+     * @describe: 在替换的值左右延长两个空格长度
+     * @param: [old]
+     * @return: java.lang.String
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:08
+     */
     public static String getReplaceValue(String old) {
         return " " + old + " ";
     }
@@ -218,8 +244,10 @@ public class DocxUtil {
         }
         List<XWPFRun> runs = paragraph.getRuns();
         String key = "";
-        boolean left = false;//left=true 说明有【
-        boolean right = false;//right=true 说明有】
+        //left=true 说明有【
+        boolean left = false;
+        //right=true 说明有】
+        boolean right = false;
         //这里没有做到百分百细致化，如果run中出现这样的形式 *【*】*】或者*】*【*】，将会存在问题，所以要监管好模板。
         for (int i = 0; i < runs.size(); i++) {
             XWPFRun run = runs.get(i);

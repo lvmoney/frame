@@ -11,8 +11,8 @@ import com.lvmoney.k8s.authentication.constant.AuthenticationConstant;
 import com.lvmoney.k8s.authentication.properties.OauthClientProp;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.codec.Base64;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -27,12 +27,13 @@ public class FeignInterceptor implements RequestInterceptor {
     @Autowired
     OauthClientProp oauthClientProp;
 
+    @Override
     public void apply(RequestTemplate requestTemplate) {
         String requstPath = requestTemplate.path();
         if (AuthenticationConstant.OAUTH2_TOKEN_CHECK_SERVLET_NAME.equals(requstPath)) {
             String creds = String.format("%s:%s", oauthClientProp.getClientId(), oauthClientProp.getClientSecret());
             try {
-                String secret = "Basic " + new String(Base64.encode(creds.getBytes("UTF-8")));
+                String secret = "Basic " + Base64.encodeBase64String(creds.getBytes("UTF-8"));
                 requestTemplate.header("Authorization", secret);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();

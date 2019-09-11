@@ -11,6 +11,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Service
 public class LoginHistoryServiceImpl implements LoginHistoryService {
     @Autowired
@@ -26,7 +31,7 @@ public class LoginHistoryServiceImpl implements LoginHistoryService {
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Async
     public void asyncCreate(LoginHistoryVo loginHistoryVo) {
         LoginHistory entity = dozerMapper.map(loginHistoryVo, LoginHistory.class);

@@ -1,6 +1,6 @@
 package com.lvmoney.yaml;/**
  * 描述:
- * 包名:com.lvmoney.yaml
+ * 包名:com.lvmoney.Yaml
  * 版本信息: 版本1.0
  * 日期:2019/8/18
  * Copyright XXXXXX科技有限公司
@@ -9,7 +9,7 @@ package com.lvmoney.yaml;/**
 
 import ch.ethz.ssh2.Connection;
 import com.lvmoney.k8s.base.utils.ExecCmdResult;
-import com.lvmoney.k8s.base.utils.SSH2Util;
+import com.lvmoney.k8s.base.utils.Ssh2Util;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +32,7 @@ public class SSHTest {
     // 执行每个单元测试用例前, 创建ssh2连接
     @Before
     public void setup() {
-        connection = SSH2Util.openConnection(host, port, username, password);
+        connection = Ssh2Util.openConnection(host, port, username, password);
     }
 
     // 执行每个单元测试后, 关闭连接
@@ -54,7 +54,7 @@ public class SSHTest {
      */
     @Test
     public void test_exec_right() {
-        ExecCmdResult execCmdResult = SSH2Util.execCommand(connection, "kubectl apply -f /root/test/v1-IGateway-provider.yaml");
+        ExecCmdResult execCmdResult = Ssh2Util.execCommand(connection, "kubectl apply -f /root/test/v1-IGateway-provider.Yaml");
 
         System.out.println("命令是否正确执行:" + execCmdResult.isSuccess());
         System.out.println("命令执行结果:\n" + execCmdResult.getResult());
@@ -65,7 +65,7 @@ public class SSHTest {
      */
     @Test
     public void test_exec_ms() {
-        ExecCmdResult execCmdResult = SSH2Util.execCommand(connection, "ls -d /*bin");
+        ExecCmdResult execCmdResult = Ssh2Util.execCommand(connection, "ls -d /*bin");
 
         System.out.println("命令是否正确执行:" + execCmdResult.isSuccess());
         System.out.println("命令执行结果:\n" + execCmdResult.getResult());
@@ -76,7 +76,7 @@ public class SSHTest {
      */
     @Test
     public void test_exec_wrong() {
-        ExecCmdResult execCmdResult = SSH2Util.execCommand(connection, "ls /2");
+        ExecCmdResult execCmdResult = Ssh2Util.execCommand(connection, "ls /2");
 
         System.out.println("命令是否正确执行:" + execCmdResult.isSuccess());
         System.out.println("命令执行结果:\n" + execCmdResult.getResult());
@@ -87,7 +87,7 @@ public class SSHTest {
      */
     @Test
     public void test_download() {
-        SSH2Util.download(connection, ".", "/etc/passwd");
+        Ssh2Util.download(connection, ".", "/etc/passwd");
     }
 
     /**
@@ -95,7 +95,7 @@ public class SSHTest {
      */
     @Test
     public void test_download_batch() {
-        SSH2Util.download(connection, ".", "/etc/passwd", "/bin/bash");
+        Ssh2Util.download(connection, ".", "/etc/passwd", "/bin/bash");
     }
 
     /**
@@ -103,7 +103,7 @@ public class SSHTest {
      */
     @Test
     public void test_download_Parttern() {
-        SSH2Util.downloadByPattern(connection, ".", "/bin", "*m");
+        Ssh2Util.downloadByPattern(connection, ".", "/bin", "*m");
     }
 
     /**
@@ -111,7 +111,7 @@ public class SSHTest {
      */
     @Test
     public void test_upload() {
-        SSH2Util.upload(connection, "/root/test", "D:\\workbench\\idea\\frame\\data\\yaml\\v1-IDeploy-provider.yaml");
+        Ssh2Util.upload(connection, "/root/test", "D:\\workbench\\idea\\frame\\data\\Yaml\\v1-IDeploy-provider.Yaml");
     }
 
     /**
@@ -119,6 +119,6 @@ public class SSHTest {
      */
     @Test
     public void test_upload_batch() {
-        SSH2Util.upload(connection, "/tmp/lvmoney/tt", "rm", "udevadm");
+        Ssh2Util.upload(connection, "/tmp/lvmoney/tt", "rm", "udevadm");
     }
 }

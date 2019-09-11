@@ -21,8 +21,8 @@ import java.util.concurrent.TimeUnit;
  * @describe：
  * @author: lvmoney /xxxx科技有限公司
  * @version:v1.0 2018年10月30日 下午3:29:38
+ * @RestController
  */
-//@RestController
 public class TestController {
     @Autowired
     BaseRedisService baseRedisService;
@@ -32,19 +32,21 @@ public class TestController {
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public void test() throws Exception {
         //设置一个key，aaa商品的库存数量为100
-        baseRedisService.set("aaa", "100", 18000l);
+        baseRedisService.set("aaa", "100", 18000L);
     }
 
     @RequestMapping(value = "/test2", method = RequestMethod.GET)
     public void testDistributed() {
+        int max = 55;
         //执行的业务代码
-        for (int i = 0; i < 55; i++) {
+        for (int i = 0; i < max; i++) {
             RLock lock = redisson.getLock(LockConstant.SECTION_LOCK_KEY);
-            lock.lock(60, TimeUnit.SECONDS); //设置60秒自动释放锁  （默认是30秒自动过期）
+            //设置60秒自动释放锁  （默认是30秒自动过期）
+            lock.lock(60, TimeUnit.SECONDS);
             int stock = Integer.parseInt(baseRedisService.getString("aaa").toString());
             if (stock > 0) {
                 //stringRedisTemplate.opsForValue().set("aaa",(stock-1)+"");
-                baseRedisService.set("aaa", (stock - 1) + "", 18000l);
+                baseRedisService.set("aaa", (stock - 1) + "", 18000L);
 
                 System.out.println("test2_:lockkey:" + LockConstant.SECTION_LOCK_KEY + ",stock:" + (stock - 1) + "");
             }
@@ -55,12 +57,12 @@ public class TestController {
     @RequestMapping(value = "/test100", method = RequestMethod.GET)
     public void test100() throws Exception {
         //设置一个key，aaa商品的库存数量为100
-        baseRedisService.set("aaa", "100", 18000l);
+        baseRedisService.set("aaa", "100", 18000L);
     }
 
     @RequestMapping(value = "/test200", method = RequestMethod.GET)
     public void test200() throws Exception {
         //设置一个key，aaa商品的库存数量为100
-        baseRedisService.set("aaa", "100", 18000l);
+        baseRedisService.set("aaa", "100", 18000L);
     }
 }

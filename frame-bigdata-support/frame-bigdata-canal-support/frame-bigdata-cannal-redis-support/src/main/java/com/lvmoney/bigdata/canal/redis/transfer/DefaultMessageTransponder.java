@@ -23,7 +23,9 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 /**
- * 默认转信息换器
+ * @describe：默认转信息换器
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class DefaultMessageTransponder extends AbstractMessageTransponder {
     private static final Logger logger = LoggerFactory.getLogger(DefaultMessageTransponder.class);

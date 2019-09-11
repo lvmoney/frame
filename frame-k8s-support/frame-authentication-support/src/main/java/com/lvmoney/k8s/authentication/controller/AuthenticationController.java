@@ -150,8 +150,8 @@ public class AuthenticationController {
             UsernamePasswordToken shiroToken = new UsernamePasswordToken(username, password);
             Subject subject = SecurityUtils.getSubject();
             subject.login(shiroToken);
-            if (servletPath.endsWith("/")) {
-                servletPath = servletPath.substring(0, servletPath.lastIndexOf("/"));
+            if (servletPath.endsWith(AuthenticationConstant.PATH_START)) {
+                servletPath = servletPath.substring(0, servletPath.lastIndexOf(AuthenticationConstant.PATH_START));
             }
             ShiroUriVo shiroUriVo = shiroRedisService.getShiroUriData(servletPath);
             if (shiroUriVo != null) {
@@ -193,7 +193,7 @@ public class AuthenticationController {
         userRo.setToken("1234");
         userRo.setUserId("lvmoney");
         userRo.setUsername("xml");
-        userRo.setExpire(88888l);
+        userRo.setExpire(88888L);
 
         jwtRedisService.saveToken2Redis(userRo);
 
@@ -207,7 +207,7 @@ public class AuthenticationController {
         }};
         shiroUriVo.setRole(role);
         shiroUriRo.setShiroUriVo(shiroUriVo);
-        shiroUriRo.setExpire(88888l);
+        shiroUriRo.setExpire(88888L);
         shiroUriRo.setUsername("xml");
 
         shiroRedisService.saveShiroUriData(shiroUriRo);
@@ -215,7 +215,7 @@ public class AuthenticationController {
         ShiroDataRo shiroDataRo = new ShiroDataRo();
         shiroDataRo.setUsername("xml");
         shiroDataRo.setRoles(role);
-        shiroDataRo.setExpire(88888l);
+        shiroDataRo.setExpire(88888L);
         shiroRedisService.saveShiroData(shiroDataRo);
         return "test";
     }

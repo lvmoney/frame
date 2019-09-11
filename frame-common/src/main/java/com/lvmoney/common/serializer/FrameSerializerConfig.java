@@ -30,19 +30,29 @@ import java.nio.charset.Charset;
  * 5、但是jwt token的方式应该每个项目都会用到放到jwt问题也不大
  * @author: lvmoney /xxxx科技有限公司
  * @version:v1.0 2018年10月30日 下午3:29:38
+ * @Configuration
  */
-//@Configuration
 public class FrameSerializerConfig extends WebMvcConfigurationSupport {
 
     /**
-     * 解决中文乱码问题
+     * @describe: 解决中文乱码问题
+     * @param: []
+     * @return: org.springframework.http.converter.HttpMessageConverter<java.lang.String>
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:11
      */
     @Bean
     public HttpMessageConverter<String> responseBodyConverter() {
         return new StringHttpMessageConverter(Charset.forName("UTF-8"));
     }
 
-
+    /**
+     * @describe: jackson builder
+     * @param: [builder]
+     * @return: com.fasterxml.jackson.databind.ObjectMapper
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:12
+     */
     @Bean
     @Primary
     @ConditionalOnMissingBean(ObjectMapper.class)

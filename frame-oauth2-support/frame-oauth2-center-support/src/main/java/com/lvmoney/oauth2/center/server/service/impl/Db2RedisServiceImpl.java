@@ -9,6 +9,7 @@ package com.lvmoney.oauth2.center.server.service.impl;/**
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.common.utils.StringUtil;
 import com.lvmoney.oauth2.center.server.constant.Oauth2ServerConstant;
 import com.lvmoney.oauth2.center.server.db.dao.OauthClientDao;
@@ -60,7 +61,7 @@ public class Db2RedisServiceImpl implements Db2RedisService {
         userRoles.forEach(e -> {
             grantedAuthorityList.add(new SimpleGrantedAuthority(e.getCode()));
         });
-        Map<String, UserInfo> data = new HashMap<String, UserInfo>();
+        Map<String, UserInfo> data = new HashMap<String, UserInfo>(CommonConstant.MAP_DEFAULT_SIZE);
         Long userid = Long.parseLong(userAccount.getUserAccid());
         String userName = userAccount.getUsername();
         String password = userAccount.getPassword();
@@ -106,7 +107,7 @@ public class Db2RedisServiceImpl implements Db2RedisService {
         String approveStr = oauthClient.getAuthorities();
         Set<String> approveScopes = jsonString2Set(approveStr);
         baseClientDetails.setAutoApproveScopes(approveScopes);
-        Map<String, BaseClientDetails> data = new HashMap<>();
+        Map<String, BaseClientDetails> data = new HashMap<>(CommonConstant.MAP_DEFAULT_SIZE);
         data.put(clientId, baseClientDetails);
         oauth2ClientDetailRo.setData(data);
         oauth2ClientDetailRo.setExpire(Long.parseLong(expired));

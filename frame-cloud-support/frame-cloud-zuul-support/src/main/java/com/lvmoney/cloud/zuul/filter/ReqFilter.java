@@ -1,6 +1,6 @@
 package com.lvmoney.cloud.zuul.filter;/**
  * 描述:
- * 包名:com.scltzhy.jwt.annotation
+ * 包名:com.lvmoney.jwt.annotation
  * 版本信息: 版本1.0
  * 日期:2019/4/3
  * Copyright xxxx科技有限公司

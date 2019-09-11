@@ -60,7 +60,7 @@ public class RouterServiceHolder {
     }
 
     public ParamValidatedConfig findValidateByUri(String uri) {
-        RouterMethodConfig RouterMethodConfig = this.findMethodByUri(uri);
+        RouterMethodConfig routerMethodConfig = this.findMethodByUri(uri);
 //		Annotation[] annotations = RouterMethodConfig.getMethod().getAnnotations();
 //		boolean isValidate=false;
 //		for(Annotation annotations:annotations){
@@ -71,34 +71,34 @@ public class RouterServiceHolder {
 //			}
 //		}
         boolean isValidate = false;
-        Method method = RouterMethodConfig.getMethod();
+        Method method = routerMethodConfig.getMethod();
         if (method.isAnnotationPresent(ParamValidated.class)) {
             ParamValidated paramValidated = method.getAnnotation(ParamValidated.class);
             isValidate = paramValidated.isValidate();
         }
-        return new ParamValidatedConfig(RouterMethodConfig.getMethod(), isValidate);
+        return new ParamValidatedConfig(routerMethodConfig.getMethod(), isValidate);
     }
 
     public AuthenticationValidatedConfig findAuthenticationByUri(String uri) {
-        RouterMethodConfig RouterMethodConfig = this.findMethodByUri(uri);
+        RouterMethodConfig routerMethodConfig = this.findMethodByUri(uri);
         boolean isValidate = false;
-        Method method = RouterMethodConfig.getMethod();
+        Method method = routerMethodConfig.getMethod();
         if (method.isAnnotationPresent(AuthenticationValidated.class)) {
             AuthenticationValidated authValidated = method.getAnnotation(AuthenticationValidated.class);
             isValidate = authValidated.isValidate();
         }
-        return new AuthenticationValidatedConfig(RouterMethodConfig.getMethod(), isValidate);
+        return new AuthenticationValidatedConfig(routerMethodConfig.getMethod(), isValidate);
     }
 
 
     public PermissionValidatedConfig findPermissionByUri(String uri) {
-        RouterMethodConfig RouterMethodConfig = this.findMethodByUri(uri);
+        RouterMethodConfig routerMethodConfig = this.findMethodByUri(uri);
         String role = "";
-        Method method = RouterMethodConfig.getMethod();
+        Method method = routerMethodConfig.getMethod();
         if (method.isAnnotationPresent(PermissionValidated.class)) {
             PermissionValidated permissionValidated = method.getAnnotation(PermissionValidated.class);
             role = permissionValidated.role();
         }
-        return new PermissionValidatedConfig(RouterMethodConfig.getMethod(), role);
+        return new PermissionValidatedConfig(routerMethodConfig.getMethod(), role);
     }
 }

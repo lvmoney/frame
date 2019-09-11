@@ -1,6 +1,6 @@
 package com.lvmoney.netty.client.util;
 
-import com.lvmoney.netty.exception.NoUseableChannel;
+import com.lvmoney.netty.exception.NoUseableException;
 import com.lvmoney.netty.vo.MethodInvokeMeta;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -93,12 +93,12 @@ public class ChannelUtil {
             channel = iterator.next();
         } else {
             LOGGER.error("{} -> [没有活跃的通道] ", ChannelUtil.class);
-            throw new NoUseableChannel("没有活跃的通道");
+            throw new NoUseableException("没有活跃的通道");
         }
         // 将用于获取结果的key保存,以通道id为键
-        String channelID = channel.id().asLongText();
-        LOGGER.info("{} -> [保存获取结果的key] key - {} 通道id - {}", ChannelUtil.class, key, channelID);
-        RESULT_MAP.put(channelID, key);
+        String channelId = channel.id().asLongText();
+        LOGGER.info("{} -> [保存获取结果的key] key - {} 通道id - {}", ChannelUtil.class, key, channelId);
+        RESULT_MAP.put(channelId, key);
         ChannelFuture channelFuture = channel.writeAndFlush(methodInvokeMeta);
 //        channelFuture.addListener(ChannelFutureListener.CLOSE);
     }

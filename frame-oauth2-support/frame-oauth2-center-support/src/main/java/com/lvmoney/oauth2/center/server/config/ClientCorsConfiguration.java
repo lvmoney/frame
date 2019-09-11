@@ -6,7 +6,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-/*部分接口需要跨域支持*/
+/**
+ * @describe：部分接口需要跨域支持
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Configuration
 public class ClientCorsConfiguration {
 

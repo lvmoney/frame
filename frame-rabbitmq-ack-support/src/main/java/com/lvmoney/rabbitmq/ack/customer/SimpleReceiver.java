@@ -33,7 +33,7 @@ import java.io.IOException;
 @Component
 @RabbitListener(queues = RabbitmqConstant.SIMPLE_QUEUE_NAME)
 public class SimpleReceiver {
-    private final static Logger logger = LoggerFactory.getLogger(SimpleReceiver.class);
+    private static final Logger logger = LoggerFactory.getLogger(SimpleReceiver.class);
     @Autowired
     HandMqServiceContext handMqServiceContext;
 

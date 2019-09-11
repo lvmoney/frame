@@ -36,7 +36,10 @@ public class BaseMongoServiceImpl implements BaseMongoService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    private static final String SORT_DESC = "desc";
+    private static final String SORT_ASC = "desc";
 
+    @Override
     public void save(BaseMongoVo baseVo) {
         mongoTemplate.save(baseVo.getData());
     }
@@ -52,18 +55,21 @@ public class BaseMongoServiceImpl implements BaseMongoService {
     }
 
 
+    @Override
     public void remove(BaseMongoVo baseVo) {
 
         mongoTemplate.remove(baseVo.getData());
     }
 
 
+    @Override
     public void removeByCollectionName(BaseMongoVo baseVo) {
 
         mongoTemplate.remove(baseVo.getData(), baseVo.getCollectionName());
     }
 
 
+    @Override
     public void removeById(BaseMongoVo baseVo) {
         Criteria criteria = Criteria.where(baseVo.getKey()).is(baseVo.getData());
         criteria.and(baseVo.getKey()).is(baseVo.getData());
@@ -72,11 +78,16 @@ public class BaseMongoServiceImpl implements BaseMongoService {
     }
 
 
+    @Override
     public void updateFirst(BaseMongoCollective baseCollection) {
-        String accordingKey = baseCollection.getKey();// 修改条件 key
-        String[] updateKeys = baseCollection.getKeys();// 修改内容 key数组
-        Object accordingValue = baseCollection.getData();// 修改条件 value
-        Object[] updateValues = baseCollection.getDatas();// 修改内容 value数组
+        // 修改条件 key
+        String accordingKey = baseCollection.getKey();
+        // 修改内容 key数组
+        String[] updateKeys = baseCollection.getKeys();
+        // 修改条件 value
+        Object accordingValue = baseCollection.getData();
+        // 修改内容 value数组
+        Object[] updateValues = baseCollection.getDatas();
         Criteria criteria = Criteria.where(accordingKey).is(accordingValue);
         Query query = Query.query(criteria);
         Update update = new Update();
@@ -87,6 +98,7 @@ public class BaseMongoServiceImpl implements BaseMongoService {
     }
 
 
+    @Override
     public void updateMulti(BaseMongoCollective baseCollection) {
         String accordingKey = baseCollection.getKey();
         Object accordingValue = baseCollection.getData();
@@ -102,6 +114,7 @@ public class BaseMongoServiceImpl implements BaseMongoService {
     }
 
 
+    @Override
     public List<?> find(BaseMongoCollective baseCollection) {
         Object baseVo = baseCollection.getData();
         String[] findKeys = baseCollection.getKeys();
@@ -120,6 +133,7 @@ public class BaseMongoServiceImpl implements BaseMongoService {
     }
 
 
+    @Override
     public List<?> findByCollectionName(BaseMongoCollective baseCollection) {
         Object baseVo = baseCollection.getData();
         String[] findKeys = baseCollection.getKeys();
@@ -139,12 +153,13 @@ public class BaseMongoServiceImpl implements BaseMongoService {
     }
 
 
+    @Override
     public List<?> sortFindByCollectionName(BaseMongoCollective baseCollection) {
         String sortType = baseCollection.getSortType().toLowerCase();
         if (StringUtils.isBlank(sortType)) {
             throw new BusinessException(CommonException.Proxy.MONGO_SORT_TYPE_IS_REQUIRED);
         }
-        if (!"desc".equals(sortType) || !"asc".equals(sortType)) {
+        if (!SORT_DESC.equals(sortType) || !SORT_ASC.equals(sortType)) {
             throw new BusinessException(CommonException.Proxy.MONGO_SORT_TYPE_IS_ERROR);
         }
         Object baseVo = baseCollection.getData();
@@ -161,10 +176,10 @@ public class BaseMongoServiceImpl implements BaseMongoService {
             }
         }
         Query query = Query.query(criteria);
-        if (sortType.equals("desc")) {
+        if (SORT_DESC.equals(sortType)) {
             query.with(new Sort(Direction.DESC, sort));
         }
-        if (sortType.equals("asc")) {
+        if (SORT_ASC.equals(sortType)) {
             query.with(new Sort(Direction.ASC, sort));
         }
         List<?> resultList = mongoTemplate.find(query, baseVo.getClass(), collectionName);
@@ -172,6 +187,7 @@ public class BaseMongoServiceImpl implements BaseMongoService {
     }
 
 
+    @Override
     public Object findOne(BaseMongoCollective baseCollection) {
         String[] findKeys = baseCollection.getKeys();
         Object[] findValues = baseCollection.getDatas();
@@ -189,6 +205,7 @@ public class BaseMongoServiceImpl implements BaseMongoService {
     }
 
 
+    @Override
     public Object findFirstOne(BaseMongoCollective baseCollection) {
         Object baseVo = baseCollection.getData();
         String[] findKeys = baseCollection.getKeys();
@@ -207,12 +224,14 @@ public class BaseMongoServiceImpl implements BaseMongoService {
     }
 
 
+    @Override
     public List<?> findAll(BaseMongoVo baseVo) {
         List<?> resultList = mongoTemplate.findAll(baseVo.getData().getClass());
         return resultList;
     }
 
 
+    @Override
     public List<?> findAllByCollectionName(BaseMongoVo baseVo) {
         List<?> resultList = mongoTemplate.findAll(baseVo.getData().getClass(), baseVo.getCollectionName());
         return resultList;

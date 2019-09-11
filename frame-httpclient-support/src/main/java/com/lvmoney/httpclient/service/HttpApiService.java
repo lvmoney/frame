@@ -12,9 +12,8 @@ import java.io.File;
 import java.net.URLConnection;
 import java.util.Map;
 
-import com.lvmoney.httpclient.vo.HttpFResult;
+import com.lvmoney.httpclient.vo.HttpFileResult;
 import com.lvmoney.httpclient.vo.HttpResult;
-import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -25,77 +24,98 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface HttpApiService {
     /**
-     * @param url
-     * @return
-     * @throws Exception 2018年10月30日下午3:32:43
-     * @describe:不带参数的get请求，如果状态码为200，则返回body，如果不为200，则返回null
-     * @author: lvmoney /xxxx科技有限公司
+     * 简单的get
+     *
+     * @param url: 请求url
+     * @throws Exception
+     * @return: java.lang.String
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:42
      */
     String doGet(String url) throws Exception;
 
     /**
-     * @param url
-     * @param map
-     * @return
-     * @throws Exception 2018年10月30日下午3:32:51
-     * @describe:带参数的get请求，如果状态码为200，则返回body，如果不为200，则返回null
-     * @author: lvmoney /xxxx科技有限公司
+     * get map
+     *
+     * @param url: 请求地址
+     * @param map: 请求数据
+     * @throws Exception
+     * @return: java.lang.String
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:44
      */
     String doGet(String url, Map<String, Object> map) throws Exception;
 
     /**
-     * @param url
-     * @param map
-     * @return
-     * @throws Exception 2018年10月30日下午3:32:56
-     * @describe:带参数的post请求
-     * @author: lvmoney /xxxx科技有限公司
+     * post
+     *
+     * @param url: 请求地址
+     * @param map: 请求数据
+     * @throws Exception
+     * @return: com.lvmoney.httpclient.vo.HttpResult
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:45
      */
     HttpResult doPost(String url, Map<String, Object> map) throws Exception;
 
     /**
-     * @param url
-     * @return
-     * @throws Exception 2018年10月30日下午3:33:01
-     * @describe:不带参数post请求
-     * @author: lvmoney /xxxx科技有限公司
+     * 简单的post
+     *
+     * @param url: 请求地址
+     * @throws Exception
+     * @return: com.lvmoney.httpclient.vo.HttpResult
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:45
      */
     HttpResult doPost(String url) throws Exception;
 
     /**
-     * @param url
-     * @return
-     * @throws Exception 2018年10月30日下午3:33:01
-     * @describe:post json
-     * @author: lvmoney /xxxx科技有限公司
+     * post json
+     *
+     * @param url:  请求地址
+     * @param json: json对象
+     * @throws
+     * @return: com.lvmoney.httpclient.vo.HttpResult
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:45
      */
-    HttpResult doJPost(String url, String json);
+    HttpResult doJsonPost(String url, String json);
 
     /**
-     * @param url
-     * @return
-     * @throws Exception 2018年10月30日下午3:33:01
-     * @describe:post file
-     * @author: lvmoney /xxxx科技有限公司
+     * post 文件 请求参数
+     *
+     * @param url:       请求地址
+     * @param fileParam: 文件
+     * @param map:       请求数据
+     * @throws
+     * @return: com.lvmoney.httpclient.vo.HttpResult
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:46
      */
-    HttpResult doFPost(String url, Map<String, File> fileParam, Map<String, Object> map);
+    HttpResult doFilePost(String url, Map<String, File> fileParam, Map<String, Object> map);
 
 
     /**
-     * @param url
-     * @return
-     * @throws Exception 2018年10月30日下午3:33:01
-     * @describe:post file
-     * @author: lvmoney /xxxx科技有限公司
+     * post json 文件
+     *
+     * @param url:  请求地址
+     * @param json: json对象
+     * @throws
+     * @return: com.lvmoney.httpclient.vo.HttpFileResult
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:47
      */
-    HttpFResult doJFPost(String url, String json);
+    HttpFileResult doJsonFilePost(String url, String json);
 
     /**
-     * @param url
-     * @return
-     * @throws Exception 2018年10月30日下午3:33:01
-     * @describe:get connection msg
-     * @author: lvmoney /xxxx科技有限公司
+     * connection msg
+     *
+     * @param url:   请求地址
+     * @param param: 请求参数
+     * @throws
+     * @return: java.net.URLConnection
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:47
      */
-    URLConnection getGConnection(String url, String param);
+    URLConnection getConnectionMsg(String url, String param);
 }

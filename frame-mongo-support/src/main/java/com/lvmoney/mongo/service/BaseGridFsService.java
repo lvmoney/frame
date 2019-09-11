@@ -23,48 +23,52 @@ import java.util.List;
 
 public interface BaseGridFsService {
     /**
-     * @describe: 保存文件
-     * @param: [baseGridFsVo]
-     * @return: BaseGridFsOutVo
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/3/5
+     * 保存文件
+     *
+     * @param baseGridFsVo: 基础文件存储实体
+     * @return: com.lvmoney.mongo.vo.BaseGridFsOutVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:31
      */
     BaseGridFsOutVo save(BaseGridFsVo baseGridFsVo);
 
     /**
-     * @describe: 批量保存
-     * @param: [baseGridFsVos]
-     * @return: java.util.List<BaseGridFsOutVo>
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/3/5
+     * 批量保存
+     *
+     * @param baseGridFsVos: 批量基础文件存储实体
+     * @return: java.util.List<com.lvmoney.mongo.vo.BaseGridFsOutVo>
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:32
      */
-
     List<BaseGridFsOutVo> batchSave(List<BaseGridFsVo> baseGridFsVos);
 
     /**
-     * @describe: 获取单个文件
-     * @param: [baseGridFsQueryVo]
-     * @return: BaseGridFsByteOutVo
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/3/5
+     * 获取单个文件
+     *
+     * @param baseGridFsQueryVo: 获取文件请求实体
+     * @return: com.lvmoney.mongo.vo.BaseGridFsByteOutVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:32
      */
     BaseGridFsByteOutVo getByMongoId(BaseGridFsQueryVo baseGridFsQueryVo);
 
     /**
-     * @describe: 批量获得
-     * @param: [baseGridFsQueryVos]
-     * @return: java.util.List<BaseGridFsByteOutVo>
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/3/5
+     * 批量获得文件
+     *
+     * @param baseGridFsQueryVos: 批量获取文件请求实体
+     * @return: java.util.List<com.lvmoney.mongo.vo.BaseGridFsByteOutVo>
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:33
      */
     List<BaseGridFsByteOutVo> batchGetByMongoId(List<BaseGridFsQueryVo> baseGridFsQueryVos);
 
     /**
-     * @describe: 删除指定
-     * @param: [baseGridFsQueryVo]
+     * 删除指定文件
+     *
+     * @param baseGridFsQueryVo: 基础文件实体
      * @return: void
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/3/5
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 19:33
      */
     void deleteByMongoId(BaseGridFsQueryVo baseGridFsQueryVo);
 

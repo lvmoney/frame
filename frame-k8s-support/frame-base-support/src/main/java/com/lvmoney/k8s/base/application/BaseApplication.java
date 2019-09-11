@@ -14,8 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @describe：
  * @author: lvmoney/XXXXXX科技有限公司
  * @version:v1.0 2019/8/9 9:48
+ * @SpringBootApplication(scanBasePackages = {"com.lvmoney.**"})
  */
-//@SpringBootApplication(scanBasePackages = {"com.lvmoney.**"})
 public class BaseApplication {
     public static void main(String[] args) {
         SpringApplication.run(BaseApplication.class, args);

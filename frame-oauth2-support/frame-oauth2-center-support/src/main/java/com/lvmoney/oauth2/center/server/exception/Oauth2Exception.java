@@ -20,14 +20,31 @@ public interface Oauth2Exception {
     int PROXYERR = 700;
 
     enum Proxy implements ExceptionType {
-        SUCCESS(2000, "success"),
+        /**
+         * 验证码报错
+         */
         VERIFICATION_ERROR(PROXYERR + 1, "验证码错误"),
+        /**
+         * 密码应包含字母、数字、符号
+         */
         PASSWORD_NOT_STANDARD(PROXYERR + 2, "密码应包含字母、数字、符号"),
+        /**
+         * json写数据错误
+         */
         DENIED_JSON_NOT_WRITE(PROXYERR + 3, "json写数据错误"),
+        /**
+         * 没有找到对应的客户端详细信息
+         */
         CLIENT_DETAIL_NOT_EXSIT(PROXYERR + 4, "没有找到对应的客户端详细信息"),
+        /**
+         * 用户已经存在
+         */
         USER_EXSIT(PROXYERR + 5, "用户已经存在"),
+        /**
+         * 不支持的编码错误
+         */
         UNSUPPORTED_ENCODING_EXCEPTION(PROXYERR + 6, "不支持的编码错误"),
-        AUTHENTICATION_EXCEPTION(PROXYERR + 7, "不支持的编码错误"),
+        AUTHENTICATION_EXCEPTION(PROXYERR + 7, "权限错误"),
         OAUTH2_CLIENT_DENIED_EXCEPTION(PROXYERR + 8, "客户端没有权限"),
         OAUTH2_OAUTH_CLIENT_IS_NULL(PROXYERR + 9, "token 失效"),
         CLIENT_NOT_EXSIT(PROXYERR + 4, "没有找到对应的客户端信息"),
@@ -44,8 +61,7 @@ public interface Oauth2Exception {
         OAUTH2_CUSTOM_OAUTH_ERROR(PROXYERR + 19, "客户端权限校验失败"),
         OAUTH2_ACCESS_DENIED_ERROR(PROXYERR + 20, "客户端授权失败报错"),
         OAUTH2_CLIENT_DETAIL_NO_EXIST(PROXYERR + 22, "获取客户端详情失败"),
-        OAUTH2_LOGIN_SUCCESS(2000, "登录成功"),
-        OTHER(PROXYERR + 99, "未知错误");
+        OAUTH2_LOGIN_SUCCESS(2000, "登录成功");
         private int code;
         private String description;
 

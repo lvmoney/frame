@@ -13,9 +13,9 @@ import org.springframework.boot.SpringApplication;
  * @describe：
  * @author: lvmoney /xxxx科技有限公司
  * @version:v1.0 2018年10月30日 下午3:29:38
+ * @SpringBootApplication(scanBasePackages = {"com.lvmoney.**"})
+ * @Configuration
  */
-//@SpringBootApplication(scanBasePackages = {"com.lvmoney.**"})
-//@Configuration
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);

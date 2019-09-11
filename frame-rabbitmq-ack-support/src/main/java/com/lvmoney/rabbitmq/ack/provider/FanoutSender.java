@@ -47,17 +47,16 @@ public class FanoutSender {
         return template;
     }
 
-    @Value("${rabbitmq.error.record.expire}")
+    @Value("${rabbitmq.error.record.expire:18000}")
     String expire;
 
-    public void send(MessageVo msg) {//由于Fanout的特性就算配置了binding_key，所有的队列都会收到消息
+    public void send(MessageVo msg) {
+        //由于Fanout的特性就算配置了binding_key，所有的队列都会收到消息
         RabbitTemplate rabbitTemplate = rabbitTemplate(connectionFactory);
-        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {//exchange 错误被调用ack=false
+        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
+            //exchange 错误被调用ack=false
             if (!ack) {
                 AckErrorRecordRo ackErrorRecordRo = new AckErrorRecordRo();
-                if (StringUtils.isBlank(expire)) {
-                    expire = "1800";
-                }
                 ackErrorRecordRo.setExpire(Long.valueOf(expire));
                 MsgErrorVo msgErrorVo = new MsgErrorVo();
                 msgErrorVo.setMessageVo(msg);
@@ -71,9 +70,6 @@ public class FanoutSender {
         rabbitTemplate.setReturnCallback((Message message, int replyCode, String replyText,
                                           String exchange, String routingKey) -> { //exchange 正确,queue 错误 ,confirm被回调, ack=true; return被回调 replyText:NO_ROUTE
             AckErrorRecordRo ackErrorRecordRo = new AckErrorRecordRo();
-            if (StringUtils.isBlank(expire)) {
-                expire = "1800";
-            }
             ackErrorRecordRo.setExpire(Long.valueOf(expire));
             MsgErrorVo msgErrorVo = new MsgErrorVo();
             msgErrorVo.setMessageVo(msg);

@@ -26,13 +26,13 @@ public class YamlController {
     YamlService yamlService;
 
     @GetMapping(value = "/iDeploy")
-    public void createIDeploy() {
-        yamlService.createIDeploy();
+    public void createDeploy() {
+        yamlService.createDeploy();
     }
 
     @GetMapping(value = "/iGateway")
-    public void createIGateway() {
-        yamlService.createIGateway();
+    public void createGateway() {
+        yamlService.createGateway();
     }
 
 }

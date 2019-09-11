@@ -6,7 +6,12 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 
-//用户信息表
+
+/**
+ * @describe：用户信息表
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @TableName("user")
 public class
 User extends Model<User> {
@@ -15,7 +20,9 @@ User extends Model<User> {
 
     private String name;
 
-    //用户身份标识（1-申请者，2-审核者）
+    /**
+     * 用户身份标识（1-申请者，2-审核者）
+     */
     private Integer type;
 
     private Integer delete_flag;

@@ -63,6 +63,8 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     @Value("${frame.white.support:false}")
     String whiteSupport;
 
+    private static final String LOCALHOST_NAME = "localhost";
+
     /**
      * @describe:1、白名单校验=====>2、是否需要gateway支持======>3、token校验=======>4、权限校验=======>5、服务访问
      * @param: [exchange, chain]
@@ -75,21 +77,24 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         ServerHttpResponse serverHttpResponse = exchange.getResponse();
         if (!whiteSupport.equals(GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE) && !whiteSupport.equals(GatewayConstant.FRAME_GATEWAY_SUPPORT_TRUE)) {
             return serverHttpResponse.writeWith(Flux.just(ExceptionUtil.filterExceptionHandle(serverHttpResponse, new BusinessException(GatewayException.Proxy.GATEWAY_SUPPORT_ERROR))));
-        } else if (!isWhite(exchange)) {//白名单校验
+        } else if (!isWhite(exchange)) {
+            //白名单校验
             return serverHttpResponse.writeWith(Flux.just(ExceptionUtil.filterExceptionHandle(serverHttpResponse, new BusinessException(GatewayException.Proxy.GATEWAY_WHITE_CHECK_ERROR))));
         }
         String requestPath = exchange.getRequest().getPath().toString();
         String realPath = realPath(exchange);
         URI uri = exchange.getRequest().getURI();
 
-        if (gatewaySupport.equals(GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE)) {//
+        if (gatewaySupport.equals(GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE)) {
+            // 在这里做判断
             return chain.filter(exchange);
         } else if (!GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE.equals(gatewaySupport) && !GatewayConstant.FRAME_GATEWAY_SUPPORT_TRUE.equals(gatewaySupport)) {
             return serverHttpResponse.writeWith(Flux.just(ExceptionUtil.filterExceptionHandle(serverHttpResponse, new BusinessException(GatewayException.Proxy.GATEWAY_SUPPORT_ERROR))));
         }
 
         Map<String, String> filterChainDefinition = gatewayConfigProp.getfilterChainDefinitionMap();
-        if (filterChainDefinition != null && FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, requestPath, GatewayConstant.GATEWAY_REQUEST_IGNORE)) {// 在这里做判断
+        if (filterChainDefinition != null && FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, requestPath, GatewayConstant.GATEWAY_REQUEST_IGNORE)) {
+            // 在这里做判断
             return chain.filter(exchange);
         }
 
@@ -146,15 +151,17 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         ServerHttpResponse serverHttpResponse = exchange.getResponse();
         Route route = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
         String serverName = route.getUri().getHost();
-        if (whiteSupport.equals(GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE)) {//不需要白名单支持
+        if (whiteSupport.equals(GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE)) {
+            //不需要白名单支持
             return true;
         } else if (GatewayConstant.FRAME_GATEWAY_SUPPORT_TRUE.equals(gatewaySupport)
-                && !whiteListService.isExist(serverName)) {//需要白名单支持，但是服务名称不在redis中，说明该服务不需要白名单校验
+                && !whiteListService.isExist(serverName)) {
+            //需要白名单支持，但是服务名称不在redis中，说明该服务不需要白名单校验
             return true;
         }
         ServerHttpRequest request = exchange.getRequest();
         String ip = request.getURI().getHost();
-        if (ip.equals("localhost") || ip.equals(CommonConstant.LOCALHOST_IP)) {
+        if (LOCALHOST_NAME.equals(ip) || ip.equals(CommonConstant.LOCALHOST_IP)) {
             ip = IpUtil.getLocalhostIp();
         }
 

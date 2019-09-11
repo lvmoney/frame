@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("rawtypes")
 @Service("frameBaseRedisService")
 public class BaseRedisServiceImpl implements BaseRedisService {
-    private final static Logger logger = LoggerFactory.getLogger(BaseRedisServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(BaseRedisServiceImpl.class);
 
     @Autowired
     StringRedisTemplate stringRedisTemplate;
@@ -52,6 +52,7 @@ public class BaseRedisServiceImpl implements BaseRedisService {
     @Resource(name = "redisTemplate")
     ValueOperations<Object, Object> valOpsObj;
 
+    @Override
     public void set(String key, Object object, Long time) {
         // 让该方法能够支持多种数据类型存放
         if (object instanceof String) {
@@ -63,11 +64,12 @@ public class BaseRedisServiceImpl implements BaseRedisService {
         }
         // 设置有效期
 
-        if (time != null && time > 0l) {
+        if (time != null && time > 0L) {
             stringRedisTemplate.expire(key, time, TimeUnit.SECONDS);
         }
     }
 
+    @Override
     public void setString(String key, Object object) {
         if (object instanceof String) {
             stringRedisTemplate.opsForValue().set(key, object.toString());
@@ -78,6 +80,7 @@ public class BaseRedisServiceImpl implements BaseRedisService {
         }
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public void setSet(String key, Object object) {
         Set<String> valueSet = (Set<String>) object;
@@ -91,6 +94,7 @@ public class BaseRedisServiceImpl implements BaseRedisService {
         stringRedisTemplate.expire(key, time, TimeUnit.SECONDS);
     }
 
+    @Override
     public Object getString(String key) {
         try {
             return stringRedisTemplate.opsForValue().get(key);
@@ -100,15 +104,18 @@ public class BaseRedisServiceImpl implements BaseRedisService {
         }
     }
 
+    @Override
     public void deleteKey(String key) {
         stringRedisTemplate.delete(key);
     }
 
+    @Override
     public void deleteWildcardKey(String key) {
         Set<Object> keys = redisTemplate.keys(key + "*");
         redisTemplate.delete(keys);
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public Page getListPage(Page page, String key) {
         if (page.isAll()) {
@@ -132,6 +139,7 @@ public class BaseRedisServiceImpl implements BaseRedisService {
         return page;
     }
 
+    @Override
     public void delObj(Object o) {
         redisTemplate.delete(o);
     }
@@ -155,7 +163,7 @@ public class BaseRedisServiceImpl implements BaseRedisService {
     @Override
     public void addList(String key, List obj, Long time) {
         redisTemplate.opsForList().rightPushAll(key, obj);
-        if (time != null && time > 0l) {
+        if (time != null && time > 0L) {
             stringRedisTemplate.expire(key, time, TimeUnit.SECONDS);
         }
 
@@ -169,7 +177,7 @@ public class BaseRedisServiceImpl implements BaseRedisService {
     @Override
     public void addMap(String key, Map obj, Long time) {
         redisTemplate.opsForHash().putAll(key, obj);
-        if (time != null && time > 0l) {
+        if (time != null && time > 0L) {
             stringRedisTemplate.expire(key, time, TimeUnit.SECONDS);
         }
     }
@@ -232,8 +240,10 @@ public class BaseRedisServiceImpl implements BaseRedisService {
         redisTemplate.rename(key, newKey);
     }
 
+    @Override
     public void flushdb() {
         redisTemplate.execute(new RedisCallback<Object>() {
+            @Override
             public String doInRedis(RedisConnection connection) throws DataAccessException {
                 connection.flushDb();
                 return "success";
@@ -241,8 +251,14 @@ public class BaseRedisServiceImpl implements BaseRedisService {
         });
     }
 
-
-    //    @Transactional           //哪怕加了这个注解spring的配置文件里redistemplate配置也要开启事务支持
+    /**
+     * @describe: redis事务测试
+     * @Transactional哪怕加了这个注解spring的配置文件里redistemplate配置也要开启事务支持
+     * @param: []
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:00
+     */
     public void mutli() {
         flushdb();
         ValueOperations<Object, Object> vo = redisTemplate.opsForValue();
@@ -264,12 +280,13 @@ public class BaseRedisServiceImpl implements BaseRedisService {
         redisTemplate.setEnableTransactionSupport(false);
         List<Object> rs = null;
         do {
+            //多重检测，直到执行成功。
             redisTemplate.watch("a");
             redisTemplate.multi();
             vo.increment("a", 2);
             vo.increment("a", 2);
             rs = redisTemplate.exec();
-        } while (rs == null);//多重检测，直到执行成功。
+        } while (rs == null);
 
 
     }

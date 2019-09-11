@@ -1,17 +1,27 @@
 package com.lvmoney.activiti.utils;
 
 /**
- * 返回结果信息类
+ * @describe：返回解开过信息类
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class ResultInfo {
 
-    // 返回状态
+    /**
+     * 返回状态
+     */
     private Integer code;
-    //状态描述信息
+    /**
+     * 状态描述信息
+     */
     private String msg;
-    //Info查询总数据量
+    /**
+     *Info查询总数据量
+     */
     private long count;
-    //返回数据列表
+    /**
+     *返回数据列表
+     */
     private Object info;
 
     public Integer getCode() {

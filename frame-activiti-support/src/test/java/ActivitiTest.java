@@ -15,6 +15,7 @@ import com.lvmoney.activiti.po.VacationForm;
 import com.lvmoney.activiti.service.BaseActivitiService;
 import com.lvmoney.activiti.service.MiaoService;
 import com.lvmoney.activiti.vo.*;
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.common.utils.JsonUtil;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
@@ -63,7 +64,7 @@ public class ActivitiTest {
     public void testo0() {//工作流状态
 
         String formId = "10";
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<String, String>(CommonConstant.MAP_DEFAULT_SIZE);
         map = miaoService.getCurrentState(formId);
         h2String(map);
 

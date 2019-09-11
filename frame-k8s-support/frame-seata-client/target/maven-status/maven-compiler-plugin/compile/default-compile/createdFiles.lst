@@ -10,5 +10,5 @@ com\lvmoney\k8s\seata\client\controller\NodeController.class
 com\lvmoney\k8s\seata\client\vo\resp\LoginVoResp.class
 com\lvmoney\k8s\seata\client\service\TestService.class
 com\lvmoney\k8s\seata\client\vo\req\UserReqVo.class
+com\lvmoney\k8s\seata\client\server\FeginSeataServer2.class
 com\lvmoney\k8s\seata\client\application\SeataClientApplication.class
-com\lvmoney\k8s\seata\client\server\FeginSeataUServer.class

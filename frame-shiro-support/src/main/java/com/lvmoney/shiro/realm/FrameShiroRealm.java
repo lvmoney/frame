@@ -18,6 +18,11 @@ import com.lvmoney.shiro.service.ShiroRedisService;
 
 import java.util.*;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 public class FrameShiroRealm extends AuthorizingRealm {
     @Autowired
     ShiroRedisService shiroRedisService;
@@ -37,9 +42,13 @@ public class FrameShiroRealm extends AuthorizingRealm {
         UserVo user = new UserVo();
         user.setUserName(name);
         user.setPassWord(password);
-        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, // 用户
-                user.getPassWord(), // 密码
-                getName() // realm name
+        SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
+                // 用户
+                user,
+                // 密码
+                user.getPassWord(),
+                // realm name
+                getName()
         );
         return authenticationInfo;
     }

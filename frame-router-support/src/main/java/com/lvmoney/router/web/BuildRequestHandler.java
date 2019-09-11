@@ -12,7 +12,16 @@ import com.lvmoney.common.exceptions.FrameRuntimeException;
  * @version:v1.0 2018年12月29日 上午11:10:49
  */
 public interface BuildRequestHandler extends Ordered {
-
+    /**
+     * 处理请求设置全局参数
+     *
+     * @param request:   http request
+     * @param requestVo: 请求实体
+     * @throws FrameRuntimeException 运行时错误
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:11
+     */
     void handle(HttpServletRequest request, Object requestVo) throws FrameRuntimeException;
 
 }

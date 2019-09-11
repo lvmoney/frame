@@ -11,8 +11,8 @@ import com.lvmoney.common.utils.JsonUtil;
 import com.lvmoney.oauth2.center.server.exception.CustomOauthException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.vo.FrameOauth2AccessToken;
-import com.lvmoney.oauth2.center.server.vo.FrameOAuth2RefreshToken;
-import com.lvmoney.oauth2.center.server.vo.resp.OAuth2AuthenticationRespVo;
+import com.lvmoney.oauth2.center.server.vo.FrameOauth2RefreshToken;
+import com.lvmoney.oauth2.center.server.vo.resp.Oauth2AuthenticationRespVo;
 import com.lvmoney.redis.service.BaseRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -88,7 +88,7 @@ public class FrameRedisTokenStoreImpl implements TokenStore {
         if (obj == null) {
             return null;
         }
-        OAuth2AuthenticationRespVo authorizationRespVo = JSON.parseObject(obj.toString(), new TypeReference<OAuth2AuthenticationRespVo>() {
+        Oauth2AuthenticationRespVo authorizationRespVo = JSON.parseObject(obj.toString(), new TypeReference<Oauth2AuthenticationRespVo>() {
         });
         OAuth2Authentication auth = authorizationRespVo2AuthorizationVo(authorizationRespVo);
         return auth;
@@ -106,7 +106,7 @@ public class FrameRedisTokenStoreImpl implements TokenStore {
             if (obj == null) {
                 return null;
             }
-            OAuth2AuthenticationRespVo authorizationRespVo = JSON.parseObject(obj.toString(), new TypeReference<OAuth2AuthenticationRespVo>() {
+            Oauth2AuthenticationRespVo authorizationRespVo = JSON.parseObject(obj.toString(), new TypeReference<Oauth2AuthenticationRespVo>() {
             });
             OAuth2Authentication auth = authorizationRespVo2AuthorizationVo(authorizationRespVo);
             return auth;
@@ -116,7 +116,7 @@ public class FrameRedisTokenStoreImpl implements TokenStore {
     }
 
 
-    private OAuth2Authentication authorizationRespVo2AuthorizationVo(OAuth2AuthenticationRespVo authorizationRespVo) {
+    private OAuth2Authentication authorizationRespVo2AuthorizationVo(Oauth2AuthenticationRespVo authorizationRespVo) {
         com.lvmoney.oauth2.center.server.vo.Oauth2Request fOauth2Request = authorizationRespVo.getOAuth2Request();
         OAuth2Request oAuth2Request = new OAuth2Request(fOauth2Request.
                 getRequestParameters(), fOauth2Request.getClientId(), null,
@@ -252,7 +252,7 @@ public class FrameRedisTokenStoreImpl implements TokenStore {
         baseRedisService.deleteKey(accessKey);
         String authKey = AUTH + tokenValue;
         Object authObj = baseRedisService.getString(authKey);
-        OAuth2AuthenticationRespVo authorizationRespVo = JSON.parseObject(authObj.toString(), new TypeReference<OAuth2AuthenticationRespVo>() {
+        Oauth2AuthenticationRespVo authorizationRespVo = JSON.parseObject(authObj.toString(), new TypeReference<Oauth2AuthenticationRespVo>() {
         });
         OAuth2Authentication authentication = authorizationRespVo2AuthorizationVo(authorizationRespVo);
         baseRedisService.deleteKey(authKey);
@@ -265,8 +265,8 @@ public class FrameRedisTokenStoreImpl implements TokenStore {
                 String unameKey = UNAME_TO_ACCESS + getApprovalKey(authentication);
                 String clientId = CLIENT_ID_TO_ACCESS + authentication.getOAuth2Request().getClientId();
                 baseRedisService.deleteKey(authToAccessKey);
-                baseRedisService.rmValueByList(unameKey, 0l, access);
-                baseRedisService.rmValueByList(clientId, 0l, access);
+                baseRedisService.rmValueByList(unameKey, 0L, access);
+                baseRedisService.rmValueByList(clientId, 0L, access);
                 baseRedisService.deleteKey(ACCESS + key);
             }
         } catch (Exception e) {
@@ -298,9 +298,9 @@ public class FrameRedisTokenStoreImpl implements TokenStore {
         if (obj == null) {
             return null;
         }
-        FrameOAuth2RefreshToken frameOAuth2RefreshToken = JSON.parseObject(obj.toString(), new TypeReference<FrameOAuth2RefreshToken>() {
+        FrameOauth2RefreshToken result = JSON.parseObject(obj.toString(), new TypeReference<FrameOauth2RefreshToken>() {
         });
-        return frameOAuth2RefreshToken;
+        return result;
     }
 
     @Override

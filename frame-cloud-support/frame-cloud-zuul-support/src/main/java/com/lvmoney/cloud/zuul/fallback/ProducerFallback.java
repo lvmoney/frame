@@ -14,17 +14,26 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * 实现类通过实现getRoute方法，告诉Zuul它是负责哪个route定义的熔断。
+ * @describe：实现类通过实现getRoute方法，告诉Zuul它是负责哪个route定义的熔断。
  * 而fallbackResponse方法则是告诉 Zuul 断路出现时，
  * 它会提供一个什么返回值来处理请求。
  * 后来Spring又扩展了此类，丰富了返回方式，
  * 在返回的内容中添加了异常信息，因此最新版本建议直接继承类FallbackProvider 。
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
+
 @Component
 public class ProducerFallback implements FallbackProvider {
-    private final static Logger logger = LoggerFactory.getLogger(ProducerFallback.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProducerFallback.class);
 
-    //指定要处理的 service。
+    /**
+     * @describe: 指定要处理的 service。
+     * @param: []
+     * @return: java.lang.String
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:27
+     */
     @Override
     public String getRoute() {
         return "sc-provider";

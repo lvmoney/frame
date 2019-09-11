@@ -7,6 +7,7 @@ package com.lvmoney.oauth2.center.server.service.impl;/**
  */
 
 
+import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.oauth2.center.server.ro.AuthorizationCodeRo;
 import com.lvmoney.oauth2.center.server.service.Oauth2RedisService;
 import com.lvmoney.oauth2.center.server.vo.AuthorizationVo;
@@ -38,7 +39,7 @@ public class RedisAuthorizationCodeServicesImpl extends RandomValueAuthorization
         authorizationVo.setOAuth2Request(oAuth2Authentication.getOAuth2Request());
         authorizationVo.setAuthentication(oAuth2Authentication.getUserAuthentication());
         oAuth2Authentication.getUserAuthentication();
-        authorizationCodeRo.setData(new HashMap() {{
+        authorizationCodeRo.setData(new HashMap(CommonConstant.MAP_DEFAULT_SIZE) {{
             put(code, authorizationVo);
         }});
         oauth2RedisService.authorizationCode2Redis(authorizationCodeRo);

@@ -83,7 +83,7 @@
 
         <dependency>
             <groupId>com.lvmoney</groupId>
-            <artifactId>frame-mysql-support</artifactId>
+            <artifactId>frame-mysql-base</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

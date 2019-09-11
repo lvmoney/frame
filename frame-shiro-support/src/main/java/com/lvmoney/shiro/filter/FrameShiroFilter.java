@@ -23,6 +23,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 public class FrameShiroFilter extends AccessControlFilter {
     @Autowired
     ShiroRedisService shiroRedisService;
@@ -31,11 +36,13 @@ public class FrameShiroFilter extends AccessControlFilter {
     @Value("${frame.shiro.support:false}")
     String frameSupport;
 
+    @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue)
             throws Exception {
         return false;
     }
 
+    @Override
     protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
         if (ShiroConstant.FRAME_SHIRO_SUPPORT_FALSE.equals(frameSupport)) {
             return true;
@@ -46,10 +53,12 @@ public class FrameShiroFilter extends AccessControlFilter {
         String servletPath = httpServletRequest.getServletPath();
         // 先判断是否是系统配置的不需要校验的访问，例如登录请求，或者其他静态资源
         Map<String, String> filterChainDefinition = shiroConfigProp.getfilterChainDefinitionMap();
-        if (FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, servletPath, ShiroConstant.SHIRO_REQUEST_IGNORE)) {// 在这里做判断
+        if (FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, servletPath, ShiroConstant.SHIRO_REQUEST_IGNORE)) {
+            // 在这里做判断
             return true;
         }
-        String token = httpServletRequest.getHeader("token");// 从 http 请求头中取出
+        // 从 http 请求头中取出
+        String token = httpServletRequest.getHeader("token");
         if (token == null) {
             throw new BusinessException(CommonException.Proxy.TOKEN_IS_REQUIRED);
         }
@@ -63,8 +72,8 @@ public class FrameShiroFilter extends AccessControlFilter {
             UsernamePasswordToken shiroToken = new UsernamePasswordToken(username, password);
             Subject subject = SecurityUtils.getSubject();
             subject.login(shiroToken);
-            if (servletPath.endsWith("/")) {
-                servletPath = servletPath.substring(0, servletPath.lastIndexOf("/"));
+            if (servletPath.endsWith(ShiroConstant.SERVLET_END_WITH)) {
+                servletPath = servletPath.substring(0, servletPath.lastIndexOf(ShiroConstant.SERVLET_END_WITH));
             }
             ShiroUriVo shiroUriVo = shiroRedisService.getShiroUriData(servletPath);
             if (shiroUriVo != null) {

@@ -33,7 +33,7 @@ import java.io.IOException;
 @Component
 @RabbitListener(queues = RabbitmqConstant.MESSAGE_FANOUT)
 public class FanoutReceiver {
-    private final static Logger logger = LoggerFactory.getLogger(FanoutReceiver.class);
+    private static final Logger logger = LoggerFactory.getLogger(FanoutReceiver.class);
     @Autowired
     HandMqServiceContext handMqServiceContext;
 

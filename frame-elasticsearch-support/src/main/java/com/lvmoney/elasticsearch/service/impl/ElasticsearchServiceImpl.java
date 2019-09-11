@@ -8,6 +8,7 @@
 
 package com.lvmoney.elasticsearch.service.impl;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +50,11 @@ import com.lvmoney.elasticsearch.vo.ElasticsearchSaveVo;
  */
 @Service
 public class ElasticsearchServiceImpl implements ElasticsearchService {
-    private final static Logger logger = LoggerFactory.getLogger(ElasticsearchServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(ElasticsearchServiceImpl.class);
     @Autowired
     ElasticsearchTemplate elasticsearchTemplate;
+
+    private static final float MIN_NUM_0 = 0f;
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     @Override
@@ -153,7 +156,7 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
         if (minimumShouldMatch > 1) {
             throw new BusinessException(CommonException.Proxy.ES_QUERY_PERCENT_IS_ERROR);
         }
-        if (minimumShouldMatch != 0f) {
+        if (new BigDecimal(minimumShouldMatch).equals(new BigDecimal(MIN_NUM_0))) {
             String precent = float2Percent(minimumShouldMatch);
             SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(QueryBuilders.matchQuery(field, content).operator(Operator.AND).minimumShouldMatch(precent)).build();
             return elasticsearchTemplate.queryForList(searchQuery, clazz);
@@ -219,7 +222,8 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
         try {
             DeleteQuery dq = new DeleteQuery();
             BoolQueryBuilder qb = QueryBuilders.boolQuery();
-            for (String key : fieldMap.keySet()) {//字段查询
+            //字段查询
+            for (String key : fieldMap.keySet()) {
                 qb.must(QueryBuilders.matchQuery(key, fieldMap.get(key)));
             }
             dq.setQuery(qb);

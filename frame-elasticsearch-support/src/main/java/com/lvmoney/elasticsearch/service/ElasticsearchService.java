@@ -20,30 +20,41 @@ import com.lvmoney.elasticsearch.vo.ElasticsearchSaveVo;
  */
 
 public interface ElasticsearchService {
-    @SuppressWarnings("rawtypes")
+    /**
+     * 存储es对象
+     *
+     * @param elasticsearchSaveVo: es存储对象
+     * @throws
+     * @return: void
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:24
+     */
     <T> void save(ElasticsearchSaveVo elasticsearchSaveVo);
 
     /**
-     * @return 2018年11月7日下午4:43:16
-     * @describe:使用queryStringQuery完成单字符串查询,单字符串模糊查询，默认排序。 将从所有字段中查找包含传来的word分词后字符串的数据集
-     * @author: lvmoney /xxxx科技有限公司
+     * 使用queryStringQuery完成单字符串查询,单字符串模糊查询，默认排序。 将从所有字段中查找包含传来的word分词后字符串的数据集
+     *
+     * @param elasticsearchQueryVo: es 查询请求实体
+     * @throws
+     * @return: java.lang.Object
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:25
      */
-    @SuppressWarnings("rawtypes")
     Object queryStringQuery(ElasticsearchQueryVo elasticsearchQueryVo);
 
     /**
-     * @return 2018年11月7日下午4:46:29
-     * @describe:单字段对某字符串模糊查询
-     * @author: lvmoney /xxxx科技有限公司
+     * 单字段对某字符串模糊查询
+     *
+     * @param elasticsearchQueryVo: es 查询请求实体
+     * @throws
+     * @return: java.lang.Object
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:25
      */
-    @SuppressWarnings("rawtypes")
     Object matchQuery(ElasticsearchQueryVo elasticsearchQueryVo);
 
     /**
-     * @param content
-     * @param pageable
-     * @return 2018年11月7日下午4:48:18
-     * @describe:单字段对某短语进行匹配查询，短语分词的顺序会影响结果 和match查询类似，
+     * 单字段对某短语进行匹配查询，短语分词的顺序会影响结果 和match查询类似，
      * match_phrase查询首先解析查询字符串来产生一个词条列表。
      * 然后会搜索所有的词条，但只保留包含了所有搜索词条的文档，
      * 并且词条的位置要邻接。一个针对短语“中华共和国”的查询不会匹配“
@@ -54,49 +65,61 @@ public interface ElasticsearchService {
      * 希望带“我爱中华人民共和国”的也能出来，就是分词后，
      * 中间能间隔几个位置的也能查出来，可以使用slop参数,
      * 表示少匹配一个分词也OK
-     * @author: lvmoney /xxxx科技有限公司
+     *
+     * @param elasticsearchQueryVo: es查询请求实体
+     * @throws
+     * @return: java.lang.Object
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:26
      */
     Object matchPhraseQuery(ElasticsearchQueryVo elasticsearchQueryVo);
 
     /**
-     * @param userId
-     * @param pageable
-     * @return 2018年11月7日下午4:48:32
-     * @describe:term匹配，即不分词匹配，你传来什么值就会拿你传的值去做完全匹配
-     * @author: lvmoney /xxxx科技有限公司
+     * term匹配，即不分词匹配，你传来什么值就会拿你传的值去做完全匹配
+     *
+     * @param elasticsearchQueryVo: es查询请求实体
+     * @throws
+     * @return: java.lang.Object
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:26
      */
     Object termQuery(ElasticsearchQueryVo elasticsearchQueryVo);
 
     /**
-     * @param userId
-     * @param pageable
-     * @return 2018年11月7日下午4:48:32
-     * @describe:terms匹配，即不分词匹配，多个值
-     * @author: lvmoney /xxxx科技有限公司
+     * terms匹配，即不分词匹配，多个值
+     *
+     * @param elasticsearchQueryVo: es查询请求实体
+     * @throws
+     * @return: java.lang.Object
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:27
      */
     Object termsQuery(ElasticsearchQueryVo elasticsearchQueryVo);
 
     /**
-     * @param title
-     * @param pageable
-     * @return 2018年11月7日下午4:49:14
-     * @describe:多字段匹配
-     * @author: lvmoney /xxxx科技有限公司
+     * terms匹配，即不分词匹配，多个值
+     *
+     * @param elasticsearchQueryVo: es查询请求实体
+     * @throws
+     * @return: java.lang.Object
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:27
      */
     Object multiMatchQuery(ElasticsearchQueryVo elasticsearchQueryVo);
 
     /**
-     * @param elasticsearchQueryVo
-     * @return 2018年11月7日下午4:50:56
-     * @describe:单字段包含所有输入
-     * @author: lvmoney /xxxx科技有限公司
+     * 单字段包含所有输入
+     *
+     * @param elasticsearchQueryVo: es查询实体
+     * @throws
+     * @return: java.lang.Object
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:29
      */
     Object containQuery(ElasticsearchQueryVo elasticsearchQueryVo);
 
     /**
-     * @param elasticsearchNearbyVo
-     * @return 2018年11月9日上午9:22:02
-     * @describe:附近的数据，查询指定范围内附近的数据并排序 field
+     * 附近的数据，查询指定范围内附近的数据并排序 field
      * 根据elasticsearh的特性要求查询经纬度字段的格式必须是30.657500
      * ,104.079278 unit 指定范围单位
      * DistanceUnit.KILOMETERS千米
@@ -104,35 +127,46 @@ public interface ElasticsearchService {
      * 指定的范围。例如：2 结合单位unit表示2千米内
      * geoDistanceSortBuilderOrder 排序的方式
      * sortField 排序字段，一般和经纬度字段不同
-     * @author: lvmoney /xxxx科技有限公司
+     *
+     * @param elasticsearchNearbyVo:es 查询实体
+     * @throws
+     * @return: java.lang.Object
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:28
      */
     Object nearby(ElasticsearchNearbyVo elasticsearchNearbyVo);
 
     /**
-     * @param elasticsearchDeleteVo
-     * @return 2018年11月9日上午9:52:47
-     * @describe:根据id删除
-     * @author: lvmoney /xxxx科技有限公司
+     * 根据id删除
+     *
+     * @param elasticsearchDeleteVo: 删除请求实体
+     * @throws
+     * @return: boolean
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:29
      */
-    @SuppressWarnings("rawtypes")
     boolean deleteById(ElasticsearchDeleteVo elasticsearchDeleteVo);
 
     /**
-     * @param elasticsearchDeleteVo
-     * @return 2019年1月14日下午3:36:00
-     * @describe:fieldsMap k=查询字段,v=查询的值,使用matchQuery。遍历map后使用boolQuery.must
-     * @author: lvmoney /xxxx科技有限公司
+     * fieldsMap k=查询字段,v=查询的值,使用matchQuery。遍历map后使用boolQuery.must
+     *
+     * @param elasticsearchDeleteVo: 删除实体
+     * @throws
+     * @return: boolean
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:29
      */
-    @SuppressWarnings("rawtypes")
     boolean deleteByBoolMatchQuery(ElasticsearchDeleteVo elasticsearchDeleteVo);
 
     /**
-     * @param elasticsearchDeleteVo
-     * @return 2018年11月9日上午9:53:04
-     * @describe:根据索引删除
-     * @author: lvmoney /xxxx科技有限公司
+     * 根据索引删除
+     *
+     * @param elasticsearchDeleteVo: 删除实体
+     * @throws
+     * @return: boolean
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:30
      */
-    @SuppressWarnings("rawtypes")
     boolean deleteByIndex(ElasticsearchDeleteVo elasticsearchDeleteVo);
 
 }

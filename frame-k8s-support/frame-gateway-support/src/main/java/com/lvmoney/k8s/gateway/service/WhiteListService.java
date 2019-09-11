@@ -19,29 +19,35 @@ import java.util.List;
  */
 public interface WhiteListService {
     /**
-     * @describe: 白名单数据存入redis
-     * @param: [whiteListRo]
+     * 白名单数据存入redis
+     *
+     * @param whiteListRo: 白名单实体
+     * @throws
      * @return: void
      * @author: lvmoney /XXXXXX科技有限公司
-     * 2019/8/20 9:50
+     * @date: 2019/9/10 8:59
      */
     void saveWhiteList2Redis(WhiteListRo whiteListRo);
 
     /**
-     * @describe: 通过服务名获得对应的白名单
-     * @param: [serverName]
+     * 通过服务名获得对应的白名单
+     *
+     * @param serverName: 服务名
+     * @throws
      * @return: com.lvmoney.k8s.gateway.vo.WhiteListVo
      * @author: lvmoney /XXXXXX科技有限公司
-     * 2019/8/20 9:52
+     * @date: 2019/9/10 8:59
      */
     WhiteListVo getWhiteList(String serverName);
 
     /**
-     * @describe: 判断serverName 在 redis是否存在
-     * @param: [serverName]
+     * 判断serverName 在 redis是否存在
+     *
+     * @param serverName: 服务名
+     * @throws
      * @return: boolean
      * @author: lvmoney /XXXXXX科技有限公司
-     * 2019/8/20 11:27
+     * @date: 2019/9/10 8:59
      */
     boolean isExist(String serverName);
 

@@ -12,18 +12,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2019/5/23.
+ * @describe：请求第三方ip:port
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ * @RequestMapping(produces="application/json;charset=UTF-8")
  */
-//请求第三方ip:port
 @FeignClient(name = "fegin", url = "http://localhost:8071", configuration = FeignConfig.class)
-//@RequestMapping(produces="application/json;charset=UTF-8")
 public interface FeginConfigApi {
 
     /**
      * 类似postman表单的形式提交，接收参数实体不用@RequsetBody修饰
      *
-     * @param loginVoReq
-     * @return
+     * @param loginVoReq: 登录请求实体
+     * @throws
+     * @return: com.lvmoney.k8s.feign.vo.resp.CommonVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:32
      */
     @RequestMapping(value = "/user/login", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE},
             produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
@@ -32,8 +36,11 @@ public interface FeginConfigApi {
     /**
      * 类似postmanjson形式提交，接收参数实体用@RequsetBody修饰
      *
-     * @param loginVoReq
-     * @return
+     * @param loginVoReq: 登录请求实体
+     * @throws
+     * @return: com.lvmoney.k8s.feign.vo.resp.CommonVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:32
      */
     @RequestMapping(value = "/user/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     CommonVo login2(LoginVoReq loginVoReq);
@@ -41,15 +48,23 @@ public interface FeginConfigApi {
     /**
      * rest 风格
      *
-     * @param id
-     * @return
+     * @param id: 请求id
+     * @throws
+     * @return: java.util.Map<java.lang.String, java.lang.Object>
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:33
      */
     @RequestMapping(value = "/patient/{id}", method = RequestMethod.PUT)
     Map<String, Object> updatePatientInfo(@PathVariable(value = "id") String id);
 
 
     /**
-     * @return
+     * 测试
+     *
+     * @throws
+     * @return: java.lang.String
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:34
      */
     @RequestMapping(value = "/api", method = RequestMethod.GET)
     String jaeger();

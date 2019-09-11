@@ -8,6 +8,8 @@
 
 package com.lvmoney.common.utils;
 
+import com.lvmoney.common.constant.CommonConstant;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,8 +38,7 @@ public class SnowflakeIdFactoryUtil {
     private long datacenterId;
     private long sequence = 0L;
     private long lastTimestamp = -1L;
-    private static final Long sWorkerId = 1l;
-    private static final Long sDatacenterId = 2l;
+
 
     public SnowflakeIdFactoryUtil(long workerId, long datacenterId) {
         if (workerId > maxWorkerId || workerId < 0) {
@@ -89,70 +90,4 @@ public class SnowflakeIdFactoryUtil {
         return System.currentTimeMillis();
     }
 
-    public static void testProductIdByMoreThread(int dataCenterId, int workerId, int n) throws InterruptedException {
-        List<Thread> tlist = new ArrayList<>();
-        Set<Long> setAll = new HashSet<>();
-        CountDownLatch cdLatch = new CountDownLatch(10);
-        int threadNo = dataCenterId;
-        Map<String, SnowflakeIdFactoryUtil> idFactories = new HashMap<>();
-        for (int i = 0; i < 10; i++) {
-            // 用线程名称做map key.
-            idFactories.put("snowflake" + i, new SnowflakeIdFactoryUtil(workerId, threadNo++));
-        }
-        for (int i = 0; i < 10; i++) {
-            Thread temp = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    Set<Long> setId = new HashSet<>();
-                    SnowflakeIdFactoryUtil idWorker = idFactories.get(Thread.currentThread().getName());
-                    for (int j = 0; j < n; j++) {
-                        Long test = idWorker.nextId();
-                        System.out.println(test);
-                        setId.add(test);
-                    }
-                    synchronized (setAll) {
-                        setAll.addAll(setId);
-                    }
-                    cdLatch.countDown();
-                }
-            }, "snowflake" + i);
-            tlist.add(temp);
-        }
-        for (int j = 0; j < 10; j++) {
-            tlist.get(j).start();
-        }
-        cdLatch.await();
-    }
-
-    public static void testProductId(int dataCenterId, int workerId, int n) {
-        SnowflakeIdFactoryUtil idWorker = new SnowflakeIdFactoryUtil(workerId, dataCenterId);
-        SnowflakeIdFactoryUtil idWorker2 = new SnowflakeIdFactoryUtil(workerId + 1, dataCenterId);
-        Set<Long> setOne = new HashSet<>();
-        Set<Long> setTow = new HashSet<>();
-        for (int i = 0; i < n; i++) {
-            setOne.add(idWorker.nextId());// 加入set
-        }
-        for (int i = 0; i < n; i++) {
-            setTow.add(idWorker2.nextId());// 加入set
-        }
-        setOne.addAll(setTow);
-    }
-
-    public static void testPerSecondProductIdNums() {
-        SnowflakeIdFactoryUtil idWorker = new SnowflakeIdFactoryUtil(1, 2);
-        long start = System.currentTimeMillis();
-        int count = 0;
-        for (int i = 0; System.currentTimeMillis() - start < 1000; i++, count = i) {
-            /** 测试方法一: 此用法纯粹的生产ID,每秒生产ID个数为300w+ */
-            idWorker.nextId();
-            /**
-             * 测试方法二: 在log中打印,同时获取ID,此用法生产ID的能力受限于log.error()的吞吐能力. *
-             * 每秒徘徊在10万左右.
-             */
-            // log.error("{}",idWorker.nextId());
-        }
-        long end = System.currentTimeMillis() - start;
-        System.out.println(end);
-        System.out.println(count);
-    }
 }

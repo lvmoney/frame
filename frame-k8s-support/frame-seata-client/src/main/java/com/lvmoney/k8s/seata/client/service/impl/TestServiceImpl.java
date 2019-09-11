@@ -1,7 +1,7 @@
 package com.lvmoney.k8s.seata.client.service.impl;
 
 import com.lvmoney.k8s.seata.client.server.FeginSeataServer;
-import com.lvmoney.k8s.seata.client.server.FeginSeataUServer;
+import com.lvmoney.k8s.seata.client.server.FeginSeataServer2;
 import com.lvmoney.k8s.seata.client.service.TestService;
 import com.lvmoney.k8s.seata.client.vo.req.UpdateReqVo;
 import com.lvmoney.k8s.seata.client.vo.req.UserReqVo;
@@ -9,22 +9,25 @@ import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 /**
- * Created by Administrator on 2019/6/27.
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
  */
 @Service
 public class TestServiceImpl implements TestService {
     @Autowired
     FeginSeataServer feginSeataServer;
     @Autowired
-    FeginSeataUServer feginSeataUServer;
+    FeginSeataServer2 feginSeataServer2;
 
     @Override
     @GlobalTransactional
     public boolean seataService(UpdateReqVo updateReqVo) {
         try {
             int v1 = feginSeataServer.update(updateReqVo.getSUserId());
-            int v2 = feginSeataUServer.update(updateReqVo.getAUserId());
+            int v2 = feginSeataServer2.update(updateReqVo.getAUserId());
         } catch (Exception e) {
             return false;
         }

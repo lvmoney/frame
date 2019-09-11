@@ -18,41 +18,58 @@ import java.util.List;
  */
 public interface WordService {
     /**
-     * @describe: word文件转pdf
-     * @param: [source, target]源文件支持后缀doc，docx，目标文件pdf,html
+     * word文件转pdf,源文件支持后缀doc，docx，目标文件pdf,html
+     *
+     * @param wSourceVo: 请求实体
+     * @throws
      * @return: boolean
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/2/27
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/10 9:00
      */
-    boolean officeChange(WSourceVo wSourceVo);
+    boolean officeChange(WordSourceVo wSourceVo);
 
     /**
-     * @describe:文件转换
-     * @param: [baseChangeFileVo]
-     * @return: boolean
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/3/16
+     * 文件转换
+     *
+     * @param baseChangeFileVo: 转化实体
+     * @throws
+     * @return: com.lvmoney.office.vo.BaseChangeByteOutVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/10 9:01
      */
     BaseChangeByteOutVo officeChange(BaseChangeFileVo baseChangeFileVo);
 
     /**
-     * @describe: 根据模板文件生成word
-     * @param: [templateVo]
+     * 根据模板文件生成word
+     *
+     * @param templateVo: 模板实体
+     * @throws
      * @return: boolean
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/2/28
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/10 9:01
      */
-    boolean template2Word(WTemplateVo templateVo);
-
-    BaseWordByteVo template2Word(WTemplateByteVo templateVo);
+    boolean template2Word(WordTemplateVo templateVo);
 
     /**
-     * @describe: 获取模板文件需要填充的字段值
-     * @param: [wSourceVo]
-     * @return: java.util.List<WTemplateParams>
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/2/28
+     * 根据模板文件生成word
+     *
+     * @param templateVo: 流文件模板实体
+     * @throws
+     * @return: com.lvmoney.office.vo.BaseWordByteVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/10 9:01
      */
-    List<WTemplateParams> getTemplateParams(WSourceVo wSourceVo);
+    BaseWordByteVo template2Word(WordTemplateByteVo templateVo);
+
+    /**
+     * 获取模板文件需要填充的字段值
+     *
+     * @param wSourceVo: 对象
+     * @throws
+     * @return: java.util.List<com.lvmoney.office.vo.WordTemplateParams>
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/10 9:02
+     */
+    List<WordTemplateParams> getTemplateParams(WordSourceVo wSourceVo);
 
 }

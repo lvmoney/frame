@@ -43,9 +43,9 @@ spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.Str
 spring.kafka.consumer.value-deserializer=org.apache.kafka.common.serialization.StringDeserializer
 spring.kafka.listener.concurrency=5
 
-8、注意在application.perproties中需要定义kafka.error.record.expire=1800
-表示error记录信息在redis中的失效时间，默认为1800秒
+8、注意在application.perproties中需要定义kafka.error.record.expire=18000
+表示error记录信息在redis中的失效时间，默认为18000秒
 
-9、模块提供了从redis中获取全部ack记录的方法RabbitmqRedisService.getAllAckRecord
+9、模块提供了从redis中获取全部ack记录的方法KafkaRedisService.getAllProducerRecord
 这里要考虑是否分页。
 

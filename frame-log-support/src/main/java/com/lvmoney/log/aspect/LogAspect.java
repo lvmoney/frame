@@ -16,6 +16,7 @@ import com.lvmoney.log.annotations.NotLog;
 import com.lvmoney.log.annotations.ServiceLog;
 import com.lvmoney.log.constant.LogConstant;
 import com.lvmoney.log.service.LogService;
+import com.lvmoney.log.vo.ControllerVo;
 import com.lvmoney.log.vo.LogVo;
 import com.lvmoney.log.vo.ThrowableVo;
 import com.lvmoney.log.vo.UserVo;
@@ -48,7 +49,7 @@ import java.util.Date;
 @Aspect
 @Component
 public class LogAspect {
-    private final static Logger logger = LoggerFactory.getLogger(LogAspect.class);
+    private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
     @Autowired
     private LogService logService;
@@ -111,7 +112,8 @@ public class LogAspect {
                 return result;
             }
         }
-        String token = request.getHeader("token");// 从 http 请求头中取出
+        // 从 http 请求头中取出
+        String token = request.getHeader("token");
         String name = "";
         String userId = "";
         if (!StringUtils.isBlank(token)) {
@@ -136,11 +138,10 @@ public class LogAspect {
                 //2、当三方系统调用平台时可能不会加token或者username，为了不抛错，所以要给它默认值
 //                logger.error("获取用户信息请求参数{}报错:{}", username, e.getMessage());
 //                throw new BusinessException(CommonException.Proxy.USERNMAE_IS_REQUIRED);
-                name = "The three party logged";
+                name = "NotLogged";
             }
 
         }
-
         logVo.setUsername(name);
         logVo.setUserId(userId);
         //获取请求的ip
@@ -151,8 +152,15 @@ public class LogAspect {
         //获取方法执行前时间
         Date date = new Date();
         logVo.setActionDate(date.getTime());
-        logVo.setDescription(getControllerMethodDescription(joinPoint));
+        ControllerVo controllerVo = getControllerMethodDescription(joinPoint);
+        logVo.setDescription(controllerVo.getDescrption());
+        logVo.setLogType(controllerVo.getActionType());
+        logVo.setParams(getReturnParams(joinPoint));
+        logService.saveLog(logVo);
+        return result;
+    }
 
+    private String getReturnParams(ProceedingJoinPoint joinPoint) {
         Object[] params = joinPoint.getArgs();
         String returnStr = "";
         for (Object param : params) {
@@ -162,10 +170,7 @@ public class LogAspect {
                 returnStr += param;
             }
         }
-        logVo.setParams(returnStr);
-
-        logService.saveLog(logVo);
-        return result;
+        return returnStr;
     }
 
     /**
@@ -180,11 +185,10 @@ public class LogAspect {
 
         SimplePropertyPreFilter filter = new SimplePropertyPreFilter(Throwable.class, "code", "description", "message", "type");
         String throwableStr = JSONObject.toJSONString(e, filter);
-        System.out.print(throwableStr);
         ThrowableVo throwableVo = JSONObject.parseObject(throwableStr, ThrowableVo.class);
         logVo.setExceptionCode(throwableVo.getCode());
         logVo.setExceptionDetail(throwableVo.getMessage());
-        logVo.setType(throwableVo.getType());
+        logVo.setLogType(throwableVo.getType());
         logService.saveLog(logVo);
     }
 
@@ -227,7 +231,7 @@ public class LogAspect {
      * @param point
      * @return
      */
-    public String getControllerMethodDescription(ProceedingJoinPoint point) throws Exception {
+    public ControllerVo getControllerMethodDescription(ProceedingJoinPoint point) throws Exception {
         //获取连接点目标类名
         String targetName = point.getTarget().getClass().getName();
         //获取连接点签名的方法名
@@ -238,17 +242,20 @@ public class LogAspect {
         Class targetClass = Class.forName(targetName);
         //获取类里面的方法
         Method[] methods = targetClass.getMethods();
-        String description = "";
+        ControllerVo controllerVo = new ControllerVo();
         for (Method method : methods) {
             if (method.getName().equals(methodName)) {
                 Class[] clazzs = method.getParameterTypes();
                 if (clazzs.length == args.length) {
-                    description = method.getAnnotation(ControllerLog.class).descrption();
+                    String description = method.getAnnotation(ControllerLog.class).descrption();
+                    String actionType = method.getAnnotation(ControllerLog.class).actionType();
+                    controllerVo.setDescrption(description);
+                    controllerVo.setActionType(actionType);
                     break;
                 }
             }
         }
-        return description;
+        return controllerVo;
     }
 
 }

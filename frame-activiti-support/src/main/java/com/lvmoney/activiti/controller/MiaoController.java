@@ -9,12 +9,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.lvmoney.activiti.po.VacationForm;
 import com.lvmoney.activiti.service.MiaoService;
+import com.lvmoney.common.constant.CommonConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Controller
 public class MiaoController {
     @Autowired
@@ -25,7 +30,13 @@ public class MiaoController {
         return "login";
     }
 
-    //申请者的首页
+    /**
+     * @describe: 申请者的首页
+     * @param: [model, request]
+     * @return: java.lang.String
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:22
+     */
     @GetMapping("/home")
     public String index(ModelMap model, HttpServletRequest request) {
         List<VacationForm> forms = miaoService.formList();
@@ -34,7 +45,7 @@ public class MiaoController {
         //从cookie中获取当前用户
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("userInfo")) {
+                if ("userInfo".equals(cookie.getName())) {
                     user = cookie.getValue();
                     break;
                 }
@@ -44,7 +55,7 @@ public class MiaoController {
         for (VacationForm form : forms) {
             //申请者只能看到自己申请的请假单信息
             if (user.equals(form.getApplicant())) {
-                HashMap<String, Object> map = new HashMap<String, Object>();
+                HashMap<String, Object> map = new HashMap<String, Object>(CommonConstant.MAP_DEFAULT_SIZE);
                 map.put("id", form.getId());
                 map.put("title", form.getTitle());
                 map.put("content", form.getContent());
@@ -58,7 +69,13 @@ public class MiaoController {
         return "index";
     }
 
-    //审核者的首页
+    /**
+     *@describe: 审核者的首页
+     *@param: [model]
+     *@return: java.lang.String
+     *@author: lvmoney /XXXXXX科技有限公司
+     *2019/9/9 10:22
+     */
     @GetMapping("/homeApprover")
     public String indexApprover(ModelMap model) {
         List<VacationForm> forms = miaoService.formList();
@@ -66,7 +83,7 @@ public class MiaoController {
         for (VacationForm form : forms) {
             //审核者只能看到待审核状态的请假单
             if ("领导审核".equals(form.getState())) {
-                HashMap<String, Object> map = new HashMap<String, Object>();
+                HashMap<String, Object> map = new HashMap<String, Object>(CommonConstant.MAP_DEFAULT_SIZE);
                 map.put("id", form.getId());
                 map.put("title", form.getTitle());
                 map.put("content", form.getContent());
@@ -79,7 +96,13 @@ public class MiaoController {
         return "indexApprover";
     }
 
-    //请假单页面
+    /**
+     *@describe: 请假单页面
+     *@param: []
+     *@return: java.lang.String
+     *@author: lvmoney /XXXXXX科技有限公司
+     *2019/9/9 10:22
+     */
     @GetMapping("/form")
     public String form() {
         return "form";

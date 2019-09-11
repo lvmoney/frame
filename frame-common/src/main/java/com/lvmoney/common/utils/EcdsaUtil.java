@@ -14,9 +14,13 @@ import java.security.interfaces.ECPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 public class EcdsaUtil {
-    // 定义一个全局的记录器，通过LoggerFactory获取
-    private final static Logger logger = LoggerFactory.getLogger(EcdsaUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(EcdsaUtil.class);
     private static final String PROVIDER = "BC";
 
     /**
@@ -31,7 +35,7 @@ public class EcdsaUtil {
     public static String getEcdsaSign(String resouce, String factoryType, String privateKey,
                                       String signType) {
         try {
-            PrivateKey pri = buildECPrivateKey(privateKey, factoryType);
+            PrivateKey pri = buildEcPrivateKey(privateKey, factoryType);
             Signature signature = Signature.getInstance(signType);
             signature.initSign(pri);
             signature.update(resouce.getBytes());
@@ -57,7 +61,7 @@ public class EcdsaUtil {
     public static boolean verifyEcdsa(String res, String sign, String factoryType, String publicKey,
                                       String signType) {
         try {
-            PublicKey pubKey = bulidECPublicKey(publicKey, factoryType);
+            PublicKey pubKey = bulidEcPublicKey(publicKey, factoryType);
             Signature signature = Signature.getInstance(signType);
             signature.initVerify(pubKey);
             signature.update(res.getBytes());
@@ -79,7 +83,7 @@ public class EcdsaUtil {
      * @return
      * @throws Exception
      */
-    public static PrivateKey buildECPrivateKey(String content, String algorithm) throws Exception {
+    public static PrivateKey buildEcPrivateKey(String content, String algorithm) throws Exception {
         byte[] asBytes = Base64Util.decode(content);
         PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(asBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
@@ -95,7 +99,7 @@ public class EcdsaUtil {
      * @return
      * @throws Exception
      */
-    public static PublicKey bulidECPublicKey(String content, String algorithm) throws Exception {
+    public static PublicKey bulidEcPublicKey(String content, String algorithm) throws Exception {
         byte[] asBytes = Base64Util.decode(content);
         X509EncodedKeySpec spec = new X509EncodedKeySpec(asBytes);
         KeyFactory keyFactory = KeyFactory.getInstance(algorithm);
@@ -131,7 +135,7 @@ public class EcdsaUtil {
     public static String encrypt(String res, String publicKey, String factoryType) {
         Cipher cipher;
         try {
-            PublicKey pubKey = bulidECPublicKey(publicKey, factoryType);
+            PublicKey pubKey = bulidEcPublicKey(publicKey, factoryType);
             byte[] content = res.getBytes();
             cipher = Cipher.getInstance("ECIES", PROVIDER);
             cipher.init(Cipher.ENCRYPT_MODE, pubKey);

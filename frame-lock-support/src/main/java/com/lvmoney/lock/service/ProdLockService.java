@@ -19,29 +19,35 @@ import com.lvmoney.lock.vo.resp.ProdLockStockRespVo;
  */
 public interface ProdLockService {
     /**
-     * @describe: 商品数量的扣减
-     * @param: [prodInitReqVo]
-     * @return: boolean
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/3/26
+     * 商品数量的扣减
+     *
+     * @param prodLockStockReqVo: 商品锁实体
+     * @throws
+     * @return: com.lvmoney.lock.vo.resp.ProdLockStockRespVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:58
      */
     ProdLockStockRespVo getStock(ProdLockStockReqVo prodLockStockReqVo);
 
     /**
-     * @describe: 初始化商品库存
-     * @param: [prodLockInitReqVo]
+     * 初始化商品库存
+     *
+     * @param prodLockInitReqVo: 初始化实体
+     * @throws
      * @return: boolean
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/3/27
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:59
      */
     boolean initLockStock(ProdLockInitReqVo prodLockInitReqVo);
 
     /**
-     * @describe: 更新商品库存
-     * @param: [prodInitReqVo]
-     * @return: boolean
-     * @author： lvmoney /xxxx科技有限公司
-     * 2019/3/27
+     * 更新商品库存
+     *
+     * @param prodLockUpdateReqVo: 初始化实体
+     * @throws
+     * @return: com.lvmoney.lock.vo.resp.ProdLockStockRespVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/9 20:59
      */
     ProdLockStockRespVo updateLockStock(ProdLockUpdateReqVo prodLockUpdateReqVo);
 }

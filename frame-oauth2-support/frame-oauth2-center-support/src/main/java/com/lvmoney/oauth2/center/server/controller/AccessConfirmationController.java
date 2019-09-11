@@ -22,6 +22,11 @@ import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * @describe：
+ * @author: lvmoney /xxxx科技有限公司
+ * @version:v1.0 2018年9月30日 上午8:51:33
+ */
 @Controller
 @RequestMapping("/oauth")
 @SessionAttributes("authorizationRequest")
@@ -63,12 +68,12 @@ public class AccessConfirmationController {
 
     private URI getHost(String url) {
         URI uri = URI.create(url);
-        URI effectiveURI = null;
+        URI effectiveUri = null;
         try {
-            effectiveURI = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), null, null, null);
+            effectiveUri = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), null, null, null);
         } catch (Throwable var4) {
-            effectiveURI = null;
+            effectiveUri = null;
         }
-        return effectiveURI;
+        return effectiveUri;
     }
 }

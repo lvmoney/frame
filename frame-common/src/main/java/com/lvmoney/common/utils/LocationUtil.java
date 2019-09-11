@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.lvmoney.common.constant.CommonConstant;
-import com.lvmoney.common.utils.vo.BadiDuMapVoResp;
+import com.lvmoney.common.utils.vo.BaiDuMapVoResp;
 import com.lvmoney.common.utils.vo.LocationVo;
 
 /**
@@ -33,7 +33,7 @@ import com.lvmoney.common.utils.vo.LocationVo;
  */
 
 public class LocationUtil {
-    private final static Logger logger = LoggerFactory.getLogger(LocationUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(LocationUtil.class);
 
     /**
      * @param addr
@@ -111,8 +111,10 @@ public class LocationUtil {
      */
     public static LocationVo baiDuMapCoordinate(String addr) {
         LocationVo locationVo = new LocationVo();
-        String lng = null;// 经度
-        String lat = null;// 纬度
+        // 经度
+        String lng = null;
+        // 纬度
+        String lat = null;
         String address = null;
         try {
             address = java.net.URLEncoder.encode(addr, "UTF-8");
@@ -120,17 +122,18 @@ public class LocationUtil {
             e1.printStackTrace();
         }
         String url = String.format(CommonConstant.MAP_BAIDU_URL, address, CommonConstant.MAP_BAIDU_KEY);
-        URL myURL = null;
+        URL myUrl = null;
         URLConnection httpsConn = null;
         try {
-            myURL = new URL(url);
+            myUrl = new URL(url);
         } catch (MalformedURLException e) {
             logger.error(e.getMessage());
         }
         InputStreamReader insr = null;
         BufferedReader br = null;
         try {
-            httpsConn = (URLConnection) myURL.openConnection();// 不使用代理
+            // 不使用代理
+            httpsConn = (URLConnection) myUrl.openConnection();
             if (httpsConn != null) {
                 insr = new InputStreamReader(httpsConn.getInputStream(), "UTF-8");
                 br = new BufferedReader(insr);
@@ -138,10 +141,12 @@ public class LocationUtil {
                 int count = 1;
                 while ((data = br.readLine()) != null) {
                     if (count == 5) {
-                        lng = (String) data.subSequence(data.indexOf(":") + 1, data.indexOf(","));// 经度
+                        // 经度
+                        lng = (String) data.subSequence(data.indexOf(":") + 1, data.indexOf(","));
                         count++;
                     } else if (count == 6) {
-                        lat = data.substring(data.indexOf(":") + 1);// 纬度
+                        // 纬度
+                        lat = data.substring(data.indexOf(":") + 1);
                         count++;
                     } else {
                         count++;
@@ -193,11 +198,11 @@ public class LocationUtil {
         JSONObject jsonObject = JSONObject.parseObject(res);
         // 获取到key为shoppingCartItemList的值
         String result = jsonObject.getString("geocodes");
-        List<BadiDuMapVoResp> badiDuMapVoRespList = JSONObject.parseObject(result, new TypeReference<List<BadiDuMapVoResp>>() {
+        List<BaiDuMapVoResp> baiDuMapVoRespList = JSONObject.parseObject(result, new TypeReference<List<BaiDuMapVoResp>>() {
         });
-        if (badiDuMapVoRespList != null && badiDuMapVoRespList.size() > 0) {
-            BadiDuMapVoResp badiDuMapVoResp = badiDuMapVoRespList.get(0);
-            String location = badiDuMapVoResp.getLocation();
+        if (baiDuMapVoRespList != null && baiDuMapVoRespList.size() > 0) {
+            BaiDuMapVoResp baiDuMapVoResp = baiDuMapVoRespList.get(0);
+            String location = baiDuMapVoResp.getLocation();
             String[] locationArr = location.split(",");
             locationVo.setLat(locationArr[1]);
             locationVo.setLon(locationArr[0]);

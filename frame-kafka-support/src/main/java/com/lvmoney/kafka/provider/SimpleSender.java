@@ -33,7 +33,8 @@ public class SimpleSender {
         kafkaTemplate.setProducerListener(producerListener);
         ListenableFuture send = kafkaTemplate.send(KafkaConstant.SIMPLE_QUEUE_NAME, JsonUtil.t2JsonString(messageVo));
         try {
-            Thread.sleep(1000);//发送消息的时候需要休眠一下，否则发送时间较长的时候会导致进程提前关闭导致无法调用回调时间。主要是因为KafkaTemplate发送消息是采取异步方式发送的
+            //发送消息的时候需要休眠一下，否则发送时间较长的时候会导致进程提前关闭导致无法调用回调时间。主要是因为KafkaTemplate发送消息是采取异步方式发送的
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

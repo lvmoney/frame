@@ -47,11 +47,11 @@ import java.util.List;
 @Service("frameBaseGridFsService")
 public class BaseGridFsServiceImpl implements BaseGridFsService {
 
-    private final static Logger logger = LoggerFactory.getLogger(BaseGridFsServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(BaseGridFsServiceImpl.class);
     @Autowired
     GridFsTemplate gridFsTemplate;
     @Autowired
-    GridFSBucket gridFSBucket;
+    GridFSBucket gridFsBucket;
 
     @Override
     public BaseGridFsOutVo save(BaseGridFsVo baseGridFsVo) {
@@ -102,15 +102,15 @@ public class BaseGridFsServiceImpl implements BaseGridFsService {
     public BaseGridFsByteOutVo getByMongoId(BaseGridFsQueryVo baseGridFsQueryVo) {
         String fileId = baseGridFsQueryVo.getMongoFileId();
         Query query = Query.query(Criteria.where("_id").is(fileId));
-        GridFSFile gridFSFile = gridFsTemplate.findOne(query);
-        if (gridFSFile == null) {
+        GridFSFile gridFsFile = gridFsTemplate.findOne(query);
+        if (gridFsFile == null) {
             throw new BusinessException(CommonException.Proxy.GRIDFS_QUERY_FILE_NOT_EXSIT);
         }
-        String fileName = gridFSFile.getFilename();
+        String fileName = gridFsFile.getFilename();
         // 打开下载流对象
-        GridFSDownloadStream gridFS = gridFSBucket.openDownloadStream(gridFSFile.getObjectId());
+        GridFSDownloadStream gridFs = gridFsBucket.openDownloadStream(gridFsFile.getObjectId());
         // 创建gridFsSource，用于获取流对象
-        GridFsResource gridFsResource = new GridFsResource(gridFSFile, gridFS);
+        GridFsResource gridFsResource = new GridFsResource(gridFsFile, gridFs);
         try {
             BaseGridFsByteOutVo result = new BaseGridFsByteOutVo();
             result.setFileByte(IOUtils.toByteArray(gridFsResource.getInputStream()));
@@ -135,16 +135,16 @@ public class BaseGridFsServiceImpl implements BaseGridFsService {
             }
         }
         Query query = Query.query(criteria);
-        GridFSFindIterable gridFSFiles = gridFsTemplate.find(query);
+        GridFSFindIterable gridFsFiles = gridFsTemplate.find(query);
         List<BaseGridFsByteOutVo> result = new ArrayList<>();
-        gridFSFiles.forEach((Block<? super GridFSFile>) gridFSFile -> {
-            String fileId = gridFSFile.getObjectId().toString();
+        gridFsFiles.forEach((Block<? super GridFSFile>) gridFsFile -> {
+            String fileId = gridFsFile.getObjectId().toString();
             BaseGridFsByteOutVo baseGridFsByteOutVo = new BaseGridFsByteOutVo();
-            GridFSDownloadStream gridFS = gridFSBucket.openDownloadStream(gridFSFile.getObjectId());
+            GridFSDownloadStream gridFs = gridFsBucket.openDownloadStream(gridFsFile.getObjectId());
             // 创建gridFsSource，用于获取流对象
-            GridFsResource gridFsResource = new GridFsResource(gridFSFile, gridFS);
+            GridFsResource gridFsResource = new GridFsResource(gridFsFile, gridFs);
             try {
-                String fileName = gridFSFile.getFilename();
+                String fileName = gridFsFile.getFilename();
                 baseGridFsByteOutVo.setFileByte(IOUtils.toByteArray(gridFsResource.getInputStream()));
                 baseGridFsByteOutVo.setFileName(fileName);
                 result.add(baseGridFsByteOutVo);

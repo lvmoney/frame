@@ -42,8 +42,10 @@ import java.util.Random;
  */
 @Service
 public class CaptchaServiceImpl implements CaptchaService {
-    private final static Logger logger = LoggerFactory.getLogger(CaptchaServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CaptchaServiceImpl.class);
 
+    private static final int COLOR_255 = 255;
+    private static final int COLOR_155 = 255;
     @Value("${customer.valid.expire:18000}")
     String expire;
     @Autowired
@@ -52,28 +54,45 @@ public class CaptchaServiceImpl implements CaptchaService {
     @Autowired
     DefaultKaptcha defaultKaptcha;
 
-    // 渲染随机背景颜色
+    /**
+     * @describe: 渲染随机背景颜色
+     * @param: [fc, bc]
+     * @return: java.awt.Color
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:02
+     */
     private Color getRandColor(int fc, int bc) {
         Random random = new Random();
-        if (fc > 255) fc = 255;
-        if (bc > 255) bc = 255;
+        if (fc > COLOR_255) {
+            fc = COLOR_255;
+        }
+        if (bc > COLOR_255) {
+            bc = COLOR_255;
+        }
         int r = fc + random.nextInt(bc - fc);
         int g = fc + random.nextInt(bc - fc);
         int b = fc + random.nextInt(bc - fc);
         return new Color(r, g, b);
     }
 
-    //渲染固定背景颜色
+    /**
+     * @describe: 渲染固定背景颜色
+     * @param: []
+     * @return: java.awt.Color
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:02
+     */
     private Color getBgColor() {
         return new Color(200, 200, 200);
     }
 
 
     /**
-     * 画验证码图形
-     *
-     * @param isDrawLine
-     * @return
+     * @describe: 画验证码图形
+     * @param: [isDrawLine, validCodeSize, fc, bc, fontType]
+     * @return: com.lvmoney.captcha.vo.ValidateCodeVo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * 2019/9/9 10:02
      */
     private ValidateCodeVo drawImg(boolean isDrawLine, int validCodeSize, int fc, int bc, String fontType) {
         ValidateCodeVo validateCodeVo = new ValidateCodeVo();
@@ -100,7 +119,7 @@ public class CaptchaServiceImpl implements CaptchaService {
 
         if (isDrawLine) {
             g.setColor(getRandColor(120, 140));
-            for (int i = 0; i < 155; i++) {
+            for (int i = 0; i < COLOR_155; i++) {
                 int x = random.nextInt(width);
                 int y = random.nextInt(height);
                 int xl = random.nextInt(12);
@@ -134,6 +153,8 @@ public class CaptchaServiceImpl implements CaptchaService {
         return validateCodeVo;
     }
 
+
+    @Override
     public ValidateResultVo encodeBase64ImgCode(boolean is2Redis, boolean isDrawLine, int validCodeSize, int fc, int bc, String fontType) {
         ValidateCodeVo validateCodeVo = drawImg(isDrawLine, validCodeSize, fc, bc, fontType);
         BufferedImage codeImg = validateCodeVo.getBufferedImage();
@@ -161,6 +182,7 @@ public class CaptchaServiceImpl implements CaptchaService {
         return validateResultVo;
     }
 
+
     @Override
     public ValidateResultVo encodeBase64ImgCode() {
         String createText = defaultKaptcha.createText();
@@ -187,6 +209,7 @@ public class CaptchaServiceImpl implements CaptchaService {
             throw new BusinessException(CommonException.Proxy.VALIDCOE_ERROR);
         }
     }
+
 
     @Override
     public ValidateResultVo getCaptcha(int width, int height, int length) {
@@ -218,10 +241,12 @@ public class CaptchaServiceImpl implements CaptchaService {
         return validateCodeRo;
     }
 
+
     @Override
     public void deleteValidate(String serialNumber) {
         baseRedisService.deleteKey(serialNumber);
     }
+
 
     @Override
     public void saveValidaCode2Redis(ValidateCodeRo validateCodeRo) {
