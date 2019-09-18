@@ -1,0 +1,2 @@
+刷新：localhost:8086/actuator/bus-refresh
+需要在控制器或者service上加@RefreshScope不然不会起作用

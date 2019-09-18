@@ -8,6 +8,7 @@ package com.lvmoney.k8s.gateway.init;/**
 
 
 import com.lvmoney.common.utils.MapUtil;
+import com.lvmoney.common.vo.ServerInfo;
 import com.lvmoney.k8s.gateway.ro.RouteDefinitionRo;
 import com.lvmoney.k8s.gateway.service.Gateway2DbService;
 import com.lvmoney.k8s.gateway.service.Gateway2RedisService;
@@ -50,8 +51,13 @@ public class AfterStartupInit implements InitializingBean {
         Map<String, RouteDefinition> routeDefinitionMap = new HashMap<>(MapUtil.initMapSize(routeDefinitions.size()));
         routeDefinitions.stream().forEach(e -> {
             try {
-                URI realUri = new URI(serverService.getRealRequstUri(e.getUri()));
-                e.setUri(realUri);
+                ServerInfo serverInfo = serverService.getServerInfo(e.getUri());
+                if (serverInfo != null) {
+                    URI realUri = new URI(serverInfo.getUri());
+                    e.setUri(realUri);
+                } else {
+                    e.setUri(e.getUri());
+                }
             } catch (URISyntaxException ex) {
                 ex.printStackTrace();
             }

@@ -79,6 +79,7 @@ public class IpUtil {
     }
 
     public static void main(String[] args) {
+        System.out.println(isInRange("10.20.10.69", "10.20.10.69/0"));
         System.out.println(isInRange("10.20.10.69", "10.20.10.0/16"));
         System.out.println(isInRange("10.168.1.100", "10.168.0.224/21"));
         System.out.println(isInRange("192.168.0.1", "192.168.0.0/24"));

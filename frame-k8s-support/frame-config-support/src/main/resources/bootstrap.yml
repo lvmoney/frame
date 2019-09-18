@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://10.20.128.234/lvmoney/istioconfig.git
+          username: lvmoney
+          password: xml1990728
+          search-paths: /**
+  rabbitmq:
+    host: 10.20.128.168
+    port: 5672
+    username: admin
+    password: admin123
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

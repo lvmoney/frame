@@ -29,6 +29,8 @@
         <module>frame-provider-support</module>
         <module>frame-base-support</module>
         <module>frame-logback-support</module>
+        <module>frame-config-support</module>
+        <module>frame-config-client-support</module>
     </modules>
 
     <dependencyManagement>

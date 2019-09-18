@@ -10,6 +10,7 @@ package com.lvmoney.common.vo;/**
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Set;
 
 /**
  * @describe：
@@ -19,9 +20,32 @@ import java.io.Serializable;
 @Data
 public class ServerInfo implements Serializable {
     private static final long serialVersionUID = 3504451430923278739L;
+    /**
+     * 服务名称
+     */
     private String serverName;
+    /**
+     * 端口
+     */
     private int port;
+    /**
+     * ip
+     */
     private String ip;
+    /**
+     * http协议
+     */
     private String httpScheme;
+    /**
+     * 访问调用地址
+     */
     private String uri;
+    /**
+     * 发布出来的接口，可被外部服务调用
+     */
+    private Set<String> releaseServer;
+    /**
+     * 服务类型,具体详见枚举InternalService
+     */
+    private String internalService;
 }

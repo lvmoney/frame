@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @describe：
@@ -28,17 +30,32 @@ public class ServerServiceImpl implements ServerService {
     @Autowired
     BaseRedisService baseRedisService;
 
+
     @Override
-    public String getRealRequstUri(URI uri) {
+    public ServerInfo getServerInfo(URI uri) {
         Object obj = baseRedisService.getValueByMapKey(CommonConstant.REDIS_SERVER_CROUP_KEY, uri.getHost().toString());
         try {
-            ServerInfo serverInfo = JSON.parseObject(obj.toString(), new TypeReference<ServerInfo>() {
+            ServerInfo ServerInfo = JSON.parseObject(obj.toString(), new TypeReference<ServerInfo>() {
             });
-            return serverInfo.getUri();
+            return ServerInfo;
         } catch (Exception e) {
-            return uri.toString();
+            return null;
         }
-
-
     }
+
+    @Override
+    public ServerInfo getServerInfo(String uri) {
+        Object obj = baseRedisService.getMapByKey(CommonConstant.REDIS_SERVER_CROUP_KEY);
+        try {
+            List<ServerInfo> serverInfos = JSON.parseObject(obj.toString(), new TypeReference<List<ServerInfo>>() {
+            });
+            ServerInfo serverInfo = serverInfos.stream().filter(e ->
+                    e.getUri().equals(uri)
+            ).collect(Collectors.toList()).get(0);
+            return serverInfo;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }

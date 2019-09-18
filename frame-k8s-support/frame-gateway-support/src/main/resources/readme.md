@@ -14,7 +14,9 @@
 留着拓展从mysql中获得路由规则等。
 8、yml中路由规则的uri以http://www.provider.com/来表示，其中provider表示服务的名字（各个服务yml中spring.application.name）。结合base
 的功能系统会自动路由到对应的服务，具体的实现和对应关系在AfterStartupInit，AuthenticationFilter中查看
-9、白名单功能：主要用于内部服务环境服务的调用许可（fegin的方式）对应的实体是WhiteListRo，数据格式
+9、白名单功能：1、用于内部服务环境服务的调用许可（fegin的方式），那么是允许白名单内的ip段访问
+2、用于限制外部服务（直接面向h5，app，小程序等）不允许被内部服务调用（fegin的方式），那么是不允许白名单内的ip段访问
+对应的实体是WhiteListRo，数据格式
 {
   "networkSegment": [
                      "10.20.10.0/16"//内网网段
@@ -24,3 +26,12 @@
 表示 www.provider.com 只能被10.20.10.0/16 网段的ip访问
 www.provider.com：和8中的服务地址匹配， 去掉了8中的http://和.com也就是请求地址的host
 白名单功能支持对应yml文件中的frame.white.support的字段
+10、控制服务被其他服务调用
+frame.releaseServer.support：用来是否支持控制服务被其他服务调用，如果是false（默认）表示不支持，那么下面的
+配置没有意义。
+通过在控制器上加注解@ReleaseServer来控制该服务是否可以被其他服务调用，
+注意<label style="color:red">配合：operating.internal来做</label>
+operating.internal=internal表示内部服务，在设计的时候要放到内网
+作为内部的基础服务，那么加上@ReleaseServer(release = true)的才能被服务调用
+operating.internal=external表示外部服务面向用户（app，h5，小程序等），这部分直接放开访问就算是加了@ReleaseServer(release = true)
+也没用，注意<label style="color:red">operating.internal=external的服务不能被通过gateway请求的内部服务调用</label>

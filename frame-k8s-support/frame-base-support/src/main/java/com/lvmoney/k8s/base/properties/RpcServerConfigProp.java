@@ -21,7 +21,7 @@ import java.util.Map;
  * @version:v1.0 2019年1月6日 下午4:15:17
  */
 @Component
-@PropertySource("classpath:application.yml123")
+@PropertySource("classpath:application.yml")
 @ConfigurationProperties(prefix = "rpc")
 @Data
 public class RpcServerConfigProp {

@@ -39,10 +39,18 @@ public interface GatewayException {
          * 白名单
          */
         GATEWAY_WHITE_CHECK_ERROR(PROXYERR + 4, "服务白名单校验未通过"),
+
+
         /**
          * 白名单支持
          */
         WHITE_SUPPORT_ERROR(PROXYERR + 5, "frame.white.support value is 'true' or 'false'"),
+
+        /**
+         * 内部服务没有被允许调用
+         */
+        GATEWAY_INTERNAL_CHECK_ERROR(PROXYERR + 6, "该服务不允许被其他服务调用"),
+
         /**
          * 其他
          */

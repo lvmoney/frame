@@ -59,8 +59,6 @@ logging:
     org.springframework.http.server.reactive: DEBUG
     org.springframework.web.reactive: DEBUG
     reactor.ipc.netty: DEBUG
-
-
 feign:
   httpclient:
     enabled: true
@@ -76,6 +74,8 @@ frame:
   gateway:
     support: true
   white:
-    support: false
+    support: true
+  releaseServer:
+    support: true
 operating:
-  environment: istio
+  environment: local

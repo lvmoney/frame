@@ -1,3 +1,11 @@
+docker:
+  version: 1.0
+  registry: http://192.168.1.181:2375
+  image: ${spring.application.name}:${docker.version}
+  tag: 192.168.1.181:5000/frame/${docker.image}
+  jar: ${spring.application.name}-${docker.version}
+
+
 server:
   port: 9901
 spring:
@@ -7,15 +15,22 @@ spring:
     database: 2
     port: 6379
     host: localhost
+  cloud:
+    config:
+      label: master
+      #对应Config Server所获取的配置文件的{profile}，这里表示获取开发版的配置信息
+      profile: dev
+      #Config Server的地址
+      uri: http://localhost:8974/
 istio:
   namespace: lvmoney
   docker:
     image:
-      tag: @docker.image.tag@
-      name: @docker.image.name@
+      tag: ${docker.tag}
+      name: ${docker.image}
       pull: Always
     file:
-      name: @docker.file.name@
+      name: ${docker.jar}
       temp: /home
   yaml:
     cover: true
@@ -43,9 +58,9 @@ istio:
       interval: 3s
       baseEjectionTime: 3m
       maxEjectionPercent: 100
-
   master:
     ip: 192.168.1.181
 
 operating:
-  environment: istio
+  environment: local
+  internal: internal

@@ -9,6 +9,7 @@ package com.lvmoney.provider.controller;/**
 
 import com.lvmoney.common.utils.ResultUtil;
 import com.lvmoney.common.utils.vo.ResultData;
+import com.lvmoney.k8s.base.annotations.ReleaseServer;
 import com.lvmoney.provider.service.UserService;
 import com.lvmoney.provider.vo.req.UserReqVo;
 import com.lvmoney.provider.vo.resp.UserRespVo;
@@ -30,6 +31,7 @@ public class ProviderController {
     UserService userService;
 
     @PostMapping(value = "/data")
+    @ReleaseServer(release = true)
     public ResultData<UserRespVo> getUser(UserReqVo userReqVo) {
         return ResultUtil.success(userService.getUser(userReqVo));
     }

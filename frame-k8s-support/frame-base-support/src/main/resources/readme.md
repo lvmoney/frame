@@ -18,3 +18,12 @@ yaml，服务即可在k8s中启动，该module提供了ssh接口，详见SSHCont
 10、基于请求头路由：这个可以用来根据不同的请求头获得不同的数据，系统用来片区用户访问不到服务
 11、断路器：可以让应用程序免受上游（Upstream，即调用链中更加远离根的节点）服务失败、延迟峰值（latency spikes）或其它网络异常的侵害
 ，主要用来并发的限制
+12、控制服务被其他服务调用
+frame.releaseServer.support：用来是否支持控制服务被其他服务调用，如果是false（默认）表示不支持，那么下面的
+配置没有意义。
+通过在控制器上加注解@ReleaseServer来控制该服务是否可以被其他服务调用，
+注意<label style="color:red">配合：operating.internal来做</label>
+operating.internal=internal表示内部服务，在设计的时候要放到内网
+作为内部的基础服务，那么加上@ReleaseServer(release = true)的才能被服务调用
+operating.internal=external表示外部服务面向用户（app，h5，小程序等），这部分直接放开访问就算是加了@ReleaseServer(release = true)
+也没用，注意<label style="color:red">operating.internal=external的服务不能被通过gateway请求的内部服务调用</label>

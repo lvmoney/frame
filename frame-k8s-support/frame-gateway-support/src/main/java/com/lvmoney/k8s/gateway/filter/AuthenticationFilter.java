@@ -8,15 +8,18 @@ package com.lvmoney.k8s.gateway.filter;/**
 
 
 import com.lvmoney.common.constant.CommonConstant;
+import com.lvmoney.common.enums.InternalService;
 import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.utils.IpUtil;
 import com.lvmoney.common.utils.vo.ResultData;
+import com.lvmoney.common.vo.ServerInfo;
 import com.lvmoney.k8s.gateway.constant.GatewayConstant;
 import com.lvmoney.k8s.gateway.exception.GatewayException;
 import com.lvmoney.k8s.gateway.properties.GatewayConfigProp;
 import com.lvmoney.k8s.gateway.ro.WhiteListRo;
 import com.lvmoney.k8s.gateway.server.AuthenticationServerConfig;
 import com.lvmoney.k8s.gateway.service.Gateway2RedisService;
+import com.lvmoney.k8s.gateway.service.ServerService;
 import com.lvmoney.k8s.gateway.service.WhiteListService;
 import com.lvmoney.k8s.gateway.utils.ExceptionUtil;
 import com.lvmoney.k8s.gateway.utils.FilterMapUtil;
@@ -63,10 +66,23 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     @Value("${frame.white.support:false}")
     String whiteSupport;
 
+    @Value("${frame.releaseServer.support:false}")
+    boolean releaseServerSupport;
+
     private static final String LOCALHOST_NAME = "localhost";
+    /**
+     * istio环境以www开头
+     */
+    private static final String INTERNAL_SERVICE_PREFIX = "http";
+    /**
+     * 开发local本地环境以http或者https开头，http包含了https
+     */
+    private static final String EXTERNAL_SERVICE_PREFIX = "www";
+    @Autowired
+    ServerService serverService;
 
     /**
-     * @describe:1、白名单校验=====>2、是否需要gateway支持======>3、token校验=======>4、权限校验=======>5、服务访问
+     * @describe:1、白名单校验=====>2、是否被允许调用，3、是否需要gateway支持======>4、token校验=======>5、权限校验=======>6、服务访问
      * @param: [exchange, chain]
      * @return: reactor.core.publisher.Mono<java.lang.Void>
      * @author: lvmoney /XXXXXX科技有限公司
@@ -81,9 +97,12 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             //白名单校验
             return serverHttpResponse.writeWith(Flux.just(ExceptionUtil.filterExceptionHandle(serverHttpResponse, new BusinessException(GatewayException.Proxy.GATEWAY_WHITE_CHECK_ERROR))));
         }
-        String requestPath = exchange.getRequest().getPath().toString();
         String realPath = realPath(exchange);
-        URI uri = exchange.getRequest().getURI();
+        if (!isRelease(exchange, realPath)) {
+            return serverHttpResponse.writeWith(Flux.just(ExceptionUtil.filterExceptionHandle(serverHttpResponse, new BusinessException(GatewayException.Proxy.GATEWAY_INTERNAL_CHECK_ERROR))));
+        }
+        String requestPath = exchange.getRequest().getPath().toString();
+
 
         if (gatewaySupport.equals(GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE)) {
             // 在这里做判断
@@ -141,16 +160,19 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     }
 
     /**
-     * @describe: 判断请求ip是否在白名单，改校验用于内网环境服务可信任调度
+     * @describe: 1、判断请求ip是否在白名单，该校验用于内网环境服务可信任调度，白名单内的ip可访问
+     * 2、如果是外部可访问的服务，那么该服务只能被外网访问，也就是白名单外的ip访问
+     * 3、根据ServerInfo中的internalService进行判断
+     * 4、需要白名单支持，但是服务名称不在redis中，说明该服务不需要白名单校验
      * @param: [exchange]
      * @return: boolean
      * @author: lvmoney /XXXXXX科技有限公司
      * 2019/8/20 10:20
      */
     private boolean isWhite(ServerWebExchange exchange) {
-        ServerHttpResponse serverHttpResponse = exchange.getResponse();
         Route route = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
-        String serverName = route.getUri().getHost();
+        ServerInfo serverInfo = getServerInfo(route);
+        String serverName = serverInfo.getServerName();
         if (whiteSupport.equals(GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE)) {
             //不需要白名单支持
             return true;
@@ -159,26 +181,108 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             //需要白名单支持，但是服务名称不在redis中，说明该服务不需要白名单校验
             return true;
         }
-        ServerHttpRequest request = exchange.getRequest();
-        String ip = request.getURI().getHost();
-        if (LOCALHOST_NAME.equals(ip) || ip.equals(CommonConstant.LOCALHOST_IP)) {
-            ip = IpUtil.getLocalhostIp();
-        }
-
-        //        String ip = request.getRemoteAddress().getAddress().getHostAddress();
-
-        WhiteListVo whiteListVo = whiteListService.getWhiteList(serverName);
-        boolean result = false;
-        Set<String> white = whiteListVo.getNetworkSegment();
-        for (
-                String e : white) {
-            if (IpUtil.isInRange(ip, e)) {
-                result = true;
-                break;
+        String internalService = serverInfo.getInternalService();
+        if (InternalService.external.getValue().equals(internalService)) {
+            //判断请求ip是否在白名单，该校验用于内网环境服务可信任调度，白名单内的ip可访问
+            ServerHttpRequest request = exchange.getRequest();
+            String ip = request.getURI().getHost();
+            if (LOCALHOST_NAME.equals(ip) || ip.equals(CommonConstant.LOCALHOST_IP)) {
+                ip = IpUtil.getLocalhostIp();
             }
+            WhiteListVo whiteListVo = whiteListService.getWhiteList(serverName);
+            boolean result = false;
+            Set<String> white = whiteListVo.getNetworkSegment();
+            for (
+                    String e : white) {
+                if (IpUtil.isInRange(ip, e)) {
+                    result = true;
+                    break;
+                }
 
+            }
+            return result;
+        } else if (InternalService.internal.getValue().equals(internalService)) {
+            //如果是外部可访问的服务，那么该服务只能被外网访问，也就是白名单外的ip访问
+            ServerHttpRequest request = exchange.getRequest();
+            String ip = request.getURI().getHost();
+            if (LOCALHOST_NAME.equals(ip) || ip.equals(CommonConstant.LOCALHOST_IP)) {
+                ip = IpUtil.getLocalhostIp();
+            }
+            WhiteListVo whiteListVo = whiteListService.getWhiteList(serverName);
+            boolean result = true;
+            Set<String> white = whiteListVo.getNetworkSegment();
+            for (String e : white) {
+                if (IpUtil.isInRange(ip, e)) {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        } else {
+            return false;
         }
-        return result;
+
+
+    }
+
+    /**
+     * 通过白名单校验后，判断访问的接口是否被允许其他服务调用
+     * 1、首先判断是否支持该校验
+     * 2、根据ServerInfo的internalService去判断是否是内网服务
+     * 3、判断是否被允许访问
+     *
+     * @param exchange:
+     * @throws
+     * @return: boolean
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/17 17:05
+     */
+    private boolean isRelease(ServerWebExchange exchange, String realPath) {
+        if (!releaseServerSupport) {
+            //如果不需要支持直接返回true
+            return true;
+        } else {
+            Route route = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
+            ServerInfo serverInfo = getServerInfo(route);
+            String internalService = serverInfo.getInternalService();
+            if (InternalService.external.getValue().equals(internalService)) {
+                //如果是外部c端可访问的全部放开
+                return true;
+            } else if (InternalService.internal.getValue().equals(internalService)) {
+                //处理内部服务的相互调用
+                Set<String> releaseServer = serverInfo.getReleaseServer();
+                if (releaseServer.contains(realPath)) {
+                    //如果请求的url在被公布的里面返回true
+                    return true;
+                }
+                return false;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    /**
+     * 根据请求的地址获得服务信息
+     *
+     * @param route:
+     * @throws
+     * @return: com.lvmoney.common.vo.ServerInfo
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/18 14:56
+     */
+    private ServerInfo getServerInfo(Route route) {
+        String routeUrl = route.getUri().toString();
+        ServerInfo serverInfo = new ServerInfo();
+        if (routeUrl.startsWith(INTERNAL_SERVICE_PREFIX)) {
+            //本地开发测试环境
+            serverInfo = serverService.getServerInfo(routeUrl);
+
+        } else if (routeUrl.startsWith(EXTERNAL_SERVICE_PREFIX)) {
+            //istio 环境
+            serverInfo = serverService.getServerInfo(route.getUri());
+        }
+        return serverInfo;
     }
 
 

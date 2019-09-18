@@ -4,3 +4,5 @@
 value 通过JsonUtil序列化（jsonString）后存到redis，取出值以后再转化成对应的实体对象
 3、不配置1desktop看着很乱，但是实体嵌套的问题没有，value存什么实体，取什么就行。
 4、着重注意一下redisConfig的说明
+5、有时候redis数据有版本的控制，例如：一天的数据一个版本，各个服务间调用不同版本的数据。
+建议在业务系统考虑，在key_version,在查询的时候获得要得版本号，根据key构造key_version再到redis请求
