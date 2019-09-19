@@ -1,11 +1,3 @@
-docker:
-  version: 1.0
-  registry: http://192.168.1.181:2375
-  image: ${spring.application.name}:${docker.version}
-  tag: 192.168.1.181:5000/frame/${docker.image}
-  jar: ${spring.application.name}-${docker.version}
-
-
 server:
   port: 9901
 spring:
@@ -26,11 +18,8 @@ istio:
   namespace: lvmoney
   docker:
     image:
-      tag: ${docker.tag}
-      name: ${docker.image}
       pull: Always
     file:
-      name: ${docker.jar}
       temp: /home
   yaml:
     cover: true

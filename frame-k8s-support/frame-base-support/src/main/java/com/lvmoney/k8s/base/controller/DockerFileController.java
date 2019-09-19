@@ -7,11 +7,12 @@ package com.lvmoney.k8s.base.controller;/**
  */
 
 
+import com.lvmoney.common.utils.ModuleUtil;
 import com.lvmoney.common.utils.SnowflakeIdFactoryUtil;
+import com.lvmoney.k8s.base.utils.PomUtil;
 import com.lvmoney.k8s.base.vo.req.DockerFileReqVo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,16 +33,13 @@ import java.nio.file.Paths;
 @RestController
 @RequestMapping(value = "/docker")
 public class DockerFileController {
-    @Value("${istio.docker.file.name}")
-    String dokcerFile;
     @Value("${istio.docker.file.temp:/home}")
     String temp;
 
     @GetMapping(value = "/dockerFile")
     public String build(DockerFileReqVo dockerFileReqVo) {
         try {
-            File path = new File(ResourceUtils.getURL("classpath:").getPath());
-            String rootPath = path.getPath().replaceAll("target", "").replaceAll("classes", "");
+            String rootPath = ModuleUtil.getModuleRootPath();
             Path rootLocation = Paths.get(rootPath);
             //data.js是文件
             String dockerFilePath = rootPath + "\\src\\main\\resources\\Dockerfile";
@@ -69,6 +67,7 @@ public class DockerFileController {
     private String dockerFile(String tempPath) {
         tempPath = StringUtils.isEmpty(tempPath) ? "" : tempPath;
         SnowflakeIdFactoryUtil snowflakeIdFactoryUtil = new SnowflakeIdFactoryUtil(1, 2);
+        String dokcerFile = PomUtil.getDockerInfo().getDockerFileName();
         String appJar = "app" + snowflakeIdFactoryUtil.nextId() + ".jar";
         String from = "FROM java:8";
         String volume = "VOLUME " + temp + tempPath;

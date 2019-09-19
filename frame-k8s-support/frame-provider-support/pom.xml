@@ -11,17 +11,26 @@
     <version>0.0.2-SNAPSHOT</version>
 
     <artifactId>frame-provider-support</artifactId>
-    <!--<properties>
-        &lt;!&ndash;docker images&ndash;&gt;
-        <docker.image.name>${project.artifactId}:${project.version}</docker.image.name>
-        &lt;!&ndash;dockerFile 中 jar名称&ndash;&gt;
-        <docker.file.name>${project.artifactId}-${project.version}</docker.file.name>
-        &lt;!&ndash;docker tag&ndash;&gt;
-        <docker.image.tag>192.168.1.181:5000/frame/${project.artifactId}:${project.version}</docker.image.tag>
-        &lt;!&ndash;docker host&ndash;&gt;
-        <docker.host>http://192.168.1.181:2375</docker.host>
-
-    </properties>-->
+    <properties>
+        <!--私服ip-->
+        <dockerRegistryIp>192.168.1.181</dockerRegistryIp>
+        <!--tag 端口-->
+        <dockerTagPort>5000</dockerTagPort>
+        <!--push 端口-->
+        <dockerPushPort>2375</dockerPushPort>
+        <!--项目属于一个大的分类-->
+        <namespace>frame</namespace>
+        <!--docker images-->
+        <dockerImageName>${project.artifactId}:${project.version}</dockerImageName>
+        <!--dockerFile 中 jar名称-->
+        <dockerFileName>${project.artifactId}-${project.version}</dockerFileName>
+        <!--docker tag-->
+        <dockerImageTag>
+            ${dockerRegistryIp}:${dockerTagPort}/${namespace}/${project.artifactId}:${project.version}
+        </dockerImageTag>
+        <!--docker host-->
+        <dockerHost>http://${dockerRegistryIp}:${dockerPushPort}</dockerHost>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>com.lvmoney</groupId>
@@ -45,24 +54,6 @@
 
     <build>
             <plugins>
-                <plugin>
-                    <groupId>it.ozimov</groupId>
-                    <artifactId>yaml-properties-maven-plugin</artifactId>
-                    <version>1.1.3</version>
-                    <executions>
-                        <execution>
-                            <phase>initialize</phase>
-                            <goals>
-                                <goal>read-project-properties</goal>
-                            </goals>
-                            <configuration>
-                                <files>
-                                    <file>src/main/resources/application.yml</file>
-                                </files>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
@@ -98,8 +89,8 @@
                                 <goal>tag</goal>      <!--tag命令，相当于docker的tag命令-->
                             </goals>
                             <configuration>
-                                <image>${docker.image}</image>   <!--镜像名-->
-                                <newName>${docker.tag}</newName>   <!--打的标签名-->
+                                <image>${docker.image.name}</image>   <!--镜像名-->
+                                <newName>${docker.image.tag}</newName>   <!--打的标签名-->
                             </configuration>
                         </execution>
                         <execution>
@@ -109,16 +100,16 @@
                                 <goal>push</goal>    <!--相当于docker的push命令-->
                             </goals>
                             <configuration>
-                                <imageName>${docker.tag}</imageName>  <!--要push的镜像名-->
+                                <imageName>${docker.image.tag}</imageName>  <!--要push的镜像名-->
                             </configuration>
                         </execution>
                     </executions>
                     <configuration>
-                        <imageName>${docker.image}</imageName>
+                        <imageName>${docker.image.name}</imageName>
                         <baseImage>java</baseImage>
                         <!--<entryPoint>["java","-jar","/${project.build.finalName}.jar}"]</entryPoint>-->
                         <dockerDirectory>${project.basedir}/src/main/resources</dockerDirectory>
-                        <dockerHost>${docker.registry}</dockerHost>
+                        <dockerHost>${docker.host}</dockerHost>
                         <resources>
                             <resource>
                                 <targetPath>/</targetPath>
@@ -130,20 +121,23 @@
                 </plugin>
             </plugins>
 
-            <resources>
-                <resource>
-                    <directory>src/main/resources</directory>
-                    <filtering>true</filtering>
-                    <includes>
-                        <include>**/**</include>
-                    </includes>
-                </resource>
-                <resource>
-                    <directory>src/main/java</directory>
-                    <excludes>
-                        <exclude>**/*.java</exclude>
-                    </excludes>
-                </resource>
-            </resources>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/**</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
     </build>
+
+
 </project>

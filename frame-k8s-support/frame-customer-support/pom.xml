@@ -11,13 +11,24 @@
 
     <artifactId>frame-customer-support</artifactId>
     <properties>
+        <!--私服ip-->
+        <dockerRegistryIp>192.168.1.181</dockerRegistryIp>
+        <!--tag 端口-->
+        <dockerTagPort>5000</dockerTagPort>
+        <!--push 端口-->
+        <dockerPushPort>2375</dockerPushPort>
+        <!--项目属于一个大的分类-->
+        <namespace>frame</namespace>
         <!--docker images-->
-        <docker.image.name>${project.artifactId}:${project.version}</docker.image.name>
+        <dockerImageName>${project.artifactId}:${project.version}</dockerImageName>
         <!--dockerFile 中 jar名称-->
-        <docker.file.name>${project.artifactId}-${project.version}</docker.file.name>
+        <dockerFileName>${project.artifactId}-${project.version}</dockerFileName>
         <!--docker tag-->
-        <docker.image.tag>192.168.1.181:5000/frame/${project.artifactId}:${project.version}</docker.image.tag>
-        <docker.host>http://192.168.1.181:2375</docker.host>
+        <dockerImageTag>
+            ${dockerRegistryIp}:${dockerTagPort}/${namespace}/${project.artifactId}:${project.version}
+        </dockerImageTag>
+        <!--docker host-->
+        <dockerHost>http://${dockerRegistryIp}:${dockerPushPort}</dockerHost>
     </properties>
     <dependencies>
         <dependency>

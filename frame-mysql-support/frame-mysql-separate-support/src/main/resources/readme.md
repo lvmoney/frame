@@ -1,5 +1,5 @@
-mysql的读写分离
-配置参考：
+mysql的读写分离  
+配置参考：  
 frame:
   config:
     database:
@@ -64,6 +64,6 @@ spring:
       max-pool-prepared-statement-per-connection-size: 20
       # 合并多个DruidDataSource的监控数据
       use-global-data-source-stat: true
-      
+        
 注意：如果读写在一个事务里面@Transactional就会从master获取数据，所以业务service
 要合理的把事务分开

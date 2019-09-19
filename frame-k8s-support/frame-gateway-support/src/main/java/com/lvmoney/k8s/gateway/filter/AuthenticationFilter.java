@@ -82,7 +82,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     ServerService serverService;
 
     /**
-     * @describe:1、白名单校验=====>2、是否被允许调用，3、是否需要gateway支持======>4、token校验=======>5、权限校验=======>6、服务访问
+     * @describe:1、是否需要gateway支持====>2、白名单校验=====>3、是否被允许调用======>4、token校验=======>5、权限校验=======>6、服务访问
      * @param: [exchange, chain]
      * @return: reactor.core.publisher.Mono<java.lang.Void>
      * @author: lvmoney /XXXXXX科技有限公司
@@ -91,6 +91,12 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpResponse serverHttpResponse = exchange.getResponse();
+        if (gatewaySupport.equals(GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE)) {
+            // 在这里做判断
+            return chain.filter(exchange);
+        } else if (!GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE.equals(gatewaySupport) && !GatewayConstant.FRAME_GATEWAY_SUPPORT_TRUE.equals(gatewaySupport)) {
+            return serverHttpResponse.writeWith(Flux.just(ExceptionUtil.filterExceptionHandle(serverHttpResponse, new BusinessException(GatewayException.Proxy.GATEWAY_SUPPORT_ERROR))));
+        }
         if (!whiteSupport.equals(GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE) && !whiteSupport.equals(GatewayConstant.FRAME_GATEWAY_SUPPORT_TRUE)) {
             return serverHttpResponse.writeWith(Flux.just(ExceptionUtil.filterExceptionHandle(serverHttpResponse, new BusinessException(GatewayException.Proxy.GATEWAY_SUPPORT_ERROR))));
         } else if (!isWhite(exchange)) {
@@ -103,13 +109,6 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         }
         String requestPath = exchange.getRequest().getPath().toString();
 
-
-        if (gatewaySupport.equals(GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE)) {
-            // 在这里做判断
-            return chain.filter(exchange);
-        } else if (!GatewayConstant.FRAME_GATEWAY_SUPPORT_FALSE.equals(gatewaySupport) && !GatewayConstant.FRAME_GATEWAY_SUPPORT_TRUE.equals(gatewaySupport)) {
-            return serverHttpResponse.writeWith(Flux.just(ExceptionUtil.filterExceptionHandle(serverHttpResponse, new BusinessException(GatewayException.Proxy.GATEWAY_SUPPORT_ERROR))));
-        }
 
         Map<String, String> filterChainDefinition = gatewayConfigProp.getfilterChainDefinitionMap();
         if (filterChainDefinition != null && FilterMapUtil.wildcardMatchMapKey(filterChainDefinition, requestPath, GatewayConstant.GATEWAY_REQUEST_IGNORE)) {

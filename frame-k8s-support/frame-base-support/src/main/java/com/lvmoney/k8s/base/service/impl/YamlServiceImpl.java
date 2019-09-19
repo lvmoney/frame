@@ -12,6 +12,7 @@ import com.lvmoney.k8s.base.constant.BaseConstant;
 import com.lvmoney.k8s.base.enums.*;
 import com.lvmoney.k8s.base.properties.RpcServerConfigProp;
 import com.lvmoney.k8s.base.service.YamlService;
+import com.lvmoney.k8s.base.utils.PomUtil;
 import com.lvmoney.k8s.base.utils.YamlUtil;
 import com.lvmoney.k8s.base.vo.jyaml.*;
 import org.apache.commons.lang3.ObjectUtils;
@@ -31,29 +32,26 @@ import java.util.List;
  */
 @org.springframework.stereotype.Service
 public class YamlServiceImpl implements YamlService {
-    @Value("${istio.Yaml.cover:false}")
+    @Value("${istio.yaml.cover:false}")
     boolean yamlCover;
     @Value("${spring.application.name:lvmoney}")
     String applicationName;
     @Value("${server.port:8080}")
     int serverPort;
-    @Value("${istio.Yaml.replicas:1}")
+    @Value("${istio.yaml.replicas:1}")
     int replicas;
-    @Value("${istio.Yaml.version:v1}")
+    @Value("${istio.yaml.version:v1}")
     String version;
-    @Value("${istio.docker.image.tag}")
-    String dockerImage;
-
     @Value("${istio.docker.image.pull:IfNotPresent}")
     String pullPolicy;
 
-    @Value("${istio.Yaml.destination.support:false}")
+    @Value("${istio.yaml.destination.support:false}")
     boolean destinationSupport;
 
-    @Value("${istio.Yaml.destination.v1:50}")
+    @Value("${istio.yaml.destination.v1:50}")
     Integer ratioV1;
 
-    @Value("${istio.Yaml.destination.v2:50}")
+    @Value("${istio.yaml.destination.v2:50}")
     Integer ratioV2;
 
     private String allPrefix = "all";
@@ -64,25 +62,25 @@ public class YamlServiceImpl implements YamlService {
     private String masterIp;
 
 
-    @Value("${istio.Yaml.policy.maxConnections:2048}")
+    @Value("${istio.yaml.policy.maxConnections:2048}")
     private Integer maxConnections;
-    @Value("${istio.Yaml.policy.connectTimeout:3s}")
+    @Value("${istio.yaml.policy.connectTimeout:3s}")
     private String connectTimeout;
-    @Value("${istio.Yaml.policy.http1MaxPendingRequests:1024}")
+    @Value("${istio.yaml.policy.http1MaxPendingRequests:1024}")
     private Integer http1MaxPendingRequests;
-    @Value("${istio.Yaml.policy.maxRequestsPerConnection:200}")
+    @Value("${istio.yaml.policy.maxRequestsPerConnection:200}")
     private Integer maxRequestsPerConnection;
-    @Value("${istio.Yaml.policy.consecutiveErrors:3}")
+    @Value("${istio.yaml.policy.consecutiveErrors:3}")
     private Integer consecutiveErrors;
-    @Value("${istio.Yaml.policy.interval:3s}")
+    @Value("${istio.yaml.policy.interval:3s}")
     private String interval;
-    @Value("${istio.Yaml.policy.baseEjectionTime:3m}")
+    @Value("${istio.yaml.policy.baseEjectionTime:3m}")
     private String baseEjectionTime;
-    @Value("${istio.Yaml.policy.maxEjectionPercent:100}")
+    @Value("${istio.yaml.policy.maxEjectionPercent:100}")
     private Integer maxEjectionPercent;
-    @Value("${istio.Yaml.policy.maxRetries:3}")
+    @Value("${istio.yaml.policy.maxRetries:3}")
     private Integer maxRetries;
-    @Value("${istio.Yaml.policy.http2MaxRequests:2048}")
+    @Value("${istio.yaml.policy.http2MaxRequests:2048}")
     private Integer http2MaxRequests;
 
 
@@ -137,6 +135,7 @@ public class YamlServiceImpl implements YamlService {
         tMetadata.setLabels(tLabels);
         Containers containers = new Containers();
         containers.setName(applicationName);
+        String dockerImage = PomUtil.getDockerInfo().getDockerImageName();
         containers.setImage(dockerImage);
         if (pullPolicy.equals(DockerPull.IfNotPresent.getValue())) {
             containers.setImagePullPolicy(DockerPull.IfNotPresent.getValue());

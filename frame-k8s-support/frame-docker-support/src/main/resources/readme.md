@@ -1,3 +1,3 @@
-1、安装docker，并安装docker私服，并运行提交到私服
-2、修改application里面对应docker相关的配置
-3、执行mvn clean package命令就会提交到docker私服中
+1、安装docker，并安装docker私服，并运行提交到私服  
+2、修改application里面对应docker相关的配置  
+3、执行mvn clean package命令就会提交到docker私服中  

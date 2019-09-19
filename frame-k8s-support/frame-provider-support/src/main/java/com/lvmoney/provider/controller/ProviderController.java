@@ -14,7 +14,6 @@ import com.lvmoney.provider.service.UserService;
 import com.lvmoney.provider.vo.req.UserReqVo;
 import com.lvmoney.provider.vo.resp.UserRespVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProviderController {
     @Autowired
     UserService userService;
-
     @PostMapping(value = "/data")
     @ReleaseServer(release = true)
     public ResultData<UserRespVo> getUser(UserReqVo userReqVo) {
