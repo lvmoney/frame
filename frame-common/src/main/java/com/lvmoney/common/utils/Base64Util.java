@@ -21,7 +21,7 @@ import java.util.Base64;
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class Base64Util {
-    private static final Logger logger = LoggerFactory.getLogger(Base64Util.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Base64Util.class);
 
     /**
      * @describe: 加密
@@ -80,7 +80,7 @@ public class Base64Util {
         try {
             return b != null ? (new String(b, "UTF-8")) : null;
         } catch (UnsupportedEncodingException e) {
-            logger.error("base解密报错{}", e.getMessage());
+            LOGGER.error("base解密报错{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.BASE64_ENCODING_ERROR);
         }
     }

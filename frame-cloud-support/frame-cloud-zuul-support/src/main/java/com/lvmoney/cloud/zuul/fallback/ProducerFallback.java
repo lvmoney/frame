@@ -25,7 +25,7 @@ import java.io.InputStream;
 
 @Component
 public class ProducerFallback implements FallbackProvider {
-    private static final Logger logger = LoggerFactory.getLogger(ProducerFallback.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProducerFallback.class);
 
     /**
      * @describe: 指定要处理的 service。
@@ -43,7 +43,7 @@ public class ProducerFallback implements FallbackProvider {
     public ClientHttpResponse fallbackResponse(String route, Throwable cause) {
         if (cause != null && cause.getCause() != null) {
             String reason = cause.getCause().getMessage();
-            logger.info("Excption {}", reason);
+            LOGGER.info("Excption {}", reason);
         }
         return fallbackResponse();
     }

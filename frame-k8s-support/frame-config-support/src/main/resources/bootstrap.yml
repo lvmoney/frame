@@ -7,13 +7,13 @@ spring:
         git:
           uri: http://10.20.128.234/lvmoney/istioconfig.git
           username: lvmoney
-          password: XXXXX
+          password: XXXXXX
           search-paths: /**
   rabbitmq:
-    host: 10.20.128.168
+    host: localhost
     port: 5672
-    username: admin
-    password: admin123
+    username: guest
+    password: guest
 management:
   endpoints:
     web:

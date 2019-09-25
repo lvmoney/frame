@@ -23,7 +23,7 @@ import java.util.Objects;
  * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public abstract class AbstractCanalClient {
-    private static final Logger logger = LoggerFactory.getLogger(AbstractCanalClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCanalClient.class);
     /**
      * 运行状态,可见
      */

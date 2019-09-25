@@ -27,7 +27,6 @@ public class ObjectSerializerUtil {
                 return ois.readObject();
             } catch (Exception e) {
                 LOGGER.info("[异常信息] {}", e.getMessage());
-                e.printStackTrace();
             }
             return null;
         } else {
@@ -52,7 +51,7 @@ public class ObjectSerializerUtil {
                 oos.close();
                 return bos.toByteArray();
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error("序列化对象报错:{}", e.getMessage());
             }
             return null;
         } else {

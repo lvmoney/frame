@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Service
 public class Gateway2RedisServiceImpl implements Gateway2RedisService {
-    private static final Logger logger = LoggerFactory.getLogger(Gateway2RedisServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Gateway2RedisServiceImpl.class);
 
     @Autowired
     BaseRedisService baseRedisService;
@@ -43,7 +43,7 @@ public class Gateway2RedisServiceImpl implements Gateway2RedisService {
                     });
             return result;
         } catch (Exception e) {
-            logger.error("从redis中获得路由信息报错:{}", e.getMessage());
+            LOGGER.error("从redis中获得路由信息报错:{}", e.getMessage());
             return null;
         }
     }
@@ -71,7 +71,7 @@ public class Gateway2RedisServiceImpl implements Gateway2RedisService {
             });
             return result;
         } catch (Exception e) {
-            logger.error("从redis中获得路由信息报错:{}", e.getMessage());
+            LOGGER.error("从redis中获得路由信息报错:{}", e.getMessage());
             return null;
         }
     }

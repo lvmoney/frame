@@ -34,11 +34,11 @@ public class ProviderListener implements ProducerListener {
     String expire;
     @Autowired
     KafkaRedisService kafkaRedisService;
-    private static final Logger logger = LoggerFactory.getLogger(ProviderListener.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProviderListener.class);
 
     @Override
     public void onSuccess(ProducerRecord producerRecord, RecordMetadata recordMetadata) {
-        logger.debug("发送数据到kafka队列成功:{}", JsonUtil.t2JsonString(producerRecord));
+        LOGGER.debug("发送数据到kafka队列成功:{}", JsonUtil.t2JsonString(producerRecord));
     }
 
     @Override

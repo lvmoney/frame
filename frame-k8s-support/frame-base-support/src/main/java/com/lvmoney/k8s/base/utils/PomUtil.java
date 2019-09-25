@@ -12,6 +12,8 @@ import com.lvmoney.k8s.base.vo.DockerInfo;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileReader;
@@ -25,6 +27,8 @@ import static com.lvmoney.common.constant.CommonConstant.FILE_SEPARATOR;
  * @version:v1.0 2019/9/19 13:53
  */
 public class PomUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PomUtil.class);
+
     /**
      * 对应pom中的dockerRegistryIp
      */
@@ -61,9 +65,9 @@ public class PomUtil {
             dockerInfo.setDockerImageName(projectArtifactId + ":" + projectVersion);
             dockerInfo.setDockerImageTag(dockerRegistryIp + ":" + dockerTagPort + FILE_SEPARATOR + namespace + FILE_SEPARATOR + projectArtifactId + ":" + projectVersion);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("获得docker配置信息报错:{}", e.getMessage());
         } catch (XmlPullParserException e) {
-            e.printStackTrace();
+            LOGGER.error("获得docker配置信息报错:{}", e.getMessage());
         }
         return dockerInfo;
     }

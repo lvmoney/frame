@@ -14,6 +14,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.quartz.QuartzJobBean;
 
 
 /**
@@ -22,9 +23,9 @@ import org.slf4j.LoggerFactory;
  * @version:v1.0 2019年1月3日 下午3:07:09
  */
 @SuppressWarnings("ALL")
-public abstract class AbstractJob implements Job {
+public abstract class AbstractJob extends QuartzJobBean {
 
-    private static final Logger logger = LoggerFactory.getLogger(AbstractJob.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractJob.class);
 
     /**
      * 定时任务执行
@@ -39,15 +40,6 @@ public abstract class AbstractJob implements Job {
 
     protected String cronExpression;
 
-    @Override
-    public void execute(JobExecutionContext context) {
-        try {
-            executeInternal(context);
-        } catch (Exception e) {
-            logger.error("定时任务开始执行报错: {}", e.getMessage());
-            throw new BusinessException(CommonException.Proxy.QUARTZ_JOB_EXE_ERROR);
-        }
-    }
 
     public String getCronExpression() {
         return cronExpression;

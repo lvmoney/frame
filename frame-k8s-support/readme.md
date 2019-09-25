@@ -4,17 +4,18 @@
 我需要分页查询用户的的订单和支付（通过用户id把数据串联起来），那么这一部分查询需要单独搞一个聚合服务，专门来处理这种
 跨服务的查询，不要在某个服务或者在业务系统来调不同的业务来组装  
 4、不能环形依赖  
-5、![输入图片说明](https://images.gitee.com/uploads/images/2019/0918/182417_ea966646_107773.png "粗略架构图.png") 
+5、![输入图片说明](https://images.gitee.com/uploads/images/2019/0924/153227_13c5af67_107773.png "粗略架构图.png")
 
 所有服务访问和调用入口在gateway，gateway做了很多处理，减少服务直接的访问   
 服务打包成docker镜像上传到私服，k8s构造svc的时候去统一的私服拉取镜像  
 需要访问服务的时候需要从k8s的master节点进入，以www.服务名.com的方式，也就是配置/etc/hosts：www.服务名.com对应masterip  
 所有的配置通过config服务拉取，消息总线去同步  
 服务间调用通过feign来完成  
-服务日志统一通过logback收集，放到db中，方便查看  
+服务日志统一通过logback收集，放到db（elk）中，方便查看  
 文件存储用mongo的gridfs实现  
 mysql的读写分离，分布式事务  
 分布式锁用redisson完成  
+当然如果涉及到大数据，那么spark，hadoop，flume，hbase按需加入到各个服务中，这是后话了
 等等
 
 

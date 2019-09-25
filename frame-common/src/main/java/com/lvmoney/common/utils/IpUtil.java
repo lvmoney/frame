@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  * @version:v1.0 2019/8/20 9:01
  */
 public class IpUtil {
-    private static final Logger logger = LoggerFactory.getLogger(IpUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IpUtil.class);
 
     private static final int IP_LENGTH_MAX = 15;
 
@@ -73,7 +73,7 @@ public class IpUtil {
             String localip = ia.getHostAddress();
             return localip;
         } catch (Exception e) {
-            logger.error("获取本机ip地址报错:{}", e.getMessage());
+            LOGGER.error("获取本机ip地址报错:{}", e.getMessage());
             return CommonConstant.LOCALHOST_IP;
         }
     }

@@ -49,7 +49,7 @@ import java.util.Date;
 @Aspect
 @Component
 public class LogAspect {
-    private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogAspect.class);
 
     @Autowired
     private LogService logService;
@@ -136,7 +136,7 @@ public class LogAspect {
             } catch (Exception e) {
                 //1、正常情况下，本系统间调用应该通过token，或者username来记录请求人信息
                 //2、当三方系统调用平台时可能不会加token或者username，为了不抛错，所以要给它默认值
-//                logger.error("获取用户信息请求参数{}报错:{}", username, e.getMessage());
+//                LOGGER.error("获取用户信息请求参数{}报错:{}", username, e.getMessage());
 //                throw new BusinessException(CommonException.Proxy.USERNMAE_IS_REQUIRED);
                 name = "NotLogged";
             }

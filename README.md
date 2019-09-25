@@ -61,7 +61,7 @@ mybatisplus
 
 #### 个人推荐
 
-推荐使用istio去解决问题，详情可以查看frame-k8s-support来实现
+ :point_right:  **_推荐使用istio去解决问题，详情可以查看frame-k8s-support来实现_**  :point_left: 
 
 
 #### 参与贡献

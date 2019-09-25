@@ -26,7 +26,7 @@ import com.lvmoney.router.config.RouterServiceConfig;
 @Component
 public class ApiServiceRegistryProcessor implements BeanPostProcessor, ApplicationContextAware {
 
-    private static final Logger logger = LoggerFactory.getLogger(ApiServiceRegistryProcessor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApiServiceRegistryProcessor.class);
 
     private ApplicationContext applicationContext = null;
 
@@ -50,8 +50,8 @@ public class ApiServiceRegistryProcessor implements BeanPostProcessor, Applicati
             RouterServiceConfig serviceConfig = new RouterServiceConfig(clazz, bean, serviceAnnotation.path(),
                     applicationContext, beanName);
 
-            if (logger.isDebugEnabled()) {
-                logger.info("regist routerService {}", clazz.getName());
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.info("regist routerService {}", clazz.getName());
             }
             serviceHolder.put(serviceConfig);
             Method[] methods = clazz.getMethods();
@@ -64,7 +64,7 @@ public class ApiServiceRegistryProcessor implements BeanPostProcessor, Applicati
                     Class<?>[] parameterTypes = method.getParameterTypes();
                     int parameterCount = parameterTypes == null ? 0 : parameterTypes.length;
                     if (parameterCount > 1) {
-                        logger.error("method {}#{} parameter count is {} ignore it!!!", serviceConfig.getClazz().getName(),
+                        LOGGER.error("method {}#{} parameter count is {} ignore it!!!", serviceConfig.getClazz().getName(),
                                 method.getName(), parameterCount);
                     } else {
                         Class<?> parameterType = null;
@@ -74,8 +74,8 @@ public class ApiServiceRegistryProcessor implements BeanPostProcessor, Applicati
                         RouterMethodConfig methodConfig = new RouterMethodConfig(method, methodAnnotation.name(), parameterType);
                         serviceConfig.addMethod(methodConfig);
 
-                        if (logger.isDebugEnabled()) {
-                            logger.info("method {}#{} mapping {}.{} ", serviceConfig.getClazz().getName(),
+                        if (LOGGER.isDebugEnabled()) {
+                            LOGGER.info("method {}#{} mapping {}.{} ", serviceConfig.getClazz().getName(),
                                     method.getName(), serviceConfig.getPath(), methodConfig.getName());
                         }
                     }

@@ -137,6 +137,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-jetty</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.hibernate.javax.persistence/hibernate-jpa-2.1-api -->
             <dependency>
                 <groupId>org.hibernate.javax.persistence</groupId>

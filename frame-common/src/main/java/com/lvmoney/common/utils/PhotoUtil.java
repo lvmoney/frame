@@ -20,6 +20,8 @@ import javax.swing.ImageIcon;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGEncodeParam;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -28,6 +30,7 @@ import com.sun.image.codec.jpeg.JPEGImageEncoder;
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class PhotoUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PhotoUtil.class);
     public static final int COLOR_WHITE = 0;
     public static final int COLOR_BLACK = 1;
 
@@ -84,7 +87,7 @@ public class PhotoUtil {
             //返回处理后图像的byte[]
             //ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("图片处理报错:{}", e.getMessage());
         }
 
         return byteArrayOutputStream.toByteArray();
@@ -155,8 +158,7 @@ public class PhotoUtil {
 
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error("图片处理报错:{}", e.getMessage());
         }
 
     }

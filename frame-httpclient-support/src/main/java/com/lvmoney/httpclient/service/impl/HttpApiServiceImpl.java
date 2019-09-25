@@ -54,7 +54,7 @@ import java.util.Map;
 
 @Service("frameHttpAPIService")
 public class HttpApiServiceImpl implements HttpApiService {
-    private static final Logger logger = LoggerFactory.getLogger(HttpApiServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HttpApiServiceImpl.class);
     @Autowired
     private CloseableHttpClient httpClient;
 
@@ -90,7 +90,7 @@ public class HttpApiServiceImpl implements HttpApiService {
             }
         } catch (IOException e) {
             httpGet.abort();
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return null;
     }
@@ -179,7 +179,7 @@ public class HttpApiServiceImpl implements HttpApiService {
                     EntityUtils.toString(response.getEntity(), "UTF-8"));
 
         } catch (Exception e) {
-            logger.error("通过httpclient 发送json请求数据报错:{}", e.getMessage());
+            LOGGER.error("通过httpclient 发送json请求数据报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.HTTPCLIENT_JSON_ERROR);
         }
     }
@@ -208,7 +208,7 @@ public class HttpApiServiceImpl implements HttpApiService {
             return new HttpResult(response.getStatusLine().getStatusCode(),
                     EntityUtils.toString(response.getEntity(), "UTF-8"));
         } catch (Exception e) {
-            logger.error("通过httpclient 发送file请求数据报错:{}", e.getMessage());
+            LOGGER.error("通过httpclient 发送file请求数据报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.HTTPCLIENT_FILE_ERROR);
         }
     }
@@ -228,7 +228,7 @@ public class HttpApiServiceImpl implements HttpApiService {
                     response.getEntity().getContent());
 
         } catch (Exception e) {
-            logger.error("通过httpclient 发送file请求数据返回文件流报错:{}", e.getMessage());
+            LOGGER.error("通过httpclient 发送file请求数据返回文件流报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.HTTPCLIENT_FILE2_ERROR);
         }
     }
@@ -252,7 +252,7 @@ public class HttpApiServiceImpl implements HttpApiService {
             // 获取所有响应头字段
             Map<String, List<String>> map = connection.getHeaderFields();
         } catch (Exception e) {
-            logger.error("获得hpptclient请求链接信息报错:{}", e.getMessage());
+            LOGGER.error("获得hpptclient请求链接信息报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.HTTPCLIENT_CONNECTION_ERROR);
         }
         // 使用finally块来关闭输入流
@@ -262,7 +262,7 @@ public class HttpApiServiceImpl implements HttpApiService {
                     in.close();
                 }
             } catch (Exception e2) {
-                logger.error("获得hpptclient请求链接信息报错:{}", e2.getMessage());
+                LOGGER.error("获得hpptclient请求链接信息报错:{}", e2.getMessage());
                 throw new BusinessException(CommonException.Proxy.HTTPCLIENT_CONNECTION_ERROR);
             }
         }

@@ -22,9 +22,10 @@ import java.util.List;
  */
 
 public class ListUtil {
-    private static final Logger logger = LoggerFactory.getLogger(ListUtil.class);
 
     /**
+     * 获得两个list取交集
+     *
      * @param res
      * @param compare
      * @return 2018年11月16日下午3:08:54

@@ -64,7 +64,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("route")
 public class ApiRouterController {
-    private static final Logger logger = LoggerFactory.getLogger(ApiRouterController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApiRouterController.class);
     private static final int METHOD_RESULT_LENGTH_2 = 2;
     @Autowired
     JwtTokenHandler jwtTokenHandler;
@@ -95,7 +95,7 @@ public class ApiRouterController {
         response.setHeader("Access-Control-Allow-Origin", "*");
         String data = request.getParameter("data");
         String uri = request.getParameter("uri");
-        logger.debug("uri:{},data:{}", uri, data);
+        LOGGER.debug("uri:{},data:{}", uri, data);
         return execMethod(request, uri, data);
     }
 
@@ -191,7 +191,7 @@ public class ApiRouterController {
      */
     @ExceptionHandler(Throwable.class)
     protected ResultData exceptionHandler(Exception ex, HttpServletRequest request) {
-        logger.error("", ex);
+        LOGGER.error("", ex);
         if (ex instanceof BusinessException) {
             BusinessException be = (BusinessException) ex;
             return new ResultData(be.getCode(), be.getDescription());
@@ -237,7 +237,7 @@ public class ApiRouterController {
                 dataVo = JSON.parseObject(data, DataVo.class);
             }
         } catch (Exception e) {
-            logger.error("解析接口业务参数出错{}", e.getMessage());
+            LOGGER.error("解析接口业务参数出错{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.JSON_ERROR, e.getCause().getMessage());
         }
         if (dataVo != null) {
@@ -267,7 +267,7 @@ public class ApiRouterController {
                 throw ex;
             }
         } catch (Throwable t) {
-            logger.error("动态调用方法报错:{}", t.getMessage());
+            LOGGER.error("动态调用方法报错:{}", t.getMessage());
             throw new BusinessException(CommonException.Proxy.METHOD_INVOKE_ERROR);
         }
         // 判断返回值

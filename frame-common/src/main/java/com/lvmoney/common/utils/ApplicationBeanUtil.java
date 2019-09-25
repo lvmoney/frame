@@ -65,7 +65,7 @@ public class ApplicationBeanUtil implements ApplicationContextAware {
      * @param clazz
      * @return
      */
-    public static <T> List<T> getBeansOfType(Class<T> clazz) {
+    public static <T> List<T> getListBeansOfType(Class<T> clazz) {
         //声明一个结果
         Map<String, T> map;
         try {
@@ -76,6 +76,26 @@ public class ApplicationBeanUtil implements ApplicationContextAware {
         }
         //返回 bean 的类型
         return map == null ? null : new ArrayList<>(map.values());
+    }
+
+
+    /**
+     * 获取 bean 的类型
+     *
+     * @param clazz
+     * @return
+     */
+    public static <T> Map<String, T> getMapBeansOfType(Class<T> clazz) {
+        //声明一个结果
+        Map<String, T> map;
+        try {
+            //获取类型
+            map = applicationContext.getBeansOfType(clazz);
+        } catch (Exception e) {
+            map = null;
+        }
+        //返回 bean 的类型
+        return map;
     }
 
 

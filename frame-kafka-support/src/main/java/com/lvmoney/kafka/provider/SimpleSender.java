@@ -8,9 +8,12 @@ package com.lvmoney.kafka.provider;/**
 
 
 import com.lvmoney.common.utils.JsonUtil;
+import com.lvmoney.common.utils.ReflectUtil;
 import com.lvmoney.kafka.constant.KafkaConstant;
 import com.lvmoney.kafka.listener.ProviderListener;
 import com.lvmoney.kafka.vo.MessageVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -23,6 +26,8 @@ import org.springframework.util.concurrent.ListenableFuture;
  */
 @Component
 public class SimpleSender {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReflectUtil.class);
+
     @Autowired
     KafkaTemplate kafkaTemplate;
 
@@ -36,7 +41,7 @@ public class SimpleSender {
             //发送消息的时候需要休眠一下，否则发送时间较长的时候会导致进程提前关闭导致无法调用回调时间。主要是因为KafkaTemplate发送消息是采取异步方式发送的
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error("kafka发送消息报错:{}", e.getMessage());
         }
     }
 

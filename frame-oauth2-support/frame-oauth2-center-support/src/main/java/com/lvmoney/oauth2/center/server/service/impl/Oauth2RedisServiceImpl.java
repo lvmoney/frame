@@ -32,7 +32,7 @@ import java.util.Collection;
  */
 @Service
 public class Oauth2RedisServiceImpl implements Oauth2RedisService {
-    private static final Logger logger = LoggerFactory.getLogger(Oauth2RedisServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Oauth2RedisServiceImpl.class);
 
     @Autowired
     BaseRedisService baseRedisService;
@@ -50,7 +50,7 @@ public class Oauth2RedisServiceImpl implements Oauth2RedisService {
             });
             return userInfo;
         } catch (Exception e) {
-            logger.error("通过用户名获得oauth2用户信息报错:{}", e.getMessage());
+            LOGGER.error("通过用户名获得oauth2用户信息报错:{}", e.getMessage());
             return null;
         }
     }
@@ -63,7 +63,7 @@ public class Oauth2RedisServiceImpl implements Oauth2RedisService {
             });
             return baseClientDetails;
         } catch (Exception e) {
-            logger.error("通过clientId获得oauth2客户端详情信息报错:{}", e.getMessage());
+            LOGGER.error("通过clientId获得oauth2客户端详情信息报错:{}", e.getMessage());
             return null;
         }
     }

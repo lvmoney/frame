@@ -42,7 +42,7 @@ import java.util.Map;
  */
 @Service
 public class WordServiceImpl implements WordService {
-    private static final Logger logger = LoggerFactory.getLogger(WordServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WordServiceImpl.class);
 
     @Autowired
     private DocumentConverter documentConverter;
@@ -56,7 +56,7 @@ public class WordServiceImpl implements WordService {
                 documentConverter.convert(sourceFile).to(targetFile).execute();
                 return true;
             } catch (OfficeException e) {
-                logger.error("office文件转换报错:{}", e.getMessage());
+                LOGGER.error("office文件转换报错:{}", e.getMessage());
                 throw new BusinessException(CommonException.Proxy.WORD_2_OFFICE_ERROR);
             }
         }
@@ -82,7 +82,7 @@ public class WordServiceImpl implements WordService {
             result.setTarget(IOUtils.toByteArray(input));
             result.setFileName(fileName);
         } catch (FileNotFoundException e) {
-            logger.error("office文件转换报错:{}", e.getMessage());
+            LOGGER.error("office文件转换报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.WORD_2_OFFICE_ERROR);
         } catch (IOException e) {
             throw new BusinessException(CommonException.Proxy.WORD_2_OFFICE_ERROR);
@@ -90,7 +90,7 @@ public class WordServiceImpl implements WordService {
             try {
                 input.close();
             } catch (IOException e) {
-                logger.error("office文件转换报错:{}", e.getMessage());
+                LOGGER.error("office文件转换报错:{}", e.getMessage());
             }
             File resFile = new File(sourceFile);
             File tarFile = new File(targetFile);
@@ -144,10 +144,10 @@ public class WordServiceImpl implements WordService {
             template.close();
             return true;
         } catch (FileNotFoundException e) {
-            logger.error("word模板文件不存在:{}", e.getMessage());
+            LOGGER.error("word模板文件不存在:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.TEMPLATE_NOT_EXSIT);
         } catch (IOException e) {
-            logger.error("word模板文件转换成word文件失败:{}", e.getMessage());
+            LOGGER.error("word模板文件转换成word文件失败:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.TEMPLATE_2_WORD_ERROR);
         }
     }
@@ -198,10 +198,10 @@ public class WordServiceImpl implements WordService {
             out.close();
             template.close();
         } catch (FileNotFoundException e) {
-            logger.error("word模板文件不存在:{}", e.getMessage());
+            LOGGER.error("word模板文件不存在:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.TEMPLATE_NOT_EXSIT);
         } catch (IOException e) {
-            logger.error("word模板文件转换成word文件失败:{}", e.getMessage());
+            LOGGER.error("word模板文件转换成word文件失败:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.TEMPLATE_2_WORD_ERROR);
         } finally {
             File file = new File(temp);
@@ -211,13 +211,13 @@ public class WordServiceImpl implements WordService {
                 result.setFile(IOUtils.toByteArray(input));
                 result.setFileName(file.getName());
             } catch (IOException e) {
-                logger.error("模板文件从零时目录中操作报错{}", e.getMessage());
+                LOGGER.error("模板文件从零时目录中操作报错{}", e.getMessage());
                 throw new BusinessException(CommonException.Proxy.TEMPLATE_2_WORD_ERROR);
             } finally {
                 try {
                     input.close();
                 } catch (IOException e) {
-                    logger.error("模板文件从零时目录中操作报错{}", e.getMessage());
+                    LOGGER.error("模板文件从零时目录中操作报错{}", e.getMessage());
                 }
 
             }

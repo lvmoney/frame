@@ -29,7 +29,7 @@ import java.util.*;
  */
 @Service
 public class RedisClientDetailsServiceImpl implements ClientDetailsService {
-    private static final Logger logger = LoggerFactory.getLogger(RedisClientDetailsServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RedisClientDetailsServiceImpl.class);
 
     @Autowired
     Oauth2RedisService oauth2RedisService;
@@ -71,6 +71,7 @@ public class RedisClientDetailsServiceImpl implements ClientDetailsService {
             db2RedisService.loadClientDetailsByClientId(clientId);
             baseClientDetails = oauth2RedisService.getClientDetailsByClientId(clientId);
             if (baseClientDetails == null) {
+                LOGGER.error("客户端clientid:{}详细信息未找到", clientId);
                 throw new CustomOauthException(Oauth2Exception.Proxy.OAUTH2_CLIENT_DETAIL_NO_EXIST.getDescription());
             }
             return baseClientDetails;

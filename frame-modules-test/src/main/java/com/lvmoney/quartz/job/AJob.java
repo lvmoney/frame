@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 @Component("aJob")
 public class AJob extends AbstractJob {
 
-    private static final Logger logger = LoggerFactory.getLogger(AJob.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AJob.class);
 
     @PostConstruct
     public void init() {
@@ -39,7 +39,7 @@ public class AJob extends AbstractJob {
             TimeUnit.SECONDS.sleep(3);
             System.out.println("this is A task");
         } catch (InterruptedException e) {
-            logger.info("test task execute interrupted.");
+            LOGGER.info("test task execute interrupted.");
         }
     }
 }

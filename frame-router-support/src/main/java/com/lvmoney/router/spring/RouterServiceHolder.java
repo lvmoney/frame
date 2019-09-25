@@ -22,7 +22,7 @@ import com.lvmoney.router.config.ParamValidatedConfig;
  * @version:v1.0 2018年12月29日 上午11:32:20
  */
 public class RouterServiceHolder {
-    private static final Logger logger = LoggerFactory.getLogger(RouterServiceHolder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RouterServiceHolder.class);
 
     public Map<String, RouterServiceConfig> serviceMap = new java.util.concurrent.ConcurrentHashMap<>();
 
@@ -42,8 +42,8 @@ public class RouterServiceHolder {
     public void put(RouterServiceConfig service) {
         serviceMap.put(service.getPath(), service);
 
-        if (logger.isDebugEnabled()) {
-            logger.info("service {} mapping {} ", service.getClazz().getName(), service.getPath());
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.info("service {} mapping {} ", service.getClazz().getName(), service.getPath());
         }
     }
 

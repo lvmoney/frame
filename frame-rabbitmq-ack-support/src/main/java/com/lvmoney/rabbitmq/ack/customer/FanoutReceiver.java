@@ -33,7 +33,7 @@ import java.io.IOException;
 @Component
 @RabbitListener(queues = RabbitmqConstant.MESSAGE_FANOUT)
 public class FanoutReceiver {
-    private static final Logger logger = LoggerFactory.getLogger(FanoutReceiver.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FanoutReceiver.class);
     @Autowired
     HandMqServiceContext handMqServiceContext;
 
@@ -50,7 +50,7 @@ public class FanoutReceiver {
             //告诉服务器收到这条消息 已经被我消费了 可以在队列删掉 这样以后就不会再发了 否则消息服务器以为这条消息没处理掉 后续还会在发
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         } catch (IOException e) {
-            logger.error("消费消息失败:{}", e.getMessage());
+            LOGGER.error("消费消息失败:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.RABBIT_MESSAGE_RECEIVER_FANOUT_ERROR);
             //丢弃这条消息
             //channel.basicNack(message.getMessageProperties().getDeliveryTag(), false,false);

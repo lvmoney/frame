@@ -24,7 +24,7 @@ import java.io.*;
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class FileUtil {
-    private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUtil.class);
     private static final int FILE_BYRE_LENGTH = 8 * 1024;
 
     /**
@@ -82,7 +82,7 @@ public class FileUtil {
             os.close();
             ins.close();
         } catch (Exception e) {
-            logger.error("inputstream 转 file报错:{}", e.getMessage());
+            LOGGER.error("inputstream 转 file报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.FILE_INPUTSTREAM2FILE_ERROR);
         }
     }
@@ -134,20 +134,20 @@ public class FileUtil {
             bos = new BufferedOutputStream(fos);
             bos.write(buf);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("流转换成文件报错:{}", e.getMessage());
         } finally {
             if (bos != null) {
                 try {
                     bos.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error("流转换成文件报错:{}", e.getMessage());
                 }
             }
             if (fos != null) {
                 try {
                     fos.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error("流转换成文件报错:{}", e.getMessage());
                 }
             }
         }
@@ -169,9 +169,9 @@ public class FileUtil {
             bos.close();
             buffer = bos.toByteArray();
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.error("文件转成成流报错:{}", e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("文件转成成流报错:{}", e.getMessage());
         }
         return buffer;
     }
@@ -190,20 +190,20 @@ public class FileUtil {
             bos = new BufferedOutputStream(fos);
             bos.write(buf);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("流转换成文件报错:{}", e.getMessage());
         } finally {
             if (bos != null) {
                 try {
                     bos.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error("流转换成文件报错:{}", e.getMessage());
                 }
             }
             if (fos != null) {
                 try {
                     fos.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error("流转换成文件报错:{}", e.getMessage());
                 }
             }
         }

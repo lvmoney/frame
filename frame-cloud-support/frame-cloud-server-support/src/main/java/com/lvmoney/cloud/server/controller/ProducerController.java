@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 public class ProducerController {
-    private static final Logger logger = LoggerFactory.getLogger(ProducerController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ProducerController.class);
 
     @GetMapping("/producer")
     public String producer() {
@@ -53,11 +53,11 @@ public class ProducerController {
      */
     @GetMapping("/hello")
     public String index(@RequestParam String name) {
-        logger.info("request two name is "+name);
+        LOGGER.info("request two name is " + name);
         try{
             Thread.sleep(1000000);
         }catch ( Exception e){
-            logger.error(" hello two error",e);
+            LOGGER.error(" hello two error", e);
         }
         return "hello "+name+"，this is two messge";
     }

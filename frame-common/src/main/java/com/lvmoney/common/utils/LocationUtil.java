@@ -33,7 +33,7 @@ import com.lvmoney.common.utils.vo.LocationVo;
  */
 
 public class LocationUtil {
-    private static final Logger logger = LoggerFactory.getLogger(LocationUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LocationUtil.class);
 
     /**
      * @param addr
@@ -64,7 +64,7 @@ public class LocationUtil {
             }
             in.close();
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error("同步阿里巴巴获得经纬度报错:{}", e.getMessage());
         }
         locationVo = JSONObject.parseObject(res, LocationVo.class);
         return locationVo;
@@ -119,7 +119,7 @@ public class LocationUtil {
         try {
             address = java.net.URLEncoder.encode(addr, "UTF-8");
         } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
+            LOGGER.error("通过百度地图获得经纬度报错:{}", e1.getMessage());
         }
         String url = String.format(CommonConstant.MAP_BAIDU_URL, address, CommonConstant.MAP_BAIDU_KEY);
         URL myUrl = null;
@@ -127,7 +127,7 @@ public class LocationUtil {
         try {
             myUrl = new URL(url);
         } catch (MalformedURLException e) {
-            logger.error(e.getMessage());
+            LOGGER.error("通过百度地图获得经纬度报错:{}", e.getMessage());
         }
         InputStreamReader insr = null;
         BufferedReader br = null;
@@ -154,20 +154,20 @@ public class LocationUtil {
                 }
             }
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            LOGGER.error("通过百度地图获得经纬度报错:{}", e.getMessage());
         } finally {
             if (insr != null) {
                 try {
                     insr.close();
                 } catch (IOException e) {
-                    logger.error(e.getMessage());
+                    LOGGER.error("通过百度地图获得经纬度报错:{}", e.getMessage());
                 }
             }
             if (br != null) {
                 try {
                     br.close();
                 } catch (IOException e) {
-                    logger.error(e.getMessage());
+                    LOGGER.error("通过百度地图获得经纬度报错:{}", e.getMessage());
                 }
             }
         }
@@ -193,7 +193,7 @@ public class LocationUtil {
             }
             in.close();
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error("通过高德地图获得经纬度报错:{}", e.getMessage());
         }
         JSONObject jsonObject = JSONObject.parseObject(res);
         // 获取到key为shoppingCartItemList的值

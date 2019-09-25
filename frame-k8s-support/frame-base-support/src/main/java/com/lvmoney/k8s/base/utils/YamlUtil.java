@@ -10,6 +10,8 @@ package com.lvmoney.k8s.base.utils;/**
 import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.common.utils.JsonUtil;
 import com.lvmoney.k8s.base.vo.jyaml.YamlBuild;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
@@ -27,6 +29,8 @@ import java.util.Map;
  * @version:v1.0 2019/8/18 18:53
  */
 public class YamlUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(YamlUtil.class);
+
     /**
      * @describe: 根据传入实体构造不同yaml
      * @param: [yamlBuild]
@@ -55,7 +59,7 @@ public class YamlUtil {
         try {
             fw = new FileWriter(fileName);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("构造yaml报错:{}", e.getMessage());
         }
         List<Object> yamlData = new ArrayList();
         yamlBuild.getData().stream().forEach(e -> {

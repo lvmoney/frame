@@ -28,7 +28,7 @@ import java.util.function.Predicate;
  * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class DefaultMessageTransponder extends AbstractMessageTransponder {
-    private static final Logger logger = LoggerFactory.getLogger(DefaultMessageTransponder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultMessageTransponder.class);
 
     public DefaultMessageTransponder(CanalConnector connector, Map.Entry<String, CanalProp.Instance> config,
                                      List<CanalEventListener> listeners, List<ListenerPointVo> annoListeners) {
@@ -160,7 +160,7 @@ public class DefaultMessageTransponder extends AbstractMessageTransponder {
                             Object[] args = getInvokeArgs(method, dbMsgVo, rowChange);
                             method.invoke(point.getTarget(), args);
                         } catch (Exception e) {
-                            logger.error("{}: 委托 canal 监听器发生错误! 错误类:{}, 方法名:{}",
+                            LOGGER.error("{}: 委托 canal 监听器发生错误! 错误类:{}, 方法名:{}",
                                     Thread.currentThread().getName(),
                                     point.getTarget().getClass().getName(), method.getName());
                             throw new BusinessException(CommonException.Proxy.CANAL_LISTENER_METHOD_INVOKE_ERROR);

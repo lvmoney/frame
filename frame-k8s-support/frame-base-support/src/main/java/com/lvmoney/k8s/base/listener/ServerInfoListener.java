@@ -13,6 +13,9 @@ import com.lvmoney.k8s.base.annotations.ReleaseServer;
 import com.lvmoney.k8s.base.constant.BaseConstant;
 import com.lvmoney.k8s.base.enums.OperatingEnvironmentType;
 import com.lvmoney.k8s.base.service.BaseService;
+import com.lvmoney.k8s.base.service.impl.K8sServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
@@ -38,7 +41,7 @@ import java.util.Set;
  */
 @Component
 public class ServerInfoListener implements ApplicationListener<WebServerInitializedEvent> {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(K8sServiceImpl.class);
     private int serverPort;
     @Value("${spring.application.name}")
     private String serverName;
@@ -67,7 +70,7 @@ public class ServerInfoListener implements ApplicationListener<WebServerInitiali
         try {
             address = InetAddress.getLocalHost();
         } catch (UnknownHostException e) {
-            e.printStackTrace();
+            LOGGER.error("获得访问address报错:{}", e.getMessage());
         }
         ServerInfo serverInfo = new ServerInfo();
         serverInfo.setIp(address.getHostAddress());

@@ -21,7 +21,7 @@ import com.lvmoney.rabbitmq.config.DynamicServiceConfig;
 @Component
 public class DynamicServiceRegistryProcessor implements BeanPostProcessor, ApplicationContextAware {
 
-    private static final Logger logger = LoggerFactory.getLogger(DynamicServiceRegistryProcessor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicServiceRegistryProcessor.class);
 
     private ApplicationContext applicationContext = null;
 
@@ -45,8 +45,8 @@ public class DynamicServiceRegistryProcessor implements BeanPostProcessor, Appli
             DynamicServiceConfig serviceConfig = new DynamicServiceConfig(clazz, bean,
                     applicationContext, beanName);
 
-            if (logger.isDebugEnabled()) {
-                logger.info("regist routerService {}", clazz.getName());
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.info("regist routerService {}", clazz.getName());
             }
             serviceHolder.put(serviceConfig);
         }

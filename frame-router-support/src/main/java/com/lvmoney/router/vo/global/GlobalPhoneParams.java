@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GlobalPhoneParams implements Serializable {
 
-    private static final Logger logger = LoggerFactory.getLogger(GlobalPhoneParams.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalPhoneParams.class);
 
     private static final Map<String, Field> GLOBAL_FIELDS = new HashMap<>();
 
@@ -304,8 +304,7 @@ public class GlobalPhoneParams implements Serializable {
 
             params = p;
         } catch (Exception e) {
-            // logger.error("解析全局参数出错", e);
-            e.printStackTrace();
+            LOGGER.error("解析全局参数出错", e);
         }
         return params;
     }
@@ -345,7 +344,7 @@ public class GlobalPhoneParams implements Serializable {
                                     declaredField.set(globalPhoneParams, value);
                                 }
                             } catch (IllegalAccessException e) {
-                                logger.info("Can not set {} to {}.{}", value, GlobalPhoneParams.class.getClass().getName(), declaredField.getName(), e);
+                                LOGGER.info("Can not set {} to {}.{}", value, GlobalPhoneParams.class.getClass().getName(), declaredField.getName(), e);
                             }
                         }
                     }

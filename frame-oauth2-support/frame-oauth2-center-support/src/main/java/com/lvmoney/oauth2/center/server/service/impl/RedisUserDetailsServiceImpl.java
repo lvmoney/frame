@@ -30,7 +30,7 @@ import java.util.Map;
  */
 @Service
 public class RedisUserDetailsServiceImpl implements UserDetailsService {
-    private static final Logger logger = LoggerFactory.getLogger(RedisUserDetailsServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RedisUserDetailsServiceImpl.class);
 
     @Autowired
     Oauth2RedisService oauth2RedisService;

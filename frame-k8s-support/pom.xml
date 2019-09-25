@@ -31,6 +31,8 @@
         <module>frame-logback-support</module>
         <module>frame-config-support</module>
         <module>frame-config-client-support</module>
+        <module>frame-admin-support</module>
+        <module>frame-admin-client-support</module>
     </modules>
 
     <dependencyManagement>

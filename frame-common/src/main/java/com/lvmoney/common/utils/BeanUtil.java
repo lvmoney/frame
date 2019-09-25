@@ -32,7 +32,7 @@ import java.util.Map;
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class BeanUtil {
-    private static final Logger logger = LoggerFactory.getLogger(BeanUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BeanUtil.class);
 
     public static <T> List<T> deepCopy(List<T> src) {
         try {
@@ -46,10 +46,10 @@ public class BeanUtil {
             List<T> dest = (List<T>) in.readObject();
             return dest;
         } catch (IOException e) {
-            logger.error("list bean 拷贝io报错:{}", e.getMessage());
+            LOGGER.error("list bean 拷贝io报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.BEAN_LIST_COPY_ERROR);
         } catch (ClassNotFoundException e) {
-            logger.error("list bean 拷贝报错:{}", e.getMessage());
+            LOGGER.error("list bean 拷贝报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.BEAN_LIST_COPY_ERROR);
         }
     }
@@ -96,22 +96,22 @@ public class BeanUtil {
                 }
             }
         } catch (IllegalAccessException e) {
-            logger.error("convertMapToBean 实例化JavaBean失败 Error{}", e);
+            LOGGER.error("convertMapToBean 实例化JavaBean失败 Error{}", e);
             throw new BusinessException(CommonException.Proxy.BEAN_MAP_2_BEAN_ERROR);
         } catch (IntrospectionException e) {
-            logger.error("convertMapToBean 分析类属性失败 Error{}", e);
+            LOGGER.error("convertMapToBean 分析类属性失败 Error{}", e);
             throw new BusinessException(CommonException.Proxy.BEAN_MAP_2_BEAN_ERROR);
         } catch (IllegalArgumentException e) {
-            logger.error("convertMapToBean 映射错误 Error{}", e);
+            LOGGER.error("convertMapToBean 映射错误 Error{}", e);
             throw new BusinessException(CommonException.Proxy.BEAN_MAP_2_BEAN_ERROR);
         } catch (InstantiationException e) {
-            logger.error("convertMapToBean 实例化 JavaBean 失败 Error{}", e);
+            LOGGER.error("convertMapToBean 实例化 JavaBean 失败 Error{}", e);
             throw new BusinessException(CommonException.Proxy.BEAN_MAP_2_BEAN_ERROR);
         } catch (InvocationTargetException e) {
-            logger.error("convertMapToBean字段映射失败 Error{}", e);
+            LOGGER.error("convertMapToBean字段映射失败 Error{}", e);
             throw new BusinessException(CommonException.Proxy.BEAN_MAP_2_BEAN_ERROR);
         } catch (Exception e) {
-            logger.error("convertMapToBean Error{}", e);
+            LOGGER.error("convertMapToBean Error{}", e);
             throw new BusinessException(CommonException.Proxy.BEAN_MAP_2_BEAN_ERROR);
         }
         return (T) obj;

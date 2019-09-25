@@ -20,17 +20,20 @@ import java.security.spec.X509EncodedKeySpec;
  * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class EcdsaUtil {
-    private static final Logger logger = LoggerFactory.getLogger(EcdsaUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EcdsaUtil.class);
     private static final String PROVIDER = "BC";
 
     /**
-     * @param resouce
-     * @param factoryType
-     * @param privateKey
-     * @param signType
-     * @return 2018年10月10日下午1:51:55
-     * @describe:通过密钥加密
-     * @author: lvmoney /xxxx科技有限公司
+     * 通过密钥加密
+     *
+     * @param resouce:
+     * @param factoryType:
+     * @param privateKey:
+     * @param signType:
+     * @throws
+     * @return: java.lang.String
+     * @author: lvmoney /XXXXXX科技有限公司
+     * @date: 2019/9/19 16:03
      */
     public static String getEcdsaSign(String resouce, String factoryType, String privateKey,
                                       String signType) {
@@ -42,7 +45,7 @@ public class EcdsaUtil {
             byte[] result = signature.sign();
             return Hex.encodeHexString(result);
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             return "";
         }
     }
@@ -69,7 +72,7 @@ public class EcdsaUtil {
             boolean bool = signature.verify(result);
             return bool;
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             return false;
         }
     }
@@ -126,7 +129,7 @@ public class EcdsaUtil {
             result.setPublicKey(pubContent);
             result.setPrivateKey(priContent);
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            LOGGER.error("获得公钥密钥报错:{}", e.getMessage());
         }
 
         return result;
@@ -141,26 +144,26 @@ public class EcdsaUtil {
             cipher.init(Cipher.ENCRYPT_MODE, pubKey);
             return Hex.encodeHexString(cipher.doFinal(content));
         } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error("通过公钥加密报错:{}", e.getMessage());
+
         } catch (NoSuchProviderException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error("通过公钥加密报错:{}", e.getMessage());
+
         } catch (NoSuchPaddingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error("通过公钥加密报错:{}", e.getMessage());
+
         } catch (InvalidKeyException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error("通过公钥加密报错:{}", e.getMessage());
+
         } catch (IllegalBlockSizeException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error("通过公钥加密报错:{}", e.getMessage());
+
         } catch (BadPaddingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error("通过公钥加密报错:{}", e.getMessage());
+
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error("通过公钥加密报错:{}", e.getMessage());
+
         }
         return null;
 

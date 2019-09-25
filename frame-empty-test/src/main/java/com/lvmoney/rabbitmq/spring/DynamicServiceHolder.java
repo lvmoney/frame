@@ -12,7 +12,7 @@ import com.lvmoney.rabbitmq.config.DynamicServiceConfig;
  * @version:v1.0 2018年12月29日 上午11:32:20
  */
 public class DynamicServiceHolder {
-    private static final Logger logger = LoggerFactory.getLogger(DynamicServiceHolder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicServiceHolder.class);
     public Map<String, DynamicServiceConfig> serviceMap = new java.util.concurrent.ConcurrentHashMap<>();
 
     private static class InstanceHolder {
@@ -28,8 +28,8 @@ public class DynamicServiceHolder {
 
     public void put(DynamicServiceConfig service) {
         serviceMap.put(service.getBeanName(), service);
-        if (logger.isDebugEnabled()) {
-            logger.info("service {} mapping {} ", service.getClazz().getName(), service.getBeanName());
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.info("service {} mapping {} ", service.getClazz().getName(), service.getBeanName());
         }
     }
 

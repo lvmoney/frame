@@ -50,7 +50,7 @@ import com.lvmoney.elasticsearch.vo.ElasticsearchSaveVo;
  */
 @Service
 public class ElasticsearchServiceImpl implements ElasticsearchService {
-    private static final Logger logger = LoggerFactory.getLogger(ElasticsearchServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ElasticsearchServiceImpl.class);
     @Autowired
     ElasticsearchTemplate elasticsearchTemplate;
 
@@ -207,7 +207,7 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
             elasticsearchTemplate.delete(clazz, id);
             return true;
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             throw new BusinessException(CommonException.Proxy.ES_QUERY_PERCENT_IS_ERROR);
         }
     }
@@ -232,7 +232,7 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
             ;
             return true;
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             return false;
         }
     }

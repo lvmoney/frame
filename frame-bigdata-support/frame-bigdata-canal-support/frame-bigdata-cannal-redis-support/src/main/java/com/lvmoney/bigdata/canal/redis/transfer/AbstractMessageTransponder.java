@@ -57,7 +57,7 @@ public abstract class AbstractMessageTransponder implements MessageTransponder {
     /**
      * 日志记录
      */
-    private static final Logger logger = LoggerFactory.getLogger(AbstractMessageTransponder.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractMessageTransponder.class);
 
     /**
      * 构造方法，初始化参数
@@ -113,13 +113,13 @@ public abstract class AbstractMessageTransponder implements MessageTransponder {
                 //消息数
                 int size = message.getEntries().size();
                 //debug 模式打印消息数
-                if (logger.isDebugEnabled()) {
-                    logger.debug("{}: 从 canal 服务器获取消息： >>>>> 数:{}", threadName, size);
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("{}: 从 canal 服务器获取消息： >>>>> 数:{}", threadName, size);
                 }
                 //若是没有消息
                 if (batchId == -1 || size == 0) {
-                    if (logger.isDebugEnabled()) {
-                        logger.debug("{}: 没有任何消息啊，我休息{}毫秒", threadName, interval);
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug("{}: 没有任何消息啊，我休息{}毫秒", threadName, interval);
                     }
                     //休息
                     Thread.sleep(interval);
@@ -130,13 +130,13 @@ public abstract class AbstractMessageTransponder implements MessageTransponder {
                 //确认消息已被处理完
                 connector.ack(batchId);
                 //若是 debug模式
-                if (logger.isDebugEnabled()) {
-                    logger.debug("{}: 确认消息已被消费，消息ID:{}", threadName, batchId);
+                if (LOGGER.isDebugEnabled()) {
+                    LOGGER.debug("{}: 确认消息已被消费，消息ID:{}", threadName, batchId);
                 }
             } catch (CanalClientException e) {
                 //每次错误，重试次数减一处理
                 errorCount--;
-                logger.error(threadName + "获取数据错误:{}", e.getLocalizedMessage());
+                LOGGER.error(threadName + "获取数据错误:{}", e.getLocalizedMessage());
                 try {
                     //等待时间
                     Thread.sleep(interval);
@@ -152,13 +152,13 @@ public abstract class AbstractMessageTransponder implements MessageTransponder {
                 if (errorCount <= 0) {
                     //停止 canal 客户端
                     stop();
-                    logger.info("{}: canal 客户端已停止... ", Thread.currentThread().getName());
+                    LOGGER.info("{}: canal 客户端已停止... ", Thread.currentThread().getName());
                 }
             }
         }
         //停止 canal 客户端
         stop();
-        logger.info("{}: canal 客户端已停止. ", Thread.currentThread().getName());
+        LOGGER.info("{}: canal 客户端已停止. ", Thread.currentThread().getName());
     }
 
     /**

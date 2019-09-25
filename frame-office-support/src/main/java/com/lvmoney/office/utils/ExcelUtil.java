@@ -35,7 +35,7 @@ import java.util.NoSuchElementException;
  * @version:v1.0 2018年10月30日 下午3:29:38
  */
 public class ExcelUtil {
-    private static final Logger logger = LoggerFactory.getLogger(ExcelUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExcelUtil.class);
 
     public static void exportExcel(List<?> list, String title, String sheetName, Class<?> pojoClass, String fileName,
                                    boolean isCreateHeader, HttpServletResponse response) {
@@ -68,7 +68,7 @@ public class ExcelUtil {
             response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName, "UTF-8"));
             workbook.write(response.getOutputStream());
         } catch (IOException e) {
-            logger.error("excel文档导出下载报错:{}", e.getMessage());
+            LOGGER.error("excel文档导出下载报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.EXCEL_DOWNLOAD_ERROR);
         }
     }
@@ -91,10 +91,10 @@ public class ExcelUtil {
         try {
             list = ExcelImportUtil.importExcel(new File(filePath), pojoClass, params);
         } catch (NoSuchElementException e) {
-            logger.error("excel模板文件导入为空:{}", e.getMessage());
+            LOGGER.error("excel模板文件导入为空:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.EXCEL_TEMPLATE_ERROR);
         } catch (Exception e) {
-            logger.error("excel模板文件导入为空:{}", e.getMessage());
+            LOGGER.error("excel模板文件导入为空:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.EXCEL_TEMPLATE_ERROR);
         }
         return list;
@@ -112,10 +112,10 @@ public class ExcelUtil {
         try {
             list = ExcelImportUtil.importExcel(file.getInputStream(), pojoClass, params);
         } catch (NoSuchElementException e) {
-            logger.error("excel文件导入为空:{}", e.getMessage());
+            LOGGER.error("excel文件导入为空:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.EXCEL_IMPORT_ERROR);
         } catch (Exception e) {
-            logger.error("excel导入为空:{}", e.getMessage());
+            LOGGER.error("excel导入为空:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.EXCEL_IMPORT_ERROR);
         }
         return list;

@@ -5,6 +5,8 @@ import com.lvmoney.oauth2.center.server.constant.Oauth2ServerConstant;
 import com.lvmoney.oauth2.center.server.exception.CustomOauthException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -31,6 +33,7 @@ import java.util.Map;
  */
 @Component
 public class ClientAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClientAuthenticationProvider.class);
 
     @Value("${oauth2.granttype.password.captcha:false}")
     private boolean passwordCaptcha;
@@ -48,13 +51,13 @@ public class ClientAuthenticationProvider extends AbstractUserDetailsAuthenticat
     protected void additionalAuthenticationChecks(UserDetails userDetails,
                                                   UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         if (authentication.getCredentials() == null) {
-            this.logger.debug("Authentication failed: no credentials provided");
+            this.LOGGER.debug("Authentication failed: no credentials provided");
             throw new BadCredentialsException(this.messages
                     .getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
         } else {
             String presentedPassword = authentication.getCredentials().toString();
             if (!this.passwordEncoder.matches(presentedPassword, userDetails.getPassword())) {
-                this.logger.debug("Authentication failed: password does not match stored value");
+                this.LOGGER.debug("Authentication failed: password does not match stored value");
                 throw new BadCredentialsException(this.messages
                         .getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "Bad credentials"));
             }

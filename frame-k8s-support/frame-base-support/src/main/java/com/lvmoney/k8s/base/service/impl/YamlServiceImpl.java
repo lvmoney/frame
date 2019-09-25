@@ -32,29 +32,60 @@ import java.util.List;
  */
 @org.springframework.stereotype.Service
 public class YamlServiceImpl implements YamlService {
+    /**
+     * 是否覆盖
+     */
     @Value("${istio.yaml.cover:false}")
     boolean yamlCover;
+    /**
+     * 服务名称
+     */
     @Value("${spring.application.name:lvmoney}")
     String applicationName;
+    /**
+     * 命名空间
+     */
+    @Value("${istio.yaml.namespace:default}")
+    String istioNamespace;
+    /**
+     * 服务端口
+     */
     @Value("${server.port:8080}")
     int serverPort;
+    /**
+     * 发布多少个pod
+     */
     @Value("${istio.yaml.replicas:1}")
     int replicas;
+    /**
+     * 服务版本
+     */
     @Value("${istio.yaml.version:v1}")
     String version;
+    /**
+     * 从docker中拉取镜像方式
+     */
     @Value("${istio.docker.image.pull:IfNotPresent}")
     String pullPolicy;
-
+    /**
+     * 路由支持
+     */
     @Value("${istio.yaml.destination.support:false}")
     boolean destinationSupport;
-
+    /**
+     * 版本v1的权重
+     */
     @Value("${istio.yaml.destination.v1:50}")
     Integer ratioV1;
-
+    /**
+     * 版本v2的权重
+     */
     @Value("${istio.yaml.destination.v2:50}")
     Integer ratioV2;
-
-    private String allPrefix = "all";
+    /**
+     * 路由文件前缀
+     */
+    private static final String ALL_PREFIX = "all";
     /**
      * istio master节点ip，所用的服务都以这里为入口
      */
@@ -94,6 +125,7 @@ public class YamlServiceImpl implements YamlService {
         service.setKind(YamlKind.Service.getValue());
         Metadata sMetadata = new Metadata();
         sMetadata.setName(applicationName);
+        sMetadata.setNamespace(istioNamespace);
         Labels sLabels = new Labels();
         sLabels.setApp(applicationName);
         sLabels.setService(applicationName);
@@ -120,6 +152,7 @@ public class YamlServiceImpl implements YamlService {
         deployment.setKind(YamlKind.Deployment.getValue());
         Metadata dMetadata = new Metadata();
         dMetadata.setName(applicationName + "-" + version);
+        dMetadata.setNamespace(istioNamespace);
         Labels meLabels = new Labels();
         meLabels.setVersion(version);
         meLabels.setApp(applicationName);
@@ -192,7 +225,7 @@ public class YamlServiceImpl implements YamlService {
         gateway.setKind(YamlKind.Gateway.getValue());
         Metadata gMetadata = new Metadata();
         gMetadata.setName(applicationName);
-
+        gMetadata.setNamespace(istioNamespace);
         GatewatSpec gatewatSpec = new GatewatSpec();
         Selector selector = new Selector();
         selector.setIstio(Istio.ingressgateway.getValue());
@@ -223,6 +256,7 @@ public class YamlServiceImpl implements YamlService {
         virtualService.setKind(YamlKind.VirtualService.getValue());
         Metadata vsMetadata = new Metadata();
         vsMetadata.setName(applicationName);
+        vsMetadata.setNamespace(istioNamespace);
         virtualService.setMetadata(vsMetadata);
         VirtualServiceSpec virtualServiceSpec = new VirtualServiceSpec();
         virtualServiceSpec.setHosts(new ArrayList() {{
@@ -299,6 +333,7 @@ public class YamlServiceImpl implements YamlService {
         destinationRule.setKind(YamlKind.DestinationRule.getValue());
         Metadata metadata = new Metadata();
         metadata.setName(applicationName);
+        metadata.setNamespace(istioNamespace);
         destinationRule.setMetadata(metadata);
         DestinationRuleSpec destinationRuleSpec = new DestinationRuleSpec();
         destinationRuleSpec.setHost(applicationName);
@@ -385,7 +420,7 @@ public class YamlServiceImpl implements YamlService {
         yamlBuild.setCover(yamlCover);
         yamlBuild.setData(iDeploy);
         yamlBuild.setPath(BaseConstant.YAML_FILE_PATH);
-        yamlBuild.setName(allPrefix + "-" + YamlType.IGateway.getValue() + "-" + applicationName + BaseConstant.YAML_SUFFIX);
+        yamlBuild.setName(ALL_PREFIX + "-" + YamlType.IGateway.getValue() + "-" + applicationName + BaseConstant.YAML_SUFFIX);
         YamlUtil.buildYaml(yamlBuild);
     }
 

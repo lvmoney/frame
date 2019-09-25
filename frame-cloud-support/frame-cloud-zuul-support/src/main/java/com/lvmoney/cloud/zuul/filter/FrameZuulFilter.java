@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class FrameZuulFilter extends ZuulFilter {
 
-    private static final Logger logger = LoggerFactory.getLogger(FrameZuulFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FrameZuulFilter.class);
 
     @Override
     public String filterType() {
@@ -40,7 +40,7 @@ public class FrameZuulFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        logger.info("--->>> TokenFilter {},{}", request.getMethod(), request.getRequestURL().toString());
+        LOGGER.info("--->>> TokenFilter {},{}", request.getMethod(), request.getRequestURL().toString());
         // 从 http 请求头中取出
         String token = request.getHeader("token");
 

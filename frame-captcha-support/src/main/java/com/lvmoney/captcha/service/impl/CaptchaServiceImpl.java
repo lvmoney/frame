@@ -42,7 +42,7 @@ import java.util.Random;
  */
 @Service
 public class CaptchaServiceImpl implements CaptchaService {
-    private static final Logger logger = LoggerFactory.getLogger(CaptchaServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CaptchaServiceImpl.class);
 
     private static final int COLOR_255 = 255;
     private static final int COLOR_155 = 255;
@@ -162,7 +162,7 @@ public class CaptchaServiceImpl implements CaptchaService {
         try {
             boolean flag = ImageIO.write(codeImg, "JPEG", out);
         } catch (IOException e) {
-            logger.error("生成验证码报错:{}", e.getMessage());
+            LOGGER.error("生成验证码报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.VALIDCOE_ERROR);
         }
         ValidateResultVo validateResultVo = new ValidateResultVo();
@@ -205,7 +205,7 @@ public class CaptchaServiceImpl implements CaptchaService {
             this.saveValidaCode2Redis(validateCodeRo);
             return validateResultVo;
         } catch (IOException e) {
-            logger.error("生成验证码报错:{}", e.getMessage());
+            LOGGER.error("生成验证码报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.VALIDCOE_ERROR);
         }
     }
@@ -220,7 +220,7 @@ public class CaptchaServiceImpl implements CaptchaService {
             String base64EncodedGraph = VerificationCodeUtil.outputImage(width, height, captcha);
             validateResultVo.setCode(base64EncodedGraph);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("获得验证码报错:{}", e.getMessage());
         }
         SnowflakeIdFactoryUtil idWorker = new SnowflakeIdFactoryUtil(1, 2);
         String serialNumber = String.valueOf(idWorker.nextId());

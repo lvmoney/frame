@@ -330,6 +330,11 @@ public interface CommonException {
          */
         TREE_CONVERSION_ERROR(PROXYERR + 114, "collection 2 tree error"),
         /**
+         * 集合转树报错
+         */
+        MODULE_ROOT_PATH_ERROR(PROXYERR + 115, "get module root path error"),
+
+        /**
          * 其他
          */
         OTHER(PROXYERR + 200, "unkonw exception"),

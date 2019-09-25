@@ -12,6 +12,8 @@ import com.lvmoney.k8s.authentication.properties.OauthClientProp;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +26,8 @@ import java.io.UnsupportedEncodingException;
  */
 @Component
 public class FeignInterceptor implements RequestInterceptor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FeignInterceptor.class);
+
     @Autowired
     OauthClientProp oauthClientProp;
 
@@ -36,7 +40,7 @@ public class FeignInterceptor implements RequestInterceptor {
                 String secret = "Basic " + Base64.encodeBase64String(creds.getBytes("UTF-8"));
                 requestTemplate.header("Authorization", secret);
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
+                LOGGER.error("请求apply报错:{}", e.getMessage());
             }
         }
     }

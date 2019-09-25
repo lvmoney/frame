@@ -11,6 +11,8 @@ import java.nio.charset.Charset;
 
 import ch.ethz.ssh2.*;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -21,6 +23,8 @@ import java.nio.charset.StandardCharsets;
  * @version:v1.0 2019/8/18 22:23
  */
 public class Ssh2Util {
+    private static final Logger LOGGER = LoggerFactory.getLogger(Ssh2Util.class);
+
 
     private static String DEFAULT_CHARSET = "UTF-8";
 

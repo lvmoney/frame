@@ -21,7 +21,7 @@ import java.security.NoSuchProviderException;
  * @version:v1.0 2019/9/5 16:23
  */
 public class EncryptPwdUtil {
-    private static final Logger logger = LoggerFactory.getLogger(EncryptPwdUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EncryptPwdUtil.class);
 
     public static void main(String[] args) {
         try {
@@ -52,19 +52,19 @@ public class EncryptPwdUtil {
                     druidPasswod.setPublicKey(publicKey);
                     druidPasswod.setPlaintext(plaintext);
                 } catch (Exception e) {
-                    logger.error("通过公钥获得druid密钥报错:{}", e.getMessage());
+                    LOGGER.error("通过公钥获得druid密钥报错:{}", e.getMessage());
                 }
             } catch (NoSuchAlgorithmException e) {
-                logger.error("通过公钥获得druid密钥报错:{}", e.getMessage());
+                LOGGER.error("通过公钥获得druid密钥报错:{}", e.getMessage());
             } catch (NoSuchProviderException e) {
-                logger.error("通过公钥获得druid密钥报错:{}", e.getMessage());
+                LOGGER.error("通过公钥获得druid密钥报错:{}", e.getMessage());
             }
 
         } else {
             try {
                 druidPasswod.setPassword(ConfigTools.encrypt(plaintext));
             } catch (Exception e) {
-                logger.error("不用公钥获得druid密钥报错:{}", e.getMessage());
+                LOGGER.error("不用公钥获得druid密钥报错:{}", e.getMessage());
             }
             druidPasswod.setPlaintext(plaintext);
         }

@@ -8,6 +8,7 @@ package com.lvmoney.k8s.base.service.impl;/**
 
 
 import com.lvmoney.common.utils.JsonUtil;
+import com.lvmoney.common.utils.ReflectUtil;
 import com.lvmoney.k8s.base.service.K8sService;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.NamespaceList;
@@ -16,6 +17,8 @@ import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.ConfigBuilder;
 import io.fabric8.kubernetes.client.DefaultKubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -31,6 +34,7 @@ import java.util.List;
  */
 @Service
 public class K8sServiceImpl implements K8sService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(K8sServiceImpl.class);
     /**
      * k8s api封装库调用
      */
@@ -61,7 +65,8 @@ public class K8sServiceImpl implements K8sService {
             System.out.println("list sucess");
         } catch (Exception e) {
             System.out.println("list failed");
-            e.printStackTrace();
+            LOGGER.error("获得所有的命名空间报错:{}", e.getMessage());
+
         }
         return namespaceList;
     }
@@ -95,13 +100,12 @@ public class K8sServiceImpl implements K8sService {
                     try {
                         fis.close();
                     } catch (Exception e2) {
-                        // TODO: handle exception
+                        LOGGER.error("获得所有的节点报错:{}", e2.getMessage());
                     }
                 }
             }
         } catch (Exception e) {
-            System.out.println("list failed");
-            e.printStackTrace();
+            LOGGER.error("获得所有的节点报错:{}", e.getMessage());
         }
         return nodeList;
     }

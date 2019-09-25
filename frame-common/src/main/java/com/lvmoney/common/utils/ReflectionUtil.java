@@ -38,8 +38,7 @@ public class ReflectionUtil {
     /**
      * 获取日志
      */
-    private static final Logger logger = LoggerFactory
-            .getLogger(ReflectionUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReflectionUtil.class);
 
     /**
      * 设置日期本地化转换器
@@ -116,7 +115,7 @@ public class ReflectionUtil {
         try {
             result = field.get(object);
         } catch (IllegalAccessException e) {
-            logger.error("不可能抛出的异常{}" + e.getMessage());
+            LOGGER.error("读取对象属性值抛出的异常{}" + e.getMessage());
         }
         return result;
     }
@@ -142,7 +141,7 @@ public class ReflectionUtil {
         try {
             field.set(object, value);
         } catch (IllegalAccessException e) {
-            logger.error("不可能抛出的异常:{}" + e.getMessage());
+            LOGGER.error("读取对象属性值抛出的异常:{}" + e.getMessage());
         }
     }
 
@@ -189,7 +188,7 @@ public class ReflectionUtil {
             try {
                 return superClass.getDeclaredField(fieldName);
             } catch (NoSuchFieldException e) {// NOSONAR
-                logger.error("找不到对应的属性[" + fieldName + "]", e);
+                LOGGER.error("找不到对应的属性[" + fieldName + "]", e);
                 // Field不在当前类定义,继续向上转型
             }
         }
@@ -225,7 +224,7 @@ public class ReflectionUtil {
                 return superClass
                         .getDeclaredMethod(methodName, parameterTypes);
             } catch (NoSuchMethodException e) {// NOSONAR
-                logger.error("找不到对应的方法[" + methodName + "]", e);
+                LOGGER.error("找不到对应的方法[" + methodName + "]", e);
                 // Method不在当前类定义,继续向上转型
             }
         }
@@ -261,7 +260,7 @@ public class ReflectionUtil {
         Type genType = clazz.getGenericSuperclass();
 
         if (!(genType instanceof ParameterizedType)) {
-            logger.warn(clazz.getSimpleName()
+            LOGGER.warn(clazz.getSimpleName()
                     + "'s superclass not ParameterizedType");
             return Object.class;
         }
@@ -270,13 +269,13 @@ public class ReflectionUtil {
                 .getActualTypeArguments();
 
         if (index >= params.length || index < 0) {
-            logger.warn("Index: " + index + ", Size of "
+            LOGGER.warn("Index: " + index + ", Size of "
                     + clazz.getSimpleName() + "'s Parameterized Type: "
                     + params.length);
             return Object.class;
         }
         if (!(params[index] instanceof Class)) {
-            logger.warn(clazz.getSimpleName()
+            LOGGER.warn(clazz.getSimpleName()
                     + " not set the actual class on superclass generic parameter");
             return Object.class;
         }
@@ -380,9 +379,9 @@ public class ReflectionUtil {
         try {
             return cls.newInstance();
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            LOGGER.error("获取一个实例化报错{}", e.getMessage());
         } catch (IllegalAccessException e) {
-            e.printStackTrace();
+            LOGGER.error("获取一个实例化报错{}", e.getMessage());
         }
         return null;
     }
@@ -399,12 +398,12 @@ public class ReflectionUtil {
             IllegalAccessException {
         for (String por : porperties) {
             Object srcObj = invokeGetterMethod(source, por);
-            logger.debug("属性名[" + por + "]属性值[" + srcObj + "]");
+            LOGGER.debug("属性名[" + por + "]属性值[" + srcObj + "]");
             if (srcObj != null) {
                 try {
                     BeanUtils.setProperty(dest, por, srcObj);
                 } catch (IllegalArgumentException e) {
-                    e.printStackTrace();
+                    LOGGER.error("拷贝 source 指定的porperties 属性 到 dest中报错:{}", e.getMessage());
                 } catch (IllegalAccessException e) {
                     throw e;
                 } catch (InvocationTargetException e) {
@@ -433,7 +432,7 @@ public class ReflectionUtil {
             try {
                 BeanUtils.setProperty(dest, name, srcObj);
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+                LOGGER.error("两者属性名一致时，拷贝source里的属性到dest里报错:{}", e.getMessage());
             } catch (IllegalAccessException e) {
                 throw e;
             } catch (InvocationTargetException e) {

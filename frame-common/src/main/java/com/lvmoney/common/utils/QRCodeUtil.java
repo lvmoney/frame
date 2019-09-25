@@ -56,7 +56,7 @@ public final class QrCodeUtil extends LuminanceSource {
      * @version
      */
 
-    private static final Logger logger = LoggerFactory.getLogger(QrCodeUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(QrCodeUtil.class);
 
     /**
      * 二维码颜色
@@ -260,13 +260,13 @@ public final class QrCodeUtil extends LuminanceSource {
             MultiFormatReader formatReader = new MultiFormatReader();
             Result result = formatReader.decode(binaryBitmap, hints);
 
-            logger.info("result 为：" + result.toString());
-            logger.info("resultFormat 为：" + result.getBarcodeFormat());
-            logger.info("resultText 为：" + result.getText());
+            LOGGER.info("result 为：" + result.toString());
+            LOGGER.info("resultFormat 为：" + result.getBarcodeFormat());
+            LOGGER.info("resultText 为：" + result.getText());
             // 设置返回值
             content = result.getText();
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return content;
     }
@@ -293,7 +293,7 @@ public final class QrCodeUtil extends LuminanceSource {
             String content = parseQrCode(pathName);
             System.out.println("解析出二维码的图片的内容为： " + content);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("二维码解析报错:{}", e.getMessage());
         }
     }
 

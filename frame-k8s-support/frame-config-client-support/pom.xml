@@ -42,4 +42,47 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <!-- 开发环境 -->
+            <id>dev</id>
+            <properties>
+                <profileName>dev</profileName><!-- 节点名字environment是自己随意取的 -->
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault><!-- 默认激活该profile节点-->
+            </activation>
+        </profile>
+        <profile>
+            <!-- 测试环境 -->
+            <id>test</id>
+            <properties>
+                <profileName>test</profileName>
+            </properties>
+        </profile>
+        <profile>
+            <!-- 预演环境 -->
+            <id>local</id>
+            <properties>
+                <profileName>local</profileName>
+            </properties>
+        </profile>
+        <profile>
+            <!-- 生产环境 -->
+            <id>prod</id>
+            <properties>
+                <profileName>prod</profileName>
+            </properties>
+        </profile>
+
+
+        <profile>
+            <!-- 生产环境 -->
+            <id>online</id>
+            <properties>
+                <profileName>online</profileName>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>

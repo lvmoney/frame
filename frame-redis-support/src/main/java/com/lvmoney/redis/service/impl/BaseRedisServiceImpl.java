@@ -40,7 +40,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("rawtypes")
 @Service("frameBaseRedisService")
 public class BaseRedisServiceImpl implements BaseRedisService {
-    private static final Logger logger = LoggerFactory.getLogger(BaseRedisServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseRedisServiceImpl.class);
 
     @Autowired
     StringRedisTemplate stringRedisTemplate;
@@ -99,7 +99,7 @@ public class BaseRedisServiceImpl implements BaseRedisService {
         try {
             return stringRedisTemplate.opsForValue().get(key);
         } catch (Exception e) {
-            logger.error("从redis中获取数据报错:{}", e.getMessage());
+            LOGGER.error("从redis中获取数据报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.REDIS_NOT_EXSIT);
         }
     }

@@ -10,6 +10,7 @@ package com.lvmoney.quartz.config;
 
 import com.lvmoney.common.exceptions.BusinessException;
 import com.lvmoney.common.exceptions.CommonException;
+import com.lvmoney.common.utils.ApplicationBeanUtil;
 import com.lvmoney.quartz.constant.QuartzConstant;
 import com.lvmoney.quartz.job.AbstractJob;
 import com.lvmoney.quartz.vo.JobParameter;
@@ -20,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
@@ -34,7 +36,7 @@ import java.util.Map;
  */
 @Component
 @Scope("singleton")
-public class QuartzManager implements ApplicationContextAware {
+public class QuartzManager {
 
     private static SchedulerFactory schedulerFactory = new StdSchedulerFactory();
 
@@ -42,9 +44,9 @@ public class QuartzManager implements ApplicationContextAware {
 
     private static final String TRIGGER_DEFAULT_GROUP_NAME = "TRIGGER_DEFAULT_GROUP_NAME";
 
-    private static final Logger logger = LoggerFactory.getLogger(QuartzManager.class);
+    private final static Logger logger = LoggerFactory.getLogger(QuartzManager.class);
 
-    private ApplicationContext applicationContext;
+
 
     private Scheduler scheduler;
     @Value("${frame.quartz.support:false}")
@@ -59,12 +61,16 @@ public class QuartzManager implements ApplicationContextAware {
                 this.scheduler = schedulerFactory.getScheduler();
                 scheduler.setJobFactory(autowiredSpringBeanJobFactory);
                 // 启动所有任务,这里获取AbstractTask的所有子类
-                Map<String, AbstractJob> tasks = applicationContext.getBeansOfType(AbstractJob.class);
+                Map<String, AbstractJob> tasks = ApplicationBeanUtil.getMapBeansOfType(AbstractJob.class);
                 tasks.forEach((k, v) -> {
-                    String cronExpression = v.getCronExpression();
-                    if (cronExpression != null) {
-                        addJob(k, v.getClass().getName(), cronExpression);
+                    if (v instanceof AbstractJob) {
+                        AbstractJob parentJob = (AbstractJob) v;
+                        String cronExpression = parentJob.getCronExpression();
+                        if (cronExpression != null) {
+                            addJob(k, v.getClass().getName(), cronExpression);
+                        }
                     }
+
                 });
             } catch (SchedulerException e) {
                 logger.error("定时任务初始化失败:{}", e.getMessage());
@@ -170,10 +176,6 @@ public class QuartzManager implements ApplicationContextAware {
         return result;
     }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
 
     /**
      * @Description:关闭所有定时任务

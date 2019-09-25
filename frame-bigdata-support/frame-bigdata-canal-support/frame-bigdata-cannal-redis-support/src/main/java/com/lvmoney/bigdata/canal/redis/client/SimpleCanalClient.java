@@ -6,7 +6,6 @@ import com.lvmoney.bigdata.canal.redis.spring.HandListenerContext;
 import com.lvmoney.bigdata.canal.redis.util.ContextBeanUtil;
 import com.lvmoney.bigdata.canal.redis.vo.ListenerPointVo;
 import com.lvmoney.bigdata.canal.redis.properties.CanalProp;
-import com.lvmoney.bigdata.canal.redis.util.ApplicationBeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +20,7 @@ import java.util.concurrent.*;
  * @version:v1.0 2018年9月30日 上午8:51:33
  */
 public class SimpleCanalClient extends AbstractCanalClient {
-    private static final Logger logger = LoggerFactory.getLogger(SimpleCanalClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleCanalClient.class);
     /**
      * 声明一个线程池
      */
@@ -87,7 +86,7 @@ public class SimpleCanalClient extends AbstractCanalClient {
                 executorService.shutdownNow();
                 // Wait a while for tasks to respond to being cancelled
                 if (!executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
-                    logger.warn("{Pool did not terminate ");
+                    LOGGER.warn("{Pool did not terminate ");
                 }
 
             }
@@ -107,7 +106,7 @@ public class SimpleCanalClient extends AbstractCanalClient {
      * 2019/9/9 14:15
      */
     private void initListeners() {
-        logger.info("{}: 监听器正在初始化....", Thread.currentThread().getName());
+        LOGGER.info("{}: 监听器正在初始化....", Thread.currentThread().getName());
         //获取监听器,这里代码暂时没用用到的意义
         //        List<CanalEventListener> list = ApplicationBeanUtil.getBeansOfType(CanalEventListener.class);
 //        //若没有任何监听的，我也不知道引入这个 jar 干什么，直接返回吧
@@ -137,14 +136,14 @@ public class SimpleCanalClient extends AbstractCanalClient {
 
         annoListeners.addAll(ContextBeanUtil.getDataHandEventListener(handListenerContext));
         //初始化监听结束
-        logger.info("{}: 监听器初始化完成.", Thread.currentThread().getName());
+        LOGGER.info("{}: 监听器初始化完成.", Thread.currentThread().getName());
         //整个项目上下文都没发现监听器。。。
 //        if (logger.isWarnEnabled() && listeners.isEmpty() && annoListeners.isEmpty()) {
-//            logger.warn("{}: 该项目中没有任何监听的目标! ", Thread.currentThread().getName());
+//            LOGGER.warn("{}: 该项目中没有任何监听的目标! ", Thread.currentThread().getName());
 //        }
 
-        if (logger.isWarnEnabled() && annoListeners.isEmpty()) {
-            logger.warn("{}: 该项目中没有任何监听的目标! ", Thread.currentThread().getName());
+        if (LOGGER.isWarnEnabled() && annoListeners.isEmpty()) {
+            LOGGER.warn("{}: 该项目中没有任何监听的目标! ", Thread.currentThread().getName());
         }
     }
 }

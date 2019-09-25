@@ -47,7 +47,7 @@ import java.util.List;
 @Service("frameBaseGridFsService")
 public class BaseGridFsServiceImpl implements BaseGridFsService {
 
-    private static final Logger logger = LoggerFactory.getLogger(BaseGridFsServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseGridFsServiceImpl.class);
     @Autowired
     GridFsTemplate gridFsTemplate;
     @Autowired
@@ -80,7 +80,7 @@ public class BaseGridFsServiceImpl implements BaseGridFsService {
             result.setSize(fileSize);
             return result;
         } catch (IOException e) {
-            logger.error("文件名为:{},文件类型为:{},保存文件报错:{}", fileName, contentType, e.getMessage());
+            LOGGER.error("文件名为:{},文件类型为:{},保存文件报错:{}", fileName, contentType, e.getMessage());
             throw new BusinessException(CommonException.Proxy.GRIDFS_SAVE_ERROR);
         }
 
@@ -117,7 +117,7 @@ public class BaseGridFsServiceImpl implements BaseGridFsService {
             result.setFileName(fileName);
             return result;
         } catch (IllegalStateException | IOException e) {
-            logger.error("通过_id{}获得文件报错：{}", fileId, e.getMessage());
+            LOGGER.error("通过_id{}获得文件报错：{}", fileId, e.getMessage());
             throw new BusinessException(CommonException.Proxy.GRIDFS_QUERY_FILE_ERROR);
         }
     }
@@ -149,7 +149,7 @@ public class BaseGridFsServiceImpl implements BaseGridFsService {
                 baseGridFsByteOutVo.setFileName(fileName);
                 result.add(baseGridFsByteOutVo);
             } catch (IllegalStateException | IOException e) {
-                logger.error("通过_id{}获得文件报错：{}", fileId, e.getMessage());
+                LOGGER.error("通过_id{}获得文件报错：{}", fileId, e.getMessage());
                 throw new BusinessException(CommonException.Proxy.GRIDFS_QUERY_FILE_ERROR);
             }
         });

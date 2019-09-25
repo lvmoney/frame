@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Component
 public class JwtTokenHandler {
-    private static final Logger logger = LoggerFactory.getLogger(JwtTokenHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenHandler.class);
     @Autowired
     JwtRedisService jwtRedisService;
     @Value("${frame.jwt.support:false}")
@@ -69,7 +69,7 @@ public class JwtTokenHandler {
         try {
             jwtVerifier.verify(token);
         } catch (JWTVerificationException e) {
-            logger.error("token 校验出错:{}", e.getMessage());
+            LOGGER.error("token 校验出错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.TOKEN_VERIFY_ERROR);
         }
         return true;

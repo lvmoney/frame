@@ -7,6 +7,10 @@ package com.lvmoney.common.utils;/**
  */
 
 
+import com.lvmoney.common.exceptions.BusinessException;
+import com.lvmoney.common.exceptions.CommonException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
@@ -18,6 +22,7 @@ import java.io.FileNotFoundException;
  * @version:v1.0 2019/9/19 14:09
  */
 public class ModuleUtil {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ModuleUtil.class);
     private static final String RELACE_TARGET = "target";
     private static final String RELACE_CLASSES = "classes";
     private static final String CLASSPATH = "classpath:";
@@ -34,11 +39,13 @@ public class ModuleUtil {
         File path = null;
         try {
             path = new File(ResourceUtils.getURL(CLASSPATH).getPath());
+            String rootPath = path.getPath().replaceAll(RELACE_TARGET, "").replaceAll(RELACE_CLASSES, "");
+            return rootPath;
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.error("获取当前module的根目录报错:{}", e.getMessage());
+            throw new BusinessException(CommonException.Proxy.MODULE_ROOT_PATH_ERROR);
         }
-        String rootPath = path.getPath().replaceAll(RELACE_TARGET, "").replaceAll(RELACE_CLASSES, "");
-        return rootPath;
+
     }
 
 }

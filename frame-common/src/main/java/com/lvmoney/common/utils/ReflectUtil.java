@@ -25,7 +25,7 @@ import java.util.*;
 
 public class ReflectUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(ReflectUtil.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ReflectUtil.class);
 
     /**
      * @param reflectVo
@@ -69,9 +69,9 @@ public class ReflectUtil {
                         Object obj = f.get(t);
                         value = obj != null ? obj.toString() : "";
                     } catch (IllegalArgumentException e) {
-                        logger.error(e.getMessage());
+                        LOGGER.error(e.getMessage());
                     } catch (IllegalAccessException e) {
-                        logger.error(e.getMessage());
+                        LOGGER.error(e.getMessage());
                     }
                     result.put(key, value);
                 }
@@ -92,16 +92,16 @@ public class ReflectUtil {
                         Object obj = f.get(t);
                         value = obj != null ? obj.toString() : "";
                     } catch (IllegalArgumentException e) {
-                        logger.error(e.getMessage());
+                        LOGGER.error(e.getMessage());
                     } catch (IllegalAccessException e) {
-                        logger.error(e.getMessage());
+                        LOGGER.error(e.getMessage());
                     }
                     result.put(key, value);
                 }
             }
         } catch (InstantiationException | IllegalAccessException e1) {
             result = null;
-            logger.error(e1.getMessage());
+            LOGGER.error(e1.getMessage());
         }
         return result;
     }
@@ -145,7 +145,7 @@ public class ReflectUtil {
                 buff = buff.substring(0, buff.length() - 1);
             }
         } catch (Exception e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             return null;
         }
         return buff.toUpperCase();
@@ -181,9 +181,9 @@ public class ReflectUtil {
                         Object obj = f.get(t);
                         value = obj != null ? obj.toString() : "";
                     } catch (IllegalArgumentException e) {
-                        logger.error(e.getMessage());
+                        LOGGER.error(e.getMessage());
                     } catch (IllegalAccessException e) {
-                        logger.error(e.getMessage());
+                        LOGGER.error(e.getMessage());
                     }
                     result.put(key, value);
                 }
@@ -204,16 +204,16 @@ public class ReflectUtil {
                         Object obj = f.get(t);
                         value = obj != null ? obj.toString() : "";
                     } catch (IllegalArgumentException e) {
-                        logger.error(e.getMessage());
+                        LOGGER.error(e.getMessage());
                     } catch (IllegalAccessException e) {
-                        logger.error(e.getMessage());
+                        LOGGER.error(e.getMessage());
                     }
                     result.put(key, value);
                 }
             }
         } catch (InstantiationException | IllegalAccessException e1) {
             result = null;
-            logger.error(e1.getMessage());
+            LOGGER.error(e1.getMessage());
         }
         return result;
     }

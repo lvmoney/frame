@@ -10,6 +10,7 @@ package com.lvmoney.activiti.service.impl;/**
 import com.lvmoney.activiti.service.BaseActivitiService;
 import com.lvmoney.activiti.vo.*;
 import com.lvmoney.common.utils.JsonUtil;
+import com.lvmoney.common.utils.ModuleUtil;
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.bpmn.model.Process;
 import org.activiti.engine.*;
@@ -18,6 +19,8 @@ import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.cfg.ProcessEngineConfigurationImpl;
 import org.activiti.engine.task.Task;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +38,8 @@ import java.util.Map;
  */
 @Service
 public class BaseActivitiServiceImpl implements BaseActivitiService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BaseActivitiServiceImpl.class);
+
     @Autowired
     private RuntimeService runtimeService;
 
@@ -146,7 +151,7 @@ public class BaseActivitiServiceImpl implements BaseActivitiService {
 //            is.close();
 //            System.out.println("图片生成成功");
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("通过流程id获得流程图报错:{}", e.getMessage());
         }
         return imgVo;
     }
@@ -160,7 +165,7 @@ public class BaseActivitiServiceImpl implements BaseActivitiService {
         try {
             imgVo.setFileByte(IOUtils.toByteArray(is));
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("根据流程id获得流程图报错:{}", e.getMessage());
         }
         return imgVo;
     }

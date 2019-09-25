@@ -34,7 +34,7 @@ import java.util.Map;
  */
 @Component
 public class ShiroAuthHandler {
-    private static final Logger logger = LoggerFactory.getLogger(ShiroAuthHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ShiroAuthHandler.class);
     @Autowired
     ShiroRedisService shiroRedisService;
     @Autowired
@@ -76,7 +76,7 @@ public class ShiroAuthHandler {
             subject.login(shiroToken);
             subject.hasRole(role);
         } catch (Exception e) {
-            logger.error("shiro 权限校验出错:{}", e.getMessage());
+            LOGGER.error("shiro 权限校验出错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.SHIRO_UNAUTHORIZED_EXCEPTIONT);
         }
         return true;

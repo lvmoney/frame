@@ -44,7 +44,7 @@ import java.util.concurrent.TimeoutException;
 
 @Component
 public class SynchronousSender {
-    private static final Logger logger = LoggerFactory.getLogger(SynchronousSender.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SynchronousSender.class);
     @Autowired
     KafkaTemplate kafkaTemplate;
     @Autowired
@@ -62,15 +62,15 @@ public class SynchronousSender {
             //发送消息的时候需要休眠一下，否则发送时间较长的时候会导致进程提前关闭导致无法调用回调时间。主要是因为KafkaTemplate发送消息是采取异步方式发送的
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            logger.error("kafka发送同步消息报错:{}", e.getMessage());
+            LOGGER.error("kafka发送同步消息报错:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.KAFKA_SEND_SYN_INTERRUPTED_ERROR);
 
         } catch (ExecutionException e) {
-            logger.error("kafka发送同步消息执行错误:{}", e.getMessage());
+            LOGGER.error("kafka发送同步消息执行错误:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.KAFKA_SEND_SYN_EXE_ERROR);
 
         } catch (TimeoutException e) {
-            logger.error("kafka发送同步消息超时:{}", e.getMessage());
+            LOGGER.error("kafka发送同步消息超时:{}", e.getMessage());
             throw new BusinessException(CommonException.Proxy.KAFKA_SEND_SYN_TIME_ERROR);
         }
     }
