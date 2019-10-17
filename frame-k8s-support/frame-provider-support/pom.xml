@@ -33,10 +33,10 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.lvmoney</groupId>
-            <artifactId>frame-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
+        <groupId>com.lvmoney</groupId>
+        <artifactId>frame-common</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </dependency>
 
         <dependency>
             <groupId>com.lvmoney</groupId>
@@ -44,82 +44,77 @@
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-            <version>2.1.0.RELEASE</version>
-        </dependency>
     </dependencies>
 
 
     <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                    <!--这里写上main方法所在类的路径-->
-                    <configuration>
-                        <!--com.kismet.p2p.APPConfig即mainClass-->
-                        <mainClass>com.lvmoney.provider.application.ProviderApplication</mainClass>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>repackage</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <groupId>com.spotify</groupId>
-                    <artifactId>docker-maven-plugin</artifactId>
-                    <version>0.4.3</version>
-                    <executions>
-                        <execution>
-                            <id>build-image</id>     <!--定义一个执行命令的id-->
-                            <phase>package</phase>   <!--绑定mvn的哪个命令-->
-                            <goals>
-                                <goal>build</goal>   <!--要执行的命令 -->
-                            </goals>
-                        </execution>
-                        <execution>
-                            <id>image-tag</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>tag</goal>      <!--tag命令，相当于docker的tag命令-->
-                            </goals>
-                            <configuration>
-                                <image>${docker.image.name}</image>   <!--镜像名-->
-                                <newName>${docker.image.tag}</newName>   <!--打的标签名-->
-                            </configuration>
-                        </execution>
-                        <execution>
-                            <id>package-push</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>push</goal>    <!--相当于docker的push命令-->
-                            </goals>
-                            <configuration>
-                                <imageName>${docker.image.tag}</imageName>  <!--要push的镜像名-->
-                            </configuration>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <imageName>${docker.image.name}</imageName>
-                        <baseImage>java</baseImage>
-                        <!--<entryPoint>["java","-jar","/${project.build.finalName}.jar}"]</entryPoint>-->
-                        <dockerDirectory>${project.basedir}/src/main/resources</dockerDirectory>
-                        <dockerHost>${docker.host}</dockerHost>
-                        <resources>
-                            <resource>
-                                <targetPath>/</targetPath>
-                                <directory>${project.build.directory}</directory>
-                                <include>${project.build.finalName}.jar</include>
-                            </resource>
-                        </resources>
-                    </configuration>
-                </plugin>
-            </plugins>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--这里写上main方法所在类的路径-->
+                <configuration>
+                    <!--com.kismet.p2p.APPConfig即mainClass-->
+                    <mainClass>com.lvmoney.provider.application.ProviderApplication</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.4.3</version>
+                <executions>
+                    <execution>
+                        <id>build-image</id>     <!--定义一个执行命令的id-->
+                        <phase>package</phase>   <!--绑定mvn的哪个命令-->
+                        <goals>
+                            <goal>build</goal>   <!--要执行的命令 -->
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>image-tag</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>tag</goal>      <!--tag命令，相当于docker的tag命令-->
+                        </goals>
+                        <configuration>
+                            <image>${dockerImageName}</image>   <!--镜像名-->
+                            <newName>${dockerImageTag}</newName>   <!--打的标签名-->
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>package-push</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>push</goal>    <!--相当于docker的push命令-->
+                        </goals>
+                        <configuration>
+                            <imageName>${dockerImageTag}</imageName>  <!--要push的镜像名-->
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <imageName>${dockerImageName}</imageName>
+                    <baseImage>java</baseImage>
+                    <!--<entryPoint>["java","-jar","/${project.build.finalName}.jar}"]</entryPoint>-->
+                    <dockerDirectory>${project.basedir}/src/main/resources</dockerDirectory>
+                    <dockerHost>${dockerHost}</dockerHost>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+        </plugins>
 
 
         <resources>

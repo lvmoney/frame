@@ -8,9 +8,9 @@
 
 package com.lvmoney.quartz.config;
 
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
-import com.lvmoney.common.utils.ApplicationBeanUtil;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
+import com.lvmoney.common.util.ApplicationBeanUtil;
 import com.lvmoney.quartz.constant.QuartzConstant;
 import com.lvmoney.quartz.job.AbstractJob;
 import com.lvmoney.quartz.vo.JobParameter;
@@ -18,12 +18,8 @@ import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

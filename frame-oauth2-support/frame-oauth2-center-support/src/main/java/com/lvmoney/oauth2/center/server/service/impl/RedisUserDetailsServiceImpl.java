@@ -1,27 +1,17 @@
 package com.lvmoney.oauth2.center.server.service.impl;
 
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.oauth2.center.server.exception.CustomOauthException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.service.Db2RedisService;
 import com.lvmoney.oauth2.center.server.vo.UserInfo;
-import com.lvmoney.oauth2.center.server.ro.Oauth2UserRo;
 import com.lvmoney.oauth2.center.server.service.Oauth2RedisService;
 import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @describe：

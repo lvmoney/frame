@@ -7,7 +7,7 @@ package com.lvmoney.lock.service.impl;/**
  */
 
 
-import com.lvmoney.common.utils.StringUtil;
+import com.lvmoney.common.util.StringUtil;
 import com.lvmoney.lock.constant.LockConstant;
 import com.lvmoney.lock.service.DistributedLockerService;
 import com.lvmoney.lock.service.SequenceService;

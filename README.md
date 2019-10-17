@@ -30,20 +30,21 @@ netty
 
 #### 技术罗列
 
-springboot
-springcloud
-docker
-istio
-spark
-hadoop
-shiro
-activti
-jwt
-kafka
-rabbitmq
-seata(fescar)
-mongo
-mybatisplus
+springboot  
+springcloud  
+docker  
+k8s1.16.0  
+istio1.3.0   
+spark  
+hadoop  
+shiro  
+activti  
+jwt  
+kafka  
+rabbitmq  
+seata(fescar)  
+mongo  
+mybatisplus  
 等等
 
 

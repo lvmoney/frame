@@ -1,13 +1,13 @@
 package com.lvmoney.kafka.utils;/**
  * 描述:
- * 包名:com.lvmoney.jwt.annotations
+ * 包名:com.lvmoney.jwt.annotation
  * 版本信息: 版本1.0
  * 日期:2019/1/21
  * Copyright xxxx科技有限公司
  */
 
 
-import com.lvmoney.kafka.annotations.DynamicService;
+import com.lvmoney.kafka.annotation.DynamicService;
 import com.lvmoney.kafka.factory.HandMqServiceContext;
 import com.lvmoney.kafka.service.HandMqDataService;
 

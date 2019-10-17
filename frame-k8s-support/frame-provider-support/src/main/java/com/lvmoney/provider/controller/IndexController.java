@@ -7,13 +7,11 @@ package com.lvmoney.provider.controller;/**
  */
 
 
-import com.lvmoney.common.utils.ResultUtil;
-import com.lvmoney.common.utils.vo.ResultData;
-import com.lvmoney.redis.service.impl.BaseRedisServiceImpl;
+import com.lvmoney.common.util.ResultUtil;
+import com.lvmoney.common.util.vo.ResultData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**

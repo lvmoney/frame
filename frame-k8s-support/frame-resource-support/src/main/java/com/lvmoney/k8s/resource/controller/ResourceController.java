@@ -7,8 +7,8 @@ package com.lvmoney.k8s.resource.controller;/**
  */
 
 
-import com.lvmoney.common.utils.ResultUtil;
-import com.lvmoney.common.utils.vo.ResultData;
+import com.lvmoney.common.util.ResultUtil;
+import com.lvmoney.common.util.vo.ResultData;
 import com.lvmoney.k8s.resource.resp.UserInfoVoResp;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

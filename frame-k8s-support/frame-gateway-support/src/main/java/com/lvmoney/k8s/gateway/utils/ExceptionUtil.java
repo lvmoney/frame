@@ -1,17 +1,16 @@
 package com.lvmoney.k8s.gateway.utils;/**
  * 描述:
- * 包名:com.lvmoney.k8s.gateway.utils
+ * 包名:com.lvmoney.k8s.gateway.util
  * 版本信息: 版本1.0
  * 日期:2019/8/14
  * Copyright XXXXXX科技有限公司
  */
 
 
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
-import com.lvmoney.common.utils.JsonUtil;
-import com.lvmoney.common.utils.ResultUtil;
-import com.lvmoney.common.utils.vo.ResultData;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.util.JsonUtil;
+import com.lvmoney.common.util.ResultUtil;
+import com.lvmoney.common.util.vo.ResultData;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 

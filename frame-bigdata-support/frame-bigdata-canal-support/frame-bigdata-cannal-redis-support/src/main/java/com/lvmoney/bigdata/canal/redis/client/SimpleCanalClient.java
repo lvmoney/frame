@@ -50,11 +50,15 @@ public class SimpleCanalClient extends AbstractCanalClient {
      */
     public SimpleCanalClient(CanalProp canalProp, HandListenerContext handListenerContext) {
         super(canalProp);
-        //这边上可能需要调整，紧跟德叔脚步走，默认核心线程数5个，最大线程数20个，线程两分钟分钟不执行就。。。
+        //这边上可能需要调整，紧跟核数脚步走，默认核心线程数5个，最大线程数20个，线程两分钟分钟不执行就。。。
 //		executor = new ThreadPoolExecutor(5, 20,
 //				120L, TimeUnit.SECONDS,
 //				new SynchronousQueue<>(), Executors.defaultThreadFactory());
-        executorService = Executors.newFixedThreadPool(canalProp.getPoolSize());
+
+        executorService = new ThreadPoolExecutor(canalProp.getInitPoolSize(), canalProp.getMaxPoolSize(),
+                120L, TimeUnit.SECONDS,
+                new SynchronousQueue<>(), new ThreadPoolExecutor.AbortPolicy());
+//        executorService = Executors.newFixedThreadPool(canalProp.getPoolSize());
         //初始化监听器
         this.handListenerContext = handListenerContext;
         initListeners();

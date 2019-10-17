@@ -7,22 +7,19 @@ package com.lvmoney.k8s.base.service.impl;/**
  */
 
 
-import com.lvmoney.common.utils.JsonUtil;
 import com.lvmoney.k8s.base.constant.BaseConstant;
 import com.lvmoney.k8s.base.enums.*;
 import com.lvmoney.k8s.base.properties.RpcServerConfigProp;
 import com.lvmoney.k8s.base.service.YamlService;
-import com.lvmoney.k8s.base.utils.PomUtil;
-import com.lvmoney.k8s.base.utils.YamlUtil;
+import com.lvmoney.k8s.base.util.PomUtil;
+import com.lvmoney.k8s.base.util.YamlUtil;
 import com.lvmoney.k8s.base.vo.jyaml.*;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -148,7 +145,7 @@ public class YamlServiceImpl implements YamlService {
     @Override
     public Deployment buildDeployment() {
         Deployment deployment = new Deployment();
-        deployment.setApiVersion(ApiVersion.v1beta1.getValue());
+        deployment.setApiVersion(ApiVersion.appsv1.getValue());
         deployment.setKind(YamlKind.Deployment.getValue());
         Metadata dMetadata = new Metadata();
         dMetadata.setName(applicationName + "-" + version);
@@ -157,8 +154,15 @@ public class YamlServiceImpl implements YamlService {
         meLabels.setVersion(version);
         meLabels.setApp(applicationName);
         dMetadata.setLabels(meLabels);
+
+        MatchLabels matchLabels = new MatchLabels();
+        matchLabels.setApp(applicationName);
+        matchLabels.setVersion(version);
+        DeploymentSpecSelector selector = new DeploymentSpecSelector();
+        selector.setMatchLabels(matchLabels);
         DeploymentSpec deploymentSpec = new DeploymentSpec();
         deploymentSpec.setReplicas(replicas);
+        deploymentSpec.setSelector(selector);
         Template template = new Template();
         Metadata tMetadata = new Metadata();
         TemplateSpec templateSpec = new TemplateSpec();
@@ -168,7 +172,7 @@ public class YamlServiceImpl implements YamlService {
         tMetadata.setLabels(tLabels);
         Containers containers = new Containers();
         containers.setName(applicationName);
-        String dockerImage = PomUtil.getDockerInfo().getDockerImageName();
+        String dockerImage = PomUtil.getDockerInfo().getDockerImageTag();
         containers.setImage(dockerImage);
         if (pullPolicy.equals(DockerPull.IfNotPresent.getValue())) {
             containers.setImagePullPolicy(DockerPull.IfNotPresent.getValue());

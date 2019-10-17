@@ -1,7 +1,7 @@
 package com.lvmoney.netty.client.client;
 
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
 import com.lvmoney.netty.client.action.MainAction;
 import com.lvmoney.netty.client.config.NettyConfig;
 import org.slf4j.Logger;

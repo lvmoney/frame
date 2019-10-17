@@ -1,6 +1,6 @@
 /**
  * 描述:
- * 包名:com.lvmoney.jwt.annotations
+ * 包名:com.lvmoney.jwt.annotation
  * 版本信息: 版本1.0
  * 日期:2019/1/24
  * Copyright xxxx科技有限公司
@@ -16,7 +16,7 @@ import com.lvmoney.activiti.service.BaseActivitiService;
 import com.lvmoney.activiti.service.MiaoService;
 import com.lvmoney.activiti.vo.*;
 import com.lvmoney.common.constant.CommonConstant;
-import com.lvmoney.common.utils.JsonUtil;
+import com.lvmoney.common.util.JsonUtil;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;

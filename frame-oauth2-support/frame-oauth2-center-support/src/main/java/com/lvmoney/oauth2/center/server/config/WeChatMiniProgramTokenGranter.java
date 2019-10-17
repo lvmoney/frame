@@ -5,7 +5,7 @@
 //import com.lvmoney.oauth2.center.server.vo.RoleEnum;
 //import com.lvmoney.oauth2.center.server.vo.UserInfo;
 //import com.lvmoney.oauth2.center.server.db.entity.ThirdPartyAccount;
-//import com.lvmoney.common.utils.JacksonUtil;
+//import com.lvmoney.common.util.JacksonUtil;
 //import org.apache.commons.lang3.StringUtils;
 //import org.springframework.security.authentication.AbstractAuthenticationToken;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

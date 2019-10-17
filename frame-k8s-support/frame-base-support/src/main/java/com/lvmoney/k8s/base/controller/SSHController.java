@@ -8,10 +8,10 @@ package com.lvmoney.k8s.base.controller;/**
 
 
 import ch.ethz.ssh2.Connection;
-import com.lvmoney.common.utils.ResultUtil;
-import com.lvmoney.common.utils.vo.ResultData;
-import com.lvmoney.k8s.base.utils.ExecCmdResult;
-import com.lvmoney.k8s.base.utils.Ssh2Util;
+import com.lvmoney.common.util.ResultUtil;
+import com.lvmoney.common.util.vo.ResultData;
+import com.lvmoney.k8s.base.util.ExecCmdResult;
+import com.lvmoney.k8s.base.util.Ssh2Util;
 import com.lvmoney.k8s.base.vo.req.SshExecReqVo;
 import com.lvmoney.k8s.base.vo.req.SshUploadFileReqVo;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +31,7 @@ public class SshController {
     /**
      * @describe:文件上传到linux指定目录
      * @param: [sshUploadFileReqVo]
-     * @return: com.lvmoney.common.utils.vo.ResultData<java.lang.Boolean>
+     * @return: com.lvmoney.common.util.vo.ResultData<java.lang.Boolean>
      * @author: lvmoney /XXXXXX科技有限公司
      * 2019/8/21 16:29
      */
@@ -48,7 +48,7 @@ public class SshController {
     /**
      * @describe:在linux执行特定的命令行
      * @param: [sshExecReqVo]
-     * @return: com.lvmoney.common.utils.vo.ResultData<java.lang.Boolean>
+     * @return: com.lvmoney.common.util.vo.ResultData<java.lang.Boolean>
      * @author: lvmoney /XXXXXX科技有限公司
      * 2019/8/21 16:30
      */

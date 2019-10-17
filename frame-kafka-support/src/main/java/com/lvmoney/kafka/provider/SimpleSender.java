@@ -1,14 +1,14 @@
 package com.lvmoney.kafka.provider;/**
  * 描述:
- * 包名:com.lvmoney.jwt.annotations
+ * 包名:com.lvmoney.jwt.annotation
  * 版本信息: 版本1.0
  * 日期:2019/1/21
  * Copyright xxxx科技有限公司
  */
 
 
-import com.lvmoney.common.utils.JsonUtil;
-import com.lvmoney.common.utils.ReflectUtil;
+import com.lvmoney.common.util.JsonUtil;
+import com.lvmoney.common.util.ReflectUtil;
 import com.lvmoney.kafka.constant.KafkaConstant;
 import com.lvmoney.kafka.listener.ProviderListener;
 import com.lvmoney.kafka.vo.MessageVo;

@@ -8,11 +8,11 @@ package com.lvmoney.k8s.authentication.controller;/**
 
 
 import com.lvmoney.common.constant.CommonConstant;
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
 import com.lvmoney.common.ro.UserRo;
-import com.lvmoney.common.utils.ResultUtil;
-import com.lvmoney.common.utils.vo.ResultData;
+import com.lvmoney.common.util.ResultUtil;
+import com.lvmoney.common.util.vo.ResultData;
 import com.lvmoney.jwt.service.JwtRedisService;
 import com.lvmoney.k8s.authentication.constant.AuthenticationConstant;
 import com.lvmoney.k8s.authentication.properties.OauthClientProp;

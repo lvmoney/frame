@@ -1,16 +1,15 @@
 package com.lvmoney.kafka.listener;/**
  * 描述:
- * 包名:com.lvmoney.jwt.annotations
+ * 包名:com.lvmoney.jwt.annotation
  * 版本信息: 版本1.0
  * 日期:2019/1/22
  * Copyright xxxx科技有限公司
  */
 
 
-import com.lvmoney.common.utils.JsonUtil;
+import com.lvmoney.common.util.JsonUtil;
 import com.lvmoney.kafka.ro.ErrorRecordRo;
 import com.lvmoney.kafka.service.KafkaRedisService;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 import org.slf4j.Logger;

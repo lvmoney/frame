@@ -4039,7 +4039,7 @@
                 /**
                  * Collection of utilities useful when writing custom modifiers.
                  * Starting from version 1.7, this method is available only if you
-                 * include `popper-utils.js` before `popper.js`.
+                 * include `popper-util.js` before `popper.js`.
                  *
                  * **DEPRECATION**: This way to access PopperUtils is deprecated
                  * and will be removed in v2! Use the PopperUtils module directly instead.

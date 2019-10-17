@@ -2,7 +2,7 @@ package com.lvmoney.oauth2.center.server.controller;
 
 import com.lvmoney.captcha.service.CaptchaService;
 import com.lvmoney.captcha.vo.ValidateResultVo;
-import com.lvmoney.common.exceptions.BusinessException;
+import com.lvmoney.common.exception.BusinessException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.vo.resp.CaptchaGraphBase64RespVo;
 import com.lvmoney.oauth2.center.server.vo.resp.CaptchaGraphRespVo;

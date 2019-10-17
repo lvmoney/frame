@@ -7,8 +7,7 @@ package com.lvmoney.k8s.base.service.impl;/**
  */
 
 
-import com.lvmoney.common.utils.JsonUtil;
-import com.lvmoney.common.utils.ReflectUtil;
+import com.lvmoney.common.util.JsonUtil;
 import com.lvmoney.k8s.base.service.K8sService;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.api.model.NamespaceList;

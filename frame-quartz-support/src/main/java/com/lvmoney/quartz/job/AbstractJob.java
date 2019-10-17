@@ -8,9 +8,6 @@
 
 package com.lvmoney.quartz.job;
 
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
-import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +32,7 @@ public abstract class AbstractJob extends QuartzJobBean {
      * @author: lvmoney /XXXXXX科技有限公司
      * @data: 2019/9/9 19:04
      */
-    @SuppressWarnings("AlibabaAbstractMethodOrInterfaceMethodMustUseJavadoc")
+    @Override
     protected abstract void executeInternal(JobExecutionContext context);
 
     protected String cronExpression;

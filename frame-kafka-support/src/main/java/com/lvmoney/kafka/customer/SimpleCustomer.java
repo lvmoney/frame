@@ -1,6 +1,6 @@
 package com.lvmoney.kafka.customer;/**
  * 描述:
- * 包名:com.lvmoney.jwt.annotations
+ * 包名:com.lvmoney.jwt.annotation
  * 版本信息: 版本1.0
  * 日期:2019/1/21
  * Copyright xxxx科技有限公司
@@ -8,8 +8,8 @@ package com.lvmoney.kafka.customer;/**
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
 import com.lvmoney.kafka.constant.KafkaConstant;
 import com.lvmoney.kafka.factory.HandMqServiceContext;
 import com.lvmoney.kafka.utils.ContextBeanUtil;

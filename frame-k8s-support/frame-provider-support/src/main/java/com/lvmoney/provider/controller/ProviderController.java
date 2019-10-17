@@ -7,8 +7,8 @@ package com.lvmoney.provider.controller;/**
  */
 
 
-import com.lvmoney.common.utils.ResultUtil;
-import com.lvmoney.common.utils.vo.ResultData;
+import com.lvmoney.common.util.ResultUtil;
+import com.lvmoney.common.util.vo.ResultData;
 import com.lvmoney.k8s.base.annotations.ReleaseServer;
 import com.lvmoney.provider.service.UserService;
 import com.lvmoney.provider.vo.req.UserReqVo;

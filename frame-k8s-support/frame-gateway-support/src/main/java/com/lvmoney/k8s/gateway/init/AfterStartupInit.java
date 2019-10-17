@@ -7,7 +7,7 @@ package com.lvmoney.k8s.gateway.init;/**
  */
 
 
-import com.lvmoney.common.utils.MapUtil;
+import com.lvmoney.common.util.MapUtil;
 import com.lvmoney.common.vo.ServerInfo;
 import com.lvmoney.k8s.gateway.ro.RouteDefinitionRo;
 import com.lvmoney.k8s.gateway.service.Gateway2DbService;
@@ -15,7 +15,6 @@ import com.lvmoney.k8s.gateway.service.Gateway2RedisService;
 import com.lvmoney.k8s.gateway.service.ServerService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.config.GatewayProperties;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.stereotype.Service;

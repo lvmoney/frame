@@ -1,7 +1,7 @@
 package com.lvmoney.oauth2.center.server;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.lvmoney.common.utils.JacksonUtil;
+import com.lvmoney.common.util.JacksonUtil;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.*;

@@ -8,8 +8,8 @@
 
 package com.lvmoney.httpclient.service.impl;
 
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
 import com.lvmoney.httpclient.service.HttpApiService;
 import com.lvmoney.httpclient.vo.HttpFileResult;
 import com.lvmoney.httpclient.vo.HttpResult;

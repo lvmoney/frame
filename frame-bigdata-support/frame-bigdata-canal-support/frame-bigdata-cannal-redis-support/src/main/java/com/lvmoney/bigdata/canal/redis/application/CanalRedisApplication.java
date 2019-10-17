@@ -9,7 +9,7 @@ import com.alibaba.otter.canal.protocol.CanalEntry.EventType;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowChange;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
 import com.alibaba.otter.canal.client.*;
-import com.lvmoney.common.utils.MapUtil;
+import com.lvmoney.common.util.MapUtil;
 
 import java.net.InetSocketAddress;
 import java.util.HashMap;

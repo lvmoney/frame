@@ -8,8 +8,8 @@ package com.lvmoney.lock.service.impl;/**
 
 
 import com.lvmoney.common.constant.CommonConstant;
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
 import com.lvmoney.lock.constant.LockConstant;
 import com.lvmoney.lock.service.DistributedLockerService;
 import com.lvmoney.lock.service.ProdLockService;

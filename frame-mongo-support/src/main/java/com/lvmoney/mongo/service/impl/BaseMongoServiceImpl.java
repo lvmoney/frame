@@ -8,8 +8,8 @@
 
 package com.lvmoney.mongo.service.impl;
 
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
 import com.lvmoney.mongo.service.BaseMongoService;
 import com.lvmoney.mongo.vo.BaseMongoCollective;
 import com.lvmoney.mongo.vo.BaseMongoVo;

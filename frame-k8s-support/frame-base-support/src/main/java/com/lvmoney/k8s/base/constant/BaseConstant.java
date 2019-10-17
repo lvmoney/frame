@@ -19,7 +19,7 @@ public class BaseConstant {
     /**
      * Yaml 文件后缀
      */
-    public static final String YAML_SUFFIX = ".Yaml";
+    public static final String YAML_SUFFIX = ".yaml";
 
     public static final String YAML_FILE_PATH = System.getProperty("user.dir") + FILE_SEPARATOR + "data" + FILE_SEPARATOR + "yaml";
 

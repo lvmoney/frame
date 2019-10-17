@@ -13,8 +13,8 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.stereotype.Component;
 
-import com.lvmoney.router.annotations.RouterMethod;
-import com.lvmoney.router.annotations.RouterService;
+import com.lvmoney.router.annotation.RouterMethod;
+import com.lvmoney.router.annotation.RouterService;
 import com.lvmoney.router.config.RouterMethodConfig;
 import com.lvmoney.router.config.RouterServiceConfig;
 

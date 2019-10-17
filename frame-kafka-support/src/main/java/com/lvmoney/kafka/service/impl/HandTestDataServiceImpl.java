@@ -8,7 +8,7 @@
 
 package com.lvmoney.kafka.service.impl;
 
-import com.lvmoney.kafka.annotations.DynamicService;
+import com.lvmoney.kafka.annotation.DynamicService;
 import com.lvmoney.kafka.service.HandMqDataService;
 import com.lvmoney.kafka.vo.MessageVo;
 import org.springframework.stereotype.Service;

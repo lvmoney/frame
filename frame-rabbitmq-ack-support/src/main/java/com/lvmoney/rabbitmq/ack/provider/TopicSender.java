@@ -1,6 +1,6 @@
 package com.lvmoney.rabbitmq.ack.provider;/**
  * 描述:
- * 包名:com.lvmoney.jwt.annotations
+ * 包名:com.lvmoney.jwt.annotation
  * 版本信息: 版本1.0
  * 日期:2019/1/21
  * Copyright xxxx科技有限公司
@@ -9,13 +9,12 @@ package com.lvmoney.rabbitmq.ack.provider;/**
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lvmoney.common.utils.JsonUtil;
+import com.lvmoney.common.util.JsonUtil;
 import com.lvmoney.rabbitmq.ack.constant.RabbitmqConstant;
 import com.lvmoney.rabbitmq.ack.ro.AckErrorRecordRo;
 import com.lvmoney.rabbitmq.ack.service.RabbitmqRedisService;
 import com.lvmoney.rabbitmq.ack.vo.MessageVo;
 import com.lvmoney.rabbitmq.ack.vo.MsgErrorVo;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

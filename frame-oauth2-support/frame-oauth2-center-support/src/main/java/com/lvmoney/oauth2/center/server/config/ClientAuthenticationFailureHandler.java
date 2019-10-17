@@ -3,7 +3,7 @@ package com.lvmoney.oauth2.center.server.config;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lvmoney.common.utils.vo.ResultData;
+import com.lvmoney.common.util.vo.ResultData;
 import com.lvmoney.oauth2.center.server.exception.CustomOauthException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.service.LoginHistoryService;

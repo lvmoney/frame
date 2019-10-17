@@ -10,7 +10,7 @@ package com.lvmoney.oauth2.center.server.service.impl;/**
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.lvmoney.common.constant.CommonConstant;
-import com.lvmoney.common.utils.StringUtil;
+import com.lvmoney.common.util.StringUtil;
 import com.lvmoney.oauth2.center.server.constant.Oauth2ServerConstant;
 import com.lvmoney.oauth2.center.server.db.dao.OauthClientDao;
 import com.lvmoney.oauth2.center.server.db.dao.UserAccountDao;

@@ -17,6 +17,7 @@ mysql的读写分离，分布式事务
 分布式锁用redisson完成  
 当然如果涉及到大数据，那么spark，hadoop，flume，hbase按需加入到各个服务中，这是后话了
 等等
+6、架构基于k8s1.16.0+istio1.3.0
 
 
 

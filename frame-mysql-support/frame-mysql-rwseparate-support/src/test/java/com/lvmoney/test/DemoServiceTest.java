@@ -7,7 +7,7 @@ package com.lvmoney.test;/**
  */
 
 
-import com.lvmoney.common.utils.JsonUtil;
+import com.lvmoney.common.util.JsonUtil;
 import com.lvmoney.mysql.rwseparate.application.Application;
 import com.lvmoney.mysql.rwseparate.po.TestPo;
 import com.lvmoney.mysql.rwseparate.service.TestService;

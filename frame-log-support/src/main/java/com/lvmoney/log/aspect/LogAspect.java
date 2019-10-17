@@ -8,12 +8,12 @@ package com.lvmoney.log.aspect;/**
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
-import com.lvmoney.common.utils.vo.ResultData;
-import com.lvmoney.log.annotations.ControllerLog;
-import com.lvmoney.log.annotations.NotLog;
-import com.lvmoney.log.annotations.ServiceLog;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
+import com.lvmoney.common.util.vo.ResultData;
+import com.lvmoney.log.annotation.ControllerLog;
+import com.lvmoney.log.annotation.NotLog;
+import com.lvmoney.log.annotation.ServiceLog;
 import com.lvmoney.log.constant.LogConstant;
 import com.lvmoney.log.service.LogService;
 import com.lvmoney.log.vo.ControllerVo;
@@ -68,14 +68,14 @@ public class LogAspect {
     /***
      * 定义service切入点拦截规则，拦截SystemServiceLog注解的方法
      */
-    @Pointcut("@annotation(com.lvmoney.log.annotations.ServiceLog)")
+    @Pointcut("@annotation(com.lvmoney.log.annotation.ServiceLog)")
     public void serviceAspect() {
     }
 
     /***
      * 定义controller切入点拦截规则，拦截SystemControllerLog注解的方法
      */
-    @Pointcut("@annotation(com.lvmoney.log.annotations.ControllerLog)")
+    @Pointcut("@annotation(com.lvmoney.log.annotation.ControllerLog)")
     public void controllerAspect() {
     }
 
@@ -162,15 +162,15 @@ public class LogAspect {
 
     private String getReturnParams(ProceedingJoinPoint joinPoint) {
         Object[] params = joinPoint.getArgs();
-        String returnStr = "";
+        StringBuilder returnStr = new StringBuilder();
         for (Object param : params) {
             if (param instanceof String) {
-                returnStr += param;
+                returnStr.append(params);
             } else if (param instanceof Integer) {
-                returnStr += param;
+                returnStr.append(params);
             }
         }
-        return returnStr;
+        return returnStr.toString();
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.lvmoney.activiti.controller;/**
  * 描述:
- * 包名:com.lvmoney.jwt.annotations
+ * 包名:com.lvmoney.jwt.annotation
  * 版本信息: 版本1.0
  * 日期:2019/1/22
  * Copyright xxxx科技有限公司
@@ -10,7 +10,7 @@ package com.lvmoney.activiti.controller;/**
 import com.lvmoney.activiti.po.User;
 import com.lvmoney.activiti.po.VacationForm;
 import com.lvmoney.activiti.service.MiaoService;
-import com.lvmoney.activiti.utils.ResultInfo;
+import com.lvmoney.activiti.util.ResultInfo;
 import com.lvmoney.common.constant.CommonConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,7 +76,7 @@ public class BaseController {
     /**
      * @describe: 添加请假单
      * @param: [request]
-     * @return: com.lvmoney.activiti.utils.ResultInfo
+     * @return: com.lvmoney.activiti.util.ResultInfo
      * @author: lvmoney /XXXXXX科技有限公司
      * 2019/9/9 9:59
      */
@@ -96,7 +96,7 @@ public class BaseController {
     /**
      * @describe: 申请者放弃请假
      * @param: [request]
-     * @return: com.lvmoney.activiti.utils.ResultInfo
+     * @return: com.lvmoney.activiti.util.ResultInfo
      * @author: lvmoney /XXXXXX科技有限公司
      * 2019/9/9 9:59
      */
@@ -114,7 +114,7 @@ public class BaseController {
     /**
      * @describe: 申请者申请请假
      * @param: [request]
-     * @return: com.lvmoney.activiti.utils.ResultInfo
+     * @return: com.lvmoney.activiti.util.ResultInfo
      * @author: lvmoney /XXXXXX科技有限公司
      * 2019/9/9 9:59
      */
@@ -132,7 +132,7 @@ public class BaseController {
     /**
      * @describe: 审批者审核请假信息
      * @param: [request]
-     * @return: com.lvmoney.activiti.utils.ResultInfo
+     * @return: com.lvmoney.activiti.util.ResultInfo
      * @author: lvmoney /XXXXXX科技有限公司
      * 2019/9/9 10:00
      */
@@ -165,7 +165,7 @@ public class BaseController {
     /**
      * @describe: 历史状态查询
      * @param: [request]
-     * @return: com.lvmoney.activiti.utils.ResultInfo
+     * @return: com.lvmoney.activiti.util.ResultInfo
      * @author: lvmoney /XXXXXX科技有限公司
      * 2019/9/9 10:00
      */

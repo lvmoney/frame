@@ -7,7 +7,7 @@ package com.lvmoney.k8s.config.client.controller;/**
  */
 
 
-import com.lvmoney.common.utils.JsonUtil;
+import com.lvmoney.common.util.JsonUtil;
 import com.lvmoney.k8s.config.client.dao.TestDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

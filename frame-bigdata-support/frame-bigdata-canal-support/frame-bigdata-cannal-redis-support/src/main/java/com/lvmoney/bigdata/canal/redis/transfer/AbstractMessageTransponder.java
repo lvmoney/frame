@@ -6,15 +6,14 @@ import com.alibaba.otter.canal.protocol.exception.CanalClientException;
 import com.lvmoney.bigdata.canal.redis.annotation.CanalEventListener;
 import com.lvmoney.bigdata.canal.redis.vo.ListenerPointVo;
 import com.lvmoney.bigdata.canal.redis.properties.CanalProp;
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @describe：

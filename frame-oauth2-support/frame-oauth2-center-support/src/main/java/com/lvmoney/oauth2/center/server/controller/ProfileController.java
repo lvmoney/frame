@@ -1,27 +1,19 @@
 package com.lvmoney.oauth2.center.server.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.lvmoney.common.exceptions.BusinessException;
+import com.lvmoney.common.exception.BusinessException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.service.Oauth2RedisService;
-import com.lvmoney.oauth2.center.server.service.UserAccountService;
-import com.lvmoney.oauth2.center.server.vo.UserAccountVo;
 import com.lvmoney.oauth2.center.server.vo.UserInfo;
 import com.lvmoney.oauth2.center.server.vo.resp.UserMeRespVo;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
-import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

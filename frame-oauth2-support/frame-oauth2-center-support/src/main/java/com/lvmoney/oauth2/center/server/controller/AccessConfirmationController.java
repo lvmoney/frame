@@ -1,6 +1,6 @@
 package com.lvmoney.oauth2.center.server.controller;
 
-import com.lvmoney.common.exceptions.BusinessException;
+import com.lvmoney.common.exception.BusinessException;
 import com.lvmoney.oauth2.center.server.db.dao.OauthClientDao;
 import com.lvmoney.oauth2.center.server.db.entity.OauthClient;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;

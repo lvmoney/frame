@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.common.ro.UserRo;
-import com.lvmoney.common.utils.JsonUtil;
+import com.lvmoney.common.util.JsonUtil;
 import com.lvmoney.redis.service.BaseRedisService;
 import com.lvmoney.shiro.constant.ShiroConstant;
 import com.lvmoney.shiro.ro.ShiroDataRo;

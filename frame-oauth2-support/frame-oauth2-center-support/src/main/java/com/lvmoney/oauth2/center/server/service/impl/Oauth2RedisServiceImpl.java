@@ -2,7 +2,6 @@ package com.lvmoney.oauth2.center.server.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
-import com.lvmoney.common.exceptions.CommonException;
 import com.lvmoney.oauth2.center.server.exception.CustomOauthException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.ro.AuthorizationCodeRo;

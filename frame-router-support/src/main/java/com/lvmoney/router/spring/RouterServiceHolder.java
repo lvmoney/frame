@@ -8,9 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.lvmoney.router.config.PermissionValidatedConfig;
-import com.lvmoney.router.annotations.AuthenticationValidated;
-import com.lvmoney.router.annotations.ParamValidated;
-import com.lvmoney.router.annotations.PermissionValidated;
+import com.lvmoney.router.annotation.AuthenticationValidated;
+import com.lvmoney.router.annotation.ParamValidated;
+import com.lvmoney.router.annotation.PermissionValidated;
 import com.lvmoney.router.config.AuthenticationValidatedConfig;
 import com.lvmoney.router.config.RouterMethodConfig;
 import com.lvmoney.router.config.RouterServiceConfig;
@@ -61,11 +61,11 @@ public class RouterServiceHolder {
 
     public ParamValidatedConfig findValidateByUri(String uri) {
         RouterMethodConfig routerMethodConfig = this.findMethodByUri(uri);
-//		Annotation[] annotations = RouterMethodConfig.getMethod().getAnnotations();
+//		Annotation[] annotation = RouterMethodConfig.getMethod().getAnnotations();
 //		boolean isValidate=false;
-//		for(Annotation annotations:annotations){
-//			if(annotations instanceof ValidateMethod){
-//				ValidateMethod ValidateMethod = (ValidateMethod)annotations;
+//		for(Annotation annotation:annotation){
+//			if(annotation instanceof ValidateMethod){
+//				ValidateMethod ValidateMethod = (ValidateMethod)annotation;
 //				isValidate = ValidateMethod.isValidate();
 //				break;
 //			}

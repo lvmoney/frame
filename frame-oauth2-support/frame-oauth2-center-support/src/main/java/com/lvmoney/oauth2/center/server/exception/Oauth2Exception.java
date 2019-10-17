@@ -7,8 +7,7 @@ package com.lvmoney.oauth2.center.server.exception;/**
  */
 
 
-import com.lvmoney.common.exceptions.CommonException;
-import com.lvmoney.common.exceptions.ExceptionType;
+import com.lvmoney.common.exception.ExceptionType;
 
 /**
  * @describe：

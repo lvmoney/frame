@@ -16,9 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSONObject;
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
-import com.lvmoney.rabbitmq.annotations.DynamicService;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
+import com.lvmoney.rabbitmq.annotation.DynamicService;
 import com.lvmoney.rabbitmq.constant.RabbitmqConstant;
 import com.lvmoney.rabbitmq.factory.HandMqServiceContext;
 import com.lvmoney.rabbitmq.service.HandMqDataService;

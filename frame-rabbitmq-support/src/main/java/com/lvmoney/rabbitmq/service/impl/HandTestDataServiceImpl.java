@@ -10,7 +10,7 @@ package com.lvmoney.rabbitmq.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.lvmoney.rabbitmq.annotations.DynamicService;
+import com.lvmoney.rabbitmq.annotation.DynamicService;
 import com.lvmoney.rabbitmq.service.HandMqDataService;
 import com.lvmoney.rabbitmq.vo.MqDataVo;
 

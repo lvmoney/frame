@@ -14,13 +14,26 @@ package com.lvmoney.k8s.base.enums;/**
  */
 public enum ApiVersion {
     /**
-     * apiversion extensions/v1beta1
+     * apiversion extensions/v1beta1 ,k8s1.16.0后不再支持
      */
+    @Deprecated
     v1beta1("extensions/v1beta1"),
+
+    /**
+     * networking.k8s.io/v1
+     */
+    networkingv1("networking.k8s.io/v1"),
+
+    /**
+     * apps/v1
+     */
+    appsv1("apps/v1"),
+
     /**
      * apiversion networking.istio.io/v1alpha3
      */
     v1alpha3("networking.istio.io/v1alpha3"),
+
     /**
      * apiversion v1
      */

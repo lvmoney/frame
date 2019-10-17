@@ -8,7 +8,7 @@
 
 package com.lvmoney.drools.constant;
 
-import com.lvmoney.common.utils.IntervalUtil;
+import com.lvmoney.common.util.IntervalUtil;
 
 /**
  * @describe：

@@ -36,6 +36,7 @@
         <module>frame-bigdata-support</module>
         <module>frame-oauth2-support</module>
         <module>frame-ttc-support</module>
+        <module>frame-repeatsubmit-support</module>
     </modules>
     <!--     <distributionManagement>
              <repository>

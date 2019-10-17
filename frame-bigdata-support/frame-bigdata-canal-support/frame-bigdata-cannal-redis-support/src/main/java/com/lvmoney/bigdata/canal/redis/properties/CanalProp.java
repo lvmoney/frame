@@ -28,15 +28,31 @@ import java.util.Set;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ConfigurationProperties(prefix = "canal.server")
 public class CanalProp {
-    public int getPoolSize() {
-        return poolSize;
+
+    /**
+     * 线程池最大连接数
+     */
+    private int maxPoolSize;
+    /**
+     * 线程池初始化连接数
+     */
+    private int initPoolSize;
+
+    public int getMaxPoolSize() {
+        return maxPoolSize;
     }
 
-    public void setPoolSize(int poolSize) {
-        this.poolSize = poolSize;
+    public void setMaxPoolSize(int maxPoolSize) {
+        this.maxPoolSize = maxPoolSize;
     }
 
-    private int poolSize = 100;
+    public int getInitPoolSize() {
+        return initPoolSize;
+    }
+
+    public void setInitPoolSize(int initPoolSize) {
+        this.initPoolSize = initPoolSize;
+    }
 
     /**
      * 配置信息

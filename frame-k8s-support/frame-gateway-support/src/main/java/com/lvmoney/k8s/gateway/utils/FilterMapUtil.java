@@ -1,13 +1,13 @@
 package com.lvmoney.k8s.gateway.utils;/**
  * 描述:
- * 包名:com.lvmoney.k8s.gateway.utils
+ * 包名:com.lvmoney.k8s.gateway.util
  * 版本信息: 版本1.0
  * 日期:2019/8/14
  * Copyright XXXXXX科技有限公司
  */
 
 
-import com.lvmoney.common.utils.WildcardUtil;
+import com.lvmoney.common.util.WildcardUtil;
 
 import java.util.Map;
 

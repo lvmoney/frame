@@ -7,15 +7,9 @@ package com.lvmoney.office.vo;/**
  */
 
 
-import com.deepoove.poi.data.PictureRenderData;
-import com.deepoove.poi.data.RenderData;
-import com.deepoove.poi.data.TextRenderData;
-import com.deepoove.poi.util.BytePictureUtils;
-import com.lvmoney.common.utils.JsonUtil;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

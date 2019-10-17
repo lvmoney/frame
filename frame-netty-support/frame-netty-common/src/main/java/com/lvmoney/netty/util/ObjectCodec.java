@@ -1,6 +1,6 @@
 package com.lvmoney.netty.util;
 
-import com.lvmoney.common.utils.ObjectSerializerUtil;
+import com.lvmoney.common.util.ObjectSerializerUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;

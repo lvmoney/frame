@@ -1,7 +1,7 @@
 package com.lvmoney.k8s.gateway.controller;
 
 import com.lvmoney.common.constant.CommonConstant;
-import com.lvmoney.common.utils.vo.ResultData;
+import com.lvmoney.common.util.vo.ResultData;
 import com.lvmoney.k8s.gateway.ro.WhiteListRo;
 import com.lvmoney.k8s.gateway.server.AuthenticationServerConfig;
 import com.lvmoney.k8s.gateway.service.WhiteListService;

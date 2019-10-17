@@ -8,8 +8,8 @@ package com.lvmoney.yaml;/**
 
 
 import ch.ethz.ssh2.Connection;
-import com.lvmoney.k8s.base.utils.ExecCmdResult;
-import com.lvmoney.k8s.base.utils.Ssh2Util;
+import com.lvmoney.k8s.base.util.ExecCmdResult;
+import com.lvmoney.k8s.base.util.Ssh2Util;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,6 +1,6 @@
 /**
  * 描述:
- * 包名:com.lvmoney.router.utils
+ * 包名:com.lvmoney.router.util
  * 版本信息: 版本1.0
  * 日期:2018年12月29日  下午5:12:15
  * Copyright xxxx科技有限公司
@@ -21,8 +21,8 @@ import javax.validation.Validator;
 
 import org.hibernate.validator.HibernateValidator;
 
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
 
 public class HibernateValidationHandler {
 

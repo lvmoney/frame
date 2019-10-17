@@ -9,7 +9,7 @@ package com.lvmoney.k8s.authentication.service;/**
 
 import com.lvmoney.common.constant.CommonConstant;
 import com.lvmoney.common.ro.UserRo;
-import com.lvmoney.common.utils.SnowflakeIdFactoryUtil;
+import com.lvmoney.common.util.SnowflakeIdFactoryUtil;
 import com.lvmoney.jwt.service.JwtRedisService;
 import com.lvmoney.k8s.authentication.constant.AuthenticationConstant;
 import com.lvmoney.k8s.authentication.vo.Oauth2Token;

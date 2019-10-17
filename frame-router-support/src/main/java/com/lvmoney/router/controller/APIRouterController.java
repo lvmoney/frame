@@ -10,7 +10,7 @@ package com.lvmoney.router.controller;
 
 import java.util.List;
 
-import com.lvmoney.common.utils.JsonUtil;
+import com.lvmoney.common.util.JsonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
-import com.lvmoney.common.utils.vo.ResultData;
-import com.lvmoney.jwt.annotations.NotToken;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
+import com.lvmoney.common.util.vo.ResultData;
+import com.lvmoney.jwt.annotation.NotToken;
 import com.lvmoney.router.config.RouterMethodConfig;
 import com.lvmoney.router.config.AuthenticationValidatedConfig;
 import com.lvmoney.router.config.ParamValidatedConfig;
@@ -185,7 +185,7 @@ public class ApiRouterController {
     /**
      * @describe: 错误处理
      * @param: [ex, request]
-     * @return: com.lvmoney.common.utils.vo.ResultData
+     * @return: com.lvmoney.common.util.vo.ResultData
      * @author: lvmoney /XXXXXX科技有限公司
      * 2019/9/9 14:09
      */
@@ -203,7 +203,7 @@ public class ApiRouterController {
     /**
      * @describe: 执行方法获得返回数据
      * @param: [request, uri, data]
-     * @return: com.lvmoney.common.utils.vo.ResultData
+     * @return: com.lvmoney.common.util.vo.ResultData
      * @author: lvmoney /XXXXXX科技有限公司
      * 2019/9/9 14:08
      */

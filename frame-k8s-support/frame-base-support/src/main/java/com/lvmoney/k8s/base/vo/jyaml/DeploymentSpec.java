@@ -20,6 +20,6 @@ import java.io.Serializable;
 public class DeploymentSpec implements Serializable {
     private static final long serialVersionUID = -3547019119340747457L;
     private int replicas;
-
+    DeploymentSpecSelector selector;
     private Template template;
 }

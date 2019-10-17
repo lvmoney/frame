@@ -1,6 +1,6 @@
 package com.lvmoney.activiti.service.impl;/**
  * 描述:
- * 包名:com.lvmoney.jwt.annotations
+ * 包名:com.lvmoney.jwt.annotation
  * 版本信息: 版本1.0
  * 日期:2019/1/23
  * Copyright xxxx科技有限公司
@@ -9,8 +9,7 @@ package com.lvmoney.activiti.service.impl;/**
 
 import com.lvmoney.activiti.service.BaseActivitiService;
 import com.lvmoney.activiti.vo.*;
-import com.lvmoney.common.utils.JsonUtil;
-import com.lvmoney.common.utils.ModuleUtil;
+import com.lvmoney.common.util.JsonUtil;
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.bpmn.model.Process;
 import org.activiti.engine.*;

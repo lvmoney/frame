@@ -1,7 +1,7 @@
 package com.lvmoney.oauth2.center.server.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lvmoney.common.utils.vo.ResultData;
+import com.lvmoney.common.util.vo.ResultData;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

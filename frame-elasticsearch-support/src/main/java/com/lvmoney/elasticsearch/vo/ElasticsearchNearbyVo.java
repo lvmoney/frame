@@ -12,7 +12,7 @@ import org.elasticsearch.common.unit.DistanceUnit;
 import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.data.domain.Pageable;
 
-import com.lvmoney.common.utils.vo.LocationVo;
+import com.lvmoney.common.util.vo.LocationVo;
 
 /**
  * @param <T>

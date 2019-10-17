@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.core.Ordered;
 import org.springframework.stereotype.Component;
 
-import com.lvmoney.common.exceptions.FrameRuntimeException;
+import com.lvmoney.common.exception.FrameRuntimeException;
 import com.lvmoney.router.vo.global.GlobalPhoneParams;
 import com.lvmoney.router.vo.global.GlobalPhoneParamsAware;
 

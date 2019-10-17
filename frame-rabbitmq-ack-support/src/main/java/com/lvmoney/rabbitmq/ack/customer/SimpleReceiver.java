@@ -1,17 +1,17 @@
 package com.lvmoney.rabbitmq.ack.customer;/**
  * 描述:
- * 包名:com.lvmoney.jwt.annotations
+ * 包名:com.lvmoney.jwt.annotation
  * 版本信息: 版本1.0
  * 日期:2019/1/21
  * Copyright xxxx科技有限公司
  */
 
 import com.alibaba.fastjson.JSONObject;
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
 import com.lvmoney.rabbitmq.ack.constant.RabbitmqConstant;
 import com.lvmoney.rabbitmq.ack.factory.HandMqServiceContext;
-import com.lvmoney.rabbitmq.ack.utils.ContextBeanUtil;
+import com.lvmoney.rabbitmq.ack.util.ContextBeanUtil;
 import com.lvmoney.rabbitmq.ack.vo.MessageVo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;

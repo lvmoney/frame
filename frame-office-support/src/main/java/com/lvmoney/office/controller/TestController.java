@@ -7,8 +7,8 @@ package com.lvmoney.office.controller;/**
  */
 
 
-import com.lvmoney.common.utils.ResultUtil;
-import com.lvmoney.common.utils.vo.ResultData;
+import com.lvmoney.common.util.ResultUtil;
+import com.lvmoney.common.util.vo.ResultData;
 import com.lvmoney.office.vo.AVo;
 import com.lvmoney.office.vo.TestVo;
 import org.springframework.web.bind.annotation.RequestMapping;

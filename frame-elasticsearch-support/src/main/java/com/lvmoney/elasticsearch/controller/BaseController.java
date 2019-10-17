@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lvmoney.common.utils.LocationUtil;
+import com.lvmoney.common.util.LocationUtil;
 import com.lvmoney.elasticsearch.eo.Employee;
 import com.lvmoney.elasticsearch.service.ElasticsearchService;
 import com.lvmoney.elasticsearch.vo.ElasticsearchQueryVo;

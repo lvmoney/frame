@@ -9,7 +9,7 @@ package com.lvmoney.k8s.logback.mongo.service.impl;/**
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.UnsynchronizedAppenderBase;
-import com.lvmoney.common.utils.ApplicationBeanUtil;
+import com.lvmoney.common.util.ApplicationBeanUtil;
 import com.lvmoney.k8s.logback.common.vo.LogVo;
 
 /**

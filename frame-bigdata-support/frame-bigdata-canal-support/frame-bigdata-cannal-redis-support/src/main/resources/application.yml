@@ -11,7 +11,8 @@ canal:
         batchSize: 1000
         acquireInterval: 1000
         retryCount: 20
-    poolSize: 100
+    maxPoolSize: 20
+    initPoolSize: 5
 spring:
   main:
     allow-bean-definition-overriding: true

@@ -1,7 +1,7 @@
 package com.lvmoney.oauth2.center.server.service.impl;
 
 import com.github.dozermapper.core.Mapper;
-import com.lvmoney.common.exceptions.BusinessException;
+import com.lvmoney.common.exception.BusinessException;
 import com.lvmoney.oauth2.center.server.exception.Oauth2Exception;
 import com.lvmoney.oauth2.center.server.db.dao.ScopeDefinitionDao;
 import com.lvmoney.oauth2.center.server.db.entity.ScopeDefinition;

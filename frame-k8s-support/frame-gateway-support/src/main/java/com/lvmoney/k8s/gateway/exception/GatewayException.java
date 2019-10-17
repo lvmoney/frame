@@ -7,7 +7,7 @@ package com.lvmoney.k8s.gateway.exception;/**
  */
 
 
-import com.lvmoney.common.exceptions.ExceptionType;
+import com.lvmoney.common.exception.ExceptionType;
 
 /**
  * @describe：

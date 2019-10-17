@@ -7,7 +7,7 @@ package com.lvmoney.k8s.gateway.server;/**
  */
 
 
-import com.lvmoney.common.utils.vo.ResultData;
+import com.lvmoney.common.util.vo.ResultData;
 import com.lvmoney.k8s.gateway.vo.resp.Oauth2TokenCheck;
 import com.lvmoney.k8s.gateway.vo.resp.ShiroAuthorityCheck;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +23,7 @@ public interface AuthenticationServer {
     /**
      * 用户token校验
      *
-     * @return: com.lvmoney.common.utils.vo.ResultData<com.lvmoney.k8s.gateway.vo.resp.Oauth2TokenCheck>
+     * @return: com.lvmoney.common.util.vo.ResultData<com.lvmoney.k8s.gateway.vo.resp.Oauth2TokenCheck>
      * @author: lvmoney /XXXXXX科技有限公司
      * @date: 2019/9/9 19:21
      */
@@ -35,7 +35,7 @@ public interface AuthenticationServer {
      * 用户权限校验
      *
      * @param servletPath:servlet地址
-     * @return: com.lvmoney.common.utils.vo.ResultData<com.lvmoney.k8s.gateway.vo.resp.ShiroAuthorityCheck>
+     * @return: com.lvmoney.common.util.vo.ResultData<com.lvmoney.k8s.gateway.vo.resp.ShiroAuthorityCheck>
      * @author: lvmoney /XXXXXX科技有限公司
      * @date: 2019/9/9 19:22
      */

@@ -2,20 +2,17 @@ package com.lvmoney.bigdata.canal.redis.client;
 
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
-import com.alibaba.otter.canal.protocol.exception.CanalClientException;
 import com.lvmoney.bigdata.canal.redis.properties.CanalProp;
 import com.lvmoney.bigdata.canal.redis.transfer.DefaultMessageTransponder;
 import com.lvmoney.bigdata.canal.redis.transfer.TransponderFactory;
-import com.lvmoney.common.exceptions.BusinessException;
-import com.lvmoney.common.exceptions.CommonException;
+import com.lvmoney.common.exception.BusinessException;
+import com.lvmoney.common.exception.CommonException;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * @describe：Canal 客户端抽象类

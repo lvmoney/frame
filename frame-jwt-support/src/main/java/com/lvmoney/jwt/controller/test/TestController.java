@@ -8,9 +8,9 @@ package com.lvmoney.jwt.controller.test;/**
 
 
 import com.lvmoney.common.ro.UserRo;
-import com.lvmoney.common.utils.JsonUtil;
-import com.lvmoney.jwt.annotations.NotToken;
-import com.lvmoney.jwt.utils.JwtUtil;
+import com.lvmoney.common.util.JsonUtil;
+import com.lvmoney.jwt.annotation.NotToken;
+import com.lvmoney.jwt.util.JwtUtil;
 import com.lvmoney.jwt.vo.UserVo;
 import com.lvmoney.redis.service.BaseRedisService;
 import org.springframework.beans.factory.annotation.Autowired;

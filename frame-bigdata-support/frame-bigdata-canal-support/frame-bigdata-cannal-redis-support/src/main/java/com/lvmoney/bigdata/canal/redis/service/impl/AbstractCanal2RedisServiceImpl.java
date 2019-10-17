@@ -3,12 +3,10 @@ package com.lvmoney.bigdata.canal.redis.service.impl;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.lvmoney.bigdata.canal.redis.service.Canal2RedisService;
 import com.lvmoney.bigdata.canal.redis.vo.DbMsgVo;
-import com.lvmoney.common.utils.BeanUtil;
-import com.lvmoney.common.utils.MapUtil;
+import com.lvmoney.common.util.MapUtil;
 import com.lvmoney.common.vo.Page;
 import com.lvmoney.redis.service.BaseRedisService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;

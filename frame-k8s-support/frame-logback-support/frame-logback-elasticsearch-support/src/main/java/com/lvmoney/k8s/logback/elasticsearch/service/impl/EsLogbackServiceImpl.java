@@ -9,7 +9,7 @@ package com.lvmoney.k8s.logback.elasticsearch.service.impl;/**
 
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
-import com.lvmoney.common.utils.SnowflakeIdFactoryUtil;
+import com.lvmoney.common.util.SnowflakeIdFactoryUtil;
 import com.lvmoney.elasticsearch.service.ElasticsearchService;
 import com.lvmoney.elasticsearch.vo.ElasticsearchSaveVo;
 import com.lvmoney.k8s.logback.common.service.LogbackService;

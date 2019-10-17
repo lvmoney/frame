@@ -8,7 +8,7 @@
 
 package com.lvmoney.rabbitmq.ack.service.impl;
 
-import com.lvmoney.rabbitmq.ack.annotations.DynamicService;
+import com.lvmoney.rabbitmq.ack.annotation.DynamicService;
 import com.lvmoney.rabbitmq.ack.service.HandMqDataService;
 import com.lvmoney.rabbitmq.ack.vo.MessageVo;
 import org.springframework.stereotype.Service;

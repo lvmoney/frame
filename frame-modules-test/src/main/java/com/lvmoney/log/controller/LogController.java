@@ -1,7 +1,7 @@
 package com.lvmoney.log.controller;
 
-import com.lvmoney.log.annotations.ControllerLog;
-import com.lvmoney.log.annotations.NotLog;
+import com.lvmoney.log.annotation.ControllerLog;
+import com.lvmoney.log.annotation.NotLog;
 import com.lvmoney.log.constant.LogType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

@@ -258,7 +258,7 @@ public class PasswordUtil {
     /**
      *@describe: Get password strength level, includes easy, midium, strong, very strong, extremely strong
      *@param: [passwd]
-     *@return: com.lvmoney.oauth2.center.server.utils.PasswordUtil.LEVEL
+     *@return: com.lvmoney.oauth2.center.server.util.PasswordUtil.LEVEL
      *@author: lvmoney /XXXXXX科技有限公司
      *2019/9/9 18:18
      */
