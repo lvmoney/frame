@@ -94,7 +94,7 @@
         <tomcat.embed.jasper.version>9.0.7</tomcat.embed.jasper.version>
         <lombok.version>1.18.4</lombok.version>
         <shiro.redis.version>2.4.2.1-RELEASE</shiro.redis.version>
-        <shiro.spring.version>1.4.0</shiro.spring.version>
+        <shiro.spring.version>1.7.0</shiro.spring.version>
         <shiro.ehcache.version>1.4.0</shiro.ehcache.version>
         <mybatis.boot.version>1.3.2</mybatis.boot.version>
         <pagehelper.version>1.2.9</pagehelper.version>
