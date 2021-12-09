@@ -75,7 +75,7 @@
         <boot.redis.version>2.1.0.RELEASE</boot.redis.version>
         <boot.mongo.version>2.1.0.RELEASE</boot.mongo.version>
         <boot.security.version>2.1.0.RELEASE</boot.security.version>
-        <jackson.version>2.9.9</jackson.version>
+        <jackson.version>2.9.10.8</jackson.version>
         <elasticsearch.client.version>6.2.3</elasticsearch.client.version>
         <httpclient.version>4.5.6</httpclient.version>
         <commons.codec.version>1.11</commons.codec.version>
